@@ -7,6 +7,7 @@ defmodule Recourse.Course do
     field :number, :string
     field :description, :string
     field :requirement, :string
+    has_many :sections, Recourse.Section
 
     timestamps
   end
