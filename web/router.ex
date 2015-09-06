@@ -20,7 +20,8 @@ defmodule Recourse.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Recourse do
-  #   pipe_through :api
-  # end
+  scope "/api", Recourse do
+    pipe_through :api
+    resources "/courses", CourseController, except: [:new, :edit]
+  end
 end
