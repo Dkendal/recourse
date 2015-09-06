@@ -25,5 +25,6 @@ defmodule Recourse.Router do
     resources "/courses", CourseController, except: [:new, :edit]
     resources "/instructors", InstructorController, except: [:new, :edit]
     resources "/sections", SectionController, except: [:new, :edit]
+    resources "/schedule", ScheduleController, only: [:index]
   end
 end
