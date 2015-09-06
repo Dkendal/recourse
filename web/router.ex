@@ -24,5 +24,6 @@ defmodule Recourse.Router do
     pipe_through :api
     resources "/courses", CourseController, except: [:new, :edit]
     resources "/instructors", InstructorController, except: [:new, :edit]
+    resources "/sections", SectionController, except: [:new, :edit]
   end
 end
