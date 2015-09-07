@@ -25,4 +25,16 @@ defmodule Recourse.Course do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  defimpl Poison.Encoder, for: __MODULE__ do
+    def encode(course, _options) do
+      %{id: course.id,
+        title: course.title,
+        subject: course.subject,
+        number: course.number,
+        description: course.description,
+        requirement: course.requirement}
+      |> Poison.Encoder.encode []
+    end
+  end
 end
