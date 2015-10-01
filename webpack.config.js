@@ -3,11 +3,13 @@ var config = module.exports = {};
 
 config.context = __dirname;
 
-config.entry = { app: "./web/static/js/app.js" };
+config.devtool = "#source-map";
 
+config.entry = { app: "./web/static/js/app.js" };
 config.output = {
   path: path.join(__dirname, "priv/static/js"),
-  filename: "[name].js"
+  filename: "[name].js",
+  sourceMapFilename: "[name].map"
 };
 
 config.module = {
@@ -19,5 +21,6 @@ config.module = {
 
 config.resolve = {
   // So we can do `require('./utils')` instead of `require('./utils.js')`
-  extensions: ["", ".js"]
+  extensions: ["", ".js"],
+  modulesDirectories: ["web_modules", "node_modules", "deps"]
 };
