@@ -18,3 +18,11 @@
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+const React = require("react");
+React.render(
+  <span>
+    {"sup"}
+  </span>,
+  document.getElementById("app")
+);
