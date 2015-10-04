@@ -1,28 +1,34 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+import {createStore} from "redux";
+import React from "react";
+import {Provider} from "react-redux";
+import Recourse from "./containers/Recourse";
+import recourse from "./reducers";
+import {setCourses} from "./actions";
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
+import socket from "./socket";
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+// Now that you are connected, you can join channels with a topic:
+const channel = socket.channel("schedules:planner", {});
 
-// import socket from "./socket"
+const store = createStore(recourse);
 
-const React = require("react");
+channel.join().
+  receive("ok", resp => {
+    store.dispatch(setCourses(resp));
+  }).
+
+  receive("error", resp => {
+    console.log("Unable to join", resp);
+  });
+
+//debugging
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
 React.render(
-  <span>
-    {"sup"}
-  </span>,
+  <Provider store={store}>
+    {() => <Recourse />}
+  </Provider>,
   document.getElementById("app")
 );

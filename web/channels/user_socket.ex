@@ -3,6 +3,7 @@ defmodule Recourse.UserSocket do
 
   ## Channels
   # channel "rooms:*", Recourse.RoomChannel
+  channel "schedules:*", Recourse.ScheduleChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
