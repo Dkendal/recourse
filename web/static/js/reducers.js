@@ -1,11 +1,13 @@
 import {combineReducers} from "redux";
-import {SELECT_COURSE, SET_COURSES} from "./actions";
+import {ADD_COURSE, SET_COURSES} from "./actions";
 
 function selectedCourses(state=[], action) {
   switch (action.type) {
 
-  case SELECT_COURSE:
-    return [];
+  case ADD_COURSE:
+    let clone = state.slice(0);
+    clone.push(action.course);
+    return clone;
 
   default:
     return state;
