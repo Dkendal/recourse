@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
 import {Set, List} from "immutable";
-import {ADD_COURSE, SET_COURSES} from "./actions";
+import {ADD_COURSE, REMOVE_COURSE, SET_COURSES} from "./actions";
 
 const initialState = {
   selectedCourses: Set([]),
@@ -12,6 +12,9 @@ function selectedCourses(state=initialState.selectedCourses, action) {
 
   case ADD_COURSE:
     return state.add(action.id);
+
+  case REMOVE_COURSE:
+    return state.delete(action.id);
 
   default:
     return state;

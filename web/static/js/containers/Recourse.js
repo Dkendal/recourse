@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
 import {COURSE} from "../types";
-import {addCourse} from "../actions";
+import {addCourse, removeCourse} from "../actions";
 import {select} from "../selectors";
 
 class Recourse extends Component {
@@ -13,16 +13,22 @@ class Recourse extends Component {
       <div>
         <div>
           {this.props.courses.map((course) => {
-            return <Course
-              key={course.id} {...course}
-              onClick={ () => { dispatch(addCourse(course.id)) } }/>;
+            return(
+              <Course
+              key={course.id}
+              onClick={ () => { dispatch(addCourse(course.id)) } }
+              {...course} />
+            );
           })}
         </div>
         <div>
           {this.props.worklist.map((course) => {
-            return <Course
-              key={course.id} {...course}
-              onClick={ () => { dispatch(removeCourse(course.id)) } }/>;
+            return(
+              <Course
+                key={course.id}
+                onClick={ () => { dispatch(removeCourse(course.id)) } }
+                {...course} />
+              );
           })}
         </div>
       </div>
