@@ -1,20 +1,24 @@
 import {combineReducers} from "redux";
+import {Set, List} from "immutable";
 import {ADD_COURSE, SET_COURSES} from "./actions";
 
-function selectedCourses(state=[], action) {
+const initialState = {
+  selectedCourses: Set([]),
+  courses: List([])
+};
+
+function selectedCourses(state=initialState.selectedCourses, action) {
   switch (action.type) {
 
   case ADD_COURSE:
-    let clone = state.slice(0);
-    clone.push(action.course);
-    return clone;
+    return state.add(action.id);
 
   default:
     return state;
   }
 }
 
-function courses(state=[], action) {
+function courses(state=initialState.courses, action) {
   switch (action.type) {
 
   case SET_COURSES:

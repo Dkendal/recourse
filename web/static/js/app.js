@@ -1,6 +1,7 @@
 import {createStore} from "redux";
 import React from "react";
 import {Provider} from "react-redux";
+import {List} from "immutable";
 import Recourse from "./containers/Recourse";
 import recourse from "./reducers";
 import {setCourses} from "./actions";
@@ -14,14 +15,14 @@ const store = createStore(recourse);
 
 channel.join().
   receive("ok", resp => {
-    store.dispatch(setCourses(resp));
+    store.dispatch(setCourses(List(resp)));
   }).
 
   receive("error", resp => {
     console.log("Unable to join", resp);
   });
 
-//debugging
+// debugging
 store.subscribe(() => {
   console.log(store.getState());
 });

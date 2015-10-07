@@ -9,7 +9,7 @@ config.entry = { app: "./web/static/js/app.js" };
 config.output = {
   path: path.join(__dirname, "priv/static/js"),
   filename: "[name].js",
-  sourceMapFilename: "[name].map"
+  sourceMapFilename: "[name].map.js"
 };
 
 config.module = {
