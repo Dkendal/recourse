@@ -9,11 +9,8 @@ const selectedCourses = state => state.frontEnd.selectedCourses;
 const worklist = createSelector(
   courses,
   selectedCourses,
-  (courses, selectedCourses) => {
-    return courses.filter(course => {
-      return selectedCourses.has(course.id);
-    });
-  }
+  (courses, selectedCourses) => courses.filter(
+    ({id}) => selectedCourses.has(id))
 );
 
 export const select = createStructuredSelector(
