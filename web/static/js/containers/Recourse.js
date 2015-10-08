@@ -16,7 +16,7 @@ class Recourse extends Component {
             return(
               <Course
               key={course.id}
-              onClick={ () => { dispatch(selectCourse(course.id)) } }
+              onClick={ () => { dispatch(selectCourse(course)) } }
               {...course} />
             );
           })}
@@ -26,7 +26,7 @@ class Recourse extends Component {
             return(
               <Course
                 key={course.id}
-                onClick={ () => { dispatch(deselectCourse(course.id)) } }
+                onClick={ () => { dispatch(deselectCourse(course)) } }
                 {...course} />
               );
           })}

@@ -6,14 +6,14 @@ export const SET_COURSES = "SET_COURSES";
 export const JOINING_CHANNEL = "JOINING_CHANNEL";
 
 const setCourses = createAction(SET_COURSES);
-export const selectCourse = createAction(SELECT_COURSE);
-export const deselectCourse = createAction(DESELECT_COURSE);
+export const selectCourse = createAction(SELECT_COURSE, ({id}) => id);
+export const deselectCourse = createAction(DESELECT_COURSE, ({id}) => id);
 
 export const joiningChannel = createAction(JOINING_CHANNEL);
 
 export const addToSchedule = channel => {
   course => dispatch => {
-    console.log("sup");
+    dispatch(selectCourse(course));
   }
 }
 
