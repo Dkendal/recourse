@@ -1,7 +1,10 @@
 import {createSelector, createStructuredSelector} from "reselect";
 
-const coursesSelector = state => state.courses;
-const selectedCoursesSelector = state => state.selectedCourses;
+const coursesSelector =
+  state => state.entries.courses;
+
+const selectedCoursesSelector =
+  state => state.frontEnd.selectedCourses;
 
 const worklistSelector = createSelector(
   coursesSelector,

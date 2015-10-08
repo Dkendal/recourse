@@ -5,29 +5,22 @@ import {Provider} from "react-redux";
 import React from "react";
 import {List} from "immutable";
 import Recourse from "./containers/Recourse";
-import recourse from "./reducers";
-import {setCourses} from "./actions";
+import reducer from "./reducers";
+import {joinChannel} from "./actions";
 
 import socket from "./socket";
 
 // Now that you are connected, you can join channels with a topic:
-const channel = socket.channel("schedules:planner", {});
-
 const loggerMiddleware = createLogger();
 
 const store = applyMiddleware(
   thunkMiddleware,
   loggerMiddleware
-)(createStore)(recourse);
+)(createStore)(reducer);
 
-channel.join().
-  receive("ok", resp => {
-    store.dispatch(setCourses(List(resp)));
-  }).
+const channel = socket.channel("schedules:planner", {});
 
-  receive("error", resp => {
-    console.log("Unable to join", resp);
-  });
+store.dispatch(joinChannel(channel));
 
 React.render(
   <Provider store={store}>

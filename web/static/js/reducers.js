@@ -2,39 +2,95 @@ import {combineReducers} from "redux";
 import {Set, List} from "immutable";
 import {ADD_COURSE, REMOVE_COURSE, SET_COURSES} from "./actions";
 
-const initialState = {
-  selectedCourses: Set([]),
-  courses: List([])
-};
+// State Shape
+// ===========
+//
+// {
+//   socket: {
+//     channel: Channel
+//     courses: {
+//       isFetching: Bool,
+//       didInvalidate: Bool
+//     },
+//     sections: {
+//       isFetching: Bool,
+//       didInvalidate: Bool
+//     }
+//   },
+//   entries: {
+//     courses: [Course],
+//     sections: [Section]
+//   }
+//   frontEnd: {
+//     selectedCourses: [Number]
+//   }
+// }
 
-function selectedCourses(state=initialState.selectedCourses, action) {
+const socketInit = {isFetching: false, didInvalidate: false};
+
+function channel(state = {}, action) {
   switch (action.type) {
-
-  case ADD_COURSE:
-    return state.add(action.id);
-
-  case REMOVE_COURSE:
-    return state.delete(action.id);
-
   default:
     return state;
   }
 }
 
-function courses(state=initialState.courses, action) {
+function socketCourses(state = socketInit, action) {
   switch (action.type) {
-
-  case SET_COURSES:
-    return action.courses;
-
   default:
     return state;
   }
 }
 
-const recourse = combineReducers({
-  courses,
+function socketSections(state = socketInit, action) {
+  switch (action.type) {
+  default:
+    return state;
+  }
+}
+
+const socket = combineReducers({
+  channel,
+  courses: socketCourses,
+  sections: socketSections
+});
+
+
+function entriesCourses(state = List(), action) {
+  switch (action.type) {
+  default:
+    return state;
+  }
+
+}
+
+function entriesSections(state = List(), action) {
+  switch (action.type) {
+  default:
+    return state;
+  }
+}
+
+const entries = combineReducers({
+  courses: entriesCourses,
+  sections: entriesSections
+});
+
+function selectedCourses(state = Set(), action) {
+  switch (action.type) {
+  default:
+    return state;
+  }
+}
+
+const frontEnd = combineReducers({
   selectedCourses
 });
 
-export default recourse;
+const reducer = combineReducers({
+  socket,
+  entries,
+  frontEnd
+});
+
+export default reducer;

@@ -9,18 +9,27 @@ defmodule Recourse.ScheduleChannel do
     {:ok, courses, socket}
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-  def handle_in("ping", payload, socket) do
+  def handle_in("new_schedule", payload, socket) do
+    sections =
+      payload
+      |> Recourse.Schedule.build
+      |> Poison.encode
+
     {:reply, {:ok, payload}, socket}
   end
 
+  # Channels can be used in a request/response fashion
+  # by sending replies to requests from the client
+  # def handle_in("ping", payload, socket) do
+  #   {:reply, {:ok, payload}, socket}
+  # end
+
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (schedules:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
-    {:noreply, socket}
-  end
+  # def handle_in("shout", payload, socket) do
+  #   broadcast socket, "shout", payload
+  #   {:noreply, socket}
+  # end
 
   # This is invoked every time a notification is being broadcast
   # to the client. The default implementation is just to push it
