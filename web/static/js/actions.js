@@ -1,30 +1,21 @@
-export const ADD_COURSE = "ADD_COURSE";
-export const REMOVE_COURSE = "REMOVE_COURSE";
+import {createAction} from "redux-actions";
+
+export const SELECT_COURSE = "SELECT_COURSE";
+export const DESELECT_COURSE = "DESELECT_COURSE";
 export const SET_COURSES = "SET_COURSES";
-export const CHANNEL_CONNECTING = "CHANNEL_CONNECTING";
 
-export function setCourses(courses) {
-  return {type: SET_COURSES, courses};
-}
-
-export function addCourse(id) {
-  return {type: ADD_COURSE, id};
-}
-
-export function removeCourse(id) {
-  return {type: REMOVE_COURSE, id};
-}
+const setCourses = createAction(SET_COURSES);
+export const selectCourse = createAction(SELECT_COURSE);
+export const deselectCourse = createAction(DESELECT_COURSE);
 
 export function joinChannel(channel) {
-  return function(dispatch) {
-    // dispatch(connectToChannel(channel));
-
-    channel.join().
-      receive("ok", resp => {
-        dispatch(setCourses(resp));
-      }).
-      receive("error", resp => {
-        console.log("Unable to join", resp);
-      });
+  return dispatch => {
+    channel.join()
+    .receive("ok", resp => {
+      dispatch(setCourses(resp));
+    })
+    .receive("error", resp => {
+      console.log("Unable to join", resp);
+    });
   };
 }

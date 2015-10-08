@@ -1,10 +1,8 @@
 import {createSelector, createStructuredSelector} from "reselect";
 
-const coursesSelector =
-  state => state.entries.courses;
+const coursesSelector = state => state.entries.courses;
 
-const selectedCoursesSelector =
-  state => state.frontEnd.selectedCourses;
+const selectedCoursesSelector = state => state.frontEnd.selectedCourses;
 
 const worklistSelector = createSelector(
   coursesSelector,
@@ -16,7 +14,8 @@ const worklistSelector = createSelector(
   }
 );
 
-export const select = createStructuredSelector({
-  courses: coursesSelector,
-  worklist: worklistSelector
-});
+export const select = createStructuredSelector(
+  { courses: coursesSelector
+  , worklist: worklistSelector
+  }
+);

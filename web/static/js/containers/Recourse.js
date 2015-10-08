@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
 import {COURSE} from "../types";
-import {addCourse, removeCourse} from "../actions";
+import {selectCourse, deselectCourse} from "../actions";
 import {select} from "../selectors";
 
 class Recourse extends Component {
@@ -16,7 +16,7 @@ class Recourse extends Component {
             return(
               <Course
               key={course.id}
-              onClick={ () => { dispatch(addCourse(course.id)) } }
+              onClick={ () => { dispatch(selectCourse(course.id)) } }
               {...course} />
             );
           })}
@@ -26,7 +26,7 @@ class Recourse extends Component {
             return(
               <Course
                 key={course.id}
-                onClick={ () => { dispatch(removeCourse(course.id)) } }
+                onClick={ () => { dispatch(deselectCourse(course.id)) } }
                 {...course} />
               );
           })}
