@@ -12,6 +12,7 @@ export default class LeftPanel extends Component {
             <Course
               key={course.id}
               onClick={() => this.props.onCourseClick(course)}
+              selected={this.props.selected.has(course.id)}
               {...course} />
           </li>
           )

@@ -3,8 +3,16 @@ import {COURSE} from "../types";
 
 export default class Course extends Component {
   render() {
-    const {description, number, subject, title, onClick} = this.props;
+    const
+    { description
+    , number
+    , subject
+    , title
+    , selected
+    , onClick
+    } = this.props;
 
+    const text = selected ? "-" : "+";
     return(
       <div>
         <span>{description}</span>
@@ -14,7 +22,7 @@ export default class Course extends Component {
         <span>
           <button
             onClick={onClick}>
-            {"click me"}
+            {text}
           </button>
         </span>
       </div>

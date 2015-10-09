@@ -26,6 +26,7 @@ class Recourse extends Component {
         <LeftPanel
           onCourseClick={onCourseClick}
           courses={courses}
+          selected={selectedCourses}
         />
         <div>
           {worklist.map((course) => {
@@ -33,6 +34,7 @@ class Recourse extends Component {
               <Course
                 key={course.id}
                 onClick={() => onCourseClick(course)}
+                selected={true}
                 {...course} />
               );
           })}
