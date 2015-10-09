@@ -35,6 +35,8 @@ defmodule Recourse.Mixfile do
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
+     {:floki, "~> 0.6.0"},
+     {:httpoison, "~> 0.7"},
      {:aruspex, github: "dkendal/aruspex", branch: "master"}]
   end
 end
