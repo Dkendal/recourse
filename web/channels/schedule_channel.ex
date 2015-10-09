@@ -9,13 +9,12 @@ defmodule Recourse.ScheduleChannel do
     {:ok, courses, socket}
   end
 
-  def handle_in("new_schedule", payload, socket) do
+  def handle_in("make_schedule", payload, socket) do
     sections =
       payload
       |> Recourse.Schedule.build
-      |> Poison.encode
 
-    {:reply, {:ok, payload}, socket}
+    {:reply, {:ok, %{payload: sections}}, socket}
   end
 
   # Channels can be used in a request/response fashion

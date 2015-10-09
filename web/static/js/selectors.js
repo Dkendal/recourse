@@ -1,21 +1,23 @@
 import {createSelector, createStructuredSelector} from "reselect";
 
-const channel = state => state.channel;
+export const channel = state => state.channel;
+export const courses = state => state.entries.courses;
+export const sections = state => state.entries.sections;
+export const selectedCourses = state => state.frontEnd.selectedCourses;
 
-const courses = state => state.entries.courses;
-
-const selectedCourses = state => state.frontEnd.selectedCourses;
-
-const worklist = createSelector(
+export const worklist = createSelector(
   courses,
   selectedCourses,
   (courses, selectedCourses) => courses.filter(
     ({id}) => selectedCourses.has(id))
 );
 
-export const select = createStructuredSelector(
+const select = createStructuredSelector(
   { courses
   , worklist
   , channel
+  , sections
   }
 );
+
+export default select;

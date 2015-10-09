@@ -30,7 +30,7 @@ const channel = handleActions(
   { JOINING_CHANNEL: (state, {payload}) => payload
   }
   , initialState
-)
+);
 
 const reducer = combineReducers(
   { entries

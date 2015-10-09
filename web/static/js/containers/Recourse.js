@@ -2,33 +2,42 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
 import {COURSE} from "../types";
-import {selectCourse, deselectCourse} from "../actions";
-import {select} from "../selectors";
+import {addToSchedule, removeFromSchedule} from "../actions";
+import select from "../selectors";
 
 class Recourse extends Component {
   render() {
-    const {dispatch} = this.props;
+    const {dispatch, channel, courses, worklist} = this.props;
 
     return(
       <div>
         <div>
-          {this.props.courses.map((course) => {
+          {courses.map((course) => {
             return(
               <Course
               key={course.id}
-              onClick={ () => { dispatch(selectCourse(course)) } }
+              onClick={ () => dispatch(
+                addToSchedule(channel)(course))
+              }
               {...course} />
             );
           })}
         </div>
         <div>
-          {this.props.worklist.map((course) => {
+          {worklist.map((course) => {
             return(
               <Course
                 key={course.id}
-                onClick={ () => { dispatch(deselectCourse(course)) } }
+                onClick={ () => dispatch(
+                  removeFromSchedule(channel)(course))
+                }
                 {...course} />
               );
+          })}
+        </div>
+        <div>
+          {this.props.sections.map(section => {
+            return section;
           })}
         </div>
       </div>
