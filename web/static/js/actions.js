@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {worklist} from "./selectors";
+import {selectedCourses} from "./selectors";
 
 export const SELECT_COURSE = "SELECT_COURSE";
 export const DESELECT_COURSE = "DESELECT_COURSE";
@@ -18,7 +18,7 @@ export const joiningChannel = createAction(JOINING_CHANNEL);
 export const joinedChannel = createAction(JOINED_CHANNEL);
 
 function getCourseIds(getState) {
-  return worklist(getState()).map(({id}) => id);
+  return selectedCourses(getState());
 }
 
 function updateSchedule(startAction) {
@@ -45,6 +45,13 @@ function updateSchedule(startAction) {
 
 export const addToSchedule = updateSchedule(selectCourse);
 export const removeFromSchedule = updateSchedule(deselectCourse);
+
+export function toggleCourseSelection(channel, selectedCourses, course) {
+  if(selectedCourses.has(course.id)) {
+    return removeFromSchedule(channel)(course);
+  }
+  return addToSchedule(channel)(course)
+}
 
 export function searchCourses(channel) {
   return (dispatch) => {

@@ -1,36 +1,38 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
+import LeftPanel from "../components/LeftPanel";
 import {COURSE} from "../types";
-import {addToSchedule, removeFromSchedule} from "../actions";
+import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
 
 class Recourse extends Component {
   render() {
-    const {dispatch, channel, courses, worklist} = this.props;
+    const
+    { dispatch
+    , channel
+    , courses
+    , worklist
+    , selectedCourses
+    } = this.props;
+
+    const onCourseClick = course => {
+      return dispatch(
+        toggleCourseSelection(channel, selectedCourses, course));
+    };
 
     return(
       <div>
-        <div>
-          {courses.map((course) => {
-            return(
-              <Course
-              key={course.id}
-              onClick={ () => dispatch(
-                addToSchedule(channel)(course))
-              }
-              {...course} />
-            );
-          })}
-        </div>
+        <LeftPanel
+          onCourseClick={onCourseClick}
+          courses={courses}
+        />
         <div>
           {worklist.map((course) => {
             return(
               <Course
                 key={course.id}
-                onClick={ () => dispatch(
-                  removeFromSchedule(channel)(course))
-                }
+                onClick={() => onCourseClick(course)}
                 {...course} />
               );
           })}

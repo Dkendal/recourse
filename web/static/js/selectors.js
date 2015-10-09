@@ -15,6 +15,7 @@ export const worklist = createSelector(
 const select = createStructuredSelector(
   { courses
   , worklist
+  , selectedCourses
   , channel
   , sections
   }
