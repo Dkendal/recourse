@@ -5,8 +5,12 @@ defmodule Recourse.ScheduleChannel do
   alias Recourse.Repo
 
   def join("schedules:planner", payload, socket) do
+    {:ok, socket}
+  end
+
+  def handle_in("courses:search", payload, socket) do
     courses = Repo.all from s in Course
-    {:ok, courses, socket}
+    {:reply, {:ok, %{payload: courses}}, socket}
   end
 
   def handle_in("make_schedule", payload, socket) do
