@@ -3,7 +3,14 @@ defmodule Recourse.CourseTest do
 
   alias Recourse.Course
 
-  @valid_attrs %{description: "some content", number: "some content", requirement: "some content", subject: "some content", title: "some content", term_id: 1}
+  @valid_attrs %{
+    description: "some content",
+    number: "some content",
+    requirement: "some content",
+    subject: "some content",
+    title: "some content",
+    term_id: 1}
+
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
