@@ -16,6 +16,9 @@ defmodule Recourse.Scraper do
     winter: "09"
   }
 
+  @dateformat "{Mshort} {D}, {YYYY}"
+  @timeformat "{h12}:{m} {am}"
+
   def process_url(url) do
     "https://www.uvic.ca/BAN2P/"
     <> case url do
@@ -114,7 +117,6 @@ defmodule Recourse.Scraper do
   end
   def parse(_, _), do: :error
 
-  @dateformat "{Mshort} {D}, {YYYY}"
   def transform_section(%{"Date Range" => date_range} = map) do
     [date_start, date_end] =
       date_range
@@ -143,7 +145,6 @@ defmodule Recourse.Scraper do
     |> transform_section
   end
 
-  @timeformat "{h12}:{m} {am}"
   def transform_section(%{"Time" => time} = map) do
     [time_start, time_end] =
       time
