@@ -4,6 +4,7 @@ defmodule Recourse.Term do
   schema "terms" do
     field :year, :integer
     field :semester, Recourse.Semester
+    has_many :courses, Recourse.Course
 
     timestamps
   end

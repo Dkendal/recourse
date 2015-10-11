@@ -8,11 +8,12 @@ defmodule Recourse.Course do
     field :description, :string
     field :requirement, :string
     has_many :sections, Recourse.Section
+    belongs_to :term, Recourse.Term
 
     timestamps
   end
 
-  @required_fields ~w(title subject number description requirement)
+  @required_fields ~w(title subject number description requirement term_id)
   @optional_fields ~w()
 
   @doc """
