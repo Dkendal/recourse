@@ -8,8 +8,8 @@ defmodule Recourse.Section do
     field :time_end, Timex.Ecto.Time
     field :days, {:array, :string}
     field :location, :string
-    field :date_start, :string
-    field :date_end, :string
+    field :date_start, Timex.Ecto.Date
+    field :date_end, Timex.Ecto.Date
     field :registration_start, :string
     field :registration_end, :string
     field :campus, :string
