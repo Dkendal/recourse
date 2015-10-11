@@ -3,7 +3,7 @@ defmodule Recourse.TermTest do
 
   alias Recourse.Term
 
-  @valid_attrs %{end: "2010-04-17", name: "some content", start: "2010-04-17"}
+  @valid_attrs %{semester: :winter, year: 2015}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

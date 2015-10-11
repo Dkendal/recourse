@@ -2,14 +2,13 @@ defmodule Recourse.Term do
   use Recourse.Web, :model
 
   schema "terms" do
-    field :name, :string
-    field :start, Ecto.Date
-    field :end, Ecto.Date
+    field :year, :integer
+    field :semester, Recourse.Semester
 
     timestamps
   end
 
-  @required_fields ~w(name start end)
+  @required_fields ~w(year semester)
   @optional_fields ~w()
 
   @doc """
