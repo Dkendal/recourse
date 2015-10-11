@@ -5,6 +5,9 @@ defmodule Recourse.Scraper do
   alias Recourse.Section
   alias Recourse.Repo
 
+  import Enum, only: [map: 2]
+  import String, only: [split: 2]
+  import Floki, only: [find: 2, text: 1]
   import Ecto.Query
 
   @semesters %{
@@ -26,16 +29,16 @@ defmodule Recourse.Scraper do
 
   def course(args) do
     resp = course_query(args).body
-    |> Floki.find(".datadisplaytable")
+    |> find(".datadisplaytable")
     |> Enum.slice(1..-2) # the first and last rows are garbage
-    |> Floki.find("tr")
-    |> Enum.map(fn tr ->
+    |> find("tr")
+    |> map(fn tr ->
       tr
-      |> Floki.find("th, td")
-      |> Enum.map(&Floki.text/1)
+      |> find("th, td")
+      |> map(&text/1)
     end)
     |> Enum.chunk(2)
-    |> Enum.map(fn [th, td] ->
+    |> map(fn [th, td] ->
       Enum.zip(th, td)
       |> Enum.into(%{})
       |> transform_section
@@ -44,10 +47,10 @@ defmodule Recourse.Scraper do
 
   def courses(args) do
     courses_query(args).body
-    |> Floki.find(".nttitle a")
-    |> Enum.map fn course ->
+    |> find(".nttitle a")
+    |> map fn course ->
       course
-      |> Floki.text
+      |> text
       |> parse :course
     end
   end
@@ -99,7 +102,7 @@ defmodule Recourse.Scraper do
 
   def parse(text, :course) do
     text
-    |> String.split([" ", " - "])
+    |> split([" ", " - "])
     |> case do
       [subject, number | title] ->
         %Recourse.Course{
@@ -115,8 +118,8 @@ defmodule Recourse.Scraper do
   def transform_section(%{"Date Range" => date_range} = map) do
     [date_start, date_end] =
       date_range
-      |> String.split(" - ")
-      |> Enum.map fn date ->
+      |> split(" - ")
+      |> map fn date ->
         date
         |> DateFormat.parse(@dateformat)
         |> case do
@@ -144,8 +147,8 @@ defmodule Recourse.Scraper do
   def transform_section(%{"Time" => time} = map) do
     [time_start, time_end] =
       time
-      |> String.split(" - ")
-      |> Enum.map fn time ->
+      |> split(" - ")
+      |> map fn time ->
         time
         |> DateFormat.parse(@timeformat)
         |> case do
