@@ -1,32 +1,56 @@
 defmodule Recourse.ScraperTest do
   use ExUnit.Case
   alias Recourse.Term
+  alias Recourse.Repo
+  alias Recourse.Course
+  alias Recourse.Section
 
   setup do
+    {:ok, term} = Repo.insert(%Term{
+      year: 2015,
+      semester: :winter
+    })
+
     Recourse.Scraper.start
-    :ok
+    { :ok,
+      term: term
+    }
   end
 
-  test "fetching a list of courses" do
+  test "fetching a list of courses", %{term: term} do
     actual =
-      Recourse.Scraper.courses([2015, :spring, ["CSC"], "100", "200"])
+      Recourse.Scraper.courses(%{
+        term: term,
+        subjects: ~w(CSC),
+        number_start: "100",
+        number_end: "200"
+      })
 
     # make sure the record is valid
-    Recourse.Repo.insert List.first actual
+    {:ok, course} = Recourse.Repo.insert List.first actual
 
+    # is a non empty list
     assert is_list(actual)
     assert length(actual) > 0
+
+    # containing courses
     assert Enum.all?(actual, &is_course?/1)
+
+    # that all have an association with the term
+    assert Enum.all?(actual, & &1.term_id == term.id)
   end
 
-  test "fetching sections for a course" do
+  test "fetching sections for a course", %{term: term} do
     actual =
-      Recourse.Scraper.course([2015, :spring, "CSC", "110"])
+      Recourse.Scraper.course([term, "CSC", "110"])
 
-    IO.inspect Recourse.Repo.insert List.first actual
+    # can insert records
+    {:ok, section} = Recourse.Repo.insert List.first actual
 
+    # is a non empty list
     assert is_list(actual)
     assert length(actual) > 0
+    # containing sections
     assert Enum.all?(actual, &is_section?/1)
   end
 
@@ -37,7 +61,7 @@ defmodule Recourse.ScraperTest do
       title: "ELEMENTARY COMPUTING" }
 
     actual =
-      Recourse.Scraper.parse("CSC 100 - ELEMENTARY COMPUTING", :course)
+      Recourse.Scraper.parse_course("CSC 100 - ELEMENTARY COMPUTING")
 
     assert expected == actual
   end

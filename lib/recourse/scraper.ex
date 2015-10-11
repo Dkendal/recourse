@@ -48,13 +48,19 @@ defmodule Recourse.Scraper do
     end)
   end
 
-  def courses(args) do
-    courses_query(args).body
+  def courses(params) do
+    params
+    |> courses_params
+    |> courses_query
+    |> case do
+      resp -> resp.body
+    end
     |> find(".nttitle a")
     |> map fn course ->
       course
       |> text
-      |> parse :course
+      |> parse_course
+      |> struct(term_id: params.term.id)
     end
   end
 
@@ -67,27 +73,22 @@ defmodule Recourse.Scraper do
     end
   end
 
-  defp courses_query(args) do
-    args
-    |> courses_params
-    |> URI.encode_query
-    |> case do
-      q -> post!("courses", q)
-    end
+  defp courses_query(query) do
+    post!("courses", URI.encode_query query)
   end
 
-  defp course_params([year, semester, subject, number]) do
+  defp course_params([term, subject, number]) do
     %{
       crse_in: number,
       schd_in: "",
       subj_in: subject,
-      term_in: term(year, semester)
+      term_in: to_string(term)
     }
   end
 
-  defp courses_params([year, semester, subjects, course_start, course_end]) do
+  defp courses_params(params) do
     Enum.concat(
-      [ term_in: term(year,semester),
+      [ term_in: to_string(params.term),
         sel_subj: "",
         sel_levl: "",
         sel_schd: "",
@@ -95,15 +96,15 @@ defmodule Recourse.Scraper do
         sel_divs: "",
         sel_dept: "",
         sel_attr: "",
-        sel_crse_strt: course_start,
-        sel_crse_end: course_end
+        sel_crse_strt: params.number_start,
+        sel_crse_end: params.number_end
       ],
       Enum.flat_map(
-        subjects,
+        params.subjects,
         & [sel_subj: &1]))
   end
 
-  def parse(text, :course) do
+  def parse_course(text) do
     text
     |> split([" ", " - "])
     |> case do
@@ -115,7 +116,6 @@ defmodule Recourse.Scraper do
         }
     end
   end
-  def parse(_, _), do: :error
 
   def transform_section(%{"Date Range" => date_range} = map) do
     [date_start, date_end] =
@@ -177,10 +177,6 @@ defmodule Recourse.Scraper do
     |> case do
       map -> Map.merge %Recourse.Section{}, map
     end
-  end
-
-  defp term(year, semester) do
-    Integer.to_string(year) <> @semesters[semester]
   end
 
   defp datetime_to_date(dt) do
