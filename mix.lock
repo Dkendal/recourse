@@ -1,4 +1,5 @@
 %{"aruspex": {:git, "https://github.com/dkendal/aruspex.git", "cdef667692d7c1070025725e678731154e9c3503", [branch: "master"]},
+  "combine": {:hex, :combine, "0.5.2"},
   "cowboy": {:hex, :cowboy, "1.0.2"},
   "cowlib": {:hex, :cowlib, "1.0.1"},
   "dbg": {:git, "https://github.com/fishcakez/dbg.git", "8c3ec3eca04cd07bc9a90a195561c8bbd9e5a639", []},
@@ -24,4 +25,7 @@
   "poolboy": {:hex, :poolboy, "1.5.1"},
   "postgrex": {:hex, :postgrex, "0.9.1"},
   "ranch": {:hex, :ranch, "1.1.0"},
-  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"}}
+  "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
+  "timex": {:hex, :timex, "0.19.5"},
+  "timex_ecto": {:hex, :timex_ecto, "0.5.0"},
+  "tzdata": {:hex, :tzdata, "0.5.4"}}
