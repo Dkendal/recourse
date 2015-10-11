@@ -23,3 +23,13 @@ defmodule Recourse.Term do
     |> cast(params, @required_fields, @optional_fields)
   end
 end
+
+defimpl String.Chars, for: Recourse.Term do
+  def to_string %{year: y, semester: s} do
+    Integer.to_string(y) <> __MODULE__.to_string(s)
+  end
+
+  def to_string(:winter), do: "01"
+  def to_string(:summer), do: "05"
+  def to_string(:fall), do: "09"
+end

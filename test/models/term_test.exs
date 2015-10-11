@@ -15,4 +15,9 @@ defmodule Recourse.TermTest do
     changeset = Term.changeset(%Term{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "to_string returns the term code" do
+    assert "201501" ==
+      to_string(%Term{year: 2015, semester: :winter})
+  end
 end
