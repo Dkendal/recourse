@@ -4,8 +4,8 @@ defmodule Recourse.Section do
   schema "sections" do
     field :registration_code, :string
     field :schedule_type, :string
-    field :time_start, Ecto.Time
-    field :time_end, Ecto.Time
+    field :time_start, Timex.Ecto.Time
+    field :time_end, Timex.Ecto.Time
     field :days, {:array, :string}
     field :location, :string
     field :date_start, :string

@@ -19,6 +19,7 @@ defmodule Recourse.Web do
   def model do
     quote do
       use Ecto.Model
+      use Timex.Ecto.Timestamps
     end
   end
 

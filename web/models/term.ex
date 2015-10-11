@@ -3,8 +3,8 @@ defmodule Recourse.Term do
 
   schema "terms" do
     field :name, :string
-    field :start, Ecto.Date
-    field :end, Ecto.Date
+    field :start, Timex.Ecto.Date
+    field :end, Timex.Ecto.Date
 
     timestamps
   end
