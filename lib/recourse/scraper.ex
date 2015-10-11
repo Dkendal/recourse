@@ -125,7 +125,8 @@ defmodule Recourse.Scraper do
         date
         |> DateFormat.parse(@dateformat)
         |> case do
-          {:ok, date} -> date
+          {:ok, dt} ->
+            datetime_to_date(dt)
         end
       end
 
@@ -153,7 +154,8 @@ defmodule Recourse.Scraper do
         time
         |> DateFormat.parse(@timeformat)
         |> case do
-          {:ok, time} -> time
+          {:ok, dt} ->
+            datetime_to_time(dt)
         end
       end
 
@@ -179,5 +181,21 @@ defmodule Recourse.Scraper do
 
   defp term(year, semester) do
     Integer.to_string(year) <> @semesters[semester]
+  end
+
+  defp datetime_to_date(dt) do
+    %Ecto.Date{
+      day: dt.day,
+      month: dt.month,
+      year: dt.year
+    }
+  end
+
+  defp datetime_to_time(dt) do
+    %Ecto.Time{
+      hour: dt.hour,
+      min: dt.minute,
+      sec: dt.second
+    }
   end
 end

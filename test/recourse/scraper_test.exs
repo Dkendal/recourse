@@ -1,7 +1,6 @@
 defmodule Recourse.ScraperTest do
   use ExUnit.Case
   alias Recourse.Term
-  import Ecto.Query
 
   setup do
     Recourse.Scraper.start
@@ -12,15 +11,19 @@ defmodule Recourse.ScraperTest do
     actual =
       Recourse.Scraper.courses([2015, :spring, ["CSC"], "100", "200"])
 
+    # make sure the record is valid
+    Recourse.Repo.insert List.first actual
+
     assert is_list(actual)
     assert length(actual) > 0
     assert Enum.all?(actual, &is_course?/1)
   end
 
-  @tag timeout: :infinity
   test "fetching sections for a course" do
     actual =
       Recourse.Scraper.course([2015, :spring, "CSC", "110"])
+
+    IO.inspect Recourse.Repo.insert List.first actual
 
     assert is_list(actual)
     assert length(actual) > 0
@@ -39,6 +42,7 @@ defmodule Recourse.ScraperTest do
     assert expected == actual
   end
 
+  @tag timeout: :infinity
   test "transforming a section" do
     input = %{
       "Date Range" => "Jan 05, 2015 - Apr 02, 2015",
