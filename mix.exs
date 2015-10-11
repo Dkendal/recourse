@@ -44,7 +44,6 @@ defmodule Recourse.Mixfile do
 
       # date and time
       {:timex, "~> 0.19"},
-      {:timex_ecto, "~> 0.5"},
 
       {:aruspex, github: "dkendal/aruspex", branch: "master"}]
   end
