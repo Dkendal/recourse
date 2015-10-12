@@ -1,8 +1,6 @@
 defmodule Recourse.Scraper do
   use HTTPoison.Base
   use Timex
-  alias Recourse.Course
-  alias Recourse.Section
   alias Recourse.Repo
 
   import Enum, only: [map: 2]
@@ -22,8 +20,8 @@ defmodule Recourse.Scraper do
   def process_url(url) do
     "https://www.uvic.ca/BAN2P/"
     <> case url do
-      "courses" ->
-        "bwckctlg.p_display_courses"
+      "courses?" <> q ->
+        "bwckctlg.p_display_courses?" <> q
 
       "sections?" <> q ->
         "bwckctlg.p_disp_listcrse?" <> q
@@ -48,22 +46,6 @@ defmodule Recourse.Scraper do
     end)
   end
 
-  def courses(params) do
-    params
-    |> courses_params
-    |> courses_query
-    |> case do
-      resp -> resp.body
-    end
-    |> find(".nttitle a")
-    |> map fn course ->
-      course
-      |> text
-      |> parse_course
-      |> struct(term_id: params.term.id)
-    end
-  end
-
   defp sections_query(args) do
     args
     |> sections_params
@@ -73,10 +55,6 @@ defmodule Recourse.Scraper do
     end
   end
 
-  defp courses_query(query) do
-    post!("courses", URI.encode_query query)
-  end
-
   defp sections_params([term, subject, number]) do
     %{
       crse_in: number,
@@ -84,37 +62,6 @@ defmodule Recourse.Scraper do
       subj_in: subject,
       term_in: to_string(term)
     }
-  end
-
-  defp courses_params(params) do
-    Enum.concat(
-      [ term_in: to_string(params.term),
-        sel_subj: "",
-        sel_levl: "",
-        sel_schd: "",
-        sel_coll: "",
-        sel_divs: "",
-        sel_dept: "",
-        sel_attr: "",
-        sel_crse_strt: params.number_start,
-        sel_crse_end: params.number_end
-      ],
-      Enum.flat_map(
-        params.subjects,
-        & [sel_subj: &1]))
-  end
-
-  def parse_course(text) do
-    text
-    |> split([" ", " - "])
-    |> case do
-      [subject, number | title] ->
-        %Recourse.Course{
-          subject: subject,
-          number: number,
-          title: Enum.join(title, " ")
-        }
-    end
   end
 
   def transform_section(%{"Date Range" => date_range} = map) do
