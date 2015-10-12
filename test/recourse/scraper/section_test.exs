@@ -2,8 +2,9 @@ defmodule Recourse.Scraper.SectionTest do
   use ExUnit.Case
   use Recourse.Assertions
 
-  alias Recourse.Term
+  alias Recourse.Course
   alias Recourse.Repo
+  alias Recourse.Term
 
   setup do
     {:ok, term} = Repo.insert(%Term{
@@ -11,15 +12,28 @@ defmodule Recourse.Scraper.SectionTest do
       semester: :winter
     })
 
+    {:ok, course} = Repo.insert(%Course{
+      term_id: term.id,
+      subject: "CSC",
+      number: "110"
+    })
+
     Recourse.Scraper.start
     { :ok,
-      term: term
+      term: term,
+      course: course
     }
   end
 
-  test "fetching sections for a course", %{term: term} do
+  test "fetching sections for a course", context do
+    %{term: term, course: course} =
+      context
+
     actual =
-      Recourse.Scraper.Section.all([term, "CSC", "110"])
+      Recourse.Scraper.Section.all(%{
+        term: term,
+        course: course
+      })
 
     # can insert records
     {:ok, _section} = Repo.insert List.first actual

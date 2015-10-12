@@ -10,21 +10,23 @@ defmodule Recourse.Scraper.Section do
   @timeformat "{h12}:{m} {am}"
 
   def all(args) do
-    resp = query(args).body
-    |> find(".datadisplaytable")
-    |> Enum.slice(1..-2) # the first and last rows are garbage
-    |> find("tr")
-    |> map(fn tr ->
-      tr
-      |> find("th, td")
-      |> map(&text/1)
-    end)
-    |> Enum.chunk(2)
-    |> map(fn [th, td] ->
-      Enum.zip(th, td)
-      |> Enum.into(%{})
-      |> transform
-    end)
+    resp =
+      query(args).body
+      |> find(".datadisplaytable")
+      # the first and last rows are garbage
+      |> Enum.slice(1..-2)
+      |> find("tr")
+      |> map(fn tr ->
+        tr
+        |> find("th, td")
+        |> map(&text/1)
+      end)
+      |> Enum.chunk(2)
+      |> map(fn [th, td] ->
+        Enum.zip(th, td)
+        |> Enum.into(%{})
+        |> transform
+      end)
   end
 
   defp query(args) do
@@ -36,12 +38,12 @@ defmodule Recourse.Scraper.Section do
     end
   end
 
-  defp params([term, subject, number]) do
+  defp params(%{term: t, course: c}) do
     %{
-      crse_in: number,
+      crse_in: c.number,
       schd_in: "",
-      subj_in: subject,
-      term_in: to_string(term)
+      subj_in: c.subject,
+      term_in: to_string(t)
     }
   end
 
