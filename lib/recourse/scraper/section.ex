@@ -9,11 +9,18 @@ defmodule Recourse.Scraper.Section do
   alias Recourse.Section
 
   def all(args) do
-    body = query(args).body
+    query(args)
+    |> parse_response args
+  end
 
-    body
+  def parse_response(response, args) do
+    response.body
     |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
     |> List.first
+    |> case do
+      nil -> {nil, [], []}
+      x -> x
+    end
     |> elem(2)
     |> Enum.slice(1..-1)
     |> Enum.chunk(2)
@@ -53,7 +60,7 @@ defmodule Recourse.Scraper.Section do
     end)
   end
 
-  defp query(args) do
+  def query(args) do
     args
     |> params
     |> URI.encode_query
@@ -94,6 +101,12 @@ defmodule Recourse.Scraper.Section do
   end
 
   @type transform(Map) :: Map
+  def transform(%{"Time" => "TBA"} = map) do
+    map
+    |> Map.delete("Time")
+    |> transform
+  end
+
   def transform(%{"Time" => time} = map) do
     [time_start, time_end] =
       time
@@ -133,11 +146,14 @@ defmodule Recourse.Scraper.Section do
     }
   end
 
+  defp build_attrs([]) do
+    %{}
+  end
+
   defp build_attrs([th, td]) do
-    attrs =
-      Enum.zip(th, td)
-      |> Enum.into(%{})
-      |> transform
+    Enum.zip(th, td)
+    |> Enum.into(%{})
+    |> transform
   end
 
   defp get_row_content tr do
@@ -152,6 +168,10 @@ defmodule Recourse.Scraper.Section do
 
   defp parse_date t do
     parse t, "{Mshort} {D}, {YYYY}", &datetime_to_date/1
+  end
+
+  defp parse "TBA", _, _ do
+    nil
   end
 
   defp parse t, format, conversion_fn do
@@ -173,7 +193,7 @@ defmodule Recourse.Scraper.Section do
     parse_section(t, acc_p)
   end
 
-  defp parse_section([h|t], acc) do
+  defp parse_section([_h|t], acc) do
     parse_section(t, acc)
   end
 
@@ -215,7 +235,7 @@ defmodule Recourse.Scraper.Section do
         v = Enum.join(Enum.reverse(v), " ")
         Dict.put(acc, :instructional_method, v)
 
-      v ->
+      _ ->
         acc
     end
   end

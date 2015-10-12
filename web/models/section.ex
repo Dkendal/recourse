@@ -21,8 +21,8 @@ defmodule Recourse.Section do
     timestamps
   end
 
-  @required_fields ~w(registration_code schedule_type time_start time_end days location date_start date_end registration_start registration_end campus credits instructional_method course_id)
-  @optional_fields ~w()
+  @required_fields ~w(registration_code course_id)
+  @optional_fields ~w(time_start time_end days location date_start date_end registration_start registration_end campus instructional_method schedule_type credits)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
