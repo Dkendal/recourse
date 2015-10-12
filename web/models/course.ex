@@ -13,8 +13,8 @@ defmodule Recourse.Course do
     timestamps
   end
 
-  @required_fields ~w(title subject number description requirement term_id)
-  @optional_fields ~w()
+  @required_fields ~w(title subject number term_id)
+  @optional_fields ~w(description requirement)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

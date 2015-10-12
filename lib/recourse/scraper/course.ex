@@ -16,21 +16,30 @@ defmodule Recourse.Scraper.Course do
     end
     |> find(".nttitle a")
     |> map fn course ->
-      course
-      |> text
-      |> parse
-      |> struct(term_id: args.term.id)
+      attrs =
+        course
+        |> text
+        |> parse
+        |> Map.put(:term_id, args.term.id)
+
+      Course.changeset(%Course{}, attrs)
     end
   end
 
+  @spec parse(binary) :: [%{
+      number: integer,
+      subject: binary,
+      term_id: integer,
+      title: binary
+    }]
   def parse(text) do
     text
     |> split([" ", " - "])
     |> case do
       [subject, number | title] ->
-        %Course{
+        %{number: number,
           subject: subject,
-          number: number,
+          term_id: nil,
           title: Enum.join(title, " ")
         }
     end
