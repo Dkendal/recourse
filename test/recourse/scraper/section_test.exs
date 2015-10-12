@@ -35,14 +35,8 @@ defmodule Recourse.Scraper.SectionTest do
         course: course
       })
 
-    # can insert records
-    {:ok, _section} = Repo.insert List.first actual
-
-    # is a non empty list
-    assert is_list(actual)
-    assert length(actual) > 0
-    # containing sections
-    assert Enum.all?(actual, &is_section?/1)
+    changeset = List.first actual
+    assert_valid changeset
   end
 
   test "transforming a section" do
@@ -76,7 +70,4 @@ defmodule Recourse.Scraper.SectionTest do
 
     assert_attributes(actual, expected)
   end
-
-  defp is_section?(%Recourse.Section{}), do: true
-  defp is_section?(_), do: false
 end
