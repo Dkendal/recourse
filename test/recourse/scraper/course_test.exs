@@ -2,8 +2,6 @@ defmodule Recourse.Scraper.CourseTest do
   use ExUnit.Case
   alias Recourse.Term
   alias Recourse.Repo
-  alias Recourse.Course
-  alias Recourse.Section
 
   setup do
     {:ok, term} = Repo.insert(%Term{
@@ -27,7 +25,7 @@ defmodule Recourse.Scraper.CourseTest do
       })
 
     # make sure the record is valid
-    {:ok, course} = Recourse.Repo.insert List.first actual
+    {:ok, _course} = Recourse.Repo.insert List.first actual
 
     # is a non empty list
     assert is_list(actual)
