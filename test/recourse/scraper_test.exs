@@ -42,7 +42,7 @@ defmodule Recourse.ScraperTest do
 
   test "fetching sections for a course", %{term: term} do
     actual =
-      Recourse.Scraper.course([term, "CSC", "110"])
+      Recourse.Scraper.sections([term, "CSC", "110"])
 
     # can insert records
     {:ok, section} = Recourse.Repo.insert List.first actual

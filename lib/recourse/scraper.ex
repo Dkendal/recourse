@@ -25,13 +25,13 @@ defmodule Recourse.Scraper do
       "courses" ->
         "bwckctlg.p_display_courses"
 
-      "course?" <> q ->
+      "sections?" <> q ->
         "bwckctlg.p_disp_listcrse?" <> q
     end
   end
 
-  def course(args) do
-    resp = course_query(args).body
+  def sections(args) do
+    resp = sections_query(args).body
     |> find(".datadisplaytable")
     |> Enum.slice(1..-2) # the first and last rows are garbage
     |> find("tr")
@@ -64,12 +64,12 @@ defmodule Recourse.Scraper do
     end
   end
 
-  defp course_query(args) do
+  defp sections_query(args) do
     args
-    |> course_params
+    |> sections_params
     |> URI.encode_query
     |> case do
-      q -> get!("course?" <> q)
+      q -> get!("sections?" <> q)
     end
   end
 
@@ -77,7 +77,7 @@ defmodule Recourse.Scraper do
     post!("courses", URI.encode_query query)
   end
 
-  defp course_params([term, subject, number]) do
+  defp sections_params([term, subject, number]) do
     %{
       crse_in: number,
       schd_in: "",
