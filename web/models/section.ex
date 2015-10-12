@@ -10,8 +10,8 @@ defmodule Recourse.Section do
     field :location, :string
     field :date_start, Ecto.Date
     field :date_end, Ecto.Date
-    field :registration_start, :string
-    field :registration_end, :string
+    field :registration_start, Ecto.Date
+    field :registration_end, Ecto.Date
     field :campus, :string
     field :credits, :decimal
     field :instructional_method, :string
