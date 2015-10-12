@@ -9,15 +9,47 @@ defmodule Recourse.Scraper.Section do
   alias Recourse.Section
 
   def all(args) do
-    resp =
-      query(args).body
-      |> find(".datadisplaytable")
-      # the first and last rows are garbage
-      |> Enum.slice(1..-2)
-      |> find("tr")
-      |> map(&get_row_content/1)
-      |> Enum.chunk(2)
-      |> map(&build_changeset/1)
+    body = query(args).body
+
+    body
+    |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
+    |> List.first
+    |> elem(2)
+    |> Enum.slice(1..-1)
+    |> Enum.chunk(2)
+    |> map(fn [header, body] ->
+      tokens =
+        header
+        |> find("a")
+        |> text
+        |> String.split(" - ")
+
+      {:ok, registration_code} = Enum.fetch(tokens, 1)
+      {:ok, name} = Enum.fetch(tokens, -1)
+
+      header_attrs = %{
+        registration_code: registration_code,
+        name: name
+      }
+
+      other_attrs =
+        body
+        |> elem(2)
+        |> List.first
+        |> elem(2)
+        |> parse_section
+
+      course_attrs =
+        body
+        |> find(".datadisplaytable")
+        |> find("tr")
+        |> map(&get_row_content/1)
+        |> build_attrs
+        |> Dict.merge(header_attrs)
+        |> Dict.merge(other_attrs)
+
+      Section.changeset(%Section{}, course_attrs)
+    end)
   end
 
   defp query(args) do
@@ -100,12 +132,11 @@ defmodule Recourse.Scraper.Section do
     }
   end
 
-  defp build_changeset([th, td]) do
+  defp build_attrs([th, td]) do
     attrs =
       Enum.zip(th, td)
       |> Enum.into(%{})
       |> transform
-    Section.changeset(%Section{}, attrs)
   end
 
   defp get_row_content tr do
@@ -119,12 +150,64 @@ defmodule Recourse.Scraper.Section do
   end
 
   defp parse_date t do
-
     parse t, "{Mshort} {D}, {YYYY}", &datetime_to_date/1
   end
 
   defp parse t, format, conversion_fn do
     {:ok, dt} = DateFormat.parse(t, format)
     conversion_fn.(dt)
+  end
+
+  defp parse_section([{"span", _, [label]}, value|t], acc \\ %{}) when is_binary(value) do
+    acc_p = parse_section_attr(label, value, acc)
+    parse_section(t, acc_p)
+  end
+
+  defp parse_section([{"br", _, _}, value|t], acc) when is_binary(value) do
+    acc_p =
+      value
+      |> String.strip
+      |> parse_section_attr(acc)
+
+    parse_section(t, acc_p)
+  end
+
+  defp parse_section([h|t], acc) do
+    parse_section(t, acc)
+  end
+
+  defp parse_section([], acc) do
+    acc
+  end
+
+  defp parse_section_attr("Registration Dates: ", value, acc) do
+    [from, to] = String.split(value, " to ")
+    acc
+    |> Dict.put(:registration_start, from)
+    |> Dict.put(:registration_end, to)
+  end
+
+  defp parse_section_attr(_label, _value, acc) do
+    acc
+  end
+
+  defp parse_section_attr(val, acc) do
+    val
+    |> String.split(" ")
+    |> Enum.reverse
+    |> case do
+      ["Credits", v] ->
+        Dict.put(acc, :credits, v)
+
+      ["Campus", v] ->
+        Dict.put(acc, :campus, v)
+
+      ["Method", "Instructional"|v] ->
+        v = Enum.join(Enum.reverse(v), " ")
+        Dict.put(acc, :instructional_method, v)
+
+      v ->
+        acc
+    end
   end
 end
