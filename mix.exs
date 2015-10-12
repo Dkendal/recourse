@@ -47,6 +47,8 @@ defmodule Recourse.Mixfile do
       # date and time
       {:timex, "~> 0.19"},
 
+      {:apex, only: [:dev, :test]},
+
       {:aruspex, github: "dkendal/aruspex", branch: "master"}]
   end
 end

@@ -1,4 +1,5 @@
-%{"aruspex": {:git, "https://github.com/dkendal/aruspex.git", "cdef667692d7c1070025725e678731154e9c3503", [branch: "master"]},
+%{"apex": {:hex, :apex, "0.3.4"},
+  "aruspex": {:git, "https://github.com/dkendal/aruspex.git", "cdef667692d7c1070025725e678731154e9c3503", [branch: "master"]},
   "combine": {:hex, :combine, "0.5.2"},
   "cowboy": {:hex, :cowboy, "1.0.2"},
   "cowlib": {:hex, :cowlib, "1.0.1"},
