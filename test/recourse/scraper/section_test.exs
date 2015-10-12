@@ -55,8 +55,8 @@ defmodule Recourse.Scraper.SectionTest do
     expected = %{
       # registration_code:
       schedule_type: "Lecture",
-      time_start: %Ecto.Time{hour: 11, min: 20, sec: 0},
-      time_end: %Ecto.Time{hour: 10, min: 0, sec: 0},
+      time_start: %Ecto.Time{hour: 10, min: 0, sec: 0},
+      time_end: %Ecto.Time{hour: 11, min: 20, sec: 0},
       days: ~W(M R),
       location: "MacLaurin Building A144",
       date_start: %Ecto.Date{year: 2015, month: 1, day: 5},

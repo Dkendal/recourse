@@ -47,6 +47,7 @@ defmodule Recourse.Scraper.Section do
         |> build_attrs
         |> Dict.merge(header_attrs)
         |> Dict.merge(other_attrs)
+        |> Dict.put(:course_id, args.course.id)
 
       Section.changeset(%Section{}, course_attrs)
     end)
@@ -181,7 +182,15 @@ defmodule Recourse.Scraper.Section do
   end
 
   defp parse_section_attr("Registration Dates: ", value, acc) do
-    [from, to] = String.split(value, " to ")
+    [from, to] =
+      value
+      |> String.split(" to ")
+      |> map fn s ->
+        s
+        |> String.strip
+        |> parse_date
+      end
+
     acc
     |> Dict.put(:registration_start, from)
     |> Dict.put(:registration_end, to)
