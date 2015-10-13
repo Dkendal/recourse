@@ -16,18 +16,17 @@ config.output =
 
 config.module =
   { loaders:
-    [ { exclude: /node_modules/
-      , loader: "babel-loader"
-      }
-    , { test: /\.scss/
-      , loaders: ["style", "css?sourceMap", "sass?sourceMap"]
-      }
+    [ { exclude: /node_modules/, loader: "babel-loader" }
+    , { test: /\.css$/, loader: "style-loader!css-loader" }
+    // , { test: /\.png$/, loader: "url-loader?limit=100000" }
+    // , { test: /\.jpg$/, loader: "file-loader" }
+    , { test: /\.scss/, loaders: ["style", "css?sourceMap", "sass?sourceMap"] }
     ]
   };
 
 config.resolve =
   // So we can do `require('./utils')` instead of `require('./utils.js')`
-  { extensions: ["", ".js", ".scss"]
+  { extensions: ["", ".js", ".scss", ".css"]
   , modulesDirectories:
     ["web_modules"
     , "node_modules"
