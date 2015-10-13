@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
 import CourseList from "../components/CourseList";
+import Worklist from "../components/Worklist";
 import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
@@ -21,27 +22,23 @@ class Recourse extends Component {
         toggleCourseSelection(channel, selectedCourses, course));
     };
 
+    const is_selected =
+      (course) => selectedCourses.has(course.id);
+
     return(
       <div>
-        <CourseList
-          onCourseClick={onCourseClick}
-          courses={courses}
-          selected={selectedCourses} />
         <div>
-          {worklist.map((course) => {
-            return(
-              <Course
-                key={course.id}
-                onClick={() => onCourseClick(course)}
-                selected={true}
-                {...course} />
-              );
-          })}
+          <CourseList
+            onCourseClick={onCourseClick}
+            courses={courses}
+            is_selected={is_selected}
+          />
         </div>
         <div>
-          {this.props.sections.map(section => {
-            return section;
-          })}
+          <Worklist
+            courses={this.props.worklist}
+            onClick={onCourseClick}
+          />
         </div>
       </div>
     );
