@@ -22,9 +22,5 @@ defmodule Recourse.Router do
   # Other scopes may use custom stacks.
   scope "/api", Recourse do
     pipe_through :api
-    resources "/courses", CourseController, except: [:new, :edit]
-    resources "/instructors", InstructorController, except: [:new, :edit]
-    resources "/sections", SectionController, except: [:new, :edit]
-    resources "/schedule", ScheduleController, only: [:index]
   end
 end

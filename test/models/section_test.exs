@@ -17,7 +17,9 @@ defmodule Recourse.SectionTest do
     registration_start: "2015-12-12",
     schedule_type: "some content",
     time_end: "14:00:00",
-    time_start: "14:00:00"}
+    time_start: "14:00:00",
+    course_id: 1
+  }
 
   @invalid_attrs %{}
 

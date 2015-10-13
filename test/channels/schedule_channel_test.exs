@@ -6,23 +6,19 @@ defmodule Recourse.ScheduleChannelTest do
   setup do
     {:ok, _, socket} =
       socket("user_id", %{some: :assign})
-      |> subscribe_and_join(ScheduleChannel, "schedules:lobby")
+      |> subscribe_and_join(ScheduleChannel, "schedules:planner")
 
     {:ok, socket: socket}
   end
 
-  test "ping replies with status ok", %{socket: socket} do
-    ref = push socket, "ping", %{"hello" => "there"}
-    assert_reply ref, :ok, %{"hello" => "there"}
+
+  test "courses:search requesting courses", %{socket: socket} do
+    ref = push socket, "courses:search", %{}
+    assert_reply ref, :ok, %{payload: []}
   end
 
-  test "shout broadcasts to schedules:lobby", %{socket: socket} do
-    push socket, "shout", %{"hello" => "all"}
-    assert_broadcast "shout", %{"hello" => "all"}
-  end
-
-  test "broadcasts are pushed to the client", %{socket: socket} do
-    broadcast_from! socket, "broadcast", %{"some" => "data"}
-    assert_push "broadcast", %{"some" => "data"}
+  test "make_schedule returns a schedule for the given courses", %{socket: socket} do
+    ref = push socket, "make_schedule", []
+    assert_reply ref, :ok, %{payload: []}
   end
 end
