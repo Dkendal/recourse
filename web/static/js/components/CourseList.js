@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from "react";
 import Course from "./Course";
 import {COURSE} from "../types";
 
-export default class LeftPanel extends Component {
+export default class CourseList extends Component {
   render() {
     return(
       <ul>
@@ -21,9 +21,9 @@ export default class LeftPanel extends Component {
     );
   }
 }
-LeftPanel.displayName = "LeftPanel";
+CourseList.displayName = "CourseList";
 
-LeftPanel.propTypes = {
+CourseList.propTypes = {
   addCourse: PropTypes.func,
   courses: PropTypes.arrayOf(
     PropTypes.shape(COURSE)

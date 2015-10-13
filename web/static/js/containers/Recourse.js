@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import Course from "../components/Course";
-import LeftPanel from "../components/LeftPanel";
+import CourseList from "../components/CourseList";
 import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
@@ -23,11 +23,10 @@ class Recourse extends Component {
 
     return(
       <div>
-        <LeftPanel
+        <CourseList
           onCourseClick={onCourseClick}
           courses={courses}
-          selected={selectedCourses}
-        />
+          selected={selectedCourses} />
         <div>
           {worklist.map((course) => {
             return(
