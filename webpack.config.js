@@ -17,10 +17,10 @@ config.output =
 config.module =
   { loaders:
     [ { exclude: /node_modules/, loader: "babel-loader" }
-    , { test: /\.css$/, loader: "style-loader!css-loader" }
+    , { test: /\.css$/, loader: "style!css" }
     // , { test: /\.png$/, loader: "url-loader?limit=100000" }
     // , { test: /\.jpg$/, loader: "file-loader" }
-    , { test: /\.scss/, loaders: ["style", "css?sourceMap", "sass?sourceMap"] }
+    , { test: /\.scss$/, loaders: ["style", "css?sourceMap", "sass?sourceMap"] }
     ]
   };
 
