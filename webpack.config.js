@@ -10,13 +10,18 @@ config.entry = { app: "./web/static/js/app.js" };
 config.output =
   { path: path.join(__dirname, "priv/static/js")
   , filename: "[name].js"
+  , chunkFilename: "[id].js"
   , sourceMapFilename: "[name].map.js"
   };
 
 config.module =
   { loaders:
     [ { exclude: /node_modules/
-      , loader: "babel-loader" }
+      , loader: "babel-loader"
+      }
+    , { test: /\.scss/
+      , loaders: ["style", "css?sourceMap", "sass?sourceMap"]
+      }
     ]
   };
 
