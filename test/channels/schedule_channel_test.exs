@@ -11,13 +11,12 @@ defmodule Recourse.ScheduleChannelTest do
     {:ok, socket: socket}
   end
 
-
-  test "courses:search requesting courses", %{socket: socket} do
+  test "[courses:search] requesting courses", %{socket: socket} do
     ref = push socket, "courses:search", %{}
     assert_reply ref, :ok, %{payload: []}
   end
 
-  test "make_schedule returns a schedule for the given courses", %{socket: socket} do
+  test "[make_schedule] returns a schedule for the given courses", %{socket: socket} do
     ref = push socket, "make_schedule", []
     assert_reply ref, :ok, %{payload: []}
   end
