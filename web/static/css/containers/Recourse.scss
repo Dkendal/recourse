@@ -1,0 +1,5 @@
+@import "bourbon";
+
+.Recourse.container {
+  @include display(flex);
+}

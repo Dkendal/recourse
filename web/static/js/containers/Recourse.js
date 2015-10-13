@@ -29,15 +29,21 @@ class Recourse extends Component {
       (course) => selectedCourses.has(course.id);
 
     return(
-      <div>
-        <div>
+      <div
+        className="Recourse container"
+        >
+        <div
+          className="Recourse item"
+          >
           <CourseList
             onCourseClick={onCourseClick}
             courses={courses}
             is_selected={is_selected}
           />
         </div>
-        <div>
+        <div
+          className="Recourse item"
+          >
           <Worklist
             courses={this.props.worklist}
             onClick={onCourseClick}
