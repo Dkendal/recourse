@@ -7,6 +7,8 @@ import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
 
+require("app.scss");
+
 class Recourse extends Component {
   render() {
     const
