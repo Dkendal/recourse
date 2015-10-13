@@ -50,7 +50,7 @@ export function toggleCourseSelection(channel, selectedCourses, course) {
   if(selectedCourses.has(course.id)) {
     return removeFromSchedule(channel)(course);
   }
-  return addToSchedule(channel)(course)
+  return addToSchedule(channel)(course);
 }
 
 export function searchCourses(channel) {
