@@ -1,6 +1,18 @@
 var path = require("path");
 var config = module.exports = {};
 
+function join(dest) { return path.resolve(__dirname, dest); }
+function web(dest) { return join("web/static/" + dest); }
+
+var sassOpts =
+  [ "?includePaths[]="
+  , join("node_modules")
+  , "&includePaths[]="
+  , join("bower_components")
+  , "&includePaths[]="
+  , join("node_modules/bourbon/app/assets/stylesheets")
+  ].join("");
+
 config.context = __dirname;
 
 config.devtool = "#source-map";
@@ -20,7 +32,13 @@ config.module =
     , { test: /\.css$/, loader: "style!css" }
     // , { test: /\.png$/, loader: "url-loader?limit=100000" }
     // , { test: /\.jpg$/, loader: "file-loader" }
-    , { test: /\.scss$/, loaders: ["style", "css?sourceMap", "sass?sourceMap"] }
+    , { test: /\.scss$/
+      , loaders:
+        ["style"
+        , "css?sourceMap"
+        , "sass?sourceMap" + sassOpts
+        ]
+      }
     ]
   };
 
@@ -31,5 +49,6 @@ config.resolve =
     ["web_modules"
     , "node_modules"
     , "deps"
-    , "web/static/"]
+    , "web/static/"
+    ]
   };
