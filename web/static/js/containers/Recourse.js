@@ -7,8 +7,8 @@ import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
 
-import "normalize.css";
 import "css/base";
+import "css/containers/Recourse";
 
 class Recourse extends Component {
   render() {
