@@ -25,7 +25,7 @@ class Recourse extends Component {
         toggleCourseSelection(channel, selectedCourses, course));
     };
 
-    const is_selected =
+    const isSelected =
       (course) => selectedCourses.has(course.id);
 
     return(
@@ -38,7 +38,7 @@ class Recourse extends Component {
           <CourseList
             onCourseClick={onCourseClick}
             courses={courses}
-            is_selected={is_selected}
+            isSelected={isSelected}
           />
         </div>
         <div

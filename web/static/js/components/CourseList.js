@@ -12,7 +12,7 @@ export default class CourseList extends Component {
             <Course
               key={course.id}
               onClick={() => this.props.onCourseClick(course)}
-              selected={this.props.is_selected(course)}
+              selected={this.props.isSelected(course)}
               {...course} />
           </li>
           )
