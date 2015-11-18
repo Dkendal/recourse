@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Course from "../components/Course";
 import CourseList from "../components/CourseList";
 import Worklist from "../components/Worklist";
+import Schedule from "../components/Schedule";
 import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
@@ -18,6 +19,7 @@ class Recourse extends Component {
     , courses
     , worklist
     , selectedCourses
+    , sections
     } = this.props;
 
     const onCourseClick = course => {
@@ -45,8 +47,11 @@ class Recourse extends Component {
           className="Recourse item"
           >
           <Worklist
-            courses={this.props.worklist}
+            courses={worklist}
             onClick={onCourseClick}
+          />
+          <Schedule
+            sections={sections}
           />
         </div>
       </div>
