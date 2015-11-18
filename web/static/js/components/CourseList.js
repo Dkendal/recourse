@@ -5,19 +5,29 @@ import {COURSE} from "../types";
 export default class CourseList extends Component {
   render() {
     return(
-      <ul>
-        {this.props.courses.map(
-          (course, idx) =>
-          <li>
-            <Course
-              key={course.id}
-              onClick={() => this.props.onCourseClick(course)}
-              selected={this.props.isSelected(course)}
-              {...course} />
-          </li>
-          )
-        }
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>{"Number"}</th>
+            <th>{"Subject"}</th>
+            <th>{"Title"}</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {
+            this.props.courses.map(
+              (course, idx) =>
+              <Course
+                key={course.id}
+                onClick={() => this.props.onCourseClick(course)}
+                selected={this.props.isSelected(course)}
+                {...course} />
+              )
+          }
+        </tbody>
+      </table>
     );
   }
 }

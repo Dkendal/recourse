@@ -14,18 +14,17 @@ export default class Course extends Component {
 
     const text = selected ? "-" : "+";
     return(
-      <div>
-        <span>{description}</span>
-        <span>{number}</span>
-        <span>{subject}</span>
-        <span>{title}</span>
-        <span>
+      <tr>
+        <td>{number}</td>
+        <td>{subject}</td>
+        <td>{title}</td>
+        <td>
           <button
             onClick={onClick}>
             {text}
           </button>
-        </span>
-      </div>
+        </td>
+      </tr>
     );
   }
 }
