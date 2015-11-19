@@ -10,7 +10,9 @@
     "redux-logger": "^2.0.3",
     "redux-thunk": "^1.0.0",
     "reselect": "^2.0.0",
-    "style-loader": "^0.12.4"
+    "style-loader": "^0.12.4",
+    "time-js": "0.0.4",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

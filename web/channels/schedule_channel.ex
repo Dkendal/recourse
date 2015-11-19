@@ -10,6 +10,7 @@ defmodule Recourse.ScheduleChannel do
 
   def handle_in("courses:search", payload, socket) do
     courses = Repo.all from s in Course
+
     {:reply, {:ok, %{payload: courses}}, socket}
   end
 

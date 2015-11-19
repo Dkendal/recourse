@@ -4,6 +4,8 @@ import Course from "../components/Course";
 import CourseList from "../components/CourseList";
 import Worklist from "../components/Worklist";
 import Schedule from "../components/Schedule";
+import Row from "../components/Row";
+import Column from "../components/Column";
 import {COURSE} from "../types";
 import {toggleCourseSelection} from "../actions";
 import select from "../selectors";
@@ -31,21 +33,15 @@ class Recourse extends Component {
       (course) => selectedCourses.has(course.id);
 
     return(
-      <div
-        className="Recourse container"
-        >
-        <div
-          className="Recourse item"
-          >
+      <Row>
+        <Column>
           <CourseList
             onCourseClick={onCourseClick}
             courses={courses}
             isSelected={isSelected}
           />
-        </div>
-        <div
-          className="Recourse item"
-          >
+        </Column>
+        <Column>
           <Worklist
             courses={worklist}
             onClick={onCourseClick}
@@ -53,8 +49,8 @@ class Recourse extends Component {
           <Schedule
             sections={sections}
           />
-        </div>
-      </div>
+        </Column>
+      </Row>
     );
   }
 }
