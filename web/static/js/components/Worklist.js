@@ -1,27 +1,21 @@
 import React, {Component, PropTypes} from "react";
 import Course from "./Course";
+import WorklistItem from "./WorklistItem";
+
+import "css/components/Worklist.scss";
 
 export default class Worklist extends Component {
   render() {
     return(
-      <ul>
+      <div className="worklist">
         {this.props.courses.map(
-          (course, idx) =>
-          <li>
-            <span>
-              {course.subject}
-            </span>
-            <span>
-              {course.number}
-            </span>
-            <button
-              onClick={() => this.props.onClick(course)}>
-              {"X"}
-            </button>
-          </li>
+          course =>
+          <WorklistItem
+            course={course}
+            onClick={this.props.onClick}/>
           )
         }
-      </ul>
+      </div>
     );
   }
 }
