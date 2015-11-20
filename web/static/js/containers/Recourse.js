@@ -48,6 +48,8 @@ class Recourse extends Component {
           />
           <Schedule
             sections={sections}
+            startHr={7}
+            endHr={20}
           />
         </Column>
       </Row>
