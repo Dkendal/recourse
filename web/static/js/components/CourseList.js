@@ -4,8 +4,12 @@ import {COURSE} from "../types";
 
 export default class CourseList extends Component {
   render() {
+    const style =
+      { width: '100%'
+      };
+
     return(
-      <table>
+      <table style={style}>
         <thead>
           <tr>
             <th>{"Number"}</th>

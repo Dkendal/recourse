@@ -4,57 +4,44 @@ import ScheduleSection from "./ScheduleSection";
 import Column from "./Column";
 import Row from "./Row";
 
+import "css/components/Schedule";
+
 class Schedule extends Component {
   render() {
-    const {
-      sections
+    const
+    { sections
     } = this.props;
 
-    const containerStyle = {
-    };
-
     return (
-      <article
-        style={containerStyle} >
-        <Row>
-          {
-            ["M", "T", "W", "R", "F"].map(
-            day =>
-            <Column>
-              {day}
-            </Column>
-            )
-          }
-        </Row>
-
-        <Row>
-          {
-            _.range(5).map(
-              _day =>
-              <Column>
-                {
-                  _.range(24).map(
-                    hr =>
-                    <div>
-                      {hr}
-                    </div>
-                  )
-                }
-              </Column>
-            )
-          }
-        </Row>
-
-        <div>
-          {
-            sections.map(
-              section =>
-              <ScheduleSection
-                section={section} />
-            )
-          }
-        </div>
-      </article>
+      <div className="schedule">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>{"M"}</th>
+              <th>{"T"}</th>
+              <th>{"W"}</th>
+              <th>{"R"}</th>
+              <th>{"F"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              _.range(24).map(
+                hr =>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

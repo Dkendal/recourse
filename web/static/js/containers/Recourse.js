@@ -34,7 +34,7 @@ class Recourse extends Component {
 
     return(
       <Row>
-        <Column>
+        <Column fixed>
           <CourseList
             onCourseClick={onCourseClick}
             courses={courses}

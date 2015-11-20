@@ -1,0 +1,17 @@
+.schedule {
+  flex: 1;
+
+  th {
+    height: 2em;
+  }
+
+  table {
+    height: 100%;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  td {
+    border: 1px solid black;
+  }
+}
