@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import {Set, List} from "immutable";
 import {handleActions} from "redux-actions";
-import {SELECT_COURSE, DESELECT_COURSE} from "../actions";
+import {SELECT_COURSE, DESELECT_COURSE, FILTER_COURSES} from "../actions";
 
 const initialState = {isFetching: false, didInvalidate: false};
 
@@ -22,10 +22,17 @@ const selectedCourses = handleActions(
   , Set([])
 );
 
+const courseFilter = handleActions(
+  { FILTER_COURSES: (state, {payload}) => payload
+  },
+  {}
+);
+
 const frontEnd = combineReducers(
   { courses
   , sections
   , selectedCourses
+  , courseFilter
   }
 );
 

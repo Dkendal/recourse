@@ -7,7 +7,7 @@ import Schedule from "../components/Schedule";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import {COURSE} from "../types";
-import {toggleCourseSelection} from "../actions";
+import * as actions from "../actions";
 import select from "../selectors";
 
 import "css/base";
@@ -26,7 +26,25 @@ class Recourse extends Component {
 
     const onCourseClick = course => {
       return dispatch(
-        toggleCourseSelection(channel, selectedCourses, course));
+        actions.toggleCourseSelection(channel, selectedCourses, course));
+    };
+
+    const onSubmit = (event) => {
+      event.preventDefault();
+
+      const fields =
+        [ "courseName"
+        ];
+
+      let formValues = {};
+
+      fields
+        .map(field => event.target.elements.namedItem(field))
+        .map(input => formValues[input.name] = input.value)
+
+      return dispatch(
+        actions.filterCourses(formValues)
+      );
     };
 
     const isSelected =
@@ -35,6 +53,16 @@ class Recourse extends Component {
     return(
       <Row>
         <Column fixed>
+          <div>
+            <form onSubmit={onSubmit}>
+              <input
+                name="courseName"
+                type={"search"} />
+              <input
+                type="submit" />
+            </form>
+          </div>
+
           <CourseList
             onCourseClick={onCourseClick}
             courses={courses}

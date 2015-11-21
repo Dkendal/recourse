@@ -14,6 +14,9 @@ import entries from "./reducers/entries";
 //   }
 //   frontEnd: {
 //     selectedCourses: [Number]
+//     courseFilter: {
+//       courseName: String
+//     }
 //     courses: {
 //       isFetching: Bool,
 //       didInvalidate: Bool

@@ -12,9 +12,17 @@ export const worklist = createSelector(
     ({id}) => selectedCourses.has(id))
 );
 
+const filteredCourses = createSelector(
+  courses,
+  (courses) => courses.filter(
+    ({id}) => true
+  )
+);
+
 const select = createStructuredSelector(
   { courses
   , worklist
+  , filteredCourses
   , selectedCourses
   , channel
   , sections

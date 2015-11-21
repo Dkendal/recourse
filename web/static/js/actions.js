@@ -1,17 +1,20 @@
 import {createAction} from "redux-actions";
 import {selectedCourses} from "./selectors";
 
-export const DESELECT_COURSE = "DESELECT_COURSE";
-export const deselectCourse = createAction(DESELECT_COURSE, ({id}) => id);
-
 export const JOINED_CHANNEL = "JOINED_CHANNEL";
 export const joinedChannel = createAction(JOINED_CHANNEL);
 
 export const JOINING_CHANNEL = "JOINING_CHANNEL";
 export const joiningChannel = createAction(JOINING_CHANNEL);
 
+export const FILTER_COURSES = "FILTER_COURSES";
+export const filterCourses = createAction(FILTER_COURSES);
+
 export const SELECT_COURSE = "SELECT_COURSE";
 export const selectCourse = createAction(SELECT_COURSE, ({id}) => id);
+
+export const DESELECT_COURSE = "DESELECT_COURSE";
+export const deselectCourse = createAction(DESELECT_COURSE, ({id}) => id);
 
 export const SET_SECTIONS = "SET_SECTIONS";
 function updateSchedule(startAction) {
