@@ -16,14 +16,18 @@ const sections = handleActions(
 );
 
 const selectedCourses = handleActions(
-  { SELECT_COURSE: (state, {payload}) => state.add(payload)
-  , DESELECT_COURSE: (state, {payload}) => state.delete(payload)
+  { SELECT_COURSE:
+    (state, {payload}) => state.add(payload)
+
+  , DESELECT_COURSE:
+    (state, {payload}) => state.delete(payload)
   }
   , Set([])
 );
 
 const courseFilter = handleActions(
-  { FILTER_COURSES: (state, {payload}) => payload
+  { FILTER_COURSES:
+    (state, {payload}) => payload
   },
   {}
 );
