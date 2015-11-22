@@ -21,6 +21,7 @@ class Recourse extends Component {
     , courses
     , worklist
     , selectedCourses
+    , filteredCourses
     , sections
     } = this.props;
 
@@ -65,7 +66,7 @@ class Recourse extends Component {
 
           <CourseList
             onCourseClick={onCourseClick}
-            courses={courses}
+            courses={filteredCourses}
             isSelected={isSelected}
           />
         </Column>
