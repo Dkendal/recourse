@@ -44,7 +44,7 @@ config.module =
 
 config.resolve =
   // So we can do `require('./utils')` instead of `require('./utils.js')`
-  { extensions: ["", ".js", ".scss", ".css"]
+  { extensions: ["", ".js", ".scss", ".css", ".jsx"]
   , modulesDirectories:
     ["web_modules"
     , "node_modules"

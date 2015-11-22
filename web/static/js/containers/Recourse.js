@@ -87,10 +87,4 @@ class Recourse extends Component {
 }
 
 Recourse.displayName = "Recourse";
-
-Recourse.propTypes = {
-  courses: PropTypes.arrayOf(PropTypes.shape(COURSE)),
-  selectedCourses: PropTypes.arrayOf(PropTypes.shape(COURSE))
-};
-
 export default connect(select)(Recourse);

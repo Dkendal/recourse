@@ -31,6 +31,7 @@ class Schedule extends Component {
             this.props.sections.map(
               section =>
               <ScheduleSection
+                key={section.id}
                 section={section}
                 startHr={this.props.startHr}
                 endHr={this.props.endHr} />
@@ -39,7 +40,9 @@ class Schedule extends Component {
           {
             _.range(this.props.startHr, this.props.endHr).map(
               hr =>
-              <div className="schedule-row flex">
+              <div
+                className="schedule-row flex"
+                key={hr}>
                 <div className="schedule-cell schedule-hour">{hr}</div>
                 <div className="schedule-cell"></div>
                 <div className="schedule-cell"></div>

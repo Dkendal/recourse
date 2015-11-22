@@ -3,13 +3,12 @@ import {COURSE} from "../types";
 
 export default class Course extends Component {
   render() {
-    const
-    { description
-    , number
-    , subject
-    , title
-    , selected
-    , onClick
+    const {
+      number,
+      subject,
+      title,
+      selected,
+      onClick
     } = this.props;
 
     const text = selected ? "-" : "+";
@@ -28,7 +27,5 @@ export default class Course extends Component {
     );
   }
 }
-
 Course.displayName = "Course";
-
 Course.propTypes = COURSE;

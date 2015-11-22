@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import Course from "./Course";
 import WorklistItem from "./WorklistItem";
+import {COURSE} from "../types";
 
 import "css/components/Worklist.scss";
 
@@ -20,3 +21,4 @@ export default class Worklist extends Component {
   }
 }
 Worklist.displayName = "Worklist";
+Worklist.propTypes = COURSE;

@@ -38,8 +38,5 @@ export default class CourseList extends Component {
 CourseList.displayName = "CourseList";
 
 CourseList.propTypes = {
-  addCourse: PropTypes.func,
-  courses: PropTypes.arrayOf(
-    PropTypes.shape(COURSE)
-  )
+  addCourse: PropTypes.func
 };
