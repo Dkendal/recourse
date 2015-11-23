@@ -2,12 +2,11 @@ import React, {Component, PropTypes} from "react";
 
 export default class Row extends Component {
   render() {
-    const style = {
-      display: "flex"
-    };
-
     return (
-      <div style={style}>
+      <div
+        {... this.props}
+        className="row"
+      >
         {this.props.children}
       </div>
     );

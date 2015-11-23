@@ -47,7 +47,7 @@ class Recourse extends Component {
       (course) => selectedCourses.has(course.id);
 
     return(
-      <Row>
+      <Row style={{height: "100vh"}}>
         <Column fixed>
           <div>
             <form onSubmit={onSubmit}>
