@@ -1,12 +1,10 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
-import Course from "../components/Course";
 import CourseList from "../components/CourseList";
 import Worklist from "../components/Worklist";
 import Schedule from "../components/Schedule";
 import Row from "../components/Row";
 import Column from "../components/Column";
-import {COURSE} from "../types";
 import * as actions from "../actions";
 import select from "../selectors";
 
@@ -15,14 +13,13 @@ import "css/containers/Recourse";
 
 class Recourse extends Component {
   render() {
-    const
-    { dispatch
-    , channel
-    , courses
-    , worklist
-    , selectedCourses
-    , filteredCourses
-    , sections
+    const {
+      dispatch,
+      channel,
+      worklist,
+      selectedCourses,
+      filteredCourses,
+      sections
     } = this.props;
 
     const onCourseClick = course => {
@@ -33,15 +30,13 @@ class Recourse extends Component {
     const onSubmit = (event) => {
       event.preventDefault();
 
-      const fields =
-        [ "courseName"
-        ];
+      const fields = ["courseName"];
 
       let formValues = {};
 
-      fields
-        .map(field => event.target.elements.namedItem(field))
-        .map(input => formValues[input.name] = input.value)
+      fields.
+        map(field => event.target.elements.namedItem(field)).
+        map(input => formValues[input.name] = input.value);
 
       return dispatch(
         actions.filterCourses(formValues)
@@ -58,16 +53,18 @@ class Recourse extends Component {
             <form onSubmit={onSubmit}>
               <input
                 name="courseName"
-                type={"search"} />
+                type={"search"}
+              />
               <input
-                type="submit" />
+                type="submit"
+              />
             </form>
           </div>
 
           <CourseList
-            onCourseClick={onCourseClick}
             courses={filteredCourses}
             isSelected={isSelected}
+            onCourseClick={onCourseClick}
           />
         </Column>
         <Column>
@@ -76,9 +73,9 @@ class Recourse extends Component {
             onClick={onCourseClick}
           />
           <Schedule
+            endHr={20}
             sections={sections}
             startHr={7}
-            endHr={20}
           />
         </Column>
       </Row>

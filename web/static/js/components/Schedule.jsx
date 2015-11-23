@@ -1,22 +1,19 @@
-import _ from "underscore";
-import React, {Component} from "react";
+import React, {Component, PropTypes} from "react";
 import ScheduleSection from "./ScheduleSection";
-import Column from "./Column";
-import Row from "./Row";
+import _ from "underscore";
+import {List} from "immutable";
 
 import "css/components/Schedule";
 
-class Schedule extends Component {
-  sectionStyle(section) {
-  }
-
+export default class Schedule extends Component {
   render() {
     return (
       <div className="schedule flex">
         <div className="schedule-row schedule-header">
           <div
             className="schedule-cell"
-            style={{borderColor: "transparent"}}>
+            style={{borderColor: "transparent"}}
+          >
           </div>
 
           <div className="schedule-cell">{"M"}</div>
@@ -31,18 +28,20 @@ class Schedule extends Component {
             this.props.sections.map(
               section =>
               <ScheduleSection
+                endHr={this.props.endHr}
                 key={section.id}
                 section={section}
                 startHr={this.props.startHr}
-                endHr={this.props.endHr} />
-              )
+              />
+            )
           }
           {
             _.range(this.props.startHr, this.props.endHr).map(
               hr =>
               <div
                 className="schedule-row flex"
-                key={hr}>
+                key={hr}
+              >
                 <div className="schedule-cell schedule-hour">{hr}</div>
                 <div className="schedule-cell"></div>
                 <div className="schedule-cell"></div>
@@ -57,5 +56,11 @@ class Schedule extends Component {
     );
   }
 }
+
 Schedule.displayName = "Schedule";
-export default Schedule;
+
+Schedule.propTypes = {
+  endHr: PropTypes.number,
+  sections: PropTypes.instanceOf(List),
+  startHr: PropTypes.number
+};

@@ -29,24 +29,24 @@ const filteredCourses = createSelector(
 
       const regex = new RegExp(courseName, "i");
 
-      const fields =
-        [ course.subject
-        , course.number
-        , course.title];
+      const fields = [
+        course.subject,
+        course.number,
+        course.title
+      ];
 
       return _.some(fields, field => regex.test(field));
     }
   )
 );
 
-const select = createStructuredSelector(
-  { courses
-  , worklist
-  , filteredCourses
-  , selectedCourses
-  , channel
-  , sections
-  }
-);
+const select = createStructuredSelector({
+  courses,
+  worklist,
+  filteredCourses,
+  selectedCourses,
+  channel,
+  sections
+});
 
 export default select;

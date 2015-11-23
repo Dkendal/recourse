@@ -1,6 +1,6 @@
-import React, {Component} from "react";
+import React, {Component, PropTypes} from "react";
 
-class Row extends Component {
+export default class Row extends Component {
   render() {
     const style = {
       display: "flex"
@@ -13,5 +13,9 @@ class Row extends Component {
     );
   }
 }
+
 Row.displayName = "Row";
-export default Row;
+
+Row.propTypes = {
+  children: PropTypes.node
+};

@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import {COURSE} from "../types";
 
 export default class Course extends Component {
@@ -19,7 +19,8 @@ export default class Course extends Component {
         <td>{title}</td>
         <td>
           <button
-            onClick={onClick}>
+            onClick={onClick}
+          >
             {text}
           </button>
         </td>
@@ -27,5 +28,7 @@ export default class Course extends Component {
     );
   }
 }
+
 Course.displayName = "Course";
+
 Course.propTypes = COURSE;

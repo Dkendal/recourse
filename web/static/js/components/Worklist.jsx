@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from "react";
-import Course from "./Course";
 import WorklistItem from "./WorklistItem";
-import {COURSE} from "../types";
+import {List} from "immutable";
 
 import "css/components/Worklist.scss";
 
@@ -13,12 +12,19 @@ export default class Worklist extends Component {
           course =>
           <WorklistItem
             course={course}
-            onClick={this.props.onClick}/>
+            key={course.id}
+            onClick={this.props.onClick}
+          />
           )
         }
       </div>
     );
   }
 }
+
 Worklist.displayName = "Worklist";
-Worklist.propTypes = COURSE;
+
+Worklist.propTypes = {
+  courses: PropTypes.instanceOf(List),
+  onClick: PropTypes.func
+}

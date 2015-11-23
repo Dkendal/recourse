@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from "react";
 import Course from "./Course";
-import {COURSE} from "../types";
+import {List} from "immutable";
 
 export default class CourseList extends Component {
   render() {
-    const style =
-      { width: '100%'
-      };
+    const style = {
+      width: "100%"
+    };
 
     return(
       <table style={style}>
@@ -22,13 +22,14 @@ export default class CourseList extends Component {
         <tbody>
           {
             this.props.courses.map(
-              (course, idx) =>
+              (course) =>
               <Course
                 key={course.id}
                 onClick={() => this.props.onCourseClick(course)}
                 selected={this.props.isSelected(course)}
-                {...course} />
-              )
+                {...course}
+              />
+            )
           }
         </tbody>
       </table>
@@ -38,5 +39,7 @@ export default class CourseList extends Component {
 CourseList.displayName = "CourseList";
 
 CourseList.propTypes = {
-  addCourse: PropTypes.func
+  courses: PropTypes.instanceOf(List),
+  isSelected: PropTypes.func,
+  onCourseClick: PropTypes.func
 };
