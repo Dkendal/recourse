@@ -1,33 +1,32 @@
 import {createAction} from "redux-actions";
 import {selectedCourses} from "./selectors";
 
-export const joinedChannel = createAction("JOINED_CHANNEL");
-export const joiningChannel = createAction("JOINING_CHANNEL");
 export const filterCourses = createAction("FILTER_COURSES");
-export const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
-export const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
+
+const joinedChannel = createAction("JOINED_CHANNEL");
+const joiningChannel = createAction("JOINING_CHANNEL");
+const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
+const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
+const setSections = createAction("SET_SECTIONS");
+const setCourses = createAction("SET_COURSES");
 
 function updateSchedule(startAction) {
   return channel => course => (dispatch, getState) => {
-    const setSections = createAction("SET_SECTIONS");
 
     dispatch(startAction(course));
 
     const courseIds = selectedCourses(getState());
 
+    const onOk = ({payload}) => dispatch(setSections(payload));
+
     channel.
       push("make_schedule", courseIds).
-      receive(
-        "ok",
-        ({payload}) => {
-          dispatch(setSections(payload));
-        }
-      );
+      receive("ok", onOk);
   };
 }
 
-export const addToSchedule = updateSchedule(selectCourse);
-export const removeFromSchedule = updateSchedule(deselectCourse);
+const addToSchedule = updateSchedule(selectCourse);
+const removeFromSchedule = updateSchedule(deselectCourse);
 
 export function toggleCourseSelection(channel, selectedCourses, course) {
   if(selectedCourses.has(course.id)) {
@@ -38,16 +37,11 @@ export function toggleCourseSelection(channel, selectedCourses, course) {
 
 export function searchCourses(channel) {
   return (dispatch) => {
-    const setCourses = createAction("SET_COURSES");
+    const onOk = ({payload}) => dispatch(setCourses(payload));
 
     channel.
       push("courses:search").
-      receive(
-        "ok",
-        ({payload}) => {
-          dispatch(setCourses(payload));
-        }
-      );
+      receive("ok", onOk);
   };
 }
 
@@ -55,14 +49,13 @@ export function joinChannel(channel) {
   return dispatch => {
     dispatch(joiningChannel(channel));
 
+    const onOk = () => {
+      dispatch(joinedChannel());
+      dispatch(searchCourses(channel));
+    };
+
     channel.
       join().
-      receive(
-        "ok",
-        () => {
-          dispatch(joinedChannel());
-          dispatch(searchCourses(channel));
-        }
-      );
+      receive("ok", onOk);
   };
 }
