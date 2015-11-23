@@ -6,14 +6,16 @@ import "css/components/Worklist.scss";
 
 export default class Worklist extends Component {
   render() {
+    let {courses, ...rest} = this.props;
+
     return(
       <div className="worklist">
-        {this.props.courses.map(
+        {courses.map(
           course =>
           <WorklistItem
+            {...rest}
             course={course}
             key={course.id}
-            onClick={this.props.onClick}
           />
           )
         }
@@ -26,5 +28,4 @@ Worklist.displayName = "Worklist";
 
 Worklist.propTypes = {
   courses: PropTypes.instanceOf(List),
-  onClick: PropTypes.func
-}
+};

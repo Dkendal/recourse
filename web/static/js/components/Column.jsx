@@ -2,11 +2,8 @@ import React, {Component, PropTypes} from "react";
 
 export default class Column extends Component {
   render() {
-    let style = {
-      flex: 1,
-      display: "flex",
-      flexDirection: "column"
-    };
+    let {style, ...rest} = this.props;
+    style = style || {};
 
     if (this.props.fixed) {
       style.maxHeight = "100vh";
@@ -14,7 +11,11 @@ export default class Column extends Component {
     }
 
     return (
-      <div style={style}>
+      <div
+        {...rest}
+        className="column"
+        style={style}
+      >
         {this.props.children}
       </div>
     );
@@ -25,5 +26,6 @@ Column.displayName = "Column";
 
 Column.propTypes = {
   children: PropTypes.node,
-  fixed: PropTypes.bool
+  fixed: PropTypes.bool,
+  style: PropTypes.object
 };
