@@ -6,11 +6,13 @@ export const channel = state => state.channel;
 export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
+export const selectedTermId = state => state.frontEnd.selectedTerm;
 export const courseFilter = state => state.frontEnd.courseFilter;
 
 export const selectedTerm = createSelector(
   terms,
-  terms => terms.first()
+  selectedTermId,
+  (terms, termId) => terms.find(({id}) => id === termId)
 );
 
 export const courses = createSelector(
@@ -53,6 +55,7 @@ const filteredCourses = createSelector(
 
 const select = createStructuredSelector({
   terms,
+  selectedTerm,
   courses,
   worklist,
   filteredCourses,

@@ -47,16 +47,25 @@ class Recourse extends Component {
     const isSelected =
       (course) => selectedCourses.has(course.id);
 
+    const onTermChange = ({target}) => {
+      const termId = Number.parseInt(target.selectedOptions[0].value, 10);
+      return dispatch(actions.changeTerm(termId));
+    };
+
     return(
       <Row style={{height: "100vh"}}>
         <Column fixed>
           <div>
-            <select id="" name="term">
+            <select
+              onChange={onTermChange}
+              name="term"
+            >
               {
                 terms.map(
                   term =>
                   <option
-                    value="{term.id}"
+                    key={term.id}
+                    value={term.id}
                   >
                   {`${term.semester} ${term.year}`}
                   </option>

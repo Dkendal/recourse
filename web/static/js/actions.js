@@ -2,12 +2,14 @@ import {createAction} from "redux-actions";
 import {selectedCourses} from "./selectors";
 
 export const filterCourses = createAction("FILTER_COURSES");
+export const changeTerm = createAction("CHANGE_TERM");
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
 const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
 const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
 const setSections = createAction("SET_SECTIONS");
+
 function updateSchedule(startAction) {
   return channel => course => (dispatch, getState) => {
 
@@ -38,6 +40,7 @@ export function searchTerms(channel) {
     const setTerms = createAction("SET_TERMS");
     const onOk = ({payload}) => {
       dispatch(setTerms(payload));
+      dispatch(changeTerm(payload[0].id));
     };
 
     channel.

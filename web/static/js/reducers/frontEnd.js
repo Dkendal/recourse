@@ -4,6 +4,14 @@ import {handleActions} from "redux-actions";
 
 const initialState = {isFetching: false, didInvalidate: false};
 
+const selectedTerm = handleActions(
+  {
+    CHANGE_TERM:
+      (state, {payload}) => payload
+  },
+  (state) => state
+);
+
 const sections = handleActions(
   {},
   initialState
@@ -30,6 +38,7 @@ const courseFilter = handleActions(
 
 const frontEnd = combineReducers({
   sections,
+  selectedTerm,
   selectedCourses,
   courseFilter
 });
