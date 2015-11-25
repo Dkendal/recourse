@@ -1,26 +1,14 @@
 import React, {Component, PropTypes} from "react";
 
-function hash(str) {
-  return(
-    str.
-      split("").
-      reduce(
-        (a, b) => {
-          a = ((a << 5) -a) + b.charCodeAt(0);
-          return a & a;
-        },
-        0
-      )
-  );
-}
-
 function color({subject, number}) {
+  const c = 30; // just an arbirary constant
   const str = `${subject}${number}`;
-  const hex = hash(str).
-    toString(16).
-    slice(-6);
+  const hue = str.
+    split("").
+    map(x => x.charCodeAt(0)).
+    reduce((x, y) => (x + y * c) % 360);
 
-  return `#${hex}`;
+  return `hsl(${hue}, 60%, 60%)`;
 }
 
 function toPercent(t, startHr, endHr) {
