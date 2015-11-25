@@ -22,6 +22,16 @@ defmodule Recourse.Term do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  defimpl Poison.Encoder, for: __MODULE__ do
+    def encode(term, _options) do
+      %{id: term.id,
+        year: term.year,
+        semester: term.semester,
+        courses: term.courses }
+      |> Poison.Encoder.encode []
+    end
+  end
 end
 
 defimpl String.Chars, for: Recourse.Term do

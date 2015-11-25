@@ -1,11 +1,22 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
+import {List} from "immutable";
 
 export const channel = state => state.channel;
-export const courses = state => state.entries.courses;
 export const sections = state => state.entries.sections;
+export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const courseFilter = state => state.frontEnd.courseFilter;
+
+export const selectedTerm = createSelector(
+  terms,
+  terms => terms.first()
+);
+
+export const courses = createSelector(
+  selectedTerm,
+  (term) => term && term.courses || List()
+);
 
 export const worklist = createSelector(
   courses,
@@ -41,6 +52,7 @@ const filteredCourses = createSelector(
 );
 
 const select = createStructuredSelector({
+  terms,
   courses,
   worklist,
   filteredCourses,

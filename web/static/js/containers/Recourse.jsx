@@ -19,6 +19,7 @@ class Recourse extends Component {
       worklist,
       selectedCourses,
       filteredCourses,
+      terms,
       sections
     } = this.props;
 
@@ -49,6 +50,21 @@ class Recourse extends Component {
     return(
       <Row style={{height: "100vh"}}>
         <Column fixed>
+          <div>
+            <select id="" name="term">
+              {
+                terms.map(
+                  term =>
+                  <option
+                    value="{term.id}"
+                  >
+                  {`${term.semester} ${term.year}`}
+                  </option>
+                )
+              }
+            </select>
+          </div>
+
           <div>
             <form onSubmit={onSubmit}>
               <input

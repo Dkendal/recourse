@@ -2,13 +2,6 @@ import {combineReducers} from "redux";
 import {List} from "immutable";
 import {handleActions} from "redux-actions";
 
-const courses = handleActions(
-  {
-    SET_COURSES: (state, {payload}) => List(payload)
-  },
-  List()
-);
-
 const sections = handleActions(
   {
     SET_SECTIONS:
@@ -17,9 +10,17 @@ const sections = handleActions(
   List()
 );
 
+const terms = handleActions(
+  {
+    SET_TERMS:
+      (state, {payload}) => List(payload)
+  },
+  List()
+);
+
 const entries = combineReducers({
-  courses,
-  sections
+  sections,
+  terms
 });
 
 export default entries;

@@ -8,8 +8,6 @@ const joiningChannel = createAction("JOINING_CHANNEL");
 const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
 const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
 const setSections = createAction("SET_SECTIONS");
-const setCourses = createAction("SET_COURSES");
-
 function updateSchedule(startAction) {
   return channel => course => (dispatch, getState) => {
 
@@ -35,12 +33,15 @@ export function toggleCourseSelection(channel, selectedCourses, course) {
   return addToSchedule(channel)(course);
 }
 
-export function searchCourses(channel) {
+export function searchTerms(channel) {
   return (dispatch) => {
-    const onOk = ({payload}) => dispatch(setCourses(payload));
+    const setTerms = createAction("SET_TERMS");
+    const onOk = ({payload}) => {
+      dispatch(setTerms(payload));
+    };
 
     channel.
-      push("courses:search").
+      push("terms:search").
       receive("ok", onOk);
   };
 }
@@ -51,7 +52,7 @@ export function joinChannel(channel) {
 
     const onOk = () => {
       dispatch(joinedChannel());
-      dispatch(searchCourses(channel));
+      dispatch(searchTerms(channel));
     };
 
     channel.
