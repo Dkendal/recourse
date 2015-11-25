@@ -46,7 +46,10 @@ defmodule Recourse.Scraper.Course do
   end
 
   defp http_get(query) do
-    get!("courses?" <> URI.encode_query query)
+    get!(
+      "courses?" <> URI.encode_query(query),
+      [],
+      [timeout: :infinity, recv_timeout: :infinity])
   end
 
   defp params(args) do
