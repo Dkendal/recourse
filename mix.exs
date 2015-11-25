@@ -49,6 +49,8 @@ defmodule Recourse.Mixfile do
 
       {:apex, only: [:dev, :test]},
 
+      {:dialyze, "~> 0.2.0"},
+      {:credo, "~> 0.1.9", only: [:dev, :test]},
       {:aruspex, github: "dkendal/aruspex", branch: "master"}]
   end
 end
