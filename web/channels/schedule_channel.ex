@@ -12,7 +12,9 @@ defmodule Recourse.ScheduleChannel do
 
   def handle_in("terms:search", _payload, socket) do
     terms = Repo.all from t in Term,
-      preload: :courses
+      join: c in assoc(t, :courses),
+      join: s in assoc(c, :sections),
+      preload: [courses: c]
 
     {:reply, {:ok, %{payload: terms}}, socket}
   end
