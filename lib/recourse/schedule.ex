@@ -14,7 +14,7 @@ defmodule Recourse.Schedule do
     preload: [:course],
     order_by: c.id)
     |> Repo.all # [Section]
-    |> Enum.group_by(& &1.course) # %{ int: [Section] }
+    |> Enum.group_by(& {&1.course_id, &1.schedule_type}) # %{ int: [Section] }
     |> Enum.map(fn {course, sections} ->
       pid |> Aruspex.variable(course, sections)
       course
