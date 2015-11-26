@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {selectedCourses} from "./selectors";
+import {worklist} from "./selectors";
 
 export const filterCourses = createAction("FILTER_COURSES");
 export const changeTerm = createAction("CHANGE_TERM");
@@ -15,7 +15,7 @@ function updateSchedule(startAction) {
 
     dispatch(startAction(course));
 
-    const courseIds = selectedCourses(getState());
+    const courseIds = worklist(getState()).map(x => x.id);
 
     const onOk = ({payload}) => dispatch(setSections(payload));
 
