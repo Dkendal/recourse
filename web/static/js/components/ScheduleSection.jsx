@@ -28,6 +28,7 @@ export default class ScheduleSection extends Component {
       section,
       startHr
     } = this.props;
+    const course = section.course;
 
     const top = toPercent(section.time_start, startHr, endHr);
     const bottom = 100 - toPercent(section.time_end, startHr, endHr);
@@ -55,8 +56,8 @@ export default class ScheduleSection extends Component {
               key={day}
               style={sectionStyle}
             >
-              <span>{section.course.subject}</span>
-              <span>{section.course.number}</span>
+              <div>{`${course.subject} ${course.number}`}</div>
+              <div>{`[${section.schedule_type}]`}</div>
             </div>
           )
         }
