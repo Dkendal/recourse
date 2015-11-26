@@ -23,27 +23,34 @@ defmodule Recourse.Schedule do
     for x <- courses, y <- courses, x > y do
       pid |> Aruspex.post constraint(
       variables: [x, y],
-      function: &non_overlapping/1)
+      function: &no_conflict/1)
     end
 
     Aruspex.find_solution(pid)
     |> Dict.values
   end
 
-  defp non_overlapping([a, b]) do
-    (!during_section(a.time_start, b) and
-    !during_section(a.time_end, b))
-    |> case do
-      true -> 0
-      false -> 1
+  def no_conflict([a, b]) do
+    if days_different?(a, b) or no_time_conflict?(a, b) do
+      0
+    else
+      1
     end
   end
 
-  defp during_section(t, s) do
-    t |> between(s.time_start..s.time_end)
+  def no_time_conflict?(
+    %{time_start: t1, time_end: t2},
+    %{time_start: s1, time_end: s2}) do
+    cond do
+      t2 <= s1 -> true
+      s2 <= t1 -> true
+      true -> false
+    end
   end
 
-  defp between(t1, t2..t3) do
-    t1 > t2 and t1 < t3
+  def days_different?(a, b) do
+    a = Enum.into a.days, HashSet.new
+    b = Enum.into b.days, HashSet.new
+    Set.disjoint? a, b
   end
 end
