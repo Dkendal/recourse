@@ -17,8 +17,14 @@ defmodule Recourse.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Recourse, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+     applications: [
+       :phoenix,
+       :phoenix_html,
+       :cowboy,
+       :logger,
+       :phoenix_ecto,
+       :dbg,
+       :postgrex]]
   end
 
   # Specifies which paths to compile per environment
@@ -50,7 +56,8 @@ defmodule Recourse.Mixfile do
       {:apex, only: [:dev, :test]},
 
       {:dialyze, "~> 0.2.0"},
+      {:dbg, github: "fishcakez/dbg"},
       {:credo, "~> 0.1.9", only: [:dev, :test]},
-      {:aruspex, github: "dkendal/aruspex", branch: "master"}]
+      {:aruspex, path: "~/src/aruspex"}]
   end
 end
