@@ -15,7 +15,6 @@ class Recourse extends Component {
   render() {
     const {
       dispatch,
-      channel,
       worklist,
       selectedCourses,
       filteredCourses,
