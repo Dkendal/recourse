@@ -17,14 +17,17 @@ export const selectedTerm = createSelector(
 
 export const courses = createSelector(
   selectedTerm,
-  (term) => term && term.courses || List()
+  (term) => new List(term && term.courses || [])
 );
 
 export const worklist = createSelector(
   courses,
   selectedCourses,
-  (courses, selectedCourses) => courses.filter(
-    ({id}) => selectedCourses.has(id))
+  (courses, selectedCourses) => {
+    return courses.filter(
+      ({id}) => selectedCourses.has(id)
+    );
+  }
 );
 
 export const worklistIds = createSelector(
