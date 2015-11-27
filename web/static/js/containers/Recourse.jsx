@@ -1,63 +1,41 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import CourseList from "../components/CourseList";
+import CourseSearch from "../components/CourseSearch";
 import Worklist from "../components/Worklist";
 import Schedule from "../components/Schedule";
 import Row from "../components/Row";
 import Column from "../components/Column";
-import * as actions from "../actions";
+import * as a from "../actions";
 import select from "../selectors";
+import {compose} from "underscore";
 
 import "css/base";
 import "css/containers/Recourse";
 
 class Recourse extends Component {
+  getSelectedTerm({target}) {
+    return Number.parseInt(target.selectedOptions[0].value, 10);
+  }
+
   render() {
     const {
       dispatch,
       worklist,
-      selectedCourses,
       filteredCourses,
       terms,
       sections
     } = this.props;
 
-    const onCourseClick = course => {
-      return dispatch(
-        actions.toggleCourseSelection(course));
-    };
-
-    const onSubmit = (event) => {
-      event.preventDefault();
-
-      const fields = ["courseName"];
-
-      let formValues = {};
-
-      fields.
-        map(field => event.target.elements.namedItem(field)).
-        map(input => formValues[input.name] = input.value);
-
-      return dispatch(
-        actions.filterCourses(formValues)
-      );
-    };
-
-    const isSelected =
-      (course) => selectedCourses.has(course.id);
-
-    const onTermChange = ({target}) => {
-      const termId = Number.parseInt(target.selectedOptions[0].value, 10);
-      return dispatch(actions.changeTerm(termId));
-    };
+    const onCourseClick = compose(dispatch, a.toggleCourseSelection);
 
     return(
       <Row style={{height: "100vh"}}>
         <Column fixed>
           <div>
             <select
-              onChange={onTermChange}
               name="term"
+              onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
             >
               {
                 terms.map(
@@ -87,7 +65,7 @@ class Recourse extends Component {
 
           <CourseList
             courses={filteredCourses}
-            isSelected={isSelected}
+            isSelected={(c) => worklist.includes(c)}
             onCourseClick={onCourseClick}
           />
         </Column>
