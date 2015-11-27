@@ -51,17 +51,9 @@ class Recourse extends Component {
             </select>
           </div>
 
-          <div>
-            <form onSubmit={onSubmit}>
-              <input
-                name="courseName"
-                type={"search"}
-              />
-              <input
-                type="submit"
-              />
-            </form>
-          </div>
+          <CourseSearch
+            onSubmit={compose(dispatch, a.filterCourses)}
+          />
 
           <CourseList
             courses={filteredCourses}
