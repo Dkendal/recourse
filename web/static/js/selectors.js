@@ -27,6 +27,11 @@ export const worklist = createSelector(
     ({id}) => selectedCourses.has(id))
 );
 
+export const worklistIds = createSelector(
+  worklist,
+  courses => new List(courses.map(course => course.id))
+);
+
 /* Filter courses based on parameters set in the course filter.
  *
  * Return true if no value set on courseName.
@@ -58,6 +63,7 @@ const select = createStructuredSelector({
   selectedTerm,
   courses,
   worklist,
+  worklistIds,
   filteredCourses,
   selectedCourses,
   channel,

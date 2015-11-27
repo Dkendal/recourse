@@ -25,7 +25,7 @@ class Recourse extends Component {
 
     const onCourseClick = course => {
       return dispatch(
-        actions.toggleCourseSelection(channel, selectedCourses, course));
+        actions.toggleCourseSelection(course));
     };
 
     const onSubmit = (event) => {

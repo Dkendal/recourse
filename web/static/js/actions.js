@@ -1,8 +1,7 @@
 import {createAction} from "redux-actions";
-import {worklist} from "./selectors";
+import * as s from "./selectors";
 
 export const filterCourses = createAction("FILTER_COURSES");
-export const changeTerm = createAction("CHANGE_TERM");
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
@@ -10,29 +9,46 @@ const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
 const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
 const setSections = createAction("SET_SECTIONS");
 
+function refreshSchedule() {
+  return (dispatch, getState) => {
+    s.channel(getState()).
+      push(
+        "make_schedule",
+        s.worklistIds(getState())
+      ).
+      receive(
+        "ok",
+        ({payload}) => dispatch(setSections(payload))
+      );
+  };
+}
+
+export function changeTerm(term) {
+  return (dispatch) => {
+    dispatch(createAction("CHANGE_TERM")(term));
+    dispatch(refreshSchedule());
+  };
+}
+
 function updateSchedule(startAction) {
-  return channel => course => (dispatch, getState) => {
-
+  return course => (dispatch) => {
     dispatch(startAction(course));
-
-    const courseIds = worklist(getState()).map(x => x.id);
-
-    const onOk = ({payload}) => dispatch(setSections(payload));
-
-    channel.
-      push("make_schedule", courseIds).
-      receive("ok", onOk);
+    dispatch(refreshSchedule());
   };
 }
 
 const addToSchedule = updateSchedule(selectCourse);
 const removeFromSchedule = updateSchedule(deselectCourse);
 
-export function toggleCourseSelection(channel, selectedCourses, course) {
-  if(selectedCourses.has(course.id)) {
-    return removeFromSchedule(channel)(course);
-  }
-  return addToSchedule(channel)(course);
+export function toggleCourseSelection(course) {
+  return (dispatch, getState) => {
+    const ids = s.worklistIds(getState());
+
+    if(ids.includes(course.id)) {
+      return dispatch(removeFromSchedule(course));
+    }
+    return dispatch(addToSchedule(course));
+  };
 }
 
 export function searchTerms(channel) {
