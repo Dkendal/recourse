@@ -1,15 +1,23 @@
 import React, {Component, PropTypes} from "react";
+import {compose} from "underscore";
 
 class ScheduleSettings extends Component {
   render() {
     const {
-      onBlur
+      onSettingsChange,
+      onSubmit
     } = this.props;
+
+    const preventDefault = (e) => {
+      e.preventDefault();
+      return e;
+    };
 
     return (
       <form
         action=""
-        onBlur={onBlur}
+        onKeyUp={onSettingsChange}
+        onSubmit={compose(onSubmit, preventDefault)}
       >
         <label htmlFor="scheduleSettings_startTime">
           {"Prefered start time"}
@@ -26,6 +34,8 @@ class ScheduleSettings extends Component {
           name="scheduleSettings_endTime"
           type="time"
         />
+
+        <input type="submit"/>
       </form>
     );
   }
@@ -33,7 +43,8 @@ class ScheduleSettings extends Component {
 ScheduleSettings.displayName = "ScheduleSettings";
 
 ScheduleSettings.propTypes = {
-  onBlur: PropTypes.func
+  onSettingsChange: PropTypes.func,
+  onSubmit: PropTypes.func
 };
 
 export default ScheduleSettings;

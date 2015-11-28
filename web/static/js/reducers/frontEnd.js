@@ -1,6 +1,7 @@
 import {combineReducers} from "redux";
-import {Set} from "immutable";
 import {handleActions} from "redux-actions";
+import {Set} from "immutable";
+import scheduleSettings from "./frontEnd/scheduleSettings";
 
 const initialState = {isFetching: false, didInvalidate: false};
 
@@ -35,27 +36,6 @@ const courseFilter = handleActions(
   },
   {}
 );
-
-const startTime = handleActions(
-  {
-    SET_scheduleSettings_startTime:
-      (state, {payload}) => payload
-  },
-  ""
-);
-
-const endTime = handleActions(
-  {
-    SET_scheduleSettings_endTime:
-      (state, {payload}) => payload
-  },
-  ""
-);
-
-const scheduleSettings = combineReducers({
-  startTime,
-  endTime
-});
 
 const frontEnd = combineReducers({
   sections,

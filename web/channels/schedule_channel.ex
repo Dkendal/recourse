@@ -25,11 +25,8 @@ defmodule Recourse.ScheduleChannel do
     {:reply, {:ok, %{payload: courses}}, socket}
   end
 
-  def handle_in("make_schedule", payload, socket) do
-    sections =
-      payload
-      |> Recourse.Schedule.build
-
+  def handle_in("make_schedule", options, socket) do
+    sections = Recourse.Schedule.build(options)
     {:reply, {:ok, %{payload: sections}}, socket}
   end
 

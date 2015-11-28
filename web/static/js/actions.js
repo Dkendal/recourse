@@ -9,12 +9,15 @@ const selectCourse = createAction("SELECT_COURSE", ({id}) => id);
 const deselectCourse = createAction("DESELECT_COURSE", ({id}) => id);
 const setSections = createAction("SET_SECTIONS");
 
-function refreshSchedule() {
+export function refreshSchedule() {
   return (dispatch, getState) => {
+    const scheduleSettings = s.scheduleSettings(getState());
+    const ids = s.worklistIds(getState());
+
     s.channel(getState()).
       push(
         "make_schedule",
-        s.worklistIds(getState())
+        { course_ids: ids, settings: scheduleSettings }
       ).
       receive(
         "ok",
@@ -23,9 +26,9 @@ function refreshSchedule() {
   };
 }
 
-export function setScheduleSettings({target}) {
+export function setScheduleSettings({target: {value, name}}) {
   return (dispatch) => {
-    return dispatch(createAction(`SET_${target.name}`)(target.value));
+    return dispatch(createAction(`SET_${name}`)(value));
   };
 }
 

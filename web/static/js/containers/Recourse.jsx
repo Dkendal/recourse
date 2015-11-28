@@ -64,7 +64,8 @@ class Recourse extends Component {
         </Column>
         <Column>
           <ScheduleSettings
-            onBlur={compose(dispatch, a.setScheduleSettings)}
+            onSettingsChange={compose(dispatch, a.setScheduleSettings)}
+            onSubmit={compose(dispatch, a.refreshSchedule)}
           />
           <Worklist
             courses={worklist}

@@ -2,12 +2,40 @@ import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
 import {List} from "immutable";
 
+const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
+const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
 export const channel = state => state.channel;
 export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const selectedTermId = state => state.frontEnd.selectedTerm;
 export const courseFilter = state => state.frontEnd.courseFilter;
+
+// castTime(String) :: "%H:%M:%S"
+// Cast input value to formatted time string.
+// Returns 00:00:00 if input is invalid.
+function castTime(t) {
+  let date = new Date(0, 0, 0, ...t.split(":"));
+  if (isNaN(date.getTime())) {
+    date = new Date(0, 0, 0, 0, 0, 0);
+  }
+  return date.toLocaleFormat("%H:%M:%S");
+}
+
+const startTime = createSelector(
+  startTimeStr,
+  castTime
+);
+
+const endTime = createSelector(
+  endTimeStr,
+  castTime
+);
+
+export const scheduleSettings = createStructuredSelector({
+  startTime,
+  endTime
+});
 
 export const selectedTerm = createSelector(
   terms,
