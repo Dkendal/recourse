@@ -35,7 +35,10 @@ class ScheduleSettings extends Component {
           type="time"
         />
 
-        <input type="submit"/>
+        <input
+          type="submit"
+          value="Build schedule"
+        />
       </form>
     );
   }
