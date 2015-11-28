@@ -32,7 +32,7 @@ class Recourse extends Component {
 
     return(
       <Row style={{height: "100vh"}}>
-        <Column fixed>
+        <Column>
           <div>
             <select
               name="term"
@@ -56,11 +56,13 @@ class Recourse extends Component {
             onSubmit={compose(dispatch, a.filterCourses)}
           />
 
-          <CourseList
-            courses={filteredCourses}
-            isSelected={(c) => worklist.includes(c)}
-            onCourseClick={onCourseClick}
-          />
+          <div style={{flex: 1, overflowY: "scroll"}}>
+            <CourseList
+              courses={filteredCourses}
+              isSelected={(c) => worklist.includes(c)}
+              onCourseClick={onCourseClick}
+            />
+          </div>
         </Column>
         <Column>
           <ScheduleSettings
