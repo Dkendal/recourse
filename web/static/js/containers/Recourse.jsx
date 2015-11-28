@@ -4,6 +4,7 @@ import CourseList from "../components/CourseList";
 import CourseSearch from "../components/CourseSearch";
 import Worklist from "../components/Worklist";
 import Schedule from "../components/Schedule";
+import ScheduleSettings from "../components/ScheduleSettings";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import * as a from "../actions";
@@ -62,6 +63,9 @@ class Recourse extends Component {
           />
         </Column>
         <Column>
+          <ScheduleSettings
+            onBlur={compose(dispatch, a.setScheduleSettings)}
+          />
           <Worklist
             courses={worklist}
             onClick={onCourseClick}

@@ -23,6 +23,12 @@ function refreshSchedule() {
   };
 }
 
+export function setScheduleSettings({target}) {
+  return (dispatch) => {
+    return dispatch(createAction(`SET_${target.name}`)(target.value));
+  };
+}
+
 export function changeTerm(term) {
   return (dispatch) => {
     dispatch(createAction("CHANGE_TERM")(term));

@@ -25,7 +25,7 @@ class CourseSearch extends Component {
         <form onSubmit={formOnSubmit}>
           <input
             name="courseName"
-            type={"search"}
+            type="search"
           />
           <input
             type="submit"

@@ -36,11 +36,33 @@ const courseFilter = handleActions(
   {}
 );
 
+const startTime = handleActions(
+  {
+    SET_scheduleSettings_startTime:
+      (state, {payload}) => payload
+  },
+  ""
+);
+
+const endTime = handleActions(
+  {
+    SET_scheduleSettings_endTime:
+      (state, {payload}) => payload
+  },
+  ""
+);
+
+const scheduleSettings = combineReducers({
+  startTime,
+  endTime
+});
+
 const frontEnd = combineReducers({
   sections,
   selectedTerm,
   selectedCourses,
-  courseFilter
+  courseFilter,
+  scheduleSettings
 });
 
 export default frontEnd;
