@@ -5,7 +5,7 @@ defmodule Recourse.Schedule do
   alias Recourse.Repo
   alias Ecto.Time
 
-  def build %{"course_ids" => course_ids, "settings" => settings} do
+  def build(%{"course_ids" => course_ids, "settings" => settings}) do
     {:ok, pid} = Aruspex.start_link
 
     course_ids
