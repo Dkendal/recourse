@@ -1,6 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
 import {List} from "immutable";
+import moment from "moment";
 
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -19,7 +20,7 @@ function castTime(t) {
   if (isNaN(date.getTime())) {
     date = new Date(0, 0, 0, 0, 0, 0);
   }
-  return date.toLocaleFormat("%H:%M:%S");
+  return moment(date).format("HH:mm:ss");
 }
 
 const startTime = createSelector(
