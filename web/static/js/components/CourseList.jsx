@@ -8,14 +8,14 @@ export default class CourseList extends Component {
   render() {
     let { style, className } = this.props;
 
-    className += " courseList";
+    className += " courseList flex";
 
     return(
       <div
         className={className}
         style={style}
       >
-        <table style={{width: "100%"}}>
+        <table>
           <thead>
             <tr>
               <th>{"Number"}</th>
