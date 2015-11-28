@@ -27,9 +27,6 @@ class CourseSearch extends Component {
             name="courseName"
             type="search"
           />
-          <input
-            type="submit"
-          />
         </form>
       </div>
     );
