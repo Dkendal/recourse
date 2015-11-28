@@ -1,5 +1,9 @@
 @import "~normalize.css";
 
+html, body {
+  height: 100%;
+}
+
 .flex {
   flex: 1;
 }

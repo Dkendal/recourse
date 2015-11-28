@@ -31,55 +31,54 @@ class Recourse extends Component {
     const onCourseClick = compose(dispatch, a.toggleCourseSelection);
 
     return(
-      <Row style={{height: "100vh"}}>
-        <Column>
-          <div>
-            <select
-              name="term"
-              onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
-            >
-              {
-                terms.map(
-                  term =>
-                  <option
-                    key={term.id}
-                    value={term.id}
-                  >
+      <div>
+        <div className="recourse-header">
+          <select
+            name="term"
+            onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
+          >
+            {
+              terms.map(
+                term =>
+                <option
+                  key={term.id}
+                  value={term.id}
+                >
                   {`${term.semester} ${term.year}`}
-                  </option>
-                )
-              }
-            </select>
-          </div>
+                </option>
+              )
+            }
+          </select>
+        </div>
+        <Row className="recourse-body">
+          <Column>
+            <CourseSearch
+              onSubmit={compose(dispatch, a.filterCourses)}
+            />
 
-          <CourseSearch
-            onSubmit={compose(dispatch, a.filterCourses)}
-          />
-
-          <div style={{flex: 1, overflowY: "scroll"}}>
             <CourseList
               courses={filteredCourses}
               isSelected={(c) => worklist.includes(c)}
               onCourseClick={onCourseClick}
             />
-          </div>
-        </Column>
-        <Column>
-          <ScheduleSettings
-            onSettingsChange={compose(dispatch, a.setScheduleSettings)}
-            onSubmit={compose(dispatch, a.refreshSchedule)}
-          />
-          <Worklist
-            courses={worklist}
-            onClick={onCourseClick}
-          />
-          <Schedule
-            endHr={20}
-            sections={sections}
-            startHr={7}
-          />
-        </Column>
-      </Row>
+          </Column>
+          <Column>
+            <ScheduleSettings
+              onSettingsChange={compose(dispatch, a.setScheduleSettings)}
+              onSubmit={compose(dispatch, a.refreshSchedule)}
+            />
+            <Worklist
+              courses={worklist}
+              onClick={onCourseClick}
+            />
+            <Schedule
+              endHr={20}
+              sections={sections}
+              startHr={7}
+            />
+          </Column>
+        </Row>
+      </div>
     );
   }
 }

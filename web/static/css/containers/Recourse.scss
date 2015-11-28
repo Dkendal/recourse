@@ -1,5 +1,11 @@
-@import "bourbon";
+$header-height: 50px;
 
-.Recourse.container {
-  @include display(flex);
+.recourse {
+  &-header {
+    height: $header-height;
+  }
+
+  &-body {
+    height: calc(100vh - #{$header-height});
+  }
 }

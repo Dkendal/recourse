@@ -2,44 +2,53 @@ import React, {Component, PropTypes} from "react";
 import Course from "./Course";
 import {List} from "immutable";
 
+import "css/components/CourseList";
+
 export default class CourseList extends Component {
   render() {
-    const style = {
-      width: "100%"
-    };
+    let { style, className } = this.props;
+
+    className += " courseList";
 
     return(
-      <table style={style}>
-        <thead>
-          <tr>
-            <th>{"Number"}</th>
-            <th>{"Subject"}</th>
-            <th>{"Title"}</th>
-            <th></th>
-          </tr>
-        </thead>
+      <div
+        className={className}
+        style={style}
+      >
+        <table style={{width: "100%"}}>
+          <thead>
+            <tr>
+              <th>{"Number"}</th>
+              <th>{"Subject"}</th>
+              <th>{"Title"}</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {
-            this.props.courses.map(
-              (course) =>
-              <Course
-                key={course.id}
-                onClick={() => this.props.onCourseClick(course)}
-                selected={this.props.isSelected(course)}
-                {...course}
-              />
-            )
-          }
-        </tbody>
-      </table>
+          <tbody>
+            {
+              this.props.courses.map(
+                (course) =>
+                <Course
+                  key={course.id}
+                  onClick={() => this.props.onCourseClick(course)}
+                  selected={this.props.isSelected(course)}
+                  {...course}
+                />
+              )
+            }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
 CourseList.displayName = "CourseList";
 
 CourseList.propTypes = {
+  className: PropTypes.string,
   courses: PropTypes.instanceOf(List),
   isSelected: PropTypes.func,
+  style: PropTypes.string,
   onCourseClick: PropTypes.func
 };
