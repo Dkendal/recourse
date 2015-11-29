@@ -19,8 +19,8 @@ $border: 2px solid hsl(0, 0%, 90%);
   }
 
   &-sections {
-    width: 100%;
     height: 100%;
+    width: 100%;
   }
 
   &-header {
@@ -42,7 +42,7 @@ $border: 2px solid hsl(0, 0%, 90%);
 
   &-border {
     .schedule-row {
-     border-top: $border;
+      border-top: $border;
     }
 
     .schedule-cell {
@@ -52,26 +52,15 @@ $border: 2px solid hsl(0, 0%, 90%);
   }
 
   &-section {
-    width: 1/6 * 100%;
-  }
+    box-sizing: border-box;
 
-  &-day-M {
-    left: 1/6 * 100%;
-  }
+    &-conflict {
+      border: 4px dashed red;
+    }
 
-  &-day-T {
-    left: 2/6 * 100%;
-  }
-
-  &-day-W {
-    left: 3/6 * 100%;
-  }
-
-  &-day-R {
-    left: 4/6 * 100%;
-  }
-
-  &-day-F {
-    left: 5/6 * 100%;
+    &-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

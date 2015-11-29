@@ -4,6 +4,7 @@ defmodule Recourse.Schedule do
   alias Recourse.Section
   alias Recourse.Repo
   alias Ecto.Time
+  import Recourse.Digraph
 
   def build(%{"course_ids" => course_ids, "settings" => settings}) do
     {:ok, pid} = Aruspex.start_link
@@ -13,7 +14,24 @@ defmodule Recourse.Schedule do
     |> init_variables(pid)
     |> init_constraints(settings, pid)
 
-    Dict.values Aruspex.find_solution(pid)
+    Aruspex.find_solution(pid)
+    |> Aruspex.State.values
+    |> components
+  end
+
+  def components values do
+    g = :digraph.new
+
+    values
+    |> Enum.map(add_vertex g)
+
+    for x <- values, y <- values, x != y do
+      if no_conflict([x, y]) > 0 do
+        add_edge g, x, y
+      end
+    end
+
+    :digraph_utils.components g
   end
 
   def no_conflict([a, b]) do

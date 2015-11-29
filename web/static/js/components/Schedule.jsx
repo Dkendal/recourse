@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import ScheduleSection from "./ScheduleSection";
+import ScheduleSectionGroup from "./ScheduleSectionGroup";
 import _ from "underscore";
 import {List} from "immutable";
 
@@ -26,11 +26,10 @@ export default class Schedule extends Component {
         <div className="schedule-body schedule-border flex">
           {
             this.props.sections.map(
-              section =>
-              <ScheduleSection
+              conflictingSections =>
+              <ScheduleSectionGroup
                 endHr={this.props.endHr}
-                key={section.id}
-                section={section}
+                collection={conflictingSections}
                 startHr={this.props.startHr}
               />
             )

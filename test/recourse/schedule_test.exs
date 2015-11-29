@@ -6,7 +6,7 @@ defmodule Recourse.ScheduleTest do
   alias Recourse.Section
   alias Recourse.Schedule
   alias Ecto.Time
-  import Enum, only: [any?: 2, find: 2, count: 1]
+  import Enum, only: [any?: 2, find: 2, count: 1, member?: 2]
   import Repo, only: [insert: 1]
 
   setup do
@@ -14,6 +14,10 @@ defmodule Recourse.ScheduleTest do
 
     {:ok, csc} = insert %Course{
       subject: "CSC", number: "100", term_id: term.id
+    }
+
+    {:ok, engl} = insert %Course{
+      subject: "ENGL", number: "100", term_id: term.id
     }
 
     {:ok, math} = insert %Course{
@@ -26,6 +30,14 @@ defmodule Recourse.ScheduleTest do
       time_end: %Time{hour: 16, min: 20, sec: 0},
       time_start: %Time{hour: 15, min: 30, sec: 0},
       course_id: csc.id
+    }
+
+    {:ok, engl_lecture} = insert %Section{
+      days: ~W(M W R),
+      schedule_type: "Lecture",
+      time_end: %Time{hour: 16, min: 20, sec: 0},
+      time_start: %Time{hour: 15, min: 30, sec: 0},
+      course_id: engl.id
     }
 
     {:ok, csc_tutorial} = insert %Section{
@@ -62,12 +74,49 @@ defmodule Recourse.ScheduleTest do
 
     { :ok,
       math: math,
+      csc: csc,
+      engl: engl,
       course_ids: [math.id, csc.id],
       late_math_lecture: late_math_lecture,
       earlier_math_lecture: earlier_math_lecture,
+      engl_lecture: engl_lecture,
       csc_lecture: csc_lecture,
       csc_tutorial: csc_tutorial
     }
+  end
+
+  test "[build/1] groups conflicts togethor", context do
+    sections = Schedule.build(%{
+      "course_ids" => [context.csc.id, context.engl.id],
+      "settings" => %{
+        "startTime" => "00:00:00",
+        "endTime" => "00:00:00"
+      }
+    })
+
+    assert count(sections) == 2
+
+    assert any? sections, fn
+      [s] ->
+        s.id == context.csc_tutorial.id
+      _ ->
+        false
+    end
+
+    assert any? sections, fn
+      [x, y] ->
+        (
+          x.id == context.csc_lecture.id &&
+          y.id == context.engl_lecture.id
+        )
+        or
+        (
+          y.id == context.csc_lecture.id &&
+          x.id == context.engl_lecture.id
+        )
+      _ ->
+        false
+    end
   end
 
   test "[build/1]", %{course_ids: course_ids, late_math_lecture: math_lecture} do
@@ -78,8 +127,12 @@ defmodule Recourse.ScheduleTest do
         "endTime" => "00:00:00"
       }
     })
+
     assert count(sections) == 4
-    assert find(sections, & &1.id == math_lecture.id)
+
+    assert any? sections, fn [s] ->
+      s.id == math_lecture.id
+    end
   end
 
   test "[build/1] can support time preferences", context do
@@ -91,8 +144,13 @@ defmodule Recourse.ScheduleTest do
       }
     })
 
-    assert any?(actual, & &1.id == context.earlier_math_lecture.id)
-    refute any?(actual, & &1.id == context.late_math_lecture.id)
+    assert any? actual, fn [s] ->
+      s.id == context.earlier_math_lecture.id
+    end
+
+    refute any? actual, fn [s] ->
+      s.id == context.late_math_lecture.id
+    end
 
     actual = Schedule.build(%{
       "course_ids" => [context.math.id],
@@ -102,8 +160,13 @@ defmodule Recourse.ScheduleTest do
       }
     })
 
-    refute any?(actual, & &1.id == context.earlier_math_lecture.id)
-    assert any?(actual, & &1.id == context.late_math_lecture.id)
+    refute any? actual, fn [s] ->
+      s.id == context.earlier_math_lecture.id
+    end
+
+    assert any? actual, fn [s] ->
+      s.id == context.late_math_lecture.id
+    end
   end
 
   test "[no_conflict/1]", context do
