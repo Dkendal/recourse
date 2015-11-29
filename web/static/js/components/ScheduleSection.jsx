@@ -21,23 +21,29 @@ function toPercent(t, startHr, endHr) {
   return (hr + min / 60 - startHr) / (scale) * 100;
 }
 
+function style({section: {time_start, time_end, course}, startHr, endHr}) {
+  const top = toPercent(time_start, startHr, endHr);
+  const bottom = 100 - toPercent(time_end, startHr, endHr);
+
+  return {
+    background: color(course),
+    top: `${top}%`,
+    bottom: `${bottom}%`
+  };
+}
+
 export default class ScheduleSection extends Component {
   render() {
     const {
-      endHr,
-      section,
-      startHr
+      section: {
+        days,
+        schedule_type,
+        course: {
+          subject,
+          number
+        }
+      }
     } = this.props;
-    const course = section.course;
-
-    const top = toPercent(section.time_start, startHr, endHr);
-    const bottom = 100 - toPercent(section.time_end, startHr, endHr);
-
-    const sectionStyle = {
-      background: color(section.course),
-      top: `${top}%`,
-      bottom: `${bottom}%`
-    };
 
     const className =
       (day) => [
@@ -49,15 +55,15 @@ export default class ScheduleSection extends Component {
     return (
       <div className="schedule-sections">
         {
-          section.days.map(
+          days.map(
             day =>
             <div
               className={className(day)}
               key={day}
-              style={sectionStyle}
+              style={style(this.props)}
             >
-              <div>{`${course.subject} ${course.number}`}</div>
-              <div>{`[${section.schedule_type}]`}</div>
+              <div>{`${subject} ${number}`}</div>
+              <div>{`[${schedule_type}]`}</div>
             </div>
           )
         }
