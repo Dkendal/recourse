@@ -7,7 +7,7 @@ import Schedule from "../components/Schedule";
 import ScheduleSettings from "../components/ScheduleSettings";
 import Row from "../components/Row";
 import Column from "../components/Column";
-import * as a from "../actions";
+import a from "../actions";
 import select from "../selectors";
 import {compose} from "underscore";
 
