@@ -1,12 +1,15 @@
 import {createAction} from "redux-actions";
 import {changeTerm} from "../actions";
+import * as s from "../selectors";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
+const setTerms = createAction("SET_TERMS");
 
-function getTerms(channel) {
-  return (dispatch) => {
-    const setTerms = createAction("SET_TERMS");
+export function getTerms() {
+  return (dispatch, getState) => {
+    const channel = s.channel(getState());
+
     const onOk = ({payload}) => {
       dispatch(setTerms(payload));
       dispatch(changeTerm(payload[0].id));
@@ -20,15 +23,18 @@ function getTerms(channel) {
 
 export function joinChannel(channel) {
   return dispatch => {
-    dispatch(joiningChannel(channel));
-
     const onOk = () => {
       dispatch(joinedChannel());
-      dispatch(getTerms(channel));
+      dispatch(getTerms());
     };
+
+    dispatch(joiningChannel(channel));
 
     channel.
       join().
-      receive("ok", onOk);
+      receive(
+        "ok",
+        onOk
+      );
   };
 }
