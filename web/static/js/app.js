@@ -6,7 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Recourse from "./containers/Recourse";
 import reducer from "./reducers";
-import {joinChannel} from "./actions";
+import {joinChannel} from "./actions/channel";
 
 import socket from "./socket";
 
