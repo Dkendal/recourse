@@ -15,7 +15,7 @@ defmodule Recourse.Schedule do
     |> init_constraints(settings, pid)
 
     Aruspex.find_solution(pid)
-    |> Aruspex.State.values
+    |> Dict.values
     |> components
   end
 
