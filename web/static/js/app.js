@@ -2,23 +2,40 @@ import {compose, createStore, applyMiddleware} from "redux";
 import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
 import {Provider} from "react-redux";
+import * as storage from "redux-storage";
+import createEngine from "redux-storage/engines/localStorage";
+import {decorators} from "redux-storage";
 import React from "react";
 import ReactDOM from "react-dom";
 import Recourse from "./containers/Recourse";
 import reducer from "./reducers";
+import socket from "./socket";
 import {joinChannel} from "./actions/channel";
 
-import socket from "./socket";
+let engine = createEngine("Recourse");
 
-// Now that you are connected, you can join channels with a topic:
+engine = decorators.filter(
+  engine,
+  [
+    [],
+    ["frontEnd"]
+  ]
+);
+
+const storageMiddleware = storage.createMiddleware(engine);
+
 const loggerMiddleware = createLogger();
 
 const store = compose(
   applyMiddleware(
     thunkMiddleware,
+    storageMiddleware,
     loggerMiddleware
   )
-)(createStore)(reducer);
+)(createStore)(storage.reducer(reducer));
+
+const load = storage.createLoader(engine);
+load(store);
 
 const channel = socket.channel("schedules:planner", {});
 
