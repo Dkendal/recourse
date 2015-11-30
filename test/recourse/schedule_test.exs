@@ -64,7 +64,7 @@ defmodule Recourse.ScheduleTest do
       course_id: math.id
     }
 
-    {:ok, math_lab} = insert %Section{
+    {:ok, _} = insert %Section{
       days: ~W(F),
       schedule_type: "Lab",
       time_end: %Time{hour: 16, min: 20, sec: 0},
@@ -167,16 +167,5 @@ defmodule Recourse.ScheduleTest do
     assert any? actual, fn [s] ->
       s.id == context.late_math_lecture.id
     end
-  end
-
-  test "[no_conflict/1]", context do
-    assert Schedule.no_conflict(
-      [context.csc_tutorial, context.csc_lecture]) == 0
-
-    assert Schedule.no_conflict(
-      [context.late_math_lecture, context.csc_lecture]) == 0
-
-    assert Schedule.no_conflict(
-      [context.earlier_math_lecture, context.csc_lecture]) == 1000
   end
 end
