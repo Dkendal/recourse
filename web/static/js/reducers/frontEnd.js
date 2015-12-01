@@ -26,7 +26,7 @@ const selectedTerm = handleActions(
     CHANGE_TERM:
       (state, {payload}) => payload
   },
-  (state) => state
+  0
 );
 
 let selectedCourses = handleActions(

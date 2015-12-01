@@ -9,7 +9,7 @@ export const channel = state => state.channel;
 export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
-export const selectedTermId = state => state.frontEnd.selectedTerm;
+export const selectedTermIdx = state => state.frontEnd.selectedTerm;
 export const courseFilter = state => state.frontEnd.courseFilter;
 
 // castTime(String) :: "%H:%M:%S"
@@ -40,8 +40,8 @@ export const scheduleSettings = createStructuredSelector({
 
 export const selectedTerm = createSelector(
   terms,
-  selectedTermId,
-  (terms, termId) => terms.find(({id}) => id === termId)
+  selectedTermIdx,
+  (terms, idx) => terms.get(idx)
 );
 
 export const courses = createSelector(
@@ -91,15 +91,16 @@ const filteredCourses = createSelector(
 );
 
 const select = createStructuredSelector({
-  terms,
-  selectedTerm,
-  courses,
-  worklist,
-  worklistIds,
-  filteredCourses,
-  selectedCourses,
   channel,
-  sections
+  courses,
+  filteredCourses,
+  sections,
+  selectedCourses,
+  selectedTerm,
+  selectedTermIdx,
+  terms,
+  worklist,
+  worklistIds
 });
 
 export default select;

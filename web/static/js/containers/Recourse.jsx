@@ -16,16 +16,17 @@ import "css/containers/Recourse";
 
 class Recourse extends Component {
   getSelectedTerm({target}) {
-    return Number.parseInt(target.selectedOptions[0].value, 10);
+    return Number.parseInt(target.value, 10);
   }
 
   render() {
     const {
       dispatch,
-      worklist,
       filteredCourses,
+      sections,
+      selectedTermIdx,
       terms,
-      sections
+      worklist
     } = this.props;
 
     const onCourseClick = compose(dispatch, a.toggleCourseSelection);
@@ -36,13 +37,14 @@ class Recourse extends Component {
           <select
             name="term"
             onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
+            value={selectedTermIdx}
           >
             {
               terms.map(
-                term =>
+                (term, idx) =>
                 <option
                   key={term.id}
-                  value={term.id}
+                  value={idx}
                 >
                   {`${term.semester} ${term.year}`}
                 </option>

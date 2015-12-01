@@ -12,7 +12,9 @@ import reducer from "./reducers";
 import socket from "./socket";
 import {joinChannel} from "./actions/channel";
 
+const channel = socket.channel("schedules:planner", {});
 let engine = createEngine("Recourse");
+const loggerMiddleware = createLogger();
 
 engine = decorators.filter(
   engine,
@@ -24,8 +26,6 @@ engine = decorators.filter(
 
 const storageMiddleware = storage.createMiddleware(engine);
 
-const loggerMiddleware = createLogger();
-
 const store = compose(
   applyMiddleware(
     thunkMiddleware,
@@ -36,8 +36,6 @@ const store = compose(
 
 const load = storage.createLoader(engine);
 load(store);
-
-const channel = socket.channel("schedules:planner", {});
 
 store.dispatch(joinChannel(channel));
 

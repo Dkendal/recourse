@@ -1,6 +1,7 @@
 import {createAction} from "redux-actions";
 import action from "../actions";
 import * as s from "../selectors";
+import {compose} from "underscore";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
@@ -28,14 +29,23 @@ function getTerms() {
   return (dispatch, getState) => {
     const channel = s.channel(getState());
 
-    const onOk = ({payload}) => {
-      dispatch(setTerms(payload));
-      dispatch(action.changeTerm(payload[0].id));
+    const promise = (resolve, reject) => {
+      channel.
+        push("terms:search").
+        receive(
+          "ok",
+          ({payload}) => {
+            dispatch(setTerms(payload));
+            resolve();
+          }
+        ).
+        receive(
+          "error",
+          () => reject()
+        );
     };
 
-    channel.
-      push("terms:search").
-      receive("ok", onOk);
+    return new Promise(promise);
   };
 }
 
@@ -43,7 +53,10 @@ function joinChannel(channel) {
   return dispatch => {
     const onOk = () => {
       dispatch(joinedChannel());
-      dispatch(getTerms());
+
+      // get terms, then refresh schedule.
+      dispatch(getTerms()).
+        then(compose(dispatch, refreshSchedule));
     };
 
     dispatch(joiningChannel(channel));
