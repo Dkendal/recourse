@@ -40,7 +40,13 @@ let selectedCourses = handleActions(
   Set([])
 );
 
-selectedCourses = load(selectedCourses, "Set", (payload) => payload.frontEnd.selectedCourses);
+selectedCourses = load(
+  selectedCourses,
+  "Set",
+  (payload) => payload &&
+    payload.frontEnd &&
+    payload.frontEnd.selectedCourses
+);
 
 const courseFilter = handleActions(
   {
