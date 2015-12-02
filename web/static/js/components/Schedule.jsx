@@ -5,6 +5,8 @@ import {List} from "immutable";
 
 import "css/components/Schedule";
 
+const scheduleSectionGroupKey = (c) => c.map(x => `${x.id}.${x.days}`).sort();
+
 export default class Schedule extends Component {
   render() {
     return (
@@ -30,7 +32,7 @@ export default class Schedule extends Component {
               <ScheduleSectionGroup
                 collection={collection}
                 endHr={this.props.endHr}
-                key={collection.map(x => x.id).sort()}
+                key={scheduleSectionGroupKey(collection)}
                 startHr={this.props.startHr}
               />
             )

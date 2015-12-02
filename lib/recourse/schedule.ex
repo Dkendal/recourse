@@ -22,7 +22,10 @@ defmodule Recourse.Schedule do
   def components values do
     g = :digraph.new
 
-    values
+    values =
+    for section <- values, day <- section.days do
+      put_in section.days, [day]
+    end
     |> Enum.map(add_vertex g)
 
     for x <- values, y <- values, x != y do

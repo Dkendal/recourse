@@ -94,7 +94,7 @@ defmodule Recourse.ScheduleTest do
       }
     })
 
-    assert count(sections) == 2
+    assert count(sections) == 4
 
     assert any? sections, fn
       [s] ->
@@ -128,7 +128,7 @@ defmodule Recourse.ScheduleTest do
       }
     })
 
-    assert count(sections) == 4
+    assert count(sections) == 8
 
     assert any? sections, fn [s] ->
       s.id == math_lecture.id
