@@ -39,17 +39,19 @@ const dispatch = store.dispatch;
 
 const load = storage.createLoader(engine);
 
-load(store);
+load(store).
+  then(
+    () =>
+    ReactDOM.render(
+      <div>
+        <Provider store={store}>
+          <Recourse />
+        </Provider>
+      </div>,
+      document.getElementById("app")
+    )
+  );
 
 dispatch(joinChannel(channel)).
   then(_.compose(dispatch, getTerms)).
   then(_.compose(dispatch, refreshSchedule));
-
-ReactDOM.render(
-  <div>
-    <Provider store={store}>
-      <Recourse />
-    </Provider>
-  </div>,
-  document.getElementById("app")
-);

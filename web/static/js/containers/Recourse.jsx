@@ -22,9 +22,11 @@ class Recourse extends Component {
   render() {
     const {
       dispatch,
+      endTime,
       filteredCourses,
       sections,
       selectedTermIdx,
+      startTime,
       terms,
       worklist
     } = this.props;
@@ -66,8 +68,10 @@ class Recourse extends Component {
           </Column>
           <Column>
             <ScheduleSettings
+              endTime={endTime}
               onSettingsChange={compose(dispatch, a.setScheduleSettings)}
               onSubmit={compose(dispatch, a.refreshSchedule)}
+              startTime={startTime}
             />
             <Worklist
               courses={worklist}

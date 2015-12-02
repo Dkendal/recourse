@@ -5,6 +5,7 @@ import moment from "moment";
 
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
+
 export const channel = state => state.channel;
 export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
@@ -90,17 +91,17 @@ const filteredCourses = createSelector(
   )
 );
 
-const select = createStructuredSelector({
+export default createStructuredSelector({
   channel,
   courses,
+  endTime,
   filteredCourses,
   sections,
   selectedCourses,
   selectedTerm,
   selectedTermIdx,
+  startTime,
   terms,
   worklist,
   worklistIds
 });
-
-export default select;

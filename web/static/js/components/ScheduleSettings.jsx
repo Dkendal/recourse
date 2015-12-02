@@ -4,8 +4,10 @@ import {compose} from "underscore";
 class ScheduleSettings extends Component {
   render() {
     const {
+      endTime,
       onSettingsChange,
-      onSubmit
+      onSubmit,
+      startTime
     } = this.props;
 
     const preventDefault = (e) => {
@@ -23,6 +25,7 @@ class ScheduleSettings extends Component {
           {"Prefered start time"}
         </label>
         <input
+          defaultValue={startTime}
           name="scheduleSettings_startTime"
           type="time"
         />
@@ -31,6 +34,7 @@ class ScheduleSettings extends Component {
           {"Prefered end time"}
         </label>
         <input
+          defaultValue={endTime}
           name="scheduleSettings_endTime"
           type="time"
         />
