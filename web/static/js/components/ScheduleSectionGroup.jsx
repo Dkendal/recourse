@@ -12,6 +12,7 @@ class ScheduleSectionGroup extends Component {
           <ScheduleSection
             {...props}
             idx={idx}
+            key={section.id}
             numberOfSections={collection.length}
             section={section}
           />)}

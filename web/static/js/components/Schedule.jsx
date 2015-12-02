@@ -26,10 +26,11 @@ export default class Schedule extends Component {
         <div className="schedule-body schedule-border flex">
           {
             this.props.sections.map(
-              conflictingSections =>
+              collection =>
               <ScheduleSectionGroup
+                collection={collection}
                 endHr={this.props.endHr}
-                collection={conflictingSections}
+                key={collection.map(x => x.id).sort()}
                 startHr={this.props.startHr}
               />
             )
