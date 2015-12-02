@@ -21,6 +21,7 @@ class Recourse extends Component {
 
   render() {
     const {
+      courseSearchText,
       dispatch,
       endTime,
       filteredCourses,
@@ -57,6 +58,7 @@ class Recourse extends Component {
         <Row className="recourse-body">
           <Column>
             <CourseSearch
+              text={courseSearchText}
               onSubmit={compose(dispatch, a.filterCourses)}
             />
 

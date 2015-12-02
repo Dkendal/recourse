@@ -3,15 +3,15 @@ import _ from "underscore";
 import {List} from "immutable";
 import moment from "moment";
 
-const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
+const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
+const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
 export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
-export const courseFilter = state => state.frontEnd.courseFilter;
 
 // castTime(String) :: "%H:%M:%S"
 // Cast input value to formatted time string.
@@ -71,14 +71,14 @@ export const worklistIds = createSelector(
  */
 const filteredCourses = createSelector(
   courses,
-  courseFilter,
-  (courses, {courseName}) => courses.filter(
+  courseSearchText,
+  (courses, query) => courses.filter(
     course => {
-      if (courseName == false) {
+      if (query == false) {
         return true;
       }
 
-      const regex = new RegExp(courseName, "i");
+      const regex = new RegExp(query, "i");
 
       const fields = [
         course.subject,
@@ -94,6 +94,7 @@ const filteredCourses = createSelector(
 export default createStructuredSelector({
   channel,
   courses,
+  courseSearchText,
   endTime,
   filteredCourses,
   sections,

@@ -3,7 +3,8 @@ import React, {Component, PropTypes} from "react";
 class CourseSearch extends Component {
   render() {
     const {
-      onSubmit
+      onSubmit,
+      text
     } = this.props;
 
     const formOnSubmit = (event) => {
@@ -26,6 +27,7 @@ class CourseSearch extends Component {
           <input
             name="courseName"
             type="search"
+            defaultValue={text}
           />
         </form>
       </div>
