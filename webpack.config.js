@@ -55,7 +55,8 @@ var config = module.exports = {
       "web_modules",
       "node_modules",
       "deps",
+      "web/static/js",
       "web/static/"
     ]
   }
-}
+};
