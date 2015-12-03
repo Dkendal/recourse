@@ -1,14 +1,41 @@
 import React, {Component, PropTypes} from "react";
-import ScheduleSectionGroup from "./ScheduleSectionGroup";
 import _ from "underscore";
 import {List} from "immutable";
+import {parseTime, timeToNumber} from "lib/time";
 
+import ScheduleSectionGroup from "./ScheduleSectionGroup";
 import "css/components/Schedule";
 
-const scheduleSectionGroupKey = (c) => c.map(x => `${x.id}.${x.days}`).sort();
+const maxStartHr = 8;
+const minEndHr = 17;
+
+function scheduleSectionGroupKey(c) {
+  return c.map(x => `${x.id}.${x.days}`).sort();
+}
+
+function scale(fn, t, defFn) {
+  return _.compose(defFn, fn, timeToNumber, parseTime)(t);
+}
+
+// Number (Number Number -> Number) -> Number
+function defT(def, fn) {
+  return t => fn(t || def, def);
+}
+
+function attrs(collection, predicate) {
+  return collection.flatMap(x => x.map(predicate));
+}
 
 export default class Schedule extends Component {
   render() {
+    const {sections} = this.props;
+
+    const min = attrs(sections, x => x.time_start).min();
+    const max = attrs(sections, x => x.time_end).max();
+
+    const startHr = scale(Math.floor, min, defT(maxStartHr, Math.min));
+    const endHr = scale(Math.ceil, max, defT(minEndHr, Math.max));
+
     return (
       <div className="schedule flex">
         <div className="schedule-row schedule-header">
@@ -27,18 +54,18 @@ export default class Schedule extends Component {
 
         <div className="schedule-body schedule-border flex">
           {
-            this.props.sections.map(
+            sections.map(
               collection =>
               <ScheduleSectionGroup
                 collection={collection}
-                endHr={this.props.endHr}
+                endHr={endHr}
                 key={scheduleSectionGroupKey(collection)}
-                startHr={this.props.startHr}
+                startHr={startHr}
               />
             )
           }
           {
-            _.range(this.props.startHr, this.props.endHr).map(
+            _.range(startHr, endHr).map(
               hr =>
               <div
                 className="schedule-row flex"
