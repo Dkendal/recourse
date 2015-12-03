@@ -1,7 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
 import {List} from "immutable";
-import moment from "moment";
+import {castTime} from "lib/time";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -12,17 +12,6 @@ export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
-
-// castTime(String) :: "%H:%M:%S"
-// Cast input value to formatted time string.
-// Returns 00:00:00 if input is invalid.
-function castTime(t) {
-  let date = new Date(0, 0, 0, ...t.split(":"));
-  if (isNaN(date.getTime())) {
-    date = new Date(0, 0, 0, 0, 0, 0);
-  }
-  return moment(date).format("HH:mm:ss");
-}
 
 const startTime = createSelector(
   startTimeStr,
