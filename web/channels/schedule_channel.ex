@@ -33,11 +33,13 @@ defmodule Recourse.ScheduleChannel do
     min_start_hour =
     sections
     |> Enum.map(& &1.time_start)
+    |> wrap
     |> Enum.min
 
     max_end_hour =
     sections
     |> Enum.map(& &1.time_end)
+    |> wrap
     |> Enum.max
 
     payload = %{
@@ -60,4 +62,7 @@ defmodule Recourse.ScheduleChannel do
   defp reply payload, socket do
     {:reply, {:ok, %{payload: payload}}, socket}
   end
+
+  defp wrap([]), do: [""]
+  defp wrap(x), do: x
 end
