@@ -5,6 +5,8 @@ import {castTime} from "lib/time";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
+const startHour = state => state.entries.startHour;
+const endHour = state => state.entries.endHour;
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
@@ -82,10 +84,12 @@ const filteredCourses = createSelector(
 
 export default createStructuredSelector({
   channel,
-  courses,
   courseSearchText,
+  courses,
   endTime,
   filteredCourses,
+  startHour,
+  endHour,
   sections,
   selectedCourses,
   selectedTerm,

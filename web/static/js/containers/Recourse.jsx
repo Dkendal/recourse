@@ -23,10 +23,12 @@ class Recourse extends Component {
     const {
       courseSearchText,
       dispatch,
+      endHour,
       endTime,
       filteredCourses,
       sections,
       selectedTermIdx,
+      startHour,
       startTime,
       terms,
       worklist
@@ -80,9 +82,9 @@ class Recourse extends Component {
               onClick={onCourseClick}
             />
             <Schedule
-              endHr={20}
+              endHour={endHour}
               sections={sections}
-              startHr={7}
+              startHour={startHour}
             />
           </Column>
         </Row>

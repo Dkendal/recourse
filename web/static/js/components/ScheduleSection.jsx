@@ -11,14 +11,14 @@ function color({subject, number}) {
   return `hsl(${hue}, 60%, 60%)`;
 }
 
-function toPercent(t, startHr, endHr) {
+function toPercent(t, startHour, endHour) {
   const [hr, min] = t.
     split(":").
     map(x => Number.parseInt(x, 10));
 
-  const scale = endHr - startHr;
+  const scale = endHour - startHour;
 
-  return (hr + min / 60 - startHr) / (scale) * 100;
+  return (hr + min / 60 - startHour) / (scale) * 100;
 }
 
 function className({numberOfSections}) {
@@ -29,13 +29,13 @@ function className({numberOfSections}) {
   return name;
 }
 
-function style({section: {time_start, time_end, course}, startHr, endHr, idx, numberOfSections}, day) {
+function style({section: {time_start, time_end, course}, startHour, endHour, idx, numberOfSections}, day) {
   const days = ["M", "T", "W", "R", "F"];
 
   const numberOfColumns = days.length + 1;
 
-  const top = toPercent(time_start, startHr, endHr);
-  const bottom = 100 - toPercent(time_end, startHr, endHr);
+  const top = toPercent(time_start, startHour, endHour);
+  const bottom = 100 - toPercent(time_end, endHour, endHour);
 
   const width = 1 / numberOfColumns * 100 / numberOfSections;
   const left = (days.indexOf(day) + 1) / numberOfColumns * 100 + width * idx;

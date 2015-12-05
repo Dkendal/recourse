@@ -16,7 +16,6 @@ defmodule Recourse.Schedule do
 
     Aruspex.find_solution(pid)
     |> Dict.values
-    |> components
   end
 
   def components values do

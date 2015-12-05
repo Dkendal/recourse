@@ -1,13 +1,13 @@
 import {createAction} from "redux-actions";
 import * as s from "../selectors";
-import {compose} from "underscore";
+import _ from "underscore";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
+const setMaxEndHour = createAction("SET_END_HOUR");
 const setSections = createAction("SET_SECTIONS");
+const setMinStartHour = createAction("SET_START_HOUR");
 const setTerms = createAction("SET_TERMS");
-
-const getPayload = x => x.payload;
 
 function asPromise(push, callback) {
   const promise = (resolve, reject) => {
@@ -33,7 +33,12 @@ function refreshSchedule() {
     const channel = s.channel(getState());
     const scheduleSettings = s.scheduleSettings(getState());
     const ids = s.worklistIds(getState());
-    const onSuccess = compose(dispatch, setSections, getPayload);
+
+    const onSuccess = ({payload: {sections, minStartHour, maxEndHour}}) => {
+      dispatch(setSections(sections));
+      dispatch(setMinStartHour(minStartHour));
+      dispatch(setMaxEndHour(maxEndHour));
+    };
 
     const params = {
       course_ids: ids,
@@ -50,14 +55,14 @@ function refreshSchedule() {
 function getTerms() {
   return (dispatch, getState) => {
     const channel = s.channel(getState());
-    const onSuccess = compose(dispatch, setTerms, getPayload);
+    const onSuccess = _.compose(dispatch, setTerms, x => x.payload);
     return asPromise(channel.push("terms:search"), onSuccess);
   };
 }
 
 function joinChannel(channel) {
   return (dispatch) => {
-    const onSuccess = compose(dispatch, joinedChannel);
+    const onSuccess = _.compose(dispatch, joinedChannel);
     dispatch(joiningChannel(channel));
     return asPromise(channel.join(), onSuccess);
   };
