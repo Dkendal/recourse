@@ -8,6 +8,12 @@ defmodule Recourse.Scraper.Section do
 
   alias Recourse.Section
 
+  @type search_options :: %{
+    term: Recourse.Term.t,
+    course: Recourse.Course.t
+  }
+
+  @spec all(search_options) :: [Recourse.Section.t]
   def all(args) do
     query(args)
     |> parse_response args
