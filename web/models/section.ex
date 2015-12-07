@@ -2,19 +2,20 @@ defmodule Recourse.Section do
   use Recourse.Web, :model
 
   schema "sections" do
-    field :registration_code, :string
-    field :schedule_type, :string
-    field :time_start, Ecto.Time
-    field :time_end, Ecto.Time
-    field :days, {:array, :string}
-    field :location, :string
-    field :date_start, Ecto.Date
-    field :date_end, Ecto.Date
-    field :registration_start, Ecto.Date
-    field :registration_end, Ecto.Date
     field :campus, :string
     field :credits, :decimal
+    field :date_end, Ecto.Date
+    field :date_start, Ecto.Date
+    field :days, {:array, :string}
     field :instructional_method, :string
+    field :location, :string
+    field :name, :string
+    field :registration_code, :string
+    field :registration_end, Ecto.Date
+    field :registration_start, Ecto.Date
+    field :schedule_type, :string
+    field :time_end, Ecto.Time
+    field :time_start, Ecto.Time
     belongs_to :course, Recourse.Course
     belongs_to :term, Recourse.Term
 
