@@ -1,5 +1,6 @@
 defmodule Recourse.Scraper.SectionTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: false
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Httpc
   use Recourse.Assertions
 
   alias Recourse.Course
@@ -23,17 +24,18 @@ defmodule Recourse.Scraper.SectionTest do
   end
 
   test "fetching sections for a course", context do
-    %{term: term, course: course} =
-      context
+    use_cassette "csc 110 sections" do
+      %{term: term, course: course} = context
 
-    actual =
-      Recourse.Scraper.Section.all(%{
+      actual = Recourse.Scraper.Section.all(%{
         term: term,
         course: course
       })
 
-    changeset = List.first actual
-    assert_valid changeset
+      actual
+      |> hd
+      |> assert_valid
+    end
   end
 
   test "transforming a section" do

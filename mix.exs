@@ -63,7 +63,7 @@ defmodule Recourse.Mixfile do
 
       # parsing html
       {:floki, "~> 0.6.0"},
-      {:httpoison, "~> 0.7"},
+      {:httpoison, "~> 0.8"},
 
       # date and time
       {:timex, "~> 0.19"},
@@ -72,6 +72,7 @@ defmodule Recourse.Mixfile do
 
       # testing
       {:blacksmith, github: "batate/blacksmith"},
+      {:exvcr, "~> 0.6", only: :test},
 
       {:dialyze, "~> 0.2.0"},
       {:dbg, github: "fishcakez/dbg"},
