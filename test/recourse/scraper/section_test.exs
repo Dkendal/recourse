@@ -35,6 +35,12 @@ defmodule Recourse.Scraper.SectionTest do
       actual
       |> hd
       |> assert_valid
+
+      assert_attributes hd(actual).changes,
+        campus: "Main",
+        days: ["M", "R"],
+        name: "A01",
+        course_id: course.id
     end
   end
 

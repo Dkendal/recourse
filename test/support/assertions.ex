@@ -6,7 +6,7 @@ defmodule Recourse.Assertions do
 
       def assert_attributes actual, expected do
         Enum.map expected, fn {k, v} ->
-          {:ok, actual} = Map.fetch(actual, k)
+          actual = Map.fetch!(actual, k)
           assert actual == v
         end
       end

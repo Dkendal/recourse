@@ -22,7 +22,7 @@ defmodule Recourse.Section do
     timestamps
   end
 
-  @required_fields ~w(registration_code course_id)
+  @required_fields ~w(registration_code course_id name)
   @optional_fields ~w(time_start time_end days location date_start date_end registration_start registration_end campus instructional_method schedule_type credits)
 
   @doc """
