@@ -71,7 +71,7 @@ defmodule Recourse.Mixfile do
       {:apex, only: [:dev, :test]},
 
       # testing
-      {:blacksmith, "~> 0.1.3"},
+      {:blacksmith, github: "batate/blacksmith"},
 
       {:dialyze, "~> 0.2.0"},
       {:dbg, github: "fishcakez/dbg"},

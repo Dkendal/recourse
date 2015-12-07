@@ -1,6 +1,6 @@
 %{"apex": {:hex, :apex, "0.3.4"},
   "aruspex": {:git, "https://github.com/dkendal/aruspex.git", "cdef667692d7c1070025725e678731154e9c3503", [branch: "master"]},
-  "blacksmith": {:hex, :blacksmith, "0.1.3"},
+  "blacksmith": {:git, "https://github.com/batate/blacksmith.git", "779cfab391c28083536476c23789e3706b925d1b", []},
   "bunt": {:hex, :bunt, "0.1.4"},
   "combine": {:hex, :combine, "0.5.2"},
   "cowboy": {:hex, :cowboy, "1.0.2"},
