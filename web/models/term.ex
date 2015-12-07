@@ -42,4 +42,5 @@ defimpl String.Chars, for: Recourse.Term do
   def to_string(:winter), do: "01"
   def to_string(:summer), do: "05"
   def to_string(:fall), do: "09"
+  def to_string(_), do: ""
 end

@@ -7,16 +7,13 @@ defmodule Recourse.Scraper.SectionTest do
   alias Recourse.Term
 
   setup do
-    {:ok, term} = Repo.insert(%Term{
-      year: 2015,
-      semester: :winter
-    })
+    term = Forge.saved_term(year: 2015, semester: :winter)
 
-    {:ok, course} = Repo.insert(%Course{
+    course = Forge.saved_course(
       term_id: term.id,
       subject: "CSC",
       number: "110"
-    })
+    )
 
     Recourse.Scraper.start
     { :ok,
