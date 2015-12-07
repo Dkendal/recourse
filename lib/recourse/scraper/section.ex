@@ -23,10 +23,7 @@ defmodule Recourse.Scraper.Section do
     response.body
     |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
     |> List.first
-    |> case do
-      nil -> {nil, [], []}
-      x -> x
-    end
+    |> wrap_empty_section
     |> elem(2)
     |> Enum.slice(1..-1)
     |> Enum.chunk(2)
@@ -135,6 +132,9 @@ defmodule Recourse.Scraper.Section do
     |> Map.delete("Type")
     |> Map.delete("Where")
   end
+
+  def wrap_empty_section(nil), do: {nil, [], []}
+  def wrap_empty_section(x), do: x
 
   defp datetime_to_date(dt) do
     %Ecto.Date{
