@@ -9,6 +9,9 @@ defmodule Recourse.Scraper do
 
       "sections?" <> q ->
         "bwckctlg.p_disp_listcrse?" <> q
+
+      "section?" <> q ->
+        "bwckschd.p_disp_detail_sched" <> q
     end
   end
 end
