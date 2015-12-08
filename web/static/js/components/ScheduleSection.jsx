@@ -35,7 +35,7 @@ function style({section: {time_start, time_end, course}, startHour, endHour, idx
   const numberOfColumns = days.length + 1;
 
   const top = toPercent(time_start, startHour, endHour);
-  const bottom = 100 - toPercent(time_end, endHour, endHour);
+  const bottom = 100 - toPercent(time_end, startHour, endHour);
 
   const width = 1 / numberOfColumns * 100 / numberOfSections;
   const left = (days.indexOf(day) + 1) / numberOfColumns * 100 + width * idx;
