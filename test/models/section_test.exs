@@ -6,19 +6,20 @@ defmodule Recourse.SectionTest do
 
   @valid_attrs %{
     campus: "some content",
+    course_id: 1,
     credits: "120.5",
     date_end: "2015-12-12",
     date_start: "2015-12-12",
     days: [],
     instructional_method: "some content",
     location: "some content",
+    name: "A01",
     registration_code: "some content",
     registration_end: "2015-12-12",
     registration_start: "2015-12-12",
     schedule_type: "some content",
     time_end: "14:00:00",
     time_start: "14:00:00",
-    course_id: 1
   }
 
   @invalid_attrs %{}
