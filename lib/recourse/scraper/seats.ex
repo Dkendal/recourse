@@ -9,12 +9,12 @@ defmodule Recourse.Scraper.Seats do
     remaining: integer
   }
 
-  @type registration_availability :: %{
+  @type t :: %{
     seats: seats,
     waitlist: seats
   }
 
-  @spec find(Section.t) :: registration_availability
+  @spec find(Section.t) :: t
   def find(section) do
     to_query(section)
     |> URI.encode_query
