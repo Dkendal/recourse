@@ -2,33 +2,28 @@ defmodule Recourse.Scraper.SectionTest do
   use ExUnit.Case, async: false
   use ExVCR.Mock, adapter: ExVCR.Adapter.Httpc
   use Recourse.Assertions
+  import Recourse.Factory
 
   alias Recourse.Course
   alias Recourse.Repo
   alias Recourse.Term
 
   setup do
-    term = Forge.saved_term(year: 2015, semester: :winter)
-
-    course = Forge.saved_course(
-      term_id: term.id,
-      subject: "CSC",
-      number: "110"
-    )
+    course = create(:course, subject: "CSC", number: "110")
 
     Recourse.Scraper.start
-    { :ok,
-      term: term,
+    {
+      :ok,
       course: course
     }
   end
 
   test "fetching sections for a course", context do
     use_cassette "csc 110 sections" do
-      %{term: term, course: course} = context
+      %{course: course} = context
 
       actual = Recourse.Scraper.Section.all(%{
-        term: term,
+        term: course.term,
         course: course
       })
 

@@ -24,7 +24,7 @@ defmodule Recourse.Mixfile do
 
   def applications(:test) do
     applications(:all) ++ [
-      :blacksmith
+      :ex_machina
     ]
   end
 
@@ -71,7 +71,8 @@ defmodule Recourse.Mixfile do
       {:apex, only: [:dev, :test]},
 
       # testing
-      {:blacksmith, github: "batate/blacksmith"},
+      {:ex_machina, "~> 0.5", only: :test},
+      {:faker, "~> 0.5", only: :test},
       {:exvcr, "~> 0.6", only: :test},
 
       {:dialyze, "~> 0.2.0"},

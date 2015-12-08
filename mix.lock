@@ -12,6 +12,7 @@
   "dialyze": {:hex, :dialyze, "0.2.0"},
   "ecto": {:hex, :ecto, "1.0.1"},
   "ecto_enum": {:hex, :ecto_enum, "0.3.0"},
+  "ex_machina": {:hex, :ex_machina, "0.5.0"},
   "exactor": {:hex, :exactor, "2.2.0"},
   "exjsx": {:hex, :exjsx, "3.2.0"},
   "exprintf": {:hex, :exprintf, "0.1.6"},
