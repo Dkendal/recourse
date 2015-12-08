@@ -30,12 +30,13 @@ defmodule Recourse.Mixfile do
 
   def applications(_all) do
     [
-      :phoenix,
-      :phoenix_html,
+      :con_cache,
       :cowboy,
-      :logger,
-      :phoenix_ecto,
       :dbg,
+      :logger,
+      :phoenix,
+      :phoenix_ecto,
+      :phoenix_html,
       :postgrex
     ]
   end
@@ -53,6 +54,7 @@ defmodule Recourse.Mixfile do
       {:phoenix_html, "~> 2.1"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:aruspex, path: "~/src/aruspex"},
+      {:con_cache, "~> 0.9.0"},
 
       # database
       {:postgrex, ">= 0.0.0"},

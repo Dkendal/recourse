@@ -6,6 +6,12 @@ defmodule Recourse.RegistrationTest do
     :ok
   end
 
+  setup do
+    Supervisor.terminate_child(Recourse.Supervisor, ConCache)
+    Supervisor.restart_child(Recourse.Supervisor, ConCache)
+    :ok
+  end
+
   test "loads all the seat info for each section" do
     math = build(:section, registration_code: "20754")
     expected_seats = %{
@@ -26,6 +32,7 @@ defmodule Recourse.RegistrationTest do
 
       assert section == math
       assert seats == expected_seats
+      assert seats == ConCache.get(:seats, {"20754", "201501"})
     end
   end
 end
