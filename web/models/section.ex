@@ -17,7 +17,6 @@ defmodule Recourse.Section do
     field :time_end, Ecto.Time
     field :time_start, Ecto.Time
     belongs_to :course, Recourse.Course
-    belongs_to :term, Recourse.Term
 
     timestamps
   end
