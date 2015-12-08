@@ -3,7 +3,7 @@ defmodule Recourse.Section do
 
   schema "sections" do
     field :campus, :string
-    field :credits, :decimal
+    field :credits, :float
     field :date_end, Ecto.Date
     field :date_start, Ecto.Date
     field :days, {:array, :string}
