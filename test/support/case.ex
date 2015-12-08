@@ -4,7 +4,7 @@ defmodule Recourse.Case do
   using do
     quote do
       use Recourse.Assertions
-      use ExVCR.Mock, adapter: ExVCR.Adapter.Httpc
+      use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
       import Recourse.Factory
     end
   end

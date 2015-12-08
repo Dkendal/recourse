@@ -1,5 +1,5 @@
 defmodule Recourse.Scraper.SeatsTest do
-  use Recourse.Case
+  use Recourse.Case, async: false
 
   setup_all do
     Recourse.Scraper.start

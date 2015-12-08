@@ -1,8 +1,5 @@
 defmodule Recourse.Scraper.SectionTest do
-  use ExUnit.Case, async: false
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Httpc
-  use Recourse.Assertions
-  import Recourse.Factory
+  use Recourse.Case, async: false
 
   alias Recourse.Course
   alias Recourse.Repo
