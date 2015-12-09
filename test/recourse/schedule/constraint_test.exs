@@ -1,4 +1,4 @@
-defmodule Recourse.ScheduleTest do
+defmodule Recourse.ConstraintTest do
   use ExUnit.Case
   alias Recourse.Repo
   alias Recourse.Term
