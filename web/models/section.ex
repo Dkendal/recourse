@@ -40,21 +40,25 @@ defmodule Recourse.Section do
 
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(section, _options) do
-      %{id: section.id,
-        registration_code: section.registration_code,
-        schedule_type: section.schedule_type,
-        time_start: section.time_start,
-        time_end: section.time_end,
-        days: section.days,
-        location: section.location,
-        date_start: section.date_start,
-        date_end: section.date_end,
-        registration_start: section.registration_start,
-        registration_end: section.registration_end,
+      %{
         campus: section.campus,
+        course: section.course,
         credits: section.credits,
+        date_end: section.date_end,
+        date_start: section.date_start,
+        days: section.days,
+        id: section.id,
         instructional_method: section.instructional_method,
-        course: section.course}
+        location: section.location,
+        registration_code: section.registration_code,
+        registration_end: section.registration_end,
+        registration_start: section.registration_start,
+        schedule_type: section.schedule_type,
+        time_end: section.time_end,
+        time_start: section.time_start,
+        seats: section.seats,
+        waitlist: section.waitlist
+      }
       |> Poison.Encoder.encode []
     end
   end

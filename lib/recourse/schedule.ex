@@ -1,7 +1,8 @@
 defmodule Recourse.Schedule do
-  use Aruspex.Constraint
-  alias Recourse.Section
+  alias Recourse.Registration
   alias Recourse.Repo
+  alias Recourse.Section
+  use Aruspex.Constraint
   import Recourse.Digraph
   import Ecto.Query
   import __MODULE__.Constraint
@@ -9,8 +10,11 @@ defmodule Recourse.Schedule do
   def build(%{"course_ids" => course_ids, "settings" => settings}) do
     {:ok, pid} = Aruspex.start_link
 
+    Recourse.Scraper.start
+
     course_ids
     |> get_sections
+    |> Registration.load
     |> init_variables(pid)
     |> init_constraints(settings, pid)
 
@@ -66,7 +70,7 @@ defmodule Recourse.Schedule do
       select: s,
       join: c in assoc(s, :course),
       where: c.id in ^course_ids,
-      preload: [:course],
+      preload: [course: :term],
       order_by: c.id
   end
 end
