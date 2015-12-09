@@ -7,7 +7,7 @@ defmodule Recourse.Scraper.Seats do
     capacity: integer,
     actual: integer,
     remaining: integer
-  }
+  } | :error
 
   @type t :: %{
     seats: seats,
@@ -20,15 +20,24 @@ defmodule Recourse.Scraper.Seats do
     |> URI.encode_query
     |> http_get
     |> parse
+    |> format_output
   end
 
   defp parse(%{body: body}) do
-    [waitlist, seats] =
-      body
-      |> find(".ddlabel[scope=row] ~ td")
-      |> get_seats
+    body
+    |> find(".ddlabel[scope=row] ~ td")
+    |> get_seats
+  end
 
+  defp format_output([waitlist, seats]) do
     %{seats: seats, waitlist: waitlist}
+  end
+
+  defp format_output([]) do
+    %{
+      seats: :error,
+      waitlist: :error
+    }
   end
 
   defp get_seats(_row, _accumulator \\ [])
