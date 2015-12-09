@@ -36,6 +36,7 @@ defmodule Recourse.Factory do
       schedule_type: "Lecture",
       time_end: "13:20:00",
     }
+    |> cast
   end
 
   def cast(p) do

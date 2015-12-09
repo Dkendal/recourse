@@ -14,7 +14,7 @@ defmodule Recourse.RegistrationTest do
 
   test "loads all the seat info for each section" do
     math = build(:section, registration_code: "20754")
-    expected_seats = %{
+    expected = %{
       seats: %{
         capacity: 10,
         actual: 8,
@@ -28,11 +28,12 @@ defmodule Recourse.RegistrationTest do
     }
 
     use_cassette "seats for 20754" do
-      [{section, seats}] = Recourse.Registration.load([math])
+      [section] = Recourse.Registration.load([math])
 
-      assert section == math
-      assert seats == expected_seats
-      assert seats == ConCache.get(:seats, {"20754", "201501"})
+      assert_attributes math, section
+      assert expected.seats == section.seats
+      assert expected.waitlist == section.waitlist
+      assert expected == ConCache.get(:seats, {"20754", "201501"})
     end
   end
 end

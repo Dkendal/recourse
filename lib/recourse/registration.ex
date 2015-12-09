@@ -3,10 +3,9 @@ defmodule Recourse.Registration do
   alias Recourse.Scraper.Seats
   alias Recourse.Section
 
-  @type t :: {Section.t, Seats.t}
   @type key :: {String.t, String.t}
 
-  @spec load([Section.t]) :: [t]
+  @spec load([Section.t]) :: [Section.t]
   def load(sections) do
     sections
     |> Parallel.map &hit/1
@@ -17,11 +16,11 @@ defmodule Recourse.Registration do
     {section.registration_code, to_string(section.course.term)}
   end
 
-  @spec hit(Section.t) :: t
+  @spec hit(Section.t) :: Section.t
   def hit(section) do
     seats = ConCache.get_or_store :seats, key(section), fn ->
       Seats.find(section)
     end
-    {section, seats}
+    Map.merge section, seats
   end
 end

@@ -5,9 +5,9 @@ defmodule Recourse.Assertions do
       import unquote(__MODULE__)
 
       def assert_attributes actual, expected do
-        Enum.map expected, fn {k, v} ->
-          actual = Map.fetch!(actual, k)
-          assert actual == v
+        keys = Map.keys expected
+        Enum.map keys, fn k ->
+          Map.fetch!(expected, k) == Map.fetch!(actual, k)
         end
       end
 

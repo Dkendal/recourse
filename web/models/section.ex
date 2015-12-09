@@ -19,6 +19,9 @@ defmodule Recourse.Section do
     belongs_to :course, Recourse.Course
 
     timestamps
+
+    field :seats, :map, virtual: true
+    field :waitlist, :map, virtual: true
   end
 
   @required_fields ~w(registration_code course_id name)

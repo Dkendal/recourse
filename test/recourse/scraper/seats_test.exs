@@ -7,7 +7,7 @@ defmodule Recourse.Scraper.SeatsTest do
   end
 
   test "find/1 returns seat info for a section" do
-    term = create(:term, year: 2016, semester: :winter)
+    term = build(:term, year: 2016, semester: :winter)
     course = create(:course, term: term)
     section = create(:section, registration_code: "20765", course: course )
 
