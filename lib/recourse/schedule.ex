@@ -10,6 +10,7 @@ defmodule Recourse.Schedule do
   def build(%{"course_ids" => course_ids, "settings" => settings}) do
     {:ok, pid} = Aruspex.start_link
 
+    # required for Registration.load
     Recourse.Scraper.start
 
     course_ids
@@ -54,6 +55,12 @@ defmodule Recourse.Schedule do
       Aruspex.post pid, constraint(
         variables: [x, y],
         function: &no_conflict/1)
+    end
+
+    for v <- variables do
+      Aruspex.post pid, constraint(
+        variables: [v],
+        function: time_preference(settings))
     end
 
     for v <- variables do

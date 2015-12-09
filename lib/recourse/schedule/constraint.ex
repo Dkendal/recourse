@@ -2,6 +2,14 @@ defmodule Recourse.Schedule.Constraint do
   use Aruspex.Constraint
   alias Ecto.Time
 
+  def open_seats([section]) do
+    if section.seats.remaining > 0 do
+      0
+    else
+      100 + section.waitlist.actual
+    end
+  end
+
   def no_conflict([a, b]) do
     if days_different?(a, b) or no_time_conflict?(a, b) do
       0
