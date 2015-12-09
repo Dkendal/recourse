@@ -25,16 +25,18 @@ defmodule Recourse.ScheduleTest do
     |> cast
     |> create
 
-    sections = Schedule.build(%{
-      "course_ids" => [csc.id, engl.id],
-      "settings" => %{
-        "startTime" => "00:00:00",
-        "endTime" => "00:00:00"
-      }
-    })
+    use_cassette "building a schedule" do
+      sections = Schedule.build(%{
+        "course_ids" => [csc.id, engl.id],
+        "settings" => %{
+          "startTime" => "00:00:00",
+          "endTime" => "00:00:00"
+        }
+      })
 
-    assert length(sections) == 2
-    assert Enum.any? sections, & &1.id == lecture.id
-    assert Enum.any? sections, & &1.id == tutorial.id
+      assert length(sections) == 2
+      assert Enum.any? sections, & &1.id == lecture.id
+      assert Enum.any? sections, & &1.id == tutorial.id
+    end
   end
 end
