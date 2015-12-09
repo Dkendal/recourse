@@ -8,7 +8,6 @@ defmodule Recourse.Scraper.SectionTest do
   setup do
     course = create(:course, subject: "CSC", number: "110")
 
-    Recourse.Scraper.start
     {
       :ok,
       course: course

@@ -1,11 +1,6 @@
 defmodule Recourse.RegistrationTest do
   use Recourse.Case, async: false
 
-  setup_all do
-    Recourse.Scraper.start
-    :ok
-  end
-
   setup do
     Supervisor.terminate_child(Recourse.Supervisor, ConCache)
     Supervisor.restart_child(Recourse.Supervisor, ConCache)

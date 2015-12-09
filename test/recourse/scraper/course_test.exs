@@ -10,7 +10,6 @@ defmodule Recourse.Scraper.CourseTest do
       semester: :winter
     })
 
-    Recourse.Scraper.start
     { :ok,
       term: term
     }

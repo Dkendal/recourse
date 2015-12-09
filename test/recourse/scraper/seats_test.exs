@@ -2,11 +2,6 @@ defmodule Recourse.Scraper.SeatsTest do
   alias Recourse.Scraper.Seats
   use Recourse.Case, async: false
 
-  setup_all do
-    Recourse.Scraper.start
-    :ok
-  end
-
   test "find/1 returns seat info for a section" do
     term = build(:term, year: 2016, semester: :winter)
 
