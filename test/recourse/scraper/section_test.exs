@@ -10,7 +10,8 @@ defmodule Recourse.Scraper.SectionTest do
 
     {
       :ok,
-      course: course
+      course: course,
+      timeout: :infinity
     }
   end
 
@@ -18,16 +19,14 @@ defmodule Recourse.Scraper.SectionTest do
     use_cassette "csc 110 sections" do
       %{course: course} = context
 
-      actual = Recourse.Scraper.Section.all(%{
+      actual = hd Recourse.Scraper.Section.all(%{
         term: course.term,
         course: course
       })
 
-      actual
-      |> hd
-      |> assert_valid
+      assert_valid actual
 
-      assert_attributes hd(actual).changes,
+      assert_attributes actual.changes,
         campus: "Main",
         days: ["M", "R"],
         name: "A01",
@@ -48,22 +47,19 @@ defmodule Recourse.Scraper.SectionTest do
     actual =
       Recourse.Scraper.Section.transform(input)
 
-    expected = %{
-      # registration_code:
+    assert_attributes actual,
       schedule_type: "Lecture",
       time_start: %Ecto.Time{hour: 10, min: 0, sec: 0},
       time_end: %Ecto.Time{hour: 11, min: 20, sec: 0},
       days: ~W(M R),
       location: "MacLaurin Building A144",
       date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
-      date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
+      date_end: %Ecto.Date{year: 2015, month: 4, day: 2}
+      # registration_code:
       # registration_start:
       # registration_end:
       # campus:
       # credits:
       # instructional_method:
-    }
-
-    assert_attributes(actual, expected)
   end
 end

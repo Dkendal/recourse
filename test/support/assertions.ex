@@ -4,10 +4,11 @@ defmodule Recourse.Assertions do
       require unquote(__MODULE__)
       import unquote(__MODULE__)
 
-      def assert_attributes actual, expected do
-        keys = Map.keys expected
-        Enum.map keys, fn k ->
-          Map.fetch!(expected, k) == Map.fetch!(actual, k)
+      defmacro assert_attributes actual, expected do
+        Enum.map expected, fn {k, v} ->
+          quote do
+            unquote(actual)[unquote(k)] == unquote(v)
+          end
         end
       end
 

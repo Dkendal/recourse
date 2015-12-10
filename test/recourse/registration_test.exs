@@ -25,7 +25,8 @@ defmodule Recourse.RegistrationTest do
     use_cassette "seats for 20754" do
       [section] = Recourse.Registration.load([math])
 
-      assert_attributes math, section
+      assert %Recourse.Section{} = section
+      assert section.id == math.id
       assert expected.seats == section.seats
       assert expected.waitlist == section.waitlist
       assert expected == ConCache.get(:seats, {"20754", "201501"})

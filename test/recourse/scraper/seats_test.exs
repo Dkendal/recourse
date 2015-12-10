@@ -30,10 +30,9 @@ defmodule Recourse.Scraper.SeatsTest do
     made_up_section = create(:section, registration_code: "")
 
     use_cassette "seats for invalid crn" do
-      assert_attributes Seats.find(made_up_section), %{
+      assert_attributes Seats.find(made_up_section),
         seats: :error,
         waitlist: :error
-      }
     end
   end
 end

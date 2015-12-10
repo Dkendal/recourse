@@ -43,6 +43,13 @@ defmodule Recourse.ScheduleChannelTest do
         "endTime" => "00:00:00"
       }
     }
-    assert_reply ref, :ok, %{payload: []}
+
+    assert_reply ref, :ok, %{
+      payload: %{
+        maxEndHour: "",
+        minStartHour: "",
+        sections: []
+      }
+    }
   end
 end
