@@ -1,26 +1,24 @@
 defmodule Recourse.ScheduleChannelTest do
-  use Recourse.ChannelCase
   alias Recourse.ScheduleChannel
   alias Recourse.Course
   alias Recourse.Term
   alias Recourse.Repo
-  import Repo, only: [insert: 1]
+  use Recourse.ChannelCase
+  import Recourse.Factory
 
   setup do
     {:ok, _, socket} =
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(ScheduleChannel, "schedules:planner")
 
-    {:ok, term} = insert %Term{
+    term = create :term,
       year: 2015,
       semester: :winter
-    }
 
-    {:ok, course} = insert %Course{
-      term_id: term.id,
+    course = create :course,
+      term: term,
       subject: "CSC",
       number: "100"
-    }
 
     {:ok, socket: socket, term: term, course: course}
   end
