@@ -7,7 +7,7 @@ defmodule Recourse.Assertions do
       defmacro assert_attributes actual, expected do
         Enum.map expected, fn {k, v} ->
           quote do
-            unquote(actual)[unquote(k)] == unquote(v)
+            assert unquote(actual)[unquote(k)] == unquote(v)
           end
         end
       end
