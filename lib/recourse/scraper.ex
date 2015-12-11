@@ -19,16 +19,31 @@ defmodule Recourse.Scraper do
 
   def get!(url) do
     Logger.info "#{inspect self} GET #{inspect url}"
+    start_timer
+
     super(url)
   end
 
   def post!(url, opts) do
     Logger.info "#{inspect self} POST #{inspect url}\n\t#{inspect opts}"
+    start_timer
+
     super(url, opts)
   end
 
   defp process_status_code(status_code) do
-    Logger.info "#{inspect self} Response #{status_code}"
+    receive do
+      {:timer, t} ->
+        milliseconds = :timer.now_diff(:erlang.timestamp, t) / :math.pow(10,4)
+        Logger.info "#{inspect self} Received #{status_code} after #{milliseconds}ms"
+    after
+      0 -> true
+    end
+
     status_code
+  end
+
+  def start_timer do
+    send self, {:timer, :erlang.timestamp}
   end
 end
