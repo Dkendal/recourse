@@ -17,20 +17,28 @@ defmodule Recourse.ScheduleChannelTest do
       subject: "CSC",
       number: "100"
 
-    {:ok, socket: socket, term: term, course: course}
+    create :section, course: course
+
+    {
+      :ok,
+      course: course,
+      socket: socket,
+      term: term
+    }
   end
 
-  test "[courses:search] requesting courses", %{
+  test "[terms:search] requesting terms", %{
     socket: socket,
-    course: %{id: id}} do
+    course: %{id: course_id},
+    term: %{id: term_id}
+  } do
 
-    ref = push socket, "courses:search", %{}
-    assert_reply ref, :ok, %{payload: [%Course{id: ^id}]}
-  end
-
-  test "[terms:search] requesting terms", %{socket: socket, term: term} do
     ref = push socket, "terms:search", %{}
-    assert_reply ref, :ok, %{payload: []}
+    assert_reply ref, :ok, %{
+      payload: [
+        %{id: ^term_id,
+          courses: [
+            %{id: ^course_id}]}]}
   end
 
   test "[make_schedule] returns a schedule for the given courses", %{socket: socket} do

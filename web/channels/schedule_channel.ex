@@ -20,12 +20,6 @@ defmodule Recourse.ScheduleChannel do
     reply terms, socket
   end
 
-  def handle_in("courses:search", _payload, socket) do
-    courses = Repo.all from s in Course
-
-    reply courses, socket
-  end
-
   def handle_in("make_schedule", options, socket) do
     sections = Schedule.build(options)
     components = Schedule.components sections
