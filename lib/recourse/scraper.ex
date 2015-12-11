@@ -4,11 +4,11 @@ defmodule Recourse.Scraper do
 
   def process_url(path) do
     path = case path do
-      "courses?" <> q ->
-        "bwckctlg.p_display_courses?" <> q
+      "courses" <> q ->
+        "bwckctlg.p_display_courses" <> q
 
-      "sections?" <> q ->
-        "bwckctlg.p_disp_listcrse?" <> q
+      "sections" <> q ->
+        "bwckctlg.p_disp_listcrse" <> q
 
       "seats" <> q ->
         "bwckschd.p_disp_detail_sched" <> q
