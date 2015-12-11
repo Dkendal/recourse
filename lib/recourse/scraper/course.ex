@@ -11,19 +11,9 @@ defmodule Recourse.Scraper.Course do
     args
     |> params
     |> http_get
-    |> case do
-      resp -> resp.body
-    end
+    |> Map.fetch!(:body)
     |> find(".nttitle a")
-    |> map fn course ->
-      attrs =
-        course
-        |> text
-        |> parse
-        |> Map.put(:term_id, args.term.id)
-
-      Course.changeset(%Course{}, attrs)
-    end
+    |> map(&extract_course(&1, args.term))
   end
 
   @spec parse(binary) :: [%{
@@ -50,6 +40,17 @@ defmodule Recourse.Scraper.Course do
       "courses?" <> URI.encode_query(query),
       [],
       [timeout: :infinity, recv_timeout: :infinity])
+  end
+
+  @spec extract_course(Floki.html_tree, Term.t) :: Ecto.ChangeSet.t
+  defp extract_course(dom, term) do
+    attrs =
+      dom
+      |> text
+      |> parse
+      |> Map.put(:term_id, term.id)
+
+    Course.changeset(%Course{}, attrs)
   end
 
   defp params(args) do
