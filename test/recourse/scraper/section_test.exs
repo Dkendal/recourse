@@ -1,10 +1,6 @@
 defmodule Recourse.Scraper.SectionTest do
   use Recourse.Case, async: false
 
-  alias Recourse.Course
-  alias Recourse.Repo
-  alias Recourse.Term
-
   setup do
     course = create(:course, subject: "CSC", number: "110")
 

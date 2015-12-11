@@ -1,5 +1,5 @@
 defmodule Recourse.ScheduleChannelTest do
-  alias Recourse.{ScheduleChannel, Course, Repo, Term}
+  alias Recourse.{ScheduleChannel, Repo}
   use Recourse.ChannelCase
   import Recourse.Factory
 
