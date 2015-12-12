@@ -13,6 +13,8 @@ defmodule Recourse.Course do
     timestamps
   end
 
+  @type t :: %__MODULE__{}
+
   @required_fields ~w(title subject number term_id)
   @optional_fields ~w(description requirement)
 
