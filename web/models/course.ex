@@ -37,7 +37,7 @@ defmodule Recourse.Course do
         number: course.number,
         description: course.description,
         requirement: course.requirement}
-      |> Poison.Encoder.encode []
+      |> Poison.Encoder.encode([])
     end
   end
 end
