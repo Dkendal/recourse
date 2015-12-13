@@ -16,7 +16,7 @@ defmodule Recourse.Scraper.Section do
   @spec all(search_options) :: [Recourse.Section.t]
   def all(args) do
     query(args)
-    |> parse_response args
+    |> parse_response(args)
   end
 
   def parse_response(response, args) do
@@ -185,7 +185,9 @@ defmodule Recourse.Scraper.Section do
     conversion_fn.(dt)
   end
 
-  defp parse_section([{"span", _, [label]}, value|t], acc \\ %{}) when is_binary(value) do
+  defp parse_section(tree, acc \\ %{})
+
+  defp parse_section([{"span", _, [label]}, value|t], acc) when is_binary(value) do
     acc_p = parse_section_attr(label, value, acc)
     parse_section(t, acc_p)
   end
