@@ -9,6 +9,8 @@ defmodule Recourse.Term do
     timestamps
   end
 
+  @type t :: %__MODULE__{}
+
   @required_fields ~w(year semester)
   @optional_fields ~w()
 

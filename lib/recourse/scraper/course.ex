@@ -4,9 +4,24 @@ defmodule Recourse.Scraper.Course do
   import String, only: [split: 2]
   import Floki, only: [find: 2, text: 1]
 
-  alias Recourse.Course
+  alias Recourse.{Course, Term}
+
+  @type opts :: %{
+    term: Term.t,
+    subjects: [binary],
+    number_start: binary,
+    number_end: binary
+  }
+
+  @type course_params :: %{
+    number: binary,
+    subject: binary,
+    term_id: number,
+    title: binary
+  }
 
   @doc "Returns a list of courses from UVic's calendar."
+  @spec all(opts) :: Ecto.Changset.t
   def all(args) do
     args
     |> params
@@ -16,12 +31,7 @@ defmodule Recourse.Scraper.Course do
     |> map(&extract_course(&1, args.term))
   end
 
-  @spec parse(binary) :: [%{
-      number: integer,
-      subject: binary,
-      term_id: integer,
-      title: binary
-    }]
+  @spec parse(binary) :: course_params
   def parse(text) do
     text
     |> split([" ", " - "])
