@@ -213,12 +213,7 @@ defmodule Recourse.Scraper.Section do
     [from, to] =
       value
       |> String.split(" to ")
-      |> map fn s ->
-        s
-        |> String.strip
-        |> parse_date
-      end
-
+      |> map(& String.strip(&1) |> parse_date)
     acc
     |> Dict.put(:registration_start, from)
     |> Dict.put(:registration_end, to)
