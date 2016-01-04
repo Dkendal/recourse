@@ -42,4 +42,5 @@
   "ranch": {:hex, :ranch, "1.2.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "0.19.5"},
-  "tzdata": {:hex, :tzdata, "0.5.4"}}
+  "tzdata": {:hex, :tzdata, "0.5.4"},
+  "zipper_tree": {:hex, :zipper_tree, "0.1.1"}}
