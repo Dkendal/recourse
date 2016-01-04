@@ -32,7 +32,6 @@ defmodule Recourse.Mixfile do
     [
       :con_cache,
       :cowboy,
-      :dbg,
       :logger,
       :phoenix,
       :phoenix_ecto,
@@ -78,7 +77,6 @@ defmodule Recourse.Mixfile do
       {:exvcr, "~> 0.6", only: :test},
 
       {:dialyze, "~> 0.2.0"},
-      {:dbg, github: "fishcakez/dbg"},
       {:credo, "~> 0.1.9", only: [:dev, :test]},
     ]
   end

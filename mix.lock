@@ -8,7 +8,7 @@
   "cowboy": {:hex, :cowboy, "1.0.4"},
   "cowlib": {:hex, :cowlib, "1.0.2"},
   "credo": {:hex, :credo, "0.1.9"},
-  "dbg": {:git, "https://github.com/fishcakez/dbg.git", "8c3ec3eca04cd07bc9a90a195561c8bbd9e5a639", []},
+  "dbg": {:git, "https://github.com/fishcakez/dbg.git", "ce8fae0886eabb4944227a640261d6938cf099f2", []},
   "decimal": {:hex, :decimal, "1.1.0"},
   "dialyze": {:hex, :dialyze, "0.2.0"},
   "ecto": {:hex, :ecto, "1.0.1"},
