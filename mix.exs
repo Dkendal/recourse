@@ -52,7 +52,7 @@ defmodule Recourse.Mixfile do
       {:phoenix, "~> 1.0"},
       {:phoenix_html, "~> 2.1"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:aruspex, path: "~/src/aruspex"},
+      {:aruspex, git: "https://github.com/Dkendal/aruspex", ref: "76116af"},
       {:con_cache, "~> 0.9.0"},
 
       # database
