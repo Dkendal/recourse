@@ -22,16 +22,11 @@ defmodule Recourse.Mixfile do
     ]
   end
 
-  def applications(:test) do
-    applications(:all) ++ [
-      :ex_machina
-    ]
-  end
-
   def applications(_all) do
     [
       :con_cache,
       :cowboy,
+      :ex_machina,
       :logger,
       :phoenix,
       :phoenix_ecto,
@@ -72,8 +67,8 @@ defmodule Recourse.Mixfile do
       {:apex, only: [:dev, :test]},
 
       # testing
-      {:ex_machina, "~> 0.5", only: :test},
-      {:faker, "~> 0.5", only: :test},
+      {:ex_machina, "~> 0.5"},
+      {:faker, "~> 0.5"},
       {:exvcr, "~> 0.6", only: :test},
 
       {:dialyze, "~> 0.2.0"},
