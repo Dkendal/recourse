@@ -40,6 +40,42 @@ defmodule Recourse.Factory do
     |> cast
   end
 
+  def random_time(section) do
+    section
+    |> random_start
+    |> random_days
+    |> porportional_length
+  end
+
+  def random_start(section) do
+    hr = Enum.random 8..17
+    mins = Enum.random [0, 30]
+
+    %{section | time_start: %Time{hour: hr, min: mins, sec: 0}}
+  end
+
+  @days ~w(M T W R F)
+  def random_days(section, no_days \\ nil) do
+    no_days = no_days || Enum.random(1..3)
+    days = Enum.take_random @days, no_days
+    %{section | days: days}
+  end
+
+  def random_lab_time(section) do
+    section = random_start random_days(section, 1)
+    time_end = add_mins section.time_start, 50
+    %{section | time_end: time_end}
+  end
+
+  def porportional_length(section) do
+    no_days = length(section.days)
+    mins = round((4 - no_days) * 60) + 20
+
+    time_end = add_mins(section.time_start, mins)
+
+    %{section | time_end: time_end}
+  end
+
   def cast(p) do
     params = Map.drop p, [:__struct__,]
 
@@ -81,5 +117,16 @@ defmodule Recourse.Factory do
       (_, acc) ->
         acc
     end)
+  end
+
+  def add_mins(t, mins) do
+    import Ecto.Time
+    import :qdate
+
+    t = to_erl t
+    t = {{2015,1,1}, t}
+    {_, t} = to_date add_minutes(mins, t)
+    {:ok, t} = Ecto.Time.cast t
+    t
   end
 end
