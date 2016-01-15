@@ -24,8 +24,26 @@ defmodule Recourse.Section do
     field :waitlist, :map, virtual: true
   end
 
-  @required_fields ~w(registration_code course_id name)
-  @optional_fields ~w(time_start time_end days location date_start date_end registration_start registration_end campus instructional_method schedule_type credits)
+  @required_fields ~w(
+    course_id
+    date_end
+    date_start
+    days
+    name
+    registration_code
+    schedule_type
+    time_end
+    time_start
+  )
+
+  @optional_fields ~w(
+    campus
+    credits
+    instructional_method
+    location
+    registration_end
+    registration_start
+  )
 
   @doc """
   Creates a changeset based on the `model` and `params`.
