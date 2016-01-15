@@ -1,11 +1,8 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Recourse.Repo.insert!(%SomeModel{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+import Recourse.Factory
+
+term = create :term
+
+for _ <- 1..20 do
+  course = build :course, term: term
+  create :section, course: course
+end
