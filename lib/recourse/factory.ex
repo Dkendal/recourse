@@ -72,4 +72,14 @@ defmodule Recourse.Factory do
   def cast_time t do
     t |> Time.cast |> cast_time
   end
+
+  def lazy(record) do
+    record
+    |> Enum.reduce(record, fn
+      ({k, v}, acc) when is_function(v) ->
+        Map.update acc, k, :error, & &1.(acc)
+      (_, acc) ->
+        acc
+    end)
+  end
 end
