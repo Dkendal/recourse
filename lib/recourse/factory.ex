@@ -35,6 +35,7 @@ defmodule Recourse.Factory do
       registration_start: "2014-09-30",
       schedule_type: "Lecture",
       time_end: "13:20:00",
+      time_start: "12:00:00"
     }
     |> cast
   end
