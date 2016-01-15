@@ -3,6 +3,16 @@ defmodule Recourse.Factory do
   alias Ecto.Date
   alias Ecto.Time
 
+  @subjects ~W(
+    ENGL
+    MATH
+    CSC
+    CENG
+    SENG
+    CHEM
+    ENGR
+  )
+
   def factory(:term) do
     %Recourse.Term{
       year: 2015,
@@ -12,8 +22,8 @@ defmodule Recourse.Factory do
 
   def factory(:course) do
     %Recourse.Course{
-      subject: Faker.Lorem.sentence(1),
-      number: sequence(:course_number, &"#{&1}"),
+      subject: Enum.random(@subjects),
+      number: sequence(:course_number, &"#{&1 + 100}"),
       title: Faker.Lorem.sentence,
       term: build(:term)
     }
