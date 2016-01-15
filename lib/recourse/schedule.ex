@@ -63,12 +63,6 @@ defmodule Recourse.Schedule do
         function: time_preference(settings))
     end
 
-    for v <- variables do
-      Aruspex.post pid, constraint(
-        variables: [v],
-        function: time_preference(settings))
-    end
-
     variables
   end
 
