@@ -67,7 +67,7 @@ defmodule Recourse.Mixfile do
       {:apex, only: [:dev, :test]},
 
       # testing
-      {:ex_machina, "~> 0.5"},
+      {:ex_machina, "~> 0.6"},
       {:faker, "~> 0.5"},
       {:exvcr, "~> 0.6", only: :test},
 
