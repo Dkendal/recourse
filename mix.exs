@@ -65,8 +65,6 @@ defmodule Recourse.Mixfile do
       {:timex, "~> 0.19"},
       {:qdate, github: "choptastic/qdate"},
 
-      {:apex, only: [:dev, :test]},
-
       # testing
       {:ex_machina, "~> 0.6"},
       {:faker, "~> 0.5"},
