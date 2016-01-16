@@ -3,6 +3,7 @@ defmodule Recourse.Case do
 
   using do
     quote do
+      use ExSpec
       use Recourse.Assertions
       use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
       import Recourse.Factory
