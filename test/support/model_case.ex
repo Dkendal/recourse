@@ -17,7 +17,8 @@ defmodule Recourse.ModelCase do
   using do
     quote do
       alias Recourse.Repo
-      import Ecto.Model
+      import Ecto
+      import Ecto.Changeset
       import Ecto.Query, only: [from: 2]
       import Recourse.ModelCase
     end

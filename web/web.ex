@@ -18,7 +18,10 @@ defmodule Recourse.Web do
 
   def model do
     quote do
-      use Ecto.Model
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
     end
   end
 
@@ -27,7 +30,7 @@ defmodule Recourse.Web do
       use Phoenix.Controller
 
       alias Recourse.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
       import Recourse.Router.Helpers
@@ -59,7 +62,7 @@ defmodule Recourse.Web do
       use Phoenix.Channel
 
       alias Recourse.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 1, from: 2]
 
     end

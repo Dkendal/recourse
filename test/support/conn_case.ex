@@ -21,7 +21,7 @@ defmodule Recourse.ConnCase do
       use Phoenix.ConnTest
 
       alias Recourse.Repo
-      import Ecto.Model
+      import Ecto
       import Ecto.Query, only: [from: 2]
 
       import Recourse.Router.Helpers
