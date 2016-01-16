@@ -52,6 +52,7 @@ defmodule Recourse.Mixfile do
 
       # database
       {:postgrex, ">= 0.0.0"},
+      {:ecto, "~> 1.1"},
       {:phoenix_ecto, "~> 1.1"},
       {:ecto_enum, "~> 0.3"},
 
