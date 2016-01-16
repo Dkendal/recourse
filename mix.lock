@@ -17,6 +17,7 @@
   "erlang_localtime": {:git, "git://github.com/choptastic/erlang_localtime.git", "bd0083ffe6107537a555133c9b94656ca5c854f3", [branch: "master"]},
   "erlware_commons": {:git, "git://github.com/erlware/erlware_commons.git", "83adceaa1abc1af5358a61601b17d10c43e6d7a1", [tag: "v0.15.0"]},
   "ex_machina": {:hex, :ex_machina, "0.6.1"},
+  "ex_spec": {:hex, :ex_spec, "1.0.0"},
   "exactor": {:hex, :exactor, "2.2.0"},
   "exjsx": {:hex, :exjsx, "3.2.0"},
   "exprintf": {:hex, :exprintf, "0.1.6"},

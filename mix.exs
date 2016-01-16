@@ -70,6 +70,7 @@ defmodule Recourse.Mixfile do
       {:ex_machina, "~> 0.6"},
       {:faker, "~> 0.5"},
       {:exvcr, "~> 0.6", only: :test},
+      {:ex_spec, "~> 1.0", only: :test},
 
       {:dialyze, "~> 0.2.0"},
       {:credo, "~> 0.1.9", only: [:dev, :test]},
