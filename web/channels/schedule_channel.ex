@@ -17,7 +17,7 @@ defmodule Recourse.ScheduleChannel do
       join: s in assoc(c, :sections),
       preload: [courses: c]
 
-    reply terms, socket
+    {:reply, {:ok, %{payload: terms}}, socket}
   end
 
   def handle_in("make_schedule", options, socket) do
@@ -42,7 +42,7 @@ defmodule Recourse.ScheduleChannel do
       maxEndHour: max_end_hour
     }
 
-    reply payload, socket
+    {:reply, {:ok, %{payload: payload}}, socket}
   end
 
   # This is invoked every time a notification is being broadcast
@@ -51,10 +51,6 @@ defmodule Recourse.ScheduleChannel do
   def handle_out(event, payload, socket) do
     push socket, event, payload
     {:noreply, socket}
-  end
-
-  defp reply payload, socket do
-    {:reply, {:ok, %{payload: payload}}, socket}
   end
 
   defp wrap([]), do: [""]
