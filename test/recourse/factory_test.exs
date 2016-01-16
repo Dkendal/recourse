@@ -13,7 +13,6 @@ end
 
 defmodule Recourse.FactoryTest do
   use Recourse.Case
-  import DummyFactory
 
   test "lazy factories evaluate" do
     assert lazy(DummyFactory.build(:dummy)) == %{
