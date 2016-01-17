@@ -5,6 +5,9 @@ defmodule Recourse.Schedule.Constraint do
   use Aruspex.Constraint
   alias Ecto.Time
 
+  @type cost :: number
+  @type t :: ([Section.t] -> cost)
+
   def open_seats([section]) do
     if section.seats.remaining > 0 do
       0
@@ -39,18 +42,24 @@ defmodule Recourse.Schedule.Constraint do
     :sets.is_disjoint x, y
   end
 
-  @spec time_preference(%{String.t => String.t}) :: ([Section.t] -> number)
+  @spec time_preference(%{String.t => String.t}) :: t
   def time_preference(%{"startTime" => start_time, "endTime" => end_time}) do
     {:ok, preferred_start} = Time.cast(start_time)
     {:ok, preferred_end} = Time.cast(end_time)
+    time_preference preferred_start, preferred_end
+  end
+
+  @spec time_preference(Time.t, Time.t) :: t
+  def time_preference(preferred_start, preferred_end) do
+    do_time_preference = fn
+      (%MT{time_start: start_t, time_end: end_t}, total) ->
+        after?(end_t, preferred_end) +
+        before?(start_t, preferred_start) +
+        total
+    end
 
     fn ([%Section{} = section]) ->
-      Enum.reduce section.meeting_times, 0, fn
-        (%MT{time_start: start_t, time_end: end_t}, total) ->
-          after?(end_t, preferred_end) +
-          before?(start_t, preferred_start) +
-          total
-      end
+      Enum.reduce section.meeting_times, 0, do_time_preference
     end
   end
 
