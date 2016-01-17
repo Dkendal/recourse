@@ -50,6 +50,9 @@ defmodule Recourse.Factory do
     |> cast
   end
 
+  def with_section(course),
+    do: %{course | sections: [build(:section) |> random_time]}
+
   def random_time(section) do
     section
     |> random_start

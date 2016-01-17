@@ -19,6 +19,7 @@ defmodule Recourse.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
+      use ExSpec
 
       alias Recourse.Repo
       import Ecto

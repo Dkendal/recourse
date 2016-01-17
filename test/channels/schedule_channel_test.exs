@@ -4,41 +4,43 @@ defmodule Recourse.ScheduleChannelTest do
   import Recourse.Factory
 
   setup do
-    {:ok, _, socket} =
-      socket("user_id", %{some: :assign})
-      |> subscribe_and_join(ScheduleChannel, "schedules:planner")
+    {:ok, _, socket} = socket("user_id", %{some: :assign})
+                        |> subscribe_and_join(ScheduleChannel, "schedules:planner")
 
-    term = create :term,
-      year: 2015,
-      semester: :winter
-
-    course = create :course,
-      term: term,
-      subject: "CSC",
-      number: "100"
-
-    create :section, course: course
-
-    {
-      :ok,
-      course: course,
-      socket: socket,
-      term: term
-    }
+    {:ok, socket: socket}
   end
 
-  test "[terms:search] requesting terms", %{
-    socket: socket,
-    course: %{id: course_id},
-    term: %{id: term_id}
-  } do
+  describe "terms:search" do
+    it "returns all the terms", %{socket: socket} do
+      expected_term = create(:term)
 
-    ref = push socket, "terms:search", %{}
-    assert_reply ref, :ok, %{
-      payload: [
-        %{id: ^term_id,
-          courses: [
-            %{id: ^course_id}]}]}
+      expected_course = build(:course, term: expected_term)
+                        |> with_section
+                        |> create
+
+      build(:course, term: expected_term)
+      |> create
+
+      ref = push socket, "terms:search", %{}
+
+      # is ok
+      assert_reply ref, :ok, response
+
+      assert response.payload |> length == 1
+
+      term = response.payload |> hd
+
+      # returns all terms
+      assert term.id == expected_term.id
+
+      # only includeds courses with sections
+      assert term.courses |> length == 1
+
+      course = term.courses |> hd
+
+      # returns the expected courses
+      assert course.id == expected_course.id
+    end
   end
 
   test "[make_schedule] returns a schedule for the given courses", %{socket: socket} do
