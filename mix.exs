@@ -4,7 +4,7 @@ defmodule Recourse.Mixfile do
   def project do
     [app: :recourse,
      version: "0.0.1",
-     elixir: "~> 1.1",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
