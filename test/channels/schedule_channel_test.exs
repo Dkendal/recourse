@@ -50,21 +50,23 @@ defmodule Recourse.ScheduleChannelTest do
     end
   end
 
-  test "[make_schedule] returns a schedule for the given courses", %{socket: socket} do
-    ref = push socket, "make_schedule", %{
-      "course_ids" => [],
-      "settings" => %{
-        "startTime" => "00:00:00",
-        "endTime" => "00:00:00"
+  describe "make_schedule" do
+    it "returns a schedule for the given courses", %{socket: socket} do
+      ref = push socket, "make_schedule", %{
+        "course_ids" => [],
+        "settings" => %{
+          "startTime" => "00:00:00",
+          "endTime" => "00:00:00"
+        }
       }
-    }
 
-    assert_reply ref, :ok, %{
-      payload: %{
-        maxEndHour: "",
-        minStartHour: "",
-        sections: []
+      assert_reply ref, :ok, %{
+        payload: %{
+          maxEndHour: "",
+          minStartHour: "",
+          sections: []
+        }
       }
-    }
+    end
   end
 end
