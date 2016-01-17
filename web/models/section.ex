@@ -77,7 +77,7 @@ defmodule Recourse.Section do
         seats: section.seats,
         waitlist: section.waitlist
       }
-      |> Poison.Encoder.encode []
+      |> Poison.Encoder.encode([])
     end
   end
 end
