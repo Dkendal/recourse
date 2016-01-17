@@ -2,41 +2,40 @@ defmodule Recourse.ScheduleTest do
   alias Recourse.Schedule
   use Recourse.Case
 
+  setup_all do
+    SeatsHelper.mock_registration_info
+    :ok
+  end
+
   test "[build/1]" do
-    term = create(:term, year: 2016, semester: :summer)
-    csc = create(:course, subject: "CSC", number: "100", term: term)
-    engl = create(:course, subject: "ENGL", number: "100", term: term)
+    term = create(:term)
 
-    lecture = build(:section,
-      time_start: "12:00:00",
-      time_end: "13:50:00",
-      course: csc
-    )
+    csc = create(:course, term: term)
+    engl = create(:course, term: term)
+
+    csc_lecture = build(:section, course: csc)
     |> as_lecture
-    |> cast
     |> create
 
-    tutorial = build(:section,
-      time_start: cast_time("14:00:00"),
-      time_end: cast_time("15:50:00"),
-      course: csc
-    )
+    csc_tutorial = build(:section, course: csc)
     |> as_tutorial
-    |> cast
     |> create
 
-    use_cassette "building a schedule" do
-      sections = Schedule.build(%{
-        "course_ids" => [csc.id, engl.id],
-        "settings" => %{
-          "startTime" => "00:00:00",
-          "endTime" => "00:00:00"
-        }
-      })
+    engl_lecture = build(:section, course: engl)
+    |> as_tutorial
+    |> create
 
-      assert length(sections) == 2
-      assert Enum.any? sections, & &1.id == lecture.id
-      assert Enum.any? sections, & &1.id == tutorial.id
-    end
+    sections = Schedule.build(%{
+      "course_ids" => [csc.id, engl.id],
+      "settings" => %{
+        "startTime" => "00:00:00",
+        "endTime" => "00:00:00"
+      }
+    })
+
+    assert length(sections) == 3
+    assert Enum.any? sections, & &1.id == csc_lecture.id
+    assert Enum.any? sections, & &1.id == csc_tutorial.id
+    assert Enum.any? sections, & &1.id == engl_lecture.id
   end
 end
