@@ -8,6 +8,7 @@ defmodule Recourse.Schedule.Constraint do
   @type cost :: number
   @type t :: ([Section.t] -> cost)
 
+  @spec open_seats([Section.t]) :: number
   def open_seats([section]) do
     if section.seats.remaining > 0 do
       0
@@ -16,6 +17,7 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
+  @spec no_conflict([Section.t]) :: 0 | 1000
   def no_conflict([a, b]),
     do: if no_time_conflict?(a, b), do: 0, else: 1000
 
@@ -37,6 +39,7 @@ defmodule Recourse.Schedule.Constraint do
     |> Enum.all?
   end
 
+  @spec disjoint_days?(MT.t, MT.t) :: boolean
   def disjoint_days?(%MT{days: d1}, %MT{days: d2}) do
     [x, y] = for s <- [d1, d2], do: :sets.from_list(s)
     :sets.is_disjoint x, y
@@ -63,6 +66,7 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
+  @spec after?(Time.t, Time.t) :: cost
   def after? t1, t2 do
     if unset_time?(t2) or t1 >= t2 do
       0
@@ -71,6 +75,7 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
+  @spec before?(Time.t, Time.t) :: cost
   def before? t1, t2 do
     if unset_time?(t2) or t1 <= t2 do
       0
@@ -79,12 +84,15 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
+  @spec time_penalty(Time.t, Time.t) :: float
   defp time_penalty t1, t2 do
     abs(time_to_f(t1) - time_to_f(t2))
   end
 
-  defp time_to_f(%{hour: h, min: m}), do: h + m/60
+  @spec time_to_f(Time.t) :: float
+  defp time_to_f(%Time{hour: h, min: m}), do: h + m/60
 
+  @spec unset_time?(Time.t | any) :: boolean
   defp unset_time?(%Time{hour: 0, min: 0, sec: 0}), do: true
   defp unset_time?(_), do: false
 end
