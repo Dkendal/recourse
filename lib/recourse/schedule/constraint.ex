@@ -1,5 +1,6 @@
 defmodule Recourse.Schedule.Constraint do
-  alias Recourse.{Section, MeetingTime}
+  alias Recourse.{Section}
+  alias Recourse.MeetingTime, as: MT
 
   use Aruspex.Constraint
   alias Ecto.Time
@@ -33,17 +34,23 @@ defmodule Recourse.Schedule.Constraint do
     |> Enum.all?
   end
 
-  def disjoint_days?(%MeetingTime{days: d1}, %MeetingTime{days: d2}) do
+  def disjoint_days?(%MT{days: d1}, %MT{days: d2}) do
     [x, y] = for s <- [d1, d2], do: :sets.from_list(s)
     :sets.is_disjoint x, y
   end
 
+  @spec time_preference(%{String.t => String.t}) :: ([Section.t] -> number)
   def time_preference(%{"startTime" => start_time, "endTime" => end_time}) do
-    {:ok, start_time} = Time.cast(start_time)
-    {:ok, end_time} = Time.cast(end_time)
+    {:ok, preferred_start} = Time.cast(start_time)
+    {:ok, preferred_end} = Time.cast(end_time)
 
-    fn [%{time_start: s, time_end: e}] ->
-      after?(s, start_time) + before?(e, end_time)
+    fn ([%Section{} = section]) ->
+      Enum.reduce section.meeting_times, 0, fn
+        (%MT{time_start: start_t, time_end: end_t}, total) ->
+          after?(end_t, preferred_end) +
+          before?(start_t, preferred_start) +
+          total
+      end
     end
   end
 
