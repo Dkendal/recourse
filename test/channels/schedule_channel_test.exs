@@ -3,9 +3,16 @@ defmodule Recourse.ScheduleChannelTest do
   use Recourse.ChannelCase
   import Recourse.Factory
 
+
+  setup_all do
+    SeatsHelper.mock_registration_info
+    :ok
+  end
+
   setup do
     {:ok, _, socket} = socket("user_id", %{some: :assign})
                         |> subscribe_and_join(ScheduleChannel, "schedules:planner")
+
 
     {:ok, socket: socket}
   end
