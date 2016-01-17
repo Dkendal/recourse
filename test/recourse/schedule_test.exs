@@ -38,6 +38,8 @@ defmodule Recourse.ScheduleTest do
       assert Enum.any? sections, & &1.id == csc_lecture.id
       assert Enum.any? sections, & &1.id == csc_tutorial.id
       assert Enum.any? sections, & &1.id == engl_lecture.id
+
+      assert %Recourse.MeetingTime{} = hd csc_lecture.meeting_times
     end
   end
 end

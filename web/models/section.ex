@@ -17,6 +17,7 @@ defmodule Recourse.Section do
     field :time_end, Ecto.Time
     field :time_start, Ecto.Time
     belongs_to :course, Recourse.Course
+    has_many :meeting_times, Recourse.MeetingTime
 
     timestamps
 

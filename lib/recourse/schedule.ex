@@ -71,7 +71,7 @@ defmodule Recourse.Schedule do
       select: s,
       join: c in assoc(s, :course),
       where: c.id in ^course_ids,
-      preload: [course: :term],
+      preload: [:meeting_times, course: :term],
       order_by: c.id
   end
 end
