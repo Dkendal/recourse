@@ -18,8 +18,8 @@ defmodule Recourse.Schedule.Constraint do
 
   @spec no_time_conflict?(Section.t, Section.t) :: boolean
   def no_time_conflict?(s1, s2) do
-    for %{time_start: ts1, time_end: te1} = m1 <- s1.meeting_times,
-        %{time_start: ts2, time_end: te2} = m2 <- s2.meeting_times do
+    for %MT{time_start: ts1, time_end: te1} = m1 <- s1.meeting_times,
+        %MT{time_start: ts2, time_end: te2} = m2 <- s2.meeting_times do
       cond do
         disjoint_days?(m1, m2) ->
           true
