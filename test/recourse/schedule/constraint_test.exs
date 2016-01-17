@@ -1,5 +1,5 @@
 defmodule Recourse.ConstraintTest do
-  use ExUnit.Case
+  use Recourse.Case
   alias Recourse.Repo
   alias Recourse.Term
   alias Recourse.Course
@@ -8,53 +8,58 @@ defmodule Recourse.ConstraintTest do
   alias Ecto.Time
   import Repo, only: [insert: 1]
 
-  setup do
-    {:ok, term} = insert %Term{year: 2015, semester: :summer}
+  describe "no_time_conflict?/2" do
+    context "when the two sections do not occur during the same time" do
+      it "returns true" do
+        four_o_clock = %Ecto.Time{hour: 16, min: 0, sec: 0}
+        noon = %Ecto.Time{hour: 12, min: 0, sec: 0}
 
-    {:ok, csc} = insert %Course{
-      subject: "CSC", number: "100", term_id: term.id
-    }
+        mt1 = build(:meeting_time, time_start: four_o_clock) |> duration(80)
 
-    {:ok, math} = insert %Course{
-      subject: "MATH", number: "100", term_id: term.id
-    }
+        mt2 = %{mt1 | time_start: noon} |> duration(80)
 
-    {:ok, csc_lecture} = insert %Section{
-      days: ~W(M W R),
-      schedule_type: "Lecture",
-      time_end: %Time{hour: 16, min: 20, sec: 0},
-      time_start: %Time{hour: 15, min: 30, sec: 0},
-      course_id: csc.id
-    }
+        csc = build :section, meeting_times: [mt1]
+        math = %{csc | meeting_times: [mt2]}
 
-    {:ok, csc_tutorial} = insert %Section{
-      days: ~W(T),
-      schedule_type: "Tutorial",
-      time_end: %Time{hour: 16, min: 20, sec: 0},
-      time_start: %Time{hour: 15, min: 30, sec: 0},
-      course_id: csc.id
-    }
+        assert Constraint.no_time_conflict?(csc, math) == true
+      end
+    end
 
-    {:ok, earlier_math_lecture} = insert %Section{
-      days: ~W(M W R),
-      schedule_type: "Lecture",
-      time_end: %Time{hour: 16, min: 20, sec: 0},
-      time_start: %Time{hour: 15, min: 30, sec: 0},
-      course_id: math.id
-    }
+    context "when two sections occur during the same time on diffent days" do
+      it "returns true" do
+        mt1 = build :meeting_time, days: ~w(M)
+        mt2 = %{mt1 | days: ~w(T)}
 
-    { :ok,
-      earlier_math_lecture: earlier_math_lecture,
-      csc_lecture: csc_lecture,
-      csc_tutorial: csc_tutorial
-    }
+        csc = build :section, meeting_times: [mt1]
+        math = %{csc | meeting_times: [mt2]}
+
+        assert Constraint.no_time_conflict?(csc, math) == true
+      end
+    end
+
+    context "when the two sections occur during the same time" do
+      it "returns false" do
+        section = build :section
+
+        assert Constraint.no_time_conflict?(section, section) == false
+      end
+    end
   end
 
-  test "[no_conflict/1]", context do
-    assert Constraint.no_conflict(
-      [context.csc_tutorial, context.csc_lecture]) == 0
+  describe "disjoint_days?" do
+    context "when two meeting times don't have any days in common" do
+      it "returns true" do
+        mt1 = build :meeting_time, days: ["T"]
+        mt2 = build :meeting_time, days: ["M"]
+        assert Constraint.disjoint_days?(mt1, mt2) == true
+      end
+    end
 
-    assert Constraint.no_conflict(
-      [context.earlier_math_lecture, context.csc_lecture]) == 1000
+    context "when two meeting times share days" do
+      it "returns false" do
+        mt = build :meeting_time
+        assert Constraint.disjoint_days?(mt, mt) == false
+      end
+    end
   end
 end

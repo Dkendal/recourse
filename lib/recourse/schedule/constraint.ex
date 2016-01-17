@@ -1,4 +1,6 @@
 defmodule Recourse.Schedule.Constraint do
+  alias Recourse.{Section, MeetingTime}
+
   use Aruspex.Constraint
   alias Ecto.Time
 
@@ -18,14 +20,27 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
-  def no_time_conflict?(
-    %{time_start: t1, time_end: t2},
-    %{time_start: s1, time_end: s2}) do
-    cond do
-      t2 <= s1 -> true
-      s2 <= t1 -> true
-      true -> false
+  @spec no_time_conflict?(Section.t, Section.t) :: boolean
+  def no_time_conflict?(s1, s2) do
+    for %{time_start: ts1, time_end: te1} = m1 <- s1.meeting_times,
+        %{time_start: ts2, time_end: te2} = m2 <- s2.meeting_times do
+      cond do
+        disjoint_days?(m1, m2) ->
+          true
+        te1 <= ts2 ->
+          true
+        te2 <= ts1 ->
+          true
+        true ->
+          false
+      end
     end
+    |> Enum.all?
+  end
+
+  def disjoint_days?(%MeetingTime{days: d1}, %MeetingTime{days: d2}) do
+    [x, y] = for s <- [d1, d2], do: :sets.from_list(s)
+    :sets.is_disjoint x, y
   end
 
   def days_different?(a, b) do

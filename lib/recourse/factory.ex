@@ -93,13 +93,15 @@ defmodule Recourse.Factory do
     %{section | time_end: time_end}
   end
 
+  def duration(mt, mins) do
+    time_end = add_mins(mt.time_start, mins)
+    %{mt | time_end: time_end}
+  end
+
   def porportional_length(section) do
     no_days = length(section.days)
     mins = round((4 - no_days) * 60) + 20
-
-    time_end = add_mins(section.time_start, mins)
-
-    %{section | time_end: time_end}
+    duration(section, mins)
   end
 
   def cast(p) do
