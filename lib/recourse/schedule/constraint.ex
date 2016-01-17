@@ -12,13 +12,8 @@ defmodule Recourse.Schedule.Constraint do
     end
   end
 
-  def no_conflict([a, b]) do
-    if days_different?(a, b) or no_time_conflict?(a, b) do
-      0
-    else
-      1000
-    end
-  end
+  def no_conflict([a, b]),
+    do: if no_time_conflict?(a, b), do: 0, else: 1000
 
   @spec no_time_conflict?(Section.t, Section.t) :: boolean
   def no_time_conflict?(s1, s2) do
@@ -41,12 +36,6 @@ defmodule Recourse.Schedule.Constraint do
   def disjoint_days?(%MeetingTime{days: d1}, %MeetingTime{days: d2}) do
     [x, y] = for s <- [d1, d2], do: :sets.from_list(s)
     :sets.is_disjoint x, y
-  end
-
-  def days_different?(a, b) do
-    a = Enum.into a.days, HashSet.new
-    b = Enum.into b.days, HashSet.new
-    Set.disjoint? a, b
   end
 
   def time_preference(%{"startTime" => start_time, "endTime" => end_time}) do
