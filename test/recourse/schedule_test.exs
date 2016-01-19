@@ -42,4 +42,10 @@ defmodule Recourse.ScheduleTest do
       assert %Recourse.MeetingTime{} = hd csc_lecture.meeting_times
     end
   end
+
+  describe "components/1" do
+    it "groups sections based on conflicts" do
+      Schedule.components(build_list(2, :section))
+    end
+  end
 end

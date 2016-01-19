@@ -2,6 +2,7 @@ defmodule Recourse.Factory do
   use ExMachina.Ecto, repo: Recourse.Repo
   alias Ecto.Date
   alias Ecto.Time
+  alias Recourse.{MeetingTime}
 
   @subjects ~W(
     ENGL
@@ -38,7 +39,6 @@ defmodule Recourse.Factory do
       credits: 3.0,
       date_end: "2015-04-01",
       date_start: "2015-01-01",
-      days: ~W(M W F),
       instructional_method: "face-to-face",
       location: "some building",
       name: sequence(:section_name, &"#{&1}"),
@@ -46,15 +46,13 @@ defmodule Recourse.Factory do
       registration_end: "2015-01-15",
       registration_start: "2014-09-30",
       schedule_type: "Lecture",
-      time_end: "13:20:00",
-      time_start: "12:00:00",
       meeting_times: build_list(1, :meeting_time)
     }
     |> cast
   end
 
   def factory(:meeting_time) do
-    %Recourse.MeetingTime{
+    %MeetingTime{
       date_end: %Date{year: 2015, month: 4, day: 28},
       date_start: %Date{year: 2015, month: 1, day: 1},
       instructors: ["Jane Doe"],
@@ -74,6 +72,7 @@ defmodule Recourse.Factory do
     |> porportional_length
   end
 
+  @spec random_start(%MeetingTime{}) :: %MeetingTime{}
   def random_start(section) do
     hr = Enum.random 8..17
     mins = Enum.random [0, 30]
@@ -81,6 +80,7 @@ defmodule Recourse.Factory do
     %{section | time_start: %Time{hour: hr, min: mins, sec: 0}}
   end
 
+  @spec random_days(%MeetingTime{}, integer | nil) :: %MeetingTime{}
   def random_days(section, no_days \\ nil) do
     no_days = no_days || Enum.random(1..3)
     days = Enum.take_random @days, no_days

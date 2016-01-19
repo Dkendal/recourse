@@ -24,7 +24,6 @@ defmodule Recourse.Scraper.SectionTest do
 
       assert_attributes actual.changes,
         campus: "Main",
-        days: ["M", "R"],
         name: "A01",
         course_id: course.id
     end

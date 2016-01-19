@@ -11,7 +11,7 @@ defmodule Recourse.Schedule do
     {:ok, pid} = Aruspex.start_link
 
     # required for Registration.load
-    Recourse.Scraper.start
+    {:ok, _} = Recourse.Scraper.start
 
     course_ids
     |> get_sections
@@ -23,14 +23,17 @@ defmodule Recourse.Schedule do
     |> Dict.values
   end
 
-  def components values do
+  @spec components(Section.t) :: [[Section.t]]
+  def components sections do
     g = :digraph.new
 
     values =
-    for section <- values, day <- section.days do
-      put_in section.days, [day]
-    end
-    |> Enum.map(add_vertex g)
+      for section <- sections,
+          mt <- section.meeting_times,
+          day <- mt.days do
+        %{section | meeting_times: [%{mt | days: [day]}]}
+        |> add_vertex(g).()
+      end
 
     for x <- values, y <- values, x != y do
       if no_conflict([x, y]) > 0 do
@@ -44,10 +47,10 @@ defmodule Recourse.Schedule do
   defp init_variables(sections, pid) do
     sections
     |> Enum.group_by(& {&1.course_id, &1.schedule_type}) # %{ int: [Section] }
-    |> Enum.map fn {grouping, sections} ->
+    |> Enum.map(fn {grouping, sections} ->
       Aruspex.variable(pid, grouping, sections)
       grouping
-    end
+    end)
   end
 
   defp init_constraints(variables, settings, pid) do
@@ -63,7 +66,7 @@ defmodule Recourse.Schedule do
         function: time_preference(settings))
     end
 
-    variables
+    :ok
   end
 
   defp get_sections course_ids do

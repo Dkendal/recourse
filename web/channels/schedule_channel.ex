@@ -25,16 +25,16 @@ defmodule Recourse.ScheduleChannel do
     components = Schedule.components sections
 
     min_start_hour =
-    sections
-    |> Enum.map(& &1.time_start)
-    |> wrap
-    |> Enum.min
+      sections
+      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.time_start)
+      |> wrap
+      |> Enum.min
 
     max_end_hour =
-    sections
-    |> Enum.map(& &1.time_end)
-    |> wrap
-    |> Enum.max
+      sections
+      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.time_end)
+      |> wrap
+      |> Enum.max
 
     payload = %{
       sections: components,

@@ -6,7 +6,6 @@ defmodule Recourse.Section do
     field :credits, :float
     field :date_end, Ecto.Date
     field :date_start, Ecto.Date
-    field :days, {:array, :string}
     field :instructional_method, :string
     field :location, :string
     field :name, :string
@@ -14,8 +13,6 @@ defmodule Recourse.Section do
     field :registration_end, Ecto.Date
     field :registration_start, Ecto.Date
     field :schedule_type, :string
-    field :time_end, Ecto.Time
-    field :time_start, Ecto.Time
     belongs_to :course, Recourse.Course
     has_many :meeting_times, Recourse.MeetingTime
 
@@ -29,12 +26,9 @@ defmodule Recourse.Section do
     course_id
     date_end
     date_start
-    days
     name
     registration_code
     schedule_type
-    time_end
-    time_start
   )
 
   @optional_fields ~w(
@@ -65,7 +59,6 @@ defmodule Recourse.Section do
         credits: section.credits,
         date_end: section.date_end,
         date_start: section.date_start,
-        days: section.days,
         id: section.id,
         instructional_method: section.instructional_method,
         location: section.location,
@@ -73,8 +66,6 @@ defmodule Recourse.Section do
         registration_end: section.registration_end,
         registration_start: section.registration_start,
         schedule_type: section.schedule_type,
-        time_end: section.time_end,
-        time_start: section.time_start,
         seats: section.seats,
         waitlist: section.waitlist
       }

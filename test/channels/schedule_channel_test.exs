@@ -1,5 +1,6 @@
 defmodule Recourse.ScheduleChannelTest do
-  alias Recourse.{ScheduleChannel, Repo}
+  alias Recourse.{ScheduleChannel, Repo, Section}
+  alias Ecto.Time
   use Recourse.ChannelCase
   import Recourse.Factory
 
@@ -10,8 +11,9 @@ defmodule Recourse.ScheduleChannelTest do
   end
 
   setup do
-    {:ok, _, socket} = socket("user_id", %{some: :assign})
-                        |> subscribe_and_join(ScheduleChannel, "schedules:planner")
+    {:ok, _, socket} =
+      socket("user_id", %{some: :assign})
+      |> subscribe_and_join(ScheduleChannel, "schedules:planner")
 
 
     {:ok, socket: socket}
@@ -21,9 +23,11 @@ defmodule Recourse.ScheduleChannelTest do
     it "returns all the terms", %{socket: socket} do
       expected_term = create(:term)
 
-      expected_course = build(:course, term: expected_term)
-                        |> with_section
-                        |> create
+      expected_course = build(
+        :course,
+        sections: [build(:section)],
+        term: expected_term)
+        |> create
 
       build(:course, term: expected_term)
       |> create
@@ -52,8 +56,33 @@ defmodule Recourse.ScheduleChannelTest do
 
   describe "make_schedule" do
     it "returns a schedule for the given courses", %{socket: socket} do
+      eight_am = %Time{hour: 8, min: 0, sec: 0}
+      six_pm = %Time{hour: 18, min: 0, sec: 0}
+
+      term = create :term
+
+      eight_am_class = build(:meeting_time, time_start: eight_am, days: ~W(M))
+                        |> duration(120)
+
+      six_pm_class = build(:meeting_time, time_start: six_pm, days: ~W(R))
+                      |> duration(180)
+
+      math = create(
+        :course,
+        term: term,
+        sections: [
+          build(:section, meeting_times: [eight_am_class])
+        ])
+
+      csc = create(
+        :course,
+        term: term,
+        sections: [
+          build(:section, meeting_times: [six_pm_class])
+        ])
+
       ref = push socket, "make_schedule", %{
-        "course_ids" => [],
+        "course_ids" => [csc.id, math.id],
         "settings" => %{
           "startTime" => "00:00:00",
           "endTime" => "00:00:00"
@@ -62,11 +91,16 @@ defmodule Recourse.ScheduleChannelTest do
 
       assert_reply ref, :ok, %{
         payload: %{
-          maxEndHour: "",
-          minStartHour: "",
-          sections: []
+          maxEndHour: max_end_hour,
+          minStartHour: min_start_hour,
+          sections: sections
         }
       }
+
+      assert [[%Section{}], [%Section{}]] = sections
+
+      assert %{hour: 21, min: 0} = max_end_hour
+      assert %{hour: 8, min: 0} = min_start_hour
     end
   end
 end
