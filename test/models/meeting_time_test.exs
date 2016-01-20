@@ -26,4 +26,8 @@ defmodule Recourse.MeetingTimeTest do
     changeset = MeetingTime.changeset(%MeetingTime{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "can be encoded to json" do
+    Poison.encode %MeetingTime{}
+  end
 end
