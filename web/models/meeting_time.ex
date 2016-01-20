@@ -47,6 +47,7 @@ defmodule Recourse.MeetingTime do
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(meeting_time, _options) do
       %{
+        key: meeting_time.id,
         date_end: meeting_time.date_end,
         date_start: meeting_time.date_start,
         days: meeting_time.days,

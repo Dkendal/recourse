@@ -31,7 +31,7 @@ const store = compose(
   applyMiddleware(
     thunkMiddleware,
     storageMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
   )
 )(createStore)(storage.reducer(reducer));
 

@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from "react";
 import _ from "underscore";
 import {List} from "immutable";
 
-import ScheduleSectionGroup from "./ScheduleSectionGroup";
+import Section from "./Section";
+
 import "css/components/Schedule";
 
 function scheduleSectionGroupKey(c) {
@@ -30,16 +31,14 @@ export default class Schedule extends Component {
         </div>
 
         <div className="schedule-body schedule-border flex">
-          {
-            sections.map(
-              collection =>
-              <ScheduleSectionGroup
-                collection={collection}
-                endHour={endHour}
-                key={scheduleSectionGroupKey(collection)}
-                startHour={startHour}
-              />
-            )
+          { sections.map(x => x.map(
+            y =>
+            <Section
+              {...y}
+              startHour={startHour}
+              endHour={endHour}
+            />
+            ))
           }
           {
             _.range(startHour, endHour).map(
