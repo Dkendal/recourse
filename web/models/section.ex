@@ -67,7 +67,8 @@ defmodule Recourse.Section do
         registration_start: section.registration_start,
         schedule_type: section.schedule_type,
         seats: section.seats,
-        waitlist: section.waitlist
+        waitlist: section.waitlist,
+        meeting_times: section.meeting_times
       }
       |> Poison.Encoder.encode([])
     end
