@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from "react";
 import _ from "underscore";
 import {List} from "immutable";
+import moment from "moment";
+import d3 from "d3";
 
 import Section from "./Section";
 
@@ -13,6 +15,24 @@ function scheduleSectionGroupKey(c) {
 export default class Schedule extends Component {
   render() {
     const {sections, startHour, endHour} = this.props;
+
+
+    const minTime = moment({hours: startHour});
+    const maxTime = moment({hours: endHour});
+
+    const yScale = d3.time.scale()
+      .domain([minTime, maxTime])
+      .range([0, 100]);
+
+    // define boundaries for the scale as -1 and 1 so that they are bound to
+    // the domains of ['undefined', 0], and [100, 'undefined'] respectively
+    const days = ["-1", "M", "T", "W", "R", "F", "1"];
+    const c = days.length - 1 ;
+    const domain = days.map((_, i) => (i + 1)/c * 100);
+
+    const xScale = d3.scale.threshold()
+      .domain(domain)
+      .range(days);
 
     return (
       <div className="schedule flex">
@@ -35,8 +55,8 @@ export default class Schedule extends Component {
             y =>
             <Section
               {...y}
-              startHour={startHour}
-              endHour={endHour}
+              xScale={xScale}
+              yScale={yScale}
             />
             ))
           }
