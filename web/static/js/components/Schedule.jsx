@@ -45,6 +45,8 @@ export default class Schedule extends Component {
       .domain(domain)
       .range(days);
 
+    const colorScale = colorFun;
+
     const ticks = yScale.ticks(d3.time.minutes, 30);
 
     const tickFormat = yScale.tickFormat();
@@ -72,9 +74,11 @@ export default class Schedule extends Component {
               {...y}
               xScale={xScale}
               yScale={yScale}
+              colorScale={colorScale}
             />
             ))
           }
+
           {
             ticks.map(
               hr =>

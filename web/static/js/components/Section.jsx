@@ -22,14 +22,17 @@ class MeetingTime extends Component {
 
   percent(x) { return `${x}%`; }
 
+  color() { return this.props.colorScale(this.props.section); }
+
   style() {
     const [left, right] = this.xDim();
 
     return {
-      top:     this.percent(this.top()),
-      bottom:  this.percent(100 - this.bottom()),
-      left:    this.percent(left),
-      right:   this.percent(100 - right)
+      backgroundColor: this.color(),
+      top:             this.percent(this.top()),
+      bottom:          this.percent(100 - this.bottom()),
+      left:            this.percent(left),
+      right:           this.percent(100 - right)
     };
   }
 
