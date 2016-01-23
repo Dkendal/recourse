@@ -8,17 +8,28 @@ import Section from "./Section";
 
 import "css/components/Schedule";
 
-function scheduleSectionGroupKey(c) {
-  return c.map(x => `${x.id}.${x.days}`).sort();
+function colorFun({course}) {
+  function toNum(str) {
+    let value = 0;
+
+    for (let idx = 0; idx < str.length; idx++) {
+      value += str.charCodeAt(idx);
+    }
+
+    return value
+  }
+
+  const hue = (toNum(course.subject) ** 5 + toNum(course.number)) * 16 % 255;
+
+  return `hsl(${hue},${80}%,${70}%)`;
 }
 
 export default class Schedule extends Component {
   render() {
     const {sections, startHour, endHour} = this.props;
 
-
-    const minTime = moment({hours: startHour});
-    const maxTime = moment({hours: endHour});
+    const minTime = moment(startHour);
+    const maxTime = moment(endHour);
 
     const yScale = d3.time.scale()
       .domain([minTime, maxTime])
@@ -33,6 +44,10 @@ export default class Schedule extends Component {
     const xScale = d3.scale.threshold()
       .domain(domain)
       .range(days);
+
+    const ticks = yScale.ticks(d3.time.minutes, 30);
+
+    const tickFormat = yScale.tickFormat();
 
     return (
       <div className="schedule flex">
@@ -61,13 +76,15 @@ export default class Schedule extends Component {
             ))
           }
           {
-            _.range(startHour, endHour).map(
+            ticks.map(
               hr =>
               <div
                 className="schedule-row flex"
-                key={hr}
+                key={tickFormat(hr)}
               >
-                <div className="schedule-cell schedule-hour">{hr}</div>
+                <div className="schedule-cell schedule-hour">
+                  {tickFormat(hr)}
+                </div>
                 <div className="schedule-cell"></div>
                 <div className="schedule-cell"></div>
                 <div className="schedule-cell"></div>
@@ -83,9 +100,3 @@ export default class Schedule extends Component {
 }
 
 Schedule.displayName = "Schedule";
-
-Schedule.propTypes = {
-  endHour: PropTypes.number,
-  sections: PropTypes.instanceOf(List),
-  startHour: PropTypes.number
-};
