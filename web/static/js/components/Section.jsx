@@ -3,6 +3,8 @@ import moment from "moment";
 
 import "css/components/MeetingTime.scss";
 
+function percent(x) { return `${x}%`; }
+
 class MeetingTime extends Component {
   xScale() { return this.props.xScale; }
 
@@ -20,8 +22,6 @@ class MeetingTime extends Component {
 
   xDim() { return this.xScale().invertExtent(this.day()); }
 
-  percent(x) { return `${x}%`; }
-
   color() { return this.props.colorScale(this.props.section); }
 
   style() {
@@ -29,10 +29,10 @@ class MeetingTime extends Component {
 
     return {
       backgroundColor: this.color(),
-      top:             this.percent(this.top()),
-      bottom:          this.percent(100 - this.bottom()),
-      left:            this.percent(left),
-      right:           this.percent(100 - right)
+      top:             percent(this.top()),
+      bottom:          percent(100 - this.bottom()),
+      left:            percent(left),
+      right:           percent(100 - right)
     };
   }
 
@@ -56,11 +56,12 @@ export default class Section extends Component {
     return(
       <div>
         { this.props.meeting_times.map(
-          meeting_time =>
+          meetingTime =>
           <MeetingTime
+            key={[meetingTime.id, meetingTime.days]}
             course={course}
             section={this.props}
-            {...meeting_time}
+            {...meetingTime}
             {...this.props}
           />
           )

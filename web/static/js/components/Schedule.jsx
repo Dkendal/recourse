@@ -68,10 +68,11 @@ export default class Schedule extends Component {
         </div>
 
         <div className="schedule-body schedule-border flex">
-          { sections.map(x => x.map(
-            y =>
+          { sections.map((x, i) => x.map(
+            (y, j) =>
             <Section
               {...y}
+              key={[i, j]}
               xScale={xScale}
               yScale={yScale}
               colorScale={colorScale}
