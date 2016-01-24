@@ -22,11 +22,16 @@ defmodule Recourse.Mixfile do
     ]
   end
 
+  def applications(:test) do
+    [
+      :ex_machina
+    ] ++ applications(:all)
+  end
+
   def applications(_all) do
     [
       :con_cache,
       :cowboy,
-      :ex_machina,
       :logger,
       :phoenix,
       :phoenix_ecto,
@@ -71,12 +76,12 @@ defmodule Recourse.Mixfile do
       {:exrm, "~> 1.0.0-rc7"},
 
       # testing
-      {:ex_machina, "~> 0.6"},
-      {:faker, "~> 0.5"},
+      {:ex_machina, "~> 0.6", only: [:dev, :test]},
+      {:faker, "~> 0.5", only: [:test, :dev]},
       {:exvcr, "~> 0.6", only: :test},
       {:ex_spec, "~> 1.0", only: :test},
 
-      {:dialyze, "~> 0.2.0"},
+      {:dialyze, "~> 0.2.0", only: :dev},
       {:credo, "~> 0.1.9", only: [:dev, :test]},
     ]
   end
