@@ -65,6 +65,7 @@ defmodule Recourse.Mixfile do
       # date and time
       {:timex, "~> 0.19"},
       {:qdate, github: "choptastic/qdate"},
+      {:erlware_commons, "~> 0.15.0", override: true},
 
       # deployment
       {:exrm, "~> 1.0.0-rc7"},
