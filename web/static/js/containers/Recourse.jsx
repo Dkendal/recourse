@@ -11,7 +11,6 @@ import a from "../actions";
 import select from "../selectors";
 import {compose} from "underscore";
 
-import "css/base";
 import "css/containers/Recourse";
 
 class Recourse extends Component {

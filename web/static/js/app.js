@@ -13,6 +13,8 @@ import reducer from "./reducers";
 import socket from "./socket";
 import {joinChannel, getTerms, refreshSchedule} from "./actions/channel";
 
+import "css/application";
+
 const channel = socket.channel("schedules:planner", {});
 let engine = createEngine("Recourse");
 const loggerMiddleware = createLogger();
