@@ -30,13 +30,21 @@ defmodule Recourse.Mixfile do
 
   def applications(_all) do
     [
+      :aruspex,
       :con_cache,
       :cowboy,
+      :ecto_enum,
+      :exyz,
+      :floki,
+      :httpoison,
       :logger,
+      :pattern_tap,
       :phoenix,
       :phoenix_ecto,
       :phoenix_html,
-      :postgrex
+      :postgrex,
+      :qdate,
+      :timex,
     ]
   end
 
