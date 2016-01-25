@@ -1,14 +1,6 @@
-@import '../base';
-
 $border: 2px solid hsl(0, 0%, 90%);
 
 .schedule {
-
-  &,
-  &-body {
-    @extend .column;
-  }
-
   &-body {
     position: relative;
   }

@@ -52,7 +52,7 @@ export default class Schedule extends Component {
     const tickFormat = yScale.tickFormat();
 
     return (
-      <div className="schedule flex">
+      <div className="schedule flex column">
         <div className="schedule-row schedule-header">
           <div
             className="schedule-cell"
@@ -67,7 +67,7 @@ export default class Schedule extends Component {
           <div className="schedule-cell">{"F"}</div>
         </div>
 
-        <div className="schedule-body schedule-border flex">
+        <div className="schedule-body schedule-border flex column">
           { sections.map((x, i) => x.map(
             (y, j) =>
             <Section
