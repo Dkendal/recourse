@@ -2,7 +2,14 @@ import React from "react";
 import {COURSE} from "types";
 import "css/components/Course";
 
-const text = (selected) => selected ? "-" : "+";
+const Button = ({selected, onClick}) => (
+  <button
+    className="Course-toggle"
+    onClick={onClick}
+  >
+    { selected ? "-" : "+" }
+  </button>
+);
 
 const Course = ({number, subject, title, selected, onClick}) => (
   <tr className="Course">
@@ -10,12 +17,10 @@ const Course = ({number, subject, title, selected, onClick}) => (
     <td>{subject}</td>
     <td>{title}</td>
     <td>
-      <button
-        className="Course-toggle"
+      <Button
+        selected={selected}
         onClick={onClick}
-        >
-        {text(selected)}
-      </button>
+      />
     </td>
   </tr>
 );
