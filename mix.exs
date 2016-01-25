@@ -22,6 +22,12 @@ defmodule Recourse.Mixfile do
     ]
   end
 
+  def applications(:dev) do
+    [
+      :ex_machina
+    ] ++ applications(:all)
+  end
+
   def applications(:test) do
     [
       :ex_machina
@@ -50,6 +56,7 @@ defmodule Recourse.Mixfile do
 
   # Specifies which paths to compile per environment
   defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "web", "test/support"]
   defp elixirc_paths(_),     do: ["lib", "web"]
 
   # Specifies your project dependencies
