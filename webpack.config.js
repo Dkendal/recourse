@@ -5,10 +5,6 @@ function join(dest) { return path.resolve(__dirname, dest); }
 var sassOpts = [
   "?includePaths[]=",
   join("node_modules"),
-  "&includePaths[]=",
-  join("bower_components"),
-  "&includePaths[]=",
-  join("node_modules/bourbon/app/assets/stylesheets")
 ].join("");
 
 var config = module.exports = {
