@@ -8,7 +8,7 @@ export default class CourseList extends Component {
   render() {
     let { style, className } = this.props;
 
-    className += " courseList flex";
+    className += " CourseList flex";
 
     return(
       <div
