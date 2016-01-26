@@ -21,10 +21,14 @@ p {
   margin: 0 0 $small-spacing;
 }
 
+a,
+label {
+  transition: color $base-duration $base-timing;
+}
+
 a {
   color: $action-color;
   text-decoration: none;
-  transition: color $base-duration $base-timing;
 
   &:active,
   &:focus,

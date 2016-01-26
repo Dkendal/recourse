@@ -2,6 +2,7 @@
   appearance: none;
   background-color: inherit;
   border: 3px solid $action-color;
+  border-radius: $base-border-radius;
   color: $action-color;
   cursor: pointer;
   display: inline-block;
@@ -13,23 +14,27 @@
   padding: $small-spacing $base-spacing;
   text-decoration: none;
   transition: background-color $base-duration $base-timing;
+  transition: box-shadow $base-duration $base-timing;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
+  box-shadow: $shadow-shallow;
 
-  &:hover,
   &:focus {
-    background-color: $action-color;
+    background-color: shade($action-color, 12%);
+    border-color: shade($action-color, 12%);
     color: #fff;
     outline: 0;
+  }
+
+  &:active {
+    background-color: $action-color;
+    border-color: $action-color;
+    box-shadow: $shadow-high;
   }
 
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
-
-    &:hover {
-      background-color: $action-color;
-    }
   }
 }

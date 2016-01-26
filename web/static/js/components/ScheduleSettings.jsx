@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import {compose} from "underscore";
+import TextField from "components/TextField";
+import Row from "components/Row";
 
 class ScheduleSettings extends Component {
   render() {
@@ -21,28 +23,27 @@ class ScheduleSettings extends Component {
         onKeyUp={onSettingsChange}
         onSubmit={compose(onSubmit, preventDefault)}
       >
-        <label htmlFor="scheduleSettings_startTime">
-          {"Prefered start time"}
-        </label>
-        <input
-          defaultValue={startTime}
-          name="scheduleSettings_startTime"
-          type="time"
-        />
+        <Row>
+          <TextField
+            defaultValue={startTime}
+            label="Prefered start time"
+            name="scheduleSettings_startTime"
+            type="time"
+          />
+          <TextField
+            defaultValue={endTime}
+            label="Prefered end time"
+            name="scheduleSettings_endTime"
+            type="time"
+          />
+        </Row>
 
-        <label htmlFor="scheduleSettings_endTime">
-          {"Prefered end time"}
-        </label>
-        <input
-          defaultValue={endTime}
-          name="scheduleSettings_endTime"
-          type="time"
-        />
-
-        <input
-          type="submit"
-          value="Build schedule"
-        />
+        <div>
+          <input
+            type="submit"
+            value="Build schedule"
+          />
+        </div>
       </form>
     );
   }
