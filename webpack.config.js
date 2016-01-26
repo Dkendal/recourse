@@ -31,6 +31,10 @@ var config = module.exports = {
         presets: ["stage-1"]
       },
       {
+        test: /\.(woff|woff2|eot|ttf|svg)(\?.+)?$/,
+        loader: "url?limit=100000"
+      },
+      {
         test: /\.css$/,
         loader: "style!css"
       },
