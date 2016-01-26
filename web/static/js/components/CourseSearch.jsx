@@ -14,19 +14,17 @@ const submitForm = (onSubmit) => (event) => {
   return onSubmit(formValues);
 };
 
-const CourseSearch = ({onSubmit, text}) => {
-  return (
-    <div>
-      <form onSubmit={submitForm(onSubmit)}>
-        <input
-          name="courseName"
-          type="search"
-          defaultValue={text}
-        />
-      </form>
-    </div>
-  );
-}
+const CourseSearch = ({onSubmit, text}) => (
+  <div>
+    <form onSubmit={submitForm(onSubmit)}>
+      <input
+        name="courseName"
+        type="search"
+        defaultValue={text}
+      />
+    </form>
+  </div>
+);
 
 CourseSearch.displayName = "CourseSearch";
 
