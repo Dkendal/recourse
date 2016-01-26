@@ -1,13 +1,18 @@
 import React from "react";
 import {COURSE} from "types";
 import "css/components/Course";
+import "css/components/CircleButton";
 
-const Button = ({selected, onClick}) => (
+const CircleButton = ({selected, onClick, style}) => (
   <button
-    className="Course-toggle"
+    className="CircleButton"
     onClick={onClick}
-  >
-    { selected ? "-" : "+" }
+    style={style}
+    >
+    { selected ?
+      <i className="icon-ok CircleButton-selected"></i> :
+      <i className="icon-cancel CircleButton-unselected"></i>
+    }
   </button>
 );
 
@@ -17,9 +22,10 @@ const Course = ({number, subject, title, selected, onClick}) => (
     <td>{subject}</td>
     <td>{title}</td>
     <td>
-      <Button
-        selected={selected}
+      <CircleButton
         onClick={onClick}
+        selected={selected}
+        style={ {float: "right"} }
       />
     </td>
   </tr>

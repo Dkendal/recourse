@@ -1,0 +1,9 @@
+$size: 3em;
+
+.CircleButton {
+  border-radius: 50%;
+  height: $size;
+  line-height: 0;
+  padding: 0;
+  width: $size;
+}
