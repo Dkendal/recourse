@@ -1,0 +1,16 @@
+.CourseSearch {
+  width: 100%;
+
+  form {
+    display: flex;
+    vertical-align: middle;
+    overflow-y: hidden;
+  }
+
+  input {
+    box-sizing: border-box;
+    display: block;
+    margin: 0;
+    position: relative;
+  }
+}

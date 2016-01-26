@@ -1,4 +1,5 @@
 import React, {PropTypes} from "react";
+import "css/components/CourseSearch";
 
 const submitForm = (onSubmit) => (event) => {
   event.preventDefault();
@@ -15,12 +16,18 @@ const submitForm = (onSubmit) => (event) => {
 };
 
 const CourseSearch = ({onSubmit, text}) => (
-  <div>
-    <form onSubmit={submitForm(onSubmit)}>
+  <div className="CourseSearch">
+    <form
+      className="input"
+      onSubmit={submitForm(onSubmit)}
+      role="search"
+      >
+      <i className="icon-search"></i>
       <input
         name="courseName"
         type="search"
         defaultValue={text}
+        placeholder="Search"
       />
     </form>
   </div>

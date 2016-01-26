@@ -24,34 +24,37 @@ select {
   font-size: $base-font-size;
 }
 
-.input {
+#{$all-text-inputs},
+select[multiple] {
+  // transition: border-color $base-duration $base-timing;
   background-color: $base-background-color;
-  border: $base-border;
-  box-shadow: $form-box-shadow;
+  border-bottom: $base-border;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
   box-sizing: border-box;
   font-family: $base-font-family;
   font-size: $base-font-size;
+  height: $input-height;
   margin-bottom: $small-spacing;
-  padding: $base-spacing / 3;
-  transition: border-color $base-duration $base-timing;
+  outline: 0;
+  padding: $input-padding $input-padding ($input-padding - $input-border-width-blur);
   width: 100%;
 
   &:hover {
-    border-color: shade($base-border-color, 20%);
   }
 
   &:focus {
-    border-color: $action-color;
-    box-shadow: $form-box-shadow-focus;
-    outline: none;
+    border-bottom-color: $action-color;
+    border-bottom-width: $input-border-width-focus;
+    padding-bottom: ($input-padding - $input-border-width-focus);
   }
 
   &:disabled {
-    background-color: shade($base-background-color, 5%);
     cursor: not-allowed;
 
     &:hover {
-      border: $base-border;
+      border-bottom: $base-border;
     }
   }
 }
