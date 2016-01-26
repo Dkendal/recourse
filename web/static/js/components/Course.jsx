@@ -10,8 +10,8 @@ const CircleButton = ({selected, onClick, style}) => (
     style={style}
     >
     { selected ?
-      <i className="icon-ok CircleButton-selected"></i> :
-      <i className="icon-cancel CircleButton-unselected"></i>
+      <i className="icon-minus CircleButton-selected"></i> :
+      <i className="icon-plus CircleButton-unselected"></i>
     }
   </button>
 );
