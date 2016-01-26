@@ -21,6 +21,7 @@
   &:focus {
     background-color: $action-color;
     color: #fff;
+    outline: 0;
   }
 
   &:disabled {
