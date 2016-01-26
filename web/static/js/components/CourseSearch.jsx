@@ -31,6 +31,7 @@ const CourseSearch = ({onSubmit, text}) => {
 CourseSearch.displayName = "CourseSearch";
 
 CourseSearch.propTypes = {
+  text: PropTypes.string,
   onSubmit: PropTypes.func
 };
 
