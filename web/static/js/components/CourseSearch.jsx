@@ -1,39 +1,33 @@
-import React, {Component, PropTypes} from "react";
+import React, {PropTypes} from "react";
 
-class CourseSearch extends Component {
-  render() {
-    const {
-      onSubmit,
-      text
-    } = this.props;
+const submitForm = (onSubmit) => (event) => {
+  event.preventDefault();
 
-    const formOnSubmit = (event) => {
-      event.preventDefault();
+  const fields = ["courseName"];
 
-      const fields = ["courseName"];
+  let formValues = {};
 
-      let formValues = {};
+  fields.
+    map(field => event.target.elements.namedItem(field)).
+    map(input => formValues[input.name] = input.value);
 
-      fields.
-        map(field => event.target.elements.namedItem(field)).
-        map(input => formValues[input.name] = input.value);
+  return onSubmit(formValues);
+};
 
-      return onSubmit(formValues);
-    };
-
-    return (
-      <div>
-        <form onSubmit={formOnSubmit}>
-          <input
-            name="courseName"
-            type="search"
-            defaultValue={text}
-          />
-        </form>
-      </div>
-    );
-  }
+const CourseSearch = ({onSubmit, text}) => {
+  return (
+    <div>
+      <form onSubmit={submitForm(onSubmit)}>
+        <input
+          name="courseName"
+          type="search"
+          defaultValue={text}
+        />
+      </form>
+    </div>
+  );
 }
+
 CourseSearch.displayName = "CourseSearch";
 
 CourseSearch.propTypes = {
