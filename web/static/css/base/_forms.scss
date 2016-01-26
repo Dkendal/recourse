@@ -24,8 +24,7 @@ select {
   font-size: $base-font-size;
 }
 
-#{$all-text-inputs},
-select[multiple] {
+.input {
   background-color: $base-background-color;
   border: $base-border;
   box-shadow: $form-box-shadow;
