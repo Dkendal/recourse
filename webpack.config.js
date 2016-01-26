@@ -2,11 +2,6 @@ var path = require("path");
 
 function join(dest) { return path.resolve(__dirname, dest); }
 
-var sassOpts = [
-  "?includePaths[]=",
-  join("node_modules"),
-].join("");
-
 var config = module.exports = {
   context: __dirname,
 
@@ -21,6 +16,13 @@ var config = module.exports = {
     filename: "[name].js",
     chunkFilename: "[id].js",
     sourceMapFilename: "[name].map.js"
+  },
+
+  sassLoader: {
+    includePaths: [
+      join("node_modules"),
+      join("web/static/css")
+    ]
   },
 
   module: {
@@ -43,7 +45,7 @@ var config = module.exports = {
         loaders: [
           "style",
           "css?sourceMap",
-          "sass?sourceMap" + sassOpts
+          "sass?sourceMap"
         ]
       }
     ]
