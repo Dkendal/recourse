@@ -75,6 +75,8 @@ export default class Schedule extends Component {
               key={[i, j]}
               xScale={xScale}
               yScale={yScale}
+              idx={j}
+              conflicts={x.length}
               colorScale={colorScale}
             />
             ))
