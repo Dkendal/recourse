@@ -1,31 +1,24 @@
-import React, {Component, PropTypes} from "react";
-import WorklistItem from "./WorklistItem";
-import {List} from "immutable";
-
+import React from "react";
+import Chip from "./Chip";
 import "css/components/Worklist.scss";
 
-export default class Worklist extends Component {
-  render() {
-    let {courses, ...rest} = this.props;
+const Course = ({course: {subject, number}}) => (
+  <span>{`${subject} ${number}`}</span>
+);
 
-    return(
-      <div className="worklist">
-        {courses.map(
-          course =>
-          <WorklistItem
-            {...rest}
-            course={course}
-            key={course.id}
-          />
-          )
-        }
-      </div>
-    );
-  }
-}
+const Worklist = ({courses, onClick}) => (
+  <div>
+    {courses.map(
+      course =>
+      <Chip
+        onClick={() => onClick(course)}
+        key={course.id}>
+        <Course course={course}/>
+      </Chip>
+      )
+    }
+  </div>
+);
 
 Worklist.displayName = "Worklist";
-
-Worklist.propTypes = {
-  courses: PropTypes.instanceOf(List),
-};
+export default Worklist;

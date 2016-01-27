@@ -1,0 +1,25 @@
+@import "bourbon/bourbon";
+@import "base/variables";
+@import "base/mixins";
+
+.Chip {
+  display: inline-block;
+  font-size: $caption-font-size;
+
+  &-inner {
+    align-items: center;
+    border-radius: 24 * $dp;
+    display: flex;
+    flex-direction: row;
+    @include action;
+  }
+
+  &-body {
+    padding-left: 12 * $dp;
+  }
+
+  &-remove-icon.icon {
+    font-size: 18 * $dp;
+    Margin: 4 * $dp;
+  }
+}

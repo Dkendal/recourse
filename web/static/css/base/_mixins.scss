@@ -1,0 +1,9 @@
+@mixin action() {
+  background-color: $action-color;
+  color: white;
+  cursor: pointer;
+
+  .icon {
+    opacity: 0.86;
+  }
+}
