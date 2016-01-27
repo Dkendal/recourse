@@ -19,10 +19,10 @@ const Course = ({number, subject, title, selected, onClick}) => (
     <div>{number}</div>
     <div>{subject}</div>
     <div className="flex">{title}</div>
-    <div>
+    <div className="vcenter">
       { selected ?
-        <i className="Course-status icon-check"></i> :
-        <i className="Course-status icon-check-empty"></i>
+        <i className="icon icon-check"></i> :
+        <i className="icon icon-check-empty"></i>
       }
     </div>
   </Row>

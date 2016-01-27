@@ -5,11 +5,6 @@
   border-bottom: $base-border;
   padding-bottom: $base-spacing;
   padding-top: $base-spacing;
-  // transition: background-color $base-duration $base-timing;
-
-  &-status {
-    font-size: $large-font-size;
-  }
 
   &.selected {
     color: white;
