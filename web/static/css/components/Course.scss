@@ -1,2 +1,22 @@
+@import "bourbon/bourbon";
+@import "base/variables";
+
 .Course {
+  padding-top: $base-spacing;
+  padding-bottom: $base-spacing;
+
+  border-bottom: $base-border;
+
+  &.selected {
+    color: white;
+    background-color: $action-color;
+  }
+
+  & > * {
+    min-width: 100px;
+  }
+
+  & > * + * {
+    padding-left: $base-spacing;
+  }
 }

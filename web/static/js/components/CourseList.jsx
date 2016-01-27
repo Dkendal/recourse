@@ -1,48 +1,34 @@
-import React, {Component, PropTypes} from "react";
+import React, {PropTypes} from "react";
 import Course from "./Course";
 import {List} from "immutable";
 
 import "css/components/CourseList";
 
-export default class CourseList extends Component {
-  render() {
-    let { style, className } = this.props;
+const className = ({className}) => (
+  [
+    "CourseList",
+    "Flex",
+  ].join(" ") + " " + className
+);
 
-    className += " CourseList flex";
+const CourseList = ({style, ...props}) => (
+  <div
+    className={className(props)}
+    style={style}
+    >
+    {
+      props.courses.map(
+        (course) =>
+        <Course
+          key={course.id}
+          onClick={() => props.onCourseClick(course)}
+          selected={props.isSelected(course)}
+          {...course}
+        />)
+    }
+  </div>
+);
 
-    return(
-      <div
-        className={className}
-        style={style}
-      >
-        <table>
-          <thead>
-            <tr>
-              <th>{"Number"}</th>
-              <th>{"Subject"}</th>
-              <th>{"Title"}</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {
-              this.props.courses.map(
-                (course) =>
-                <Course
-                  key={course.id}
-                  onClick={() => this.props.onCourseClick(course)}
-                  selected={this.props.isSelected(course)}
-                  {...course}
-                />
-              )
-            }
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-}
 CourseList.displayName = "CourseList";
 
 CourseList.propTypes = {
@@ -52,3 +38,5 @@ CourseList.propTypes = {
   style: PropTypes.string,
   onCourseClick: PropTypes.func
 };
+
+export default CourseList;

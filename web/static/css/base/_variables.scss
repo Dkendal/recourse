@@ -23,7 +23,7 @@ $light-gray: #ddd;
 
 // Font Colors
 $base-font-color: $dark-gray;
-$inactive-color: $light-gray;
+$inactive-color: lighten($dark-gray, 12%);
 $action-color: $blue;
 
 // Border
