@@ -1,9 +1,24 @@
+// Smallest constant unit
+$sp: 1rem / 14;
+
 // Typography
 $base-font-family: $helvetica;
 $heading-font-family: $base-font-family;
 
 // Font Sizes
-$base-font-size: 1.0rem;
+$display-4-font-size:   112 * $sp;
+$display-3-font-size:    56 * $sp;
+$display-2-font-size:    45 * $sp;
+$display-1-font-size:    34 * $sp;
+$headline-font-size:     24 * $sp;
+$title-font-size:        20 * $sp;
+$subheading-font-size:   15 * $sp;
+$body-font-size:         13 * $sp;
+$caption-font-size:      12 * $sp;
+$button-font-size:       14 * $sp;
+$icon-font-size:         24 * $sp;
+
+$base-font-size: $body-font-size;
 $large-font-size: $base-font-size * 1.5;
 
 // Line height
