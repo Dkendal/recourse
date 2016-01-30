@@ -49,30 +49,25 @@ const timeScale = (startHour, endHour) => {
 
   return d3.time.scale()
     .domain([minTime, maxTime])
-    .range([0, 100]);
+    .range([0, 100])
+    .nice() ;
 };
 
-function flatten(sections, fun) {
-  return sections.map(
+function flatten(sections) {
+  const acc = [];
+  sections.forEach(
     (conflictGroup) =>
-    conflictGroup.map(
+    conflictGroup.forEach(
       (section, idx) =>
-      section.meeting_times.map(
-        meetingTime =>
-        fun({section, meetingTime, conflicts: conflictGroup.length, idx}))));
+      section.meeting_times.forEach(
+        meetingTime => acc.push({
+          meetingTime,
+          section,
+          conflicts: conflictGroup.length,
+          idx })))
+  );
+  return acc;
 }
-
-const Tick = ({children}) => (
-  <div className="Tick">
-    <div
-      className='Tick-label'
-      style={ { flexBasis: tickColumnWidth } }
-      >
-      {children}
-    </div>
-    <div className="Tick-divider"></div>
-  </div>
-);
 
 const Day = ({children, style}) => (
   <div style={
@@ -94,50 +89,85 @@ const DayHead = () => (
   </Row>
 );
 
+const HalfHourTick = ({y}) => (
+  <line
+    x1="0"
+    x2="100%"
+    y1={y}
+    y2={y}
+    stroke="lightgrey"
+    strokeWidth="1px"
+    strokeDasharray="4,4"
+  />
+);
+
+const HourTick = ({y, text}) => (
+  <g>
+    <line
+      x1="0"
+      x2="100%"
+      y1={y}
+      y2={y}
+      stroke="lightgrey"
+      strokeWidth="1px"
+    />
+    <text
+      is
+      x="0"
+      y={y}
+      dominant-baseline="middle"
+      >
+      {text}
+    </text>
+  </g>
+)
+
+const Svg = ({children}) => (
+  <svg
+    version="1.1"
+    baseProfile="full"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{flex: '1'}}
+    preserveAspectRatio="none"
+    >
+    {children}
+  </svg>
+);
+
+const isOnTheHour = (t) => moment(t).minutes() === 0;
+
 const Schedule = ({sections, startHour, endHour}) => {
   const yScale = timeScale(startHour, endHour);
-  const ticks = yScale.ticks(d3.time.hours, 1);
+  const ticks = yScale.ticks(d3.time.minutes, 30);
   const tickFormat = yScale.tickFormat();
+  // don't show first and last ticks.
+  const displayedTicks = ticks.slice(1,-1)
 
   return (
     <Column>
       <DayHead />
-      <div className="schedule-body schedule-border flex column">
-        <div>
-        {
-          flatten(sections, ({
-            section, meetingTime, conflicts, idx
-          }) => <MeetingTime
-            colorScale={colorScale}
-            course={section.course}
-            conflicts={conflicts}
-            idx={idx}
-            meetingTime={meetingTime}
-            section={section}
-            xScale={xScale}
-            yScale={yScale}
-          />)
+      <Svg>
+        { displayedTicks.map(
+          (tick, idx) => (
+            <g key={idx}>
+              { isOnTheHour(tick) ? (
+                <HourTick
+                  y={yScale(tick) + "%"}
+                  text={tickFormat(tick)}
+                />) : (
+                <HalfHourTick y={yScale(tick) + "%"}/>)
+              }
+            </g>))
         }
-        </div>
 
-        <div style={
-          { position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-          { ticks.map(
-            (hr, idx) =>
-            <Tick key={idx}>
-              { tickFormat(hr) }
-            </Tick>
-            )
-          }
-        </div>
-      </div>
+        { flatten(sections).map((block, idx) => (
+          <MeetingTime
+            key={idx}
+            {...{yScale, xScale, colorScale}}
+            {...block}
+          />))
+        }
+      </Svg>
     </Column>
   );
 };
