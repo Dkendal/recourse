@@ -3,16 +3,20 @@ import _ from "underscore";
 import {List} from "immutable";
 import moment from "moment";
 import Row from "./Row";
+import Column from "./Column";
 import d3 from "d3";
 
 import MeetingTime from "./Section";
 
 import "css/components/Schedule";
+import 'css/components/Tick';
 
 const days = ["M", "T", "W", "R", "F"];
 // define boundaries for the scale as -1 and 1 so that they are bound to
 // the domains of ['undefined', 0], and [100, 'undefined'] respectively
 const dayRange = ["-1", ...days, "1"];
+
+const tickColumnWidth = `${100 / (days.length + 1)}%`;
 
 const c = dayRange.length - 1 ;
 
@@ -59,16 +63,21 @@ function flatten(sections, fun) {
 }
 
 const Tick = ({children}) => (
-  <div style={
-    { flex: '1'
-    }}>
-    {children}
+  <div className="Tick">
+    <div
+      className='Tick-label'
+      style={ { flexBasis: tickColumnWidth } }
+      >
+      {children}
+    </div>
+    <div className="Tick-divider"></div>
   </div>
 );
 
-const Day = ({children}) => (
+const Day = ({children, style}) => (
   <div style={
-    { flex: '1'
+    { flex: '1',
+      ...style
     }}>
     {children}
   </div>
@@ -90,11 +99,11 @@ const Schedule = (props) => {
 
   const yScale = timeScale(startHour, endHour);
 
-  const ticks = yScale.ticks(d3.time.minutes, 30);
+  const ticks = yScale.ticks(d3.time.hours, 1);
   const tickFormat = yScale.tickFormat();
 
   return (
-    <div className="schedule flex column">
+    <Column>
       <DayHead />
       <div className="schedule-body schedule-border flex column">
         <div>
@@ -132,7 +141,7 @@ const Schedule = (props) => {
           }
         </div>
       </div>
-    </div>
+    </Column>
   );
 };
 
