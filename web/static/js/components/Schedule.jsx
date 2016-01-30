@@ -2,13 +2,28 @@ import React, {Component, PropTypes} from "react";
 import _ from "underscore";
 import {List} from "immutable";
 import moment from "moment";
+import Row from "./Row";
 import d3 from "d3";
 
-import Section from "./Section";
+import MeetingTime from "./Section";
 
 import "css/components/Schedule";
 
-function colorFun({course}) {
+const days = ["M", "T", "W", "R", "F"];
+// define boundaries for the scale as -1 and 1 so that they are bound to
+// the domains of ['undefined', 0], and [100, 'undefined'] respectively
+const dayRange = ["-1", ...days, "1"];
+
+const c = dayRange.length - 1 ;
+
+const domain = dayRange.map((_, i) => (i + 1)/c * 100);
+
+const xScale = d3.scale.threshold()
+  .domain(domain)
+  .range(dayRange);
+
+
+function colorScale({course}) {
   function toNum(str) {
     let value = 0;
 
@@ -24,86 +39,103 @@ function colorFun({course}) {
   return `hsl(${hue},${80}%,${70}%)`;
 }
 
-export default class Schedule extends Component {
-  render() {
-    const {sections, startHour, endHour} = this.props;
+const timeScale = (startHour, endHour) => {
+  const minTime = moment(startHour);
+  const maxTime = moment(endHour);
 
-    const minTime = moment(startHour);
-    const maxTime = moment(endHour);
+  return d3.time.scale()
+    .domain([minTime, maxTime])
+    .range([0, 100]);
+};
 
-    const yScale = d3.time.scale()
-      .domain([minTime, maxTime])
-      .range([0, 100]);
+function flatten(sections, fun) {
+  return sections.map(
+    (conflictGroup) =>
+    conflictGroup.map(
+      (section, idx) =>
+      section.meeting_times.map(
+        meetingTime =>
+        fun({section, meetingTime, conflicts: conflictGroup.length, idx}))));
+}
 
-    // define boundaries for the scale as -1 and 1 so that they are bound to
-    // the domains of ['undefined', 0], and [100, 'undefined'] respectively
-    const days = ["-1", "M", "T", "W", "R", "F", "1"];
-    const c = days.length - 1 ;
-    const domain = days.map((_, i) => (i + 1)/c * 100);
+const Tick = ({children}) => (
+  <div style={
+    { flex: '1'
+    }}>
+    {children}
+  </div>
+);
 
-    const xScale = d3.scale.threshold()
-      .domain(domain)
-      .range(days);
+const Day = ({children}) => (
+  <div style={
+    { flex: '1'
+    }}>
+    {children}
+  </div>
+);
 
-    const colorScale = colorFun;
+const DayHead = () => (
+  <Row className="schedule-row schedule-header">
+    <Day></Day>
+    <Day>{"M"}</Day>
+    <Day>{"T"}</Day>
+    <Day>{"W"}</Day>
+    <Day>{"R"}</Day>
+    <Day>{"F"}</Day>
+  </Row>
+);
 
-    const ticks = yScale.ticks(d3.time.minutes, 30);
+const Schedule = (props) => {
+  const {sections, startHour, endHour} = props;
 
-    const tickFormat = yScale.tickFormat();
+  const yScale = timeScale(startHour, endHour);
 
-    return (
-      <div className="schedule flex column">
-        <div className="schedule-row schedule-header">
-          <div
-            className="schedule-cell"
-            style={{borderColor: "transparent"}}
-          >
-          </div>
+  const ticks = yScale.ticks(d3.time.minutes, 30);
+  const tickFormat = yScale.tickFormat();
 
-          <div className="schedule-cell">{"M"}</div>
-          <div className="schedule-cell">{"T"}</div>
-          <div className="schedule-cell">{"W"}</div>
-          <div className="schedule-cell">{"R"}</div>
-          <div className="schedule-cell">{"F"}</div>
+  return (
+    <div className="schedule flex column">
+      <DayHead />
+      <div className="schedule-body schedule-border flex column">
+        <div>
+        {
+          flatten(sections, ({
+            section, meetingTime, conflicts, idx
+          }) => <MeetingTime
+            colorScale={colorScale}
+            course={section.course}
+            conflicts={conflicts}
+            idx={idx}
+            meetingTime={meetingTime}
+            section={section}
+            xScale={xScale}
+            yScale={yScale}
+          />)
+        }
         </div>
 
-        <div className="schedule-body schedule-border flex column">
-          { sections.map((x, i) => x.map(
-            (y, j) =>
-            <Section
-              {...y}
-              key={[i, j]}
-              xScale={xScale}
-              yScale={yScale}
-              idx={j}
-              conflicts={x.length}
-              colorScale={colorScale}
-            />
-            ))
-          }
-
-          {
-            ticks.map(
-              hr =>
-              <div
-                className="schedule-row flex"
-                key={tickFormat(hr)}
-              >
-                <div className="schedule-cell schedule-hour">
-                  {tickFormat(hr)}
-                </div>
-                <div className="schedule-cell"></div>
-                <div className="schedule-cell"></div>
-                <div className="schedule-cell"></div>
-                <div className="schedule-cell"></div>
-                <div className="schedule-cell"></div>
-              </div>
-              )
+        <div style={
+          { position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            flexDirection: 'column'
+          }}>
+          { ticks.map(
+            (hr, idx) =>
+            <Tick key={idx}>
+              { tickFormat(hr) }
+            </Tick>
+            )
           }
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 Schedule.displayName = "Schedule";
+
+export default Schedule;

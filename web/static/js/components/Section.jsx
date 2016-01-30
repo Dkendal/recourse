@@ -5,72 +5,52 @@ import "css/components/MeetingTime.scss";
 
 function percent(x) { return `${x}%`; }
 
-class MeetingTime extends Component {
-  xScale() { return this.props.xScale; }
+const day = ({days: days}) => days[0];
 
-  yScale() { return this.props.yScale; }
+const MeetingTime = ({
+  colorScale,
+  conflicts,
+  course,
+  idx,
+  meetingTime,
+  section,
+  xScale,
+  yScale,
+}) => {
+  const start = moment(meetingTime.time_start);
+  const end = moment(meetingTime.time_end);
+  const top = yScale(start);
+  const bottom = yScale(end);
 
-  start() { return moment(this.props.time_start); }
+  const [left, right] = xScale.invertExtent(day(meetingTime));
 
-  end () { return moment(this.props.time_end); }
+  const width = (right - left) / conflicts;
 
-  top() { return this.yScale()(this.start()); }
+  const style =  {
+    backgroundColor: colorScale(section),
+    top:             percent(top),
+    bottom:          percent(100 - bottom),
+    left:            percent(left + width * idx),
+    right:           percent(100 - right),
+    width:           percent(width)
+  };
 
-  bottom() { return this.yScale()(this.end()); }
-
-  day() { return this.props.days[0]; }
-
-  xDim() { return this.xScale().invertExtent(this.day()); }
-
-  color() { return this.props.colorScale(this.props.section); }
-
-  style() {
-    const [left, right] = this.xDim();
-    const {idx, conflicts} = this.props;
-
-    const width = (right - left) / conflicts;
-
-    return {
-      backgroundColor: this.color(),
-      top:             percent(this.top()),
-      bottom:          percent(100 - this.bottom()),
-      left:            percent(left + width * idx),
-      right:           percent(100 - right),
-      width:           percent(width)
-    };
-  }
-
-  render() {
-    const {course, section, ...props} = this.props;
-
-    return(
-      <div className="MeetingTime" style={this.style()}>
-         {course.subject}
-         <span>{ " " }</span>
-         {course.number}
-         <span>{ " " }</span>
-         {section.schedule_type}
-         {props.idx}
-         {props.conflicts}
+  return(
+    <div
+      className="MeetingTime"
+      style={style}>
+      <div>
+        {course.subject}
       </div>
-    );
-  }
+      <div>
+        {course.number}
+      </div>
+      <div>
+        {section.schedule_type}
+      </div>
+    </div>
+  );
 }
 
-const Section = (props) => (
-  <div>
-    { props.meeting_times.map(
-      meetingTime =>
-      <MeetingTime
-        key={[meetingTime.id, meetingTime.days]}
-        course={props.course}
-        section={props}
-        {...meetingTime}
-        {...props}
-      />
-      )
-    }
-  </div>
-)
 
-export default Section;
+export default MeetingTime;
