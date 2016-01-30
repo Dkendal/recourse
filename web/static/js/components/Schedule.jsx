@@ -94,11 +94,8 @@ const DayHead = () => (
   </Row>
 );
 
-const Schedule = (props) => {
-  const {sections, startHour, endHour} = props;
-
+const Schedule = ({sections, startHour, endHour}) => {
   const yScale = timeScale(startHour, endHour);
-
   const ticks = yScale.ticks(d3.time.hours, 1);
   const tickFormat = yScale.tickFormat();
 
