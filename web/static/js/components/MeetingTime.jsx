@@ -28,8 +28,7 @@ const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflict
   const y2 = yScale(end);
   const [x1, x2] = xScale.invertExtent(day(meetingTime));
   const width = (x2 - x1) / conflicts;
-
-  // const width = (right - left) / conflicts;
+  const hasConflict = conflicts > 1;
 
   const options =  {
     fill:    colorScale(section),
@@ -42,8 +41,11 @@ const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflict
   };
 
   return(
-    <g>
-      <rect {...options}/>
+    <g className="MeetingTime">
+      <rect {...options} />
+      { hasConflict ?  <rect {...options} className="MeetingTime-conflict" /> :
+        null
+      }
       <TextArea {...options} >
         <div>
           {course.subject}
