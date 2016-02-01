@@ -65,6 +65,11 @@ class Recourse extends Component {
               onSubmit={compose(dispatch, a.filterCourses)}
               text={courseSearchText}
             />
+            <Worklist
+              className="margin-between-h"
+              courses={worklist}
+              onClick={onCourseClick}
+            />
             <CollectionSelect
               className="Tile"
               collection={filteredCourses}
@@ -81,11 +86,6 @@ class Recourse extends Component {
               onSubmit={compose(dispatch, a.refreshSchedule)}
               startTime={startTime}
               className="Tile Tile-padded"
-            />
-            <Worklist
-              className="margin-between-h"
-              courses={worklist}
-              onClick={onCourseClick}
             />
             <Schedule
               className="Tile"
