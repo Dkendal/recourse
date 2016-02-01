@@ -5,6 +5,7 @@
   border-bottom: $base-border;
   padding-bottom: $base-spacing;
   padding-top: $base-spacing;
+  cursor: pointer;
 
   &.selected {
     color: white;
