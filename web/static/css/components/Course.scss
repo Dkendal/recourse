@@ -7,6 +7,10 @@
   padding-top: $base-spacing/2;
   border-bottom: $base-border;
 
+  &:hover {
+    background-color: $base-hover-color;
+  }
+
   &.selected .icon {
     color: $action-color;
   }

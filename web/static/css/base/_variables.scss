@@ -37,6 +37,7 @@ $blue: rgb(0, 161, 255);
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
+$grey-200: #eee;
 
 // Font Colors
 $base-font-color: $dark-gray;
@@ -50,6 +51,7 @@ $base-border: $base-border-width solid $base-border-color;
 
 // Background Colors
 $base-background-color: #fff;
+$base-hover-color: $grey-200;
 $secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
