@@ -1,3 +1,43 @@
+[class^="icon-"] {
+}
+
+
+.icon-hover {
+  background-color: $light-gray;
+  border-radius: 50%;
+  content: '';
+  height: 2em;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  transition: all $base-duration $base-timing;
+  width: 2em;
+
+  &ed {
+    position: relative;
+    z-index: 1;
+  }
+
+  *:hover > & {
+    transform: translate(-50%,-50%) scale(1);
+  }
+}
+
+.icon-btn {
+  text-align: center;
+  padding: 0;
+  position: relative;
+
+  &,
+  &:hover,
+  &:focus {
+    background: 0;
+    box-shadow: none;
+    color: $base-font-color;
+  }
+}
+
 .icon-gutter {
   width: $icon-gutter-width;
   text-align: center;

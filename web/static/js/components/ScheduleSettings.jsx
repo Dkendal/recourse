@@ -38,6 +38,12 @@ class ScheduleSettings extends Component {
             name="scheduleSettings_endTime"
             type="time"
           />
+          <div className="icon-hover-wrap icon-gutter vcenter">
+            <button className="icon-btn">
+              <i className="icon-cw icon-hovered"></i>
+              <i className="icon-hover"></i>
+            </button>
+          </div>
         </Row>
       </form>
     );
