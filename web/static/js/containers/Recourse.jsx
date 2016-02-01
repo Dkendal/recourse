@@ -1,15 +1,16 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
-import CourseList from "../components/CourseList";
-import CourseSearch from "../components/CourseSearch";
-import Worklist from "../components/Worklist";
-import Schedule from "../components/Schedule";
-import ScheduleSettings from "../components/ScheduleSettings";
-import Row from "../components/Row";
-import Column from "../components/Column";
+import {compose} from "underscore";
 import a from "../actions";
 import select from "../selectors";
-import {compose} from "underscore";
+import CollectionSelect from "../components/CollectionSelect";
+import Column from "../components/Column";
+import Course from "../components/Course";
+import CourseSearch from "../components/CourseSearch";
+import Row from "../components/Row";
+import Schedule from "../components/Schedule";
+import ScheduleSettings from "../components/ScheduleSettings";
+import Worklist from "../components/Worklist";
 
 import "css/containers/Recourse";
 
@@ -64,10 +65,11 @@ class Recourse extends Component {
               onSubmit={compose(dispatch, a.filterCourses)}
             />
 
-            <CourseList
-              courses={filteredCourses}
-              isSelected={(c) => worklist.includes(c)}
-              onCourseClick={onCourseClick}
+            <CollectionSelect
+              collection={filteredCourses}
+              selected={worklist}
+              onClick={onCourseClick}
+              render={Course}
             />
           </Column>
            {/* Right hand side */}
