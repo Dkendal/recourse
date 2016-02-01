@@ -7,9 +7,8 @@
   padding-top: $base-spacing;
   cursor: pointer;
 
-  &.selected {
-    color: white;
-    background-color: $action-color;
+  &.selected i.icon {
+    color: $action-color;
   }
 
   & > * {
