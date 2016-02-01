@@ -1,9 +1,9 @@
 #{$all-buttons} {
   appearance: none;
-  background-color: inherit;
-  border: 3px solid $action-color;
+  background-color: $action-color;
+  border: 0;
   border-radius: $base-border-radius;
-  color: $action-color;
+  color: white;
   cursor: pointer;
   display: inline-block;
   font-family: $base-font-family;
@@ -22,7 +22,6 @@
 
   &:focus {
     background-color: shade($action-color, 12%);
-    border-color: shade($action-color, 12%);
     color: #fff;
     outline: 0;
   }
