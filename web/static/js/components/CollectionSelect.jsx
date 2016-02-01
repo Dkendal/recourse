@@ -12,6 +12,7 @@ const CollectionSelect = ({className="", collection, selected, render, onClick})
         className={ [
           selected.includes(item) ? "selected" : "",
           "CollectionSelect-item",
+          "Tile-padded",
           "margin-between-h",
         ].join(" ") }
         >
