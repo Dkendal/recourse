@@ -66,7 +66,7 @@ class Recourse extends Component {
               text={courseSearchText}
             />
             <Worklist
-              className="margin-between-h"
+              className="margin-around"
               courses={worklist}
               onClick={onCourseClick}
             />
