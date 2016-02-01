@@ -2,12 +2,12 @@
 @import "base/variables";
 
 .Course {
-  border-bottom: $base-border;
-  padding-bottom: $base-spacing;
-  padding-top: $base-spacing;
   cursor: pointer;
+  padding-bottom: $base-spacing/2;
+  padding-top: $base-spacing/2;
+  border-bottom: $base-border;
 
-  &.selected i.icon {
+  &.selected .icon {
     color: $action-color;
   }
 
