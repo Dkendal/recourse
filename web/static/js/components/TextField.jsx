@@ -1,7 +1,7 @@
 import React from "react";
 import "css/components/TextField";
 
-const TextField = ({name, label, style, ...rest}) => (
+const TextField = ({name, label, style, className="", ...rest}) => (
   <div
     className="TextField"
     style={style}
@@ -9,6 +9,7 @@ const TextField = ({name, label, style, ...rest}) => (
     <input
       name={name}
       id={name}
+      className={className + " input-with-focus"}
       {...rest}
     />
     <label

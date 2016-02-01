@@ -32,27 +32,17 @@ select {
 #{$all-text-inputs},
 select[multiple] {
   transition: border-color $base-duration $base-timing;
-  background-color: $base-background-color;
-  border-bottom: $base-border;
   border-left: 0;
   border-right: 0;
   border-top: 0;
+  border-bottom: 0;
   box-sizing: border-box;
   font-family: $base-font-family;
   font-size: $base-font-size;
-  // height: $input-height;
-  // margin-bottom: $small-spacing;
   outline: 0;
-  padding: 0 0 ($input-padding - $input-border-width-blur) 0;
   width: 100%;
 
   &:hover {
-  }
-
-  &:focus {
-    border-bottom-color: $action-color;
-    border-bottom-width: $input-border-width-focus;
-    padding-bottom: ($input-padding - $input-border-width-focus);
   }
 
   &:disabled {
@@ -60,6 +50,18 @@ select[multiple] {
 
     &:hover {
       border-bottom: $base-border;
+    }
+  }
+
+  &.input-with-focus {
+    background-color: $base-background-color;
+    border-bottom: $base-border;
+    padding: 0 0 ($input-padding - $input-border-width-blur) 0;
+
+    &:focus {
+      border-bottom-color: $action-color;
+      border-bottom-width: $input-border-width-focus;
+      padding-bottom: ($input-padding - $input-border-width-focus);
     }
   }
 }
