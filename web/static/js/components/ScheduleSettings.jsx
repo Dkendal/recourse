@@ -9,7 +9,8 @@ class ScheduleSettings extends Component {
       endTime,
       onSettingsChange,
       onSubmit,
-      startTime
+      startTime,
+      className="",
     } = this.props;
 
     const preventDefault = (e) => {
@@ -22,6 +23,7 @@ class ScheduleSettings extends Component {
         action=""
         onKeyUp={onSettingsChange}
         onSubmit={compose(onSubmit, preventDefault)}
+        className={className}
       >
         <Row className="margin-between-h">
           <TextField

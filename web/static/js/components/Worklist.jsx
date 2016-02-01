@@ -6,8 +6,8 @@ const Course = ({course: {subject, number}}) => (
   <span>{`${subject} ${number}`}</span>
 );
 
-const Worklist = ({courses, onClick}) => (
-  <div>
+const Worklist = ({courses, className, onClick}) => (
+  <div className={className}>
     {courses.map(
       course =>
       <Chip

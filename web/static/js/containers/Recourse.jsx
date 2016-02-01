@@ -74,18 +74,21 @@ class Recourse extends Component {
             />
           </Column>
            {/* Right hand side */}
-          <Column className="Tile Tile-padded">
+          <Column className="margin-between-v">
             <ScheduleSettings
               endTime={endTime}
               onSettingsChange={compose(dispatch, a.setScheduleSettings)}
               onSubmit={compose(dispatch, a.refreshSchedule)}
               startTime={startTime}
+              className="Tile Tile-padded"
             />
             <Worklist
+              className="margin-between-h"
               courses={worklist}
               onClick={onCourseClick}
             />
             <Schedule
+              className="Tile"
               endHour={endHour}
               sections={sections}
               startHour={startHour}

@@ -14,9 +14,7 @@ legend {
 label {
   display: block;
   font-weight: 600;
-  margin-bottom: 1rem / 2rem;
-  margin-top: 1rem;
-  font-size: $base-font-size / 4 * 3;
+  font-size: ($base-font-size / 4 * 3);
   &:active, &:focus {
     color: $action-color;
   }
