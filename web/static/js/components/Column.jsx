@@ -1,20 +1,12 @@
-import React, {Component, PropTypes} from "react";
-
-export default class Column extends Component {
-  render() {
-    return (
-      <div
-        {...this.props}
-        className="column"
-      >
-        {this.props.children}
-      </div>
-    );
-  }
-}
+import React from "react";
+const Column = ({children, className='', ...rest}) => (
+  <div
+    className={className + " column"}
+    {...rest}
+    >
+    {children}
+  </div>
+);
 
 Column.displayName = "Column";
-
-Column.propTypes = {
-  children: PropTypes.node
-};
+export default Column;

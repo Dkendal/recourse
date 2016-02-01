@@ -56,8 +56,9 @@ class Recourse extends Component {
             }
           </select>
         </div>
-        <Row className="recourse-body">
-          <Column>
+        <Row className="recourse-body margin-between">
+           {/* Left hand side */}
+          <Column className="Tile">
             <CourseSearch
               text={courseSearchText}
               onSubmit={compose(dispatch, a.filterCourses)}
@@ -69,7 +70,8 @@ class Recourse extends Component {
               onCourseClick={onCourseClick}
             />
           </Column>
-          <Column>
+           {/* Right hand side */}
+          <Column className="Tile">
             <ScheduleSettings
               endTime={endTime}
               onSettingsChange={compose(dispatch, a.setScheduleSettings)}

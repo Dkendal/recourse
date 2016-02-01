@@ -1,0 +1,9 @@
+// apply margin between all children of this class
+.margin-between {
+  > *:not(:last-child) {
+    margin-right: $small-spacing/2;
+  }
+  > * + * {
+    margin-left: $small-spacing/2;
+  }
+}

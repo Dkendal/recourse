@@ -53,7 +53,7 @@ $base-background-color: #fff;
 $secondary-background-color: tint($base-border-color, 75%);
 
 // Forms
-$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow: 0 2px 10px rgba(#000, 0.06);
 $form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
 
 // Inputs
@@ -64,8 +64,8 @@ $input-border-width-blur: $base-border-width;
 
 // Shadows
 $shadow-color: #ddd;
-$shadow-shallow: $shadow-color 0 3px 2px;
-$shadow-high: $shadow-color 0 3px 8px;
+$shadow-shallow: $form-box-shadow;
+$shadow-high: $form-box-shadow-focus;
 
 // Animations
 $base-duration: 150ms;
