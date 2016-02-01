@@ -22,15 +22,17 @@ const CourseSearch = ({onSubmit, text}) => (
       onSubmit={submitForm(onSubmit)}
       role="search"
       >
-      <div className="icon-align">
+      <div className="icon-gutter">
         <i className="icon-search"></i>
       </div>
-      <input
-        name="courseName"
-        type="search"
-        defaultValue={text}
-        placeholder="Search"
-      />
+      <div className="vcenter" style={{flex: 1}}>
+        <input
+          name="courseName"
+          type="search"
+          defaultValue={text}
+          placeholder="Search"
+        />
+      </div>
     </form>
   </div>
 );

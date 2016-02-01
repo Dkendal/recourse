@@ -5,4 +5,14 @@
   &-padded {
     padding: $tile-padding;
   }
+
+  &-padded-v {
+    padding-top: $tile-padding;
+    padding-bottom: $tile-padding;
+  }
+
+  &-padded-h {
+    padding-left: $tile-padding;
+    padding-right: $tile-padding;
+  }
 }

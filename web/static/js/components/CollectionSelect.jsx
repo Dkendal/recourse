@@ -16,15 +16,15 @@ const CollectionSelect = ({className="", collection, selected, render, onClick})
           "margin-between-h",
         ].join(" ") }
         >
-        {
-          selected.includes(item) ? (
-            <div>
+        <div className="icon-gutter">
+          {
+            selected.includes(item) ? (
               <i className="icon icon-check"></i>
-            </div>) : (
-            <div>
+              ) : (
               <i className="icon icon-check-empty"></i>
-            </div>)
-        }
+              )
+          }
+        </div>
         { render(item) }
       </div>))
     }
