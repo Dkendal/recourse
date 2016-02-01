@@ -16,13 +16,15 @@ const submitForm = (onSubmit) => (event) => {
 };
 
 const CourseSearch = ({onSubmit, text}) => (
-  <div className="CourseSearch">
+  <div className="CourseSearch Tile Tile-padded">
     <form
-      className="input"
+      className="input margin-between-h"
       onSubmit={submitForm(onSubmit)}
       role="search"
       >
-      <i className="icon-search"></i>
+      <div className="icon-align">
+        <i className="icon-search"></i>
+      </div>
       <input
         name="courseName"
         type="search"
