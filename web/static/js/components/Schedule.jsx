@@ -161,7 +161,7 @@ const Schedule = ({sections, startHour, endHour}) => {
   const displayedTicks = ticks.slice(1,-1)
 
   return (
-    <Column style={{overflow: 'hidden'}}>
+    <Column style={{overflow: 'hidden'}} className="Tile Tile-padded">
       <DayHead />
       <Svg>
         { displayedTicks.map(
