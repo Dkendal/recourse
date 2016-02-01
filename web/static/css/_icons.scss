@@ -38,6 +38,13 @@
   }
 }
 
+.icon-spin {
+  *:active > & {
+    display: block;
+    animation: spin $base-duration 1 $base-timing;
+  }
+}
+
 .icon-gutter {
   width: $icon-gutter-width;
   text-align: center;
