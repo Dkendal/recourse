@@ -23,7 +23,7 @@ class ScheduleSettings extends Component {
         onKeyUp={onSettingsChange}
         onSubmit={compose(onSubmit, preventDefault)}
       >
-        <Row>
+        <Row className="margin-between-h">
           <TextField
             defaultValue={startTime}
             label="Prefered start time"
