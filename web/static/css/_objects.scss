@@ -1,5 +1,8 @@
 .Tile {
   background-color: $base-background-color;
   box-shadow: $form-box-shadow;
-  padding: $tile-padding;
+
+  &-padded {
+    padding: $tile-padding;
+  }
 }

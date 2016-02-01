@@ -57,23 +57,24 @@ class Recourse extends Component {
             }
           </select>
         </div>
-        <Row className="recourse-body margin-between">
+        <Row className="recourse-body margin-between-h">
            {/* Left hand side */}
-          <Column className="Tile">
+          <Column className="margin-between-v">
             <CourseSearch
-              text={courseSearchText}
+              className="Tile Tile-padded"
               onSubmit={compose(dispatch, a.filterCourses)}
+              text={courseSearchText}
             />
-
             <CollectionSelect
+              className="Tile"
               collection={filteredCourses}
-              selected={worklist}
               onClick={onCourseClick}
               render={Course}
+              selected={worklist}
             />
           </Column>
            {/* Right hand side */}
-          <Column className="Tile">
+          <Column className="Tile Tile-padded">
             <ScheduleSettings
               endTime={endTime}
               onSettingsChange={compose(dispatch, a.setScheduleSettings)}

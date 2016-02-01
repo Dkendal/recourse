@@ -1,8 +1,10 @@
 import React from "react";
 import  "css/components/CollectionSelect";
 
-const CollectionSelect = ({collection, selected, render, onClick}) => (
-  <div className="CollectionSelect">
+const CollectionSelect = ({className="", collection, selected, render, onClick}) => (
+  <div
+    className={className + " CollectionSelect"}
+    >
     { collection.map((item, idx) => (
       <div
         key={idx}
@@ -10,7 +12,7 @@ const CollectionSelect = ({collection, selected, render, onClick}) => (
         className={ [
           selected.includes(item) ? "selected" : "",
           "CollectionSelect-item",
-          "margin-between",
+          "margin-between-h",
         ].join(" ") }
         >
         {

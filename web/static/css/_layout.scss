@@ -1,9 +1,17 @@
 // apply margin between all children of this class
-.margin-between {
+.margin-between-h {
   > *:not(:last-child) {
     margin-right: $small-spacing/2;
   }
   > * + * {
     margin-left: $small-spacing/2;
+  }
+}
+.margin-between-v {
+  > *:not(:last-child) {
+    margin-bottom: $small-spacing/2;
+  }
+  > * + * {
+    margin-top: $small-spacing/2;
   }
 }
