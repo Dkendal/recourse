@@ -11,21 +11,19 @@ import MeetingTime from "./MeetingTime";
 import "css/components/Schedule";
 import 'css/components/Tick';
 
+// Graph dimensions
+const xMin = 10, xMax = 100,
+  yMin = 0, yMax = 100,
+  tickOffsetX = xMin;
+
 const days = ["M", "T", "W", "R", "F"];
-// define boundaries for the scale as -1 and 1 so that they are bound to
-// the domains of ['undefined', 0], and [100, 'undefined'] respectively
-const dayRange = ["-1", ...days, "1"];
+const dayRange = ["-1", ...days];
 
-const tickColumnWidth = `${100 / (days.length + 1)}%`;
-
-const c = dayRange.length - 1 ;
-
-const domain = dayRange.map((_, i) => (i + 1)/c * 100);
+const domain = dayRange.map((_, i) => (i / (dayRange.length - 1)) * (xMax - xMin) + xMin)
 
 const xScale = d3.scale.threshold()
   .domain(domain)
   .range(dayRange);
-
 
 function colorScale({course}) {
   function toNum(str) {
@@ -49,7 +47,7 @@ const timeScale = (startHour, endHour) => {
 
   return d3.time.scale()
     .domain([minTime, maxTime])
-    .range([0, 100])
+    .range([yMin, yMax])
     .nice() ;
 };
 
@@ -78,20 +76,9 @@ const Day = ({children, style}) => (
   </div>
 );
 
-const DayHead = () => (
-  <Row className="schedule-row schedule-header">
-    <Day></Day>
-    <Day>{"M"}</Day>
-    <Day>{"T"}</Day>
-    <Day>{"W"}</Day>
-    <Day>{"R"}</Day>
-    <Day>{"F"}</Day>
-  </Row>
-);
-
 const HalfHourTick = ({y}) => (
   <line
-    x1="0"
+    x1={`${tickOffsetX}%`}
     x2="100%"
     y1={y}
     y2={y}
@@ -104,7 +91,7 @@ const HalfHourTick = ({y}) => (
 const HourTick = ({y, text}) => (
   <g>
     <line
-      x1="0"
+      x1={`${tickOffsetX}%`}
       x2="100%"
       y1={y}
       y2={y}
@@ -113,42 +100,45 @@ const HourTick = ({y, text}) => (
     />
     <text
       is
-      x="0"
+      x={`${tickOffsetX - 1}%`}
       y={y}
       dominant-baseline="middle"
+      style={{textAnchor: 'end'}}
       >
       {text}
     </text>
   </g>
 )
 
-const Svg = ({children}) => (
+const Svg = ({children, style}) => (
   <svg
     version="1.1"
     baseProfile="full"
     xmlns="http://www.w3.org/2000/svg"
-    style={{flex: '1'}}
     preserveAspectRatio="none"
+    style={style}
     >
-    <defs>
-      <pattern
-        is
-        id="danger-stripes"
-        width="10"
-        height="10"
-        patternUnits="userSpaceOnUse"
-        patternTransform="rotate(45)"
-        >
-        <rect
-          width="3"
-          height="10"
-          transform="translate(0,0)"
-          fill="red"/>
-      </pattern>
-    </defs>
-
     {children}
   </svg>
+);
+
+const Defs = () => (
+  <defs>
+    <pattern
+      is
+      id="danger-stripes"
+      width="10"
+      height="10"
+      patternUnits="userSpaceOnUse"
+      patternTransform="rotate(45)"
+      >
+      <rect
+        width="3"
+        height="10"
+        transform="translate(0,0)"
+        fill="red"/>
+    </pattern>
+  </defs>
 );
 
 const isOnTheHour = (t) => moment(t).minutes() === 0;
@@ -160,10 +150,29 @@ const Schedule = ({sections, startHour, endHour}) => {
   // don't show first and last ticks.
   const displayedTicks = ticks.slice(1,-1)
 
+  const dayParams = (day) => {
+    const [x1, x2] = xScale.invertExtent(day);
+    return {
+      x: `${x1 + (x2 - x1)/ 2}%`,
+      y: "1em",
+      textAnchor: "middle",
+    };
+  };
+
   return (
     <Column style={{overflow: 'hidden'}} className="Tile Tile-padded">
-      <DayHead />
-      <Svg>
+      { /* use another svg so that the header can be a fixed size*/ }
+      <Svg style={{height: "2em"}}>
+        {
+          days.map((day, key) => (
+            <text key={key} {...dayParams(day)}
+              >
+              {day}
+            </text>))
+        }
+      </Svg>
+      <Svg style={{flex: '1'}}>
+        <Defs />
         { displayedTicks.map(
           (tick, idx) => (
             <g key={idx}>
