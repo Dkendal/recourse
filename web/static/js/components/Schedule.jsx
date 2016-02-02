@@ -141,6 +141,27 @@ const Defs = () => (
   </defs>
 );
 
+const dayParams = (day) => {
+  const [x1, x2] = xScale.invertExtent(day);
+  return {
+    x: `${x1 + (x2 - x1)/ 2}%`,
+    y: "1em",
+    textAnchor: "middle",
+  };
+};
+
+const Header = () => (
+  <Svg style={{height: "2em"}}>
+    {
+      days.map((day, key) => (
+        <text key={key} {...dayParams(day)}
+          >
+          {day}
+        </text>))
+    }
+  </Svg>
+);
+
 const isOnTheHour = (t) => moment(t).minutes() === 0;
 
 const Schedule = ({sections, startHour, endHour}) => {
@@ -150,27 +171,9 @@ const Schedule = ({sections, startHour, endHour}) => {
   // don't show first and last ticks.
   const displayedTicks = ticks.slice(1,-1)
 
-  const dayParams = (day) => {
-    const [x1, x2] = xScale.invertExtent(day);
-    return {
-      x: `${x1 + (x2 - x1)/ 2}%`,
-      y: "1em",
-      textAnchor: "middle",
-    };
-  };
-
   return (
     <Column style={{overflow: 'hidden'}} className="Tile Tile-padded">
-      { /* use another svg so that the header can be a fixed size*/ }
-      <Svg style={{height: "2em"}}>
-        {
-          days.map((day, key) => (
-            <text key={key} {...dayParams(day)}
-              >
-              {day}
-            </text>))
-        }
-      </Svg>
+      <Header />
       <Svg style={{flex: '1'}}>
         <Defs />
         { displayedTicks.map(
