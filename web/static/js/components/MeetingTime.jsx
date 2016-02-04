@@ -1,5 +1,6 @@
 import React, {PropTypes} from "react";
 import moment from "moment";
+import {MEETING_TIME, SECTION} from "types";
 
 import "css/components/MeetingTime.scss";
 
@@ -61,5 +62,17 @@ const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflict
   );
 }
 
+const sectionType = PropTypes.shape({
+});
+
+MeetingTime.propTypes = {
+  meetingTime:  MEETING_TIME.isRequired,
+  section:      SECTION.isRequired,
+  colorScale:   PropTypes.func.isRequired,
+  yScale:       PropTypes.func.isRequired,
+  xScale:       PropTypes.func.isRequired,
+  conflicts:    PropTypes.number.isRequired,
+  idx:          PropTypes.number.isRequired,
+}
 
 export default MeetingTime;
