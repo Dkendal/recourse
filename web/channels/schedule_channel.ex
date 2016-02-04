@@ -38,8 +38,8 @@ defmodule Recourse.ScheduleChannel do
 
     payload = %{
       sections: components,
-      minStartHour: min_start_hour,
-      maxEndHour: max_end_hour
+      earliestStartTime: min_start_hour,
+      latestEndTime: max_end_hour
     }
 
     {:reply, {:ok, %{payload: payload}}, socket}

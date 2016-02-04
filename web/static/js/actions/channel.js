@@ -34,10 +34,11 @@ function refreshSchedule() {
     const scheduleSettings = s.scheduleSettings(getState());
     const ids = s.worklistIds(getState());
 
-    const onSuccess = ({payload: {sections, minStartHour, maxEndHour}}) => {
+    const onSuccess = ({payload: {sections, earliestStartTime, latestEndTime}}) => {
+      
       dispatch(setSections(sections));
-      dispatch(setMinStartHour(minStartHour));
-      dispatch(setMaxEndHour(maxEndHour));
+      dispatch(setMinStartHour(earliestStartTime));
+      dispatch(setMaxEndHour(latestEndTime));
     };
 
     const params = {

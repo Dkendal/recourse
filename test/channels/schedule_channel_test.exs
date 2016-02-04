@@ -91,8 +91,8 @@ defmodule Recourse.ScheduleChannelTest do
 
       assert_reply ref, :ok, %{
         payload: %{
-          maxEndHour: max_end_hour,
-          minStartHour: min_start_hour,
+          latestEndTime: max_end_hour,
+          earliestStartTime: min_start_hour,
           sections: sections
         }
       }
