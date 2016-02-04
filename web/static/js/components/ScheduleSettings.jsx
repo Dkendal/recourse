@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import {compose} from "underscore";
 import TextField from "components/TextField";
 import Row from "components/Row";
+import {TIME} from "types";
 
 class ScheduleSettings extends Component {
   render() {
@@ -52,8 +53,10 @@ class ScheduleSettings extends Component {
 ScheduleSettings.displayName = "ScheduleSettings";
 
 ScheduleSettings.propTypes = {
-  onSettingsChange: PropTypes.func,
-  onSubmit: PropTypes.func
+  onSettingsChange:  PropTypes.func,
+  onSubmit:          PropTypes.func,
+  endTime:           PropTypes.string,
+  startTime:         PropTypes.string,
 };
 
 export default ScheduleSettings;
