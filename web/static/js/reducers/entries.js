@@ -1,9 +1,6 @@
 import {combineReducers} from "redux";
 import {List} from "immutable";
 import {handleActions} from "redux-actions";
-import {parseTime, timeToNumber} from "lib/time";
-
-const processT = (t) => timeToNumber(parseTime(t));
 
 const defaultMinEndHour = {hours: 17};
 const endHour = handleActions(

@@ -31,7 +31,8 @@ function asPromise(push, callback) {
 function refreshSchedule() {
   return (dispatch, getState) => {
     const channel = s.channel(getState());
-    const scheduleSettings = s.scheduleSettings(getState());
+    const settings = s.scheduleParams(getState());
+    console.log(settings);
     const ids = s.worklistIds(getState());
 
     const onSuccess = ({payload: {sections, earliestStartTime, latestEndTime}}) => {
@@ -42,7 +43,7 @@ function refreshSchedule() {
 
     const params = {
       course_ids: ids,
-      settings: scheduleSettings
+      settings: settings
     };
 
     const push = channel.

@@ -1,7 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
+import moment from "moment";
 import {List} from "immutable";
-import {castTime} from "lib/time";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -15,19 +15,38 @@ export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
 
-const startTime = createSelector(
-  startTimeStr,
-  castTime
-);
+function parseTime(t) {
+  let date = moment(t, "HH:mm");
+  // send 00:00:00 if the date is unparseable.
+  return date = date.isValid() ? date : moment({h: 0, m: 0, s: 0});
+}
 
-const endTime = createSelector(
-  endTimeStr,
-  castTime
-);
+const frontendTimeSelector = (sel) => (
+  createSelector(
+    sel,
+    // only want to display HH:mm
+    (t) => parseTime(t).format("HH:mm")));
 
+const backendTimeSelector = (sel) => (
+  createSelector(
+    sel,
+    // elixir expects "HH:mm:ss" and will break with anything else.
+    (t) => parseTime(t).format("HH:mm:ss")));
+
+const startTime = frontendTimeSelector(startTimeStr);
+
+const endTime = frontendTimeSelector(endTimeStr);
+
+// options to be displayed on the front end
 export const scheduleSettings = createStructuredSelector({
   startTime,
   endTime
+});
+
+// params that will be sent to phoenix to build the schedule
+export const scheduleParams = createStructuredSelector({
+  startTime: backendTimeSelector(startTimeStr),
+  endTime: backendTimeSelector(endTimeStr),
 });
 
 export const selectedTerm = createSelector(
