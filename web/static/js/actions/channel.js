@@ -32,7 +32,6 @@ function refreshSchedule() {
   return (dispatch, getState) => {
     const channel = s.channel(getState());
     const settings = s.scheduleParams(getState());
-    console.log(settings);
     const ids = s.worklistIds(getState());
 
     const onSuccess = ({payload: {sections, earliestStartTime, latestEndTime}}) => {
