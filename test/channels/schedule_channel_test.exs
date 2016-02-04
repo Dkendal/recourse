@@ -84,8 +84,8 @@ defmodule Recourse.ScheduleChannelTest do
       ref = push socket, "make_schedule", %{
         "course_ids" => [csc.id, math.id],
         "settings" => %{
-          "startTime" => "00:00:00",
-          "endTime" => "00:00:00"
+          "startTime" => "2016-02-04T00:00:00.000Z",
+          "endTime" => "2016-02-04T00:00:00.000Z",
         }
       }
 

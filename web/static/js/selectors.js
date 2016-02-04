@@ -31,7 +31,7 @@ const backendTimeSelector = (sel) => (
   createSelector(
     sel,
     // elixir expects "HH:mm:ss" and will break with anything else.
-    (t) => parseTime(t).format("HH:mm:ss")));
+    (t) => parseTime(t).toDate()));
 
 const startTime = frontendTimeSelector(startTimeStr);
 

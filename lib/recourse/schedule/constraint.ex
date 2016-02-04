@@ -47,8 +47,8 @@ defmodule Recourse.Schedule.Constraint do
 
   @spec time_preference(%{String.t => String.t}) :: t
   def time_preference(%{"startTime" => start_time, "endTime" => end_time}) do
-    {:ok, preferred_start} = Time.cast(start_time)
-    {:ok, preferred_end} = Time.cast(end_time)
+    preferred_start = Ecto.DateTime.cast!(start_time) |> Ecto.DateTime.to_time
+    preferred_end = Ecto.DateTime.cast!(end_time) |> Ecto.DateTime.to_time
     time_preference preferred_start, preferred_end
   end
 
