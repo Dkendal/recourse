@@ -1,5 +1,5 @@
 defmodule Recourse.Scraper.Section do
-  alias Recourse.{Course, Section}
+  alias Recourse.{Course, Section, Scraper.Section.Request}
   use Timex
 
   import Recourse.Scraper
@@ -60,21 +60,7 @@ defmodule Recourse.Scraper.Section do
   end
 
   def query(course) do
-    course
-    |> to_params
-    |> URI.encode_query
-    |> case do
-      q -> get!("sections?" <> q)
-    end
-  end
-
-  defp to_params(%Course{number: number, subject: subject, term: term}) do
-    %{
-      crse_in: number,
-      schd_in: "",
-      subj_in: subject,
-      term_in: to_string(term)
-    }
+    get!("sections?" <> Request.to_params(course))
   end
 
   def transform(%{"Date Range" => date_range} = map) do
