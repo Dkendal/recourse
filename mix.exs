@@ -71,7 +71,7 @@ defmodule Recourse.Mixfile do
       {:con_cache, "~> 0.9.0"},
 
       # database
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, "~> 0.11.0"},
       {:ecto, "~> 1.1"},
       {:phoenix_ecto, "~> 1.1"},
       {:ecto_enum, "~> 0.3"},
