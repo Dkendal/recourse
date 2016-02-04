@@ -11,14 +11,21 @@ defmodule Recourse.Scraper.SectionTest do
     }
   end
 
+  describe "#all/1" do
+    # it "returns all sections for the given course" do
+    #   winter_2015 = create(:term, year: 2015, semester: :winter)
+
+    #   math_100 = create(:course, subjct: "MATH", number: "100", term: winter_2015)
+    #   actual = Recourse.Scraper.Section.all(%{course: math_100, term: winter_2015})
+    #   IO.inspect actual
+    # end
+  end
+
   test "fetching sections for a course", context do
     use_cassette "csc 110 sections" do
       %{course: course} = context
 
-      actual = hd Recourse.Scraper.Section.all(%{
-        term: course.term,
-        course: course
-      })
+      actual = hd Recourse.Scraper.Section.all(course)
 
       assert_valid actual
 

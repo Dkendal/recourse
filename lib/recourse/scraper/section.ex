@@ -1,4 +1,5 @@
 defmodule Recourse.Scraper.Section do
+  alias Recourse.{Course, Section}
   use Timex
 
   import Recourse.Scraper
@@ -8,18 +9,13 @@ defmodule Recourse.Scraper.Section do
 
   alias Recourse.Section
 
-  @type search_options :: %{
-    term: Recourse.Term.t,
-    course: Recourse.Course.t
-  }
-
-  @spec all(search_options) :: [Recourse.Section.t]
-  def all(args) do
-    query(args)
-    |> parse_response(args)
+  @spec all(Course.t) :: [Section.t]
+  def all(course) do
+    query(course)
+    |> parse_response(course)
   end
 
-  def parse_response(response, args) do
+  def parse_response(response, course) do
     response.body
     |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
     |> List.first
@@ -57,27 +53,27 @@ defmodule Recourse.Scraper.Section do
         |> build_attrs
         |> Dict.merge(header_attrs)
         |> Dict.merge(other_attrs)
-        |> Dict.put(:course_id, args.course.id)
+        |> Dict.put(:course_id, course.id)
 
       Section.changeset(%Section{}, course_attrs)
     end)
   end
 
-  def query(args) do
-    args
-    |> params
+  def query(course) do
+    course
+    |> to_params
     |> URI.encode_query
     |> case do
       q -> get!("sections?" <> q)
     end
   end
 
-  defp params(%{term: t, course: c}) do
+  defp to_params(%Course{number: number, subject: subject, term: term}) do
     %{
-      crse_in: c.number,
+      crse_in: number,
       schd_in: "",
-      subj_in: c.subject,
-      term_in: to_string(t)
+      subj_in: subject,
+      term_in: to_string(term)
     }
   end
 
