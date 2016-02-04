@@ -35,7 +35,6 @@ function refreshSchedule() {
     const ids = s.worklistIds(getState());
 
     const onSuccess = ({payload: {sections, earliestStartTime, latestEndTime}}) => {
-      
       dispatch(setSections(sections));
       dispatch(setMinStartHour(earliestStartTime));
       dispatch(setMaxEndHour(latestEndTime));
