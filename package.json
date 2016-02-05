@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "compile": "webpack -p"
+  },
   "repository": {},
   "dependencies": {
     "bourbon": "^4.2.5",
