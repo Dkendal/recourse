@@ -25,7 +25,8 @@ defmodule Recourse.Scraper.SectionTest do
     use_cassette "csc 110 sections" do
       %{course: course} = context
 
-      actual = hd Recourse.Scraper.Section.all(course)
+      all = Recourse.Scraper.Section.all(course)
+      actual = hd all
 
       assert_valid actual
 
@@ -33,6 +34,8 @@ defmodule Recourse.Scraper.SectionTest do
         campus: "Main",
         name: "A01",
         course_id: course.id
+
+      Recourse.Repo.insert actual
     end
   end
 
@@ -47,7 +50,7 @@ defmodule Recourse.Scraper.SectionTest do
       "Where" => "MacLaurin Building A144"}
 
     actual =
-      Recourse.Scraper.Section.transform(input)
+      Recourse.Scraper.Section.Response.transform(input)
 
     assert_attributes actual,
       schedule_type: "Lecture",
