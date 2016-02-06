@@ -4,14 +4,6 @@ defmodule Recourse.Scraper.Section do
   alias Recourse.Section
   import Recourse.Scraper
 
-  @attributes [
-    :course_id,
-    :course,
-    :name,
-    :campus,
-    :credits
-  ]
-
   @spec all(Course.t) :: [Section.t]
   def all(course) do
     query(course)
