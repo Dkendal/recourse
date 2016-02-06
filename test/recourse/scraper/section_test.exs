@@ -7,11 +7,17 @@ defmodule Recourse.Scraper.SectionTest do
         csc = create(:course, subject: "CSC", number: "110")
         csc_id = csc.id
 
-        inserted_section = Recourse.Repo.insert! hd Recourse.Scraper.Section.all(csc)
+        inserted_section =
+          csc
+          |> Recourse.Scraper.Section.all
+          |> hd
+          |> Recourse.Repo.insert!
+          |> Recourse.Repo.preload([:meeting_times, :course])
 
         assert(%Recourse.Section{
           campus: "Main",
-          course_id: csc_id,
+          course: csc,
+          meeting_times: [],
           credits: 1.5,
           date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
           date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
