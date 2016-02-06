@@ -87,6 +87,8 @@ defmodule Recourse.Mixfile do
       {:qdate, github: "choptastic/qdate"},
       {:erlware_commons, "~> 0.15.0", override: true},
 
+      {:zipper_tree, "~> 0.0"},
+
       # deployment
       {:exrm, "~> 1.0.0-rc7"},
 
