@@ -1,41 +1,29 @@
 defmodule Recourse.Scraper.SectionTest do
   use Recourse.Case, async: false
 
-  setup do
-    course = create(:course, subject: "CSC", number: "110")
-
-    {
-      :ok,
-      course: course,
-      timeout: :infinity
-    }
-  end
-
   describe "#all/1" do
-    # it "returns all sections for the given course" do
-    #   winter_2015 = create(:term, year: 2015, semester: :winter)
+    it "returns all sections for the given course" do
+      use_cassette "csc 110 sections" do
+        csc = create(:course, subject: "CSC", number: "110")
+        csc_id = csc.id
 
-    #   math_100 = create(:course, subjct: "MATH", number: "100", term: winter_2015)
-    #   actual = Recourse.Scraper.Section.all(%{course: math_100, term: winter_2015})
-    #   IO.inspect actual
-    # end
-  end
+        inserted_section = Recourse.Repo.insert! hd Recourse.Scraper.Section.all(csc)
 
-  test "fetching sections for a course", context do
-    use_cassette "csc 110 sections" do
-      %{course: course} = context
-
-      all = Recourse.Scraper.Section.all(course)
-      actual = hd all
-
-      assert_valid actual
-
-      assert_attributes actual.changes,
-        campus: "Main",
-        name: "A01",
-        course_id: course.id
-
-      Recourse.Repo.insert actual
+        assert(%Recourse.Section{
+          campus: "Main",
+          course_id: csc_id,
+          credits: 1.5,
+          date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
+          date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
+          instructional_method: "Face to Face",
+          location: "MacLaurin Building A144",
+          name: "A01",
+          registration_code: "20665",
+          registration_end: %Ecto.Date{year: 2015, month: 1, day: 21},
+          registration_start: %Ecto.Date{year: 2014, month: 6, day: 16},
+          schedule_type: "Lecture",
+        } = inserted_section)
+      end
     end
   end
 
@@ -60,11 +48,5 @@ defmodule Recourse.Scraper.SectionTest do
       location: "MacLaurin Building A144",
       date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
       date_end: %Ecto.Date{year: 2015, month: 4, day: 2}
-      # registration_code:
-      # registration_start:
-      # registration_end:
-      # campus:
-      # credits:
-      # instructional_method:
   end
 end
