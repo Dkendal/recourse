@@ -4,17 +4,21 @@ defmodule Recourse.Scraper.Section do
   alias Recourse.Section
 
   @spec all(Course.t) :: [Section.t]
-  def all([course] = courses) do
+  def all(courses) do
     courses
     |> Request.query_plan
     |> Request.execute
-    |> case do
-      [{_courses, html}] -> html
-    end
+    |> Enum.flat_map(&process/1)
+  end
+
+  defp process({[course], html}) do
+    html
     |> Response.parse
-    |> Enum.map(fn attrs ->
-      attrs
-      |> Ecto.Changeset.put_change(:course_id, course.id)
-    end)
+    |> Enum.map(&put_course(&1, course))
+  end
+
+  defp put_course(changeset, %{id: id}) do
+    changeset
+    |> Ecto.Changeset.put_change(:course_id, id)
   end
 end

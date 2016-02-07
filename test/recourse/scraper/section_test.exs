@@ -2,6 +2,33 @@ defmodule Recourse.Scraper.SectionTest do
   use Recourse.Case, async: false
 
   describe "#all/1" do
+    context "with multiple queries" do
+      it "loads sections for the courses" do
+        use_cassette "art 103 and csc 100", match_requests_on: [:query] do
+          winter_2016 = create(:term, semester: :winter, year: 2016)
+          art = create(:course, subject: "ART", number: "103", term: winter_2016)
+          csc = create(:course, subject: "CSC", number: "100", term: winter_2016)
+
+          changes = Recourse.Scraper.Section.all([csc, art])
+
+          sections = for change <- changes, do: change
+                      |> Recourse.Repo.insert!
+                      |> Recourse.Repo.preload([:course, :meeting_times])
+
+          assert 5 == sections |> length
+          assert Enum.all?(sections, & %Recourse.Section{} = &1)
+
+          assert [
+            %{course: art},
+            %{course: art},
+            %{course: art},
+            %{course: csc},
+            %{course: csc},
+          ] = sections
+        end
+      end
+    end
+
     context "the course doesn't exist" do
       it "returns an empty array" do
         use_cassette "art 112" do
