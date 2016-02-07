@@ -61,7 +61,7 @@ defmodule Recourse.Scraper.Section.Response do
     |> find(".datadisplaytable")
     |> find("tr")
     |> map(&get_row_content/1)
-    |> build_attrs
+    |> extract_meeting_time
     |> Enum.map(fn attrs ->
       %Recourse.MeetingTime{}
       |> Ecto.Changeset.change(attrs)
@@ -145,16 +145,16 @@ defmodule Recourse.Scraper.Section.Response do
     }
   end
 
-  defp build_attrs([]) do
+  defp extract_meeting_time([]) do
     %{}
   end
 
-  defp build_attrs([headers]), do: []
-  defp build_attrs([th, td | rest]) do
+  defp extract_meeting_time([headers]), do: []
+  defp extract_meeting_time([th, td | rest]) do
     result = Enum.zip(th, td)
     |> Enum.into(%{})
     |> transform
-    [result | build_attrs([th | rest])]
+    [result | extract_meeting_time([th | rest])]
   end
 
   defp get_row_content tr do
@@ -233,6 +233,10 @@ defmodule Recourse.Scraper.Section.Response do
       ["Method", "Instructional"|v] ->
         v = Enum.join(Enum.reverse(v), " ")
         Dict.put(acc, :instructional_method, v)
+
+      ["Type", "Schedule"|v] ->
+        v = Enum.join(Enum.reverse(v), " ")
+        Dict.put(acc, :schedule_type, v)
 
       _ ->
         acc

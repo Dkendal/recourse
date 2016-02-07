@@ -109,6 +109,7 @@ defmodule Recourse.Scraper.SectionTest do
           ],
           credits: 1.5,
           instructional_method: "Face to Face",
+          schedule_type: "Lecture",
           name: "A01",
           crn: "20665",
           registration_end: %Ecto.Date{year: 2015, month: 1, day: 21},
