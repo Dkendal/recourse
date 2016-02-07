@@ -32,13 +32,18 @@ defmodule Recourse.Scraper.Section.Response do
         name: name
       }
 
-      section_attrs = parse_section_info(body)
+      meeting_time = parse_meeting_time_info(body)
+      meeting_time = %Recourse.MeetingTime{}
+                      |> Ecto.Changeset.change(meeting_time)
 
-      meeting_time_attrs = parse_meeting_time_info(body)
+      section =
+        body
+        |> parse_section_info
+        |> Dict.merge(header_attrs)
 
-      meeting_time_attrs
-      |> Dict.merge(header_attrs)
-      |> Dict.merge(section_attrs)
+      %Recourse.Section{}
+      |> Ecto.Changeset.change(section)
+      |> Ecto.Changeset.put_assoc(:meeting_times, [meeting_time])
     end)
   end
 
@@ -104,7 +109,7 @@ defmodule Recourse.Scraper.Section.Response do
 
   def transform(map) do
     map
-    |> Map.put(:schedule_type, map["Schedule Type"])
+    |> Map.put(:type, map["Schedule Type"])
     |> Map.put(:location, map["Where"])
     |> Map.delete("Instructors")
     |> Map.delete("Schedule Type")

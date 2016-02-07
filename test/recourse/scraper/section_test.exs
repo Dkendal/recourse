@@ -17,17 +17,21 @@ defmodule Recourse.Scraper.SectionTest do
         assert(%Recourse.Section{
           campus: "Main",
           course_id: ^csc_id,
-          meeting_times: [],
+          meeting_times: [
+            %Recourse.MeetingTime{
+              time_start: %Ecto.Time{hour: 10, min: 0},
+              time_end: %Ecto.Time{hour: 11, min: 20},
+              date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
+              date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
+              location: "MacLaurin Building A144"
+            }
+          ],
           credits: 1.5,
-          date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
-          date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
           instructional_method: "Face to Face",
-          location: "MacLaurin Building A144",
           name: "A01",
           registration_code: "20665",
           registration_end: %Ecto.Date{year: 2015, month: 1, day: 21},
           registration_start: %Ecto.Date{year: 2014, month: 6, day: 16},
-          schedule_type: "Lecture",
         } = inserted_section)
       end
     end

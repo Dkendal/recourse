@@ -9,8 +9,7 @@ defmodule Recourse.Scraper.Section do
     query(course)
     |> Response.parse
     |> Enum.map(fn attrs ->
-      %Section{}
-      |> Ecto.Changeset.change(attrs)
+      attrs
       |> Ecto.Changeset.put_change(:course_id, course.id)
     end)
   end
