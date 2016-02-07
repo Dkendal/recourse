@@ -16,7 +16,7 @@ defmodule Recourse.Scraper.SectionTest do
 
         assert(%Recourse.Section{
           campus: "Main",
-          course: csc,
+          course_id: ^csc_id,
           meeting_times: [],
           credits: 1.5,
           date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
