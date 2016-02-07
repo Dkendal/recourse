@@ -51,7 +51,6 @@ defmodule Recourse.Scraper.SectionTest do
       "Date Range" => "Jan 05, 2015 - Apr 02, 2015",
       "Days" => "MR",
       "Instructors" => "Celina Gay  Berg (P)",
-      "Schedule Type" => "Lecture",
       "Time" => "10:00 am - 11:20 am",
       "Type" => "Every Week",
       "Where" => "MacLaurin Building A144"}
@@ -60,7 +59,6 @@ defmodule Recourse.Scraper.SectionTest do
       Recourse.Scraper.Section.Response.transform(input)
 
     assert_attributes actual,
-      schedule_type: "Lecture",
       time_start: %Ecto.Time{hour: 10, min: 0, sec: 0},
       time_end: %Ecto.Time{hour: 11, min: 20, sec: 0},
       days: ~W(M R),
