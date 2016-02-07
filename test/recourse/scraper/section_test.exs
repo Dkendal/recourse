@@ -11,6 +11,25 @@ defmodule Recourse.Scraper.SectionTest do
       end
     end
 
+    context "when there are multiple meeting times for a section" do
+      it "creates multiple sections" do
+        use_cassette "art 103 sections" do
+          winter_2016 = create(:term, semester: :winter, year: 2016)
+          art = create(:course, subject: "ART", number: "103", term: winter_2016)
+          art_id = art.id
+
+          inserted_section =
+          art
+          |> Recourse.Scraper.Section.all
+          |> hd
+          |> Recourse.Repo.insert!
+          |> Recourse.Repo.preload([:meeting_times, :course])
+
+          assert length(inserted_section.meeting_times) == 2
+        end
+      end
+    end
+
     it "returns all sections for the given course" do
       use_cassette "csc 110 sections" do
         csc = create(:course, subject: "CSC", number: "110")

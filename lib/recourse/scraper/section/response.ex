@@ -32,10 +32,7 @@ defmodule Recourse.Scraper.Section.Response do
         name: name
       }
 
-      meeting_time = parse_meeting_time_info(body)
-      meeting_time = %Recourse.MeetingTime{}
-                      |> Ecto.Changeset.change(meeting_time)
-
+      meeting_times = parse_meeting_time_info(body)
       section =
         body
         |> parse_section_info
@@ -43,7 +40,7 @@ defmodule Recourse.Scraper.Section.Response do
 
       %Recourse.Section{}
       |> Ecto.Changeset.change(section)
-      |> Ecto.Changeset.put_assoc(:meeting_times, [meeting_time])
+      |> Ecto.Changeset.put_assoc(:meeting_times, meeting_times)
     end)
   end
 
@@ -54,6 +51,10 @@ defmodule Recourse.Scraper.Section.Response do
     |> find("tr")
     |> map(&get_row_content/1)
     |> build_attrs
+    |> Enum.map(fn attrs ->
+      %Recourse.MeetingTime{}
+      |> Ecto.Changeset.change(attrs)
+    end)
   end
 
   @spec parse_section_info(Floki.html_tree) :: %{}
@@ -137,10 +138,12 @@ defmodule Recourse.Scraper.Section.Response do
     %{}
   end
 
-  defp build_attrs([th, td]) do
-    Enum.zip(th, td)
+  defp build_attrs([headers]), do: []
+  defp build_attrs([th, td | rest]) do
+    result = Enum.zip(th, td)
     |> Enum.into(%{})
     |> transform
+    [result | build_attrs([th | rest])]
   end
 
   defp get_row_content tr do
