@@ -8,7 +8,7 @@ defmodule Recourse.Scraper.Section.Response do
   Parses the content found in a section html request. Returns all sections found
   along with their meeting times.
   """
-  @spec parse(String.t) :: [%{}]
+  @spec parse(String.t) :: [%Ecto.Changeset{}]
   def parse(body) do
     body
     |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
