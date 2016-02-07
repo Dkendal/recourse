@@ -95,7 +95,7 @@ defmodule Recourse.Mixfile do
       # testing
       {:ex_machina, "~> 0.6", only: [:dev, :test]},
       {:faker, "~> 0.5", only: [:test, :dev]},
-      {:exvcr, "~> 0.6", only: :test},
+      {:exvcr, "~> 0.6"},
       {:ex_spec, "~> 1.0", only: :test},
 
       {:dialyze, "~> 0.2.0", only: :dev},
