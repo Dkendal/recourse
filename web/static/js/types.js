@@ -25,7 +25,7 @@ export const SECTION = PropTypes.shape({
   course:                COURSE.isRequired,
   credits:               PropTypes.number.isRequired,
   instructional_method:  PropTypes.string.isRequired,
-  registration_code:     PropTypes.string.isRequired,
+  crn:     PropTypes.string.isRequired,
   registration_end:      DATE.isRequired,
   registration_start:    DATE.isRequired,
   schedule_type:         PropTypes.string.isRequired,

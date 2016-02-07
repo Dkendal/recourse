@@ -9,7 +9,7 @@ defmodule Recourse.Section do
     field :instructional_method, :string
     field :location, :string
     field :name, :string
-    field :registration_code, :string
+    field :crn, :string
     field :registration_end, Ecto.Date
     field :registration_start, Ecto.Date
     field :schedule_type, :string
@@ -27,7 +27,7 @@ defmodule Recourse.Section do
     date_end
     date_start
     name
-    registration_code
+    crn
     schedule_type
   )
 
@@ -62,7 +62,7 @@ defmodule Recourse.Section do
         id: section.id,
         instructional_method: section.instructional_method,
         location: section.location,
-        registration_code: section.registration_code,
+        crn: section.crn,
         registration_end: section.registration_end,
         registration_start: section.registration_start,
         schedule_type: section.schedule_type,

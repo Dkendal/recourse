@@ -42,7 +42,7 @@ defmodule Recourse.Factory do
       instructional_method: "face-to-face",
       location: "some building",
       name: sequence(:section_name, &"#{&1}"),
-      registration_code: sequence(:crn, &"C#{&1}"),
+      crn: sequence(:crn, &"C#{&1}"),
       registration_end: "2015-01-15",
       registration_start: "2014-09-30",
       schedule_type: "Lecture",

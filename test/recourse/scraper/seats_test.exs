@@ -7,7 +7,7 @@ defmodule Recourse.Scraper.SeatsTest do
 
     course = create(:course, term: term)
 
-    section = create(:section, registration_code: "20765", course: course )
+    section = create(:section, crn: "20765", course: course )
 
     use_cassette "seats for 20765" do
       actual = Seats.find(section)
@@ -27,7 +27,7 @@ defmodule Recourse.Scraper.SeatsTest do
   end
 
   test "find/1 returns the section with no info when crn is invalid" do
-    made_up_section = create(:section, registration_code: "")
+    made_up_section = create(:section, crn: "")
 
     use_cassette "seats for invalid crn" do
       assert_attributes Seats.find(made_up_section),

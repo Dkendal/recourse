@@ -24,11 +24,11 @@ defmodule Recourse.Scraper.Section.Response do
         |> text
         |> String.split(" - ")
 
-      registration_code = Enum.fetch!(tokens, 1)
+      crn = Enum.fetch!(tokens, 1)
       name = Enum.fetch!(tokens, -1)
 
       header_attrs = %{
-        registration_code: registration_code,
+        crn: crn,
         name: name
       }
 

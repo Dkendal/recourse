@@ -36,7 +36,7 @@ defmodule Recourse.Registration do
 
   @spec key(Section.t) :: key
   def key(section) do
-    {section.registration_code, to_string(section.course.term)}
+    {section.crn, to_string(section.course.term)}
   end
 
   @spec hit(Section.t) :: Section.t

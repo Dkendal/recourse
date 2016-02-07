@@ -61,7 +61,7 @@ defmodule Recourse.Scraper.Seats do
   defp to_query(section) do
     %{
       term_in: to_string(section.course.term),
-      crn_in: section.registration_code
+      crn_in: section.crn
     }
   end
 end

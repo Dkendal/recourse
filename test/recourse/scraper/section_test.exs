@@ -57,7 +57,7 @@ defmodule Recourse.Scraper.SectionTest do
           credits: 1.5,
           instructional_method: "Face to Face",
           name: "A01",
-          registration_code: "20665",
+          crn: "20665",
           registration_end: %Ecto.Date{year: 2015, month: 1, day: 21},
           registration_start: %Ecto.Date{year: 2014, month: 6, day: 16},
         } = inserted_section)

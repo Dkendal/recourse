@@ -3,7 +3,7 @@ defmodule Recourse.Repo.Migrations.CreateSection do
 
   def change do
     create table(:sections) do
-      add :registration_code, :string
+      add :crn, :string
       add :schedule_type, :string
       add :start_time, :time
       add :end_time, :time

@@ -8,7 +8,7 @@ defmodule Recourse.RegistrationTest do
   end
 
   test "loads all the seat info for each section" do
-    math = build(:section, registration_code: "20754")
+    math = build(:section, crn: "20754")
     expected = %{
       seats: %{
         capacity: 10,
@@ -34,7 +34,7 @@ defmodule Recourse.RegistrationTest do
   end
 
   test "in dev env it has a dummy response" do
-    math = build(:section, registration_code: "xxxxx")
+    math = build(:section, crn: "xxxxx")
 
     [section] = Recourse.Registration.load([math], :dev)
 

@@ -14,7 +14,7 @@ defmodule Recourse.SectionTest do
     instructional_method: "some content",
     location: "some content",
     name: "A01",
-    registration_code: "some content",
+    crn: "some content",
     registration_end: "2015-12-12",
     registration_start: "2015-12-12",
     schedule_type: "some content",
