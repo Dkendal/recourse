@@ -8,8 +8,8 @@ defmodule Recourse.Repo.Migrations.CreateMeetingTimes do
       add :days, {:array, :string}, null: false
       add :instructors, {:array, :string}, null: false
       add :location, :string, null: false
-      add :time_end, :time, null: false
-      add :time_start, :time, null: false
+      add :end_time, :time, null: false
+      add :start_time, :time, null: false
       add :type, :string, null: false
       add :section_id, references(:sections)
 

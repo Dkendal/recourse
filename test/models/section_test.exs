@@ -18,8 +18,8 @@ defmodule Recourse.SectionTest do
     registration_end: "2015-12-12",
     registration_start: "2015-12-12",
     schedule_type: "some content",
-    time_end: "14:00:00",
-    time_start: "14:00:00",
+    end_time: "14:00:00",
+    start_time: "14:00:00",
   }
 
   @invalid_attrs %{}

@@ -96,14 +96,14 @@ defmodule Recourse.Scraper.Section.Response do
   end
 
   def transform(%{"Time" => time} = map) do
-    [time_start, time_end] =
+    [start_time, end_time] =
       time
       |> split(" - ")
       |> map(&parse_time/1)
 
     map
-    |> Map.put(:time_start, time_start)
-    |> Map.put(:time_end, time_end)
+    |> Map.put(:start_time, start_time)
+    |> Map.put(:end_time, end_time)
     |> Map.delete("Time")
     |> transform
   end

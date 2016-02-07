@@ -37,7 +37,7 @@ export const MEETING_TIME = PropTypes.shape({
   days:         PropTypes.arrayOf(PropTypes.string).isRequired,
   instructors:  PropTypes.arrayOf(PropTypes.string).isRequired,
   location:     PropTypes.string.isRequired,
-  time_end:     TIME.isRequired,
-  time_start:   TIME.isRequired,
+  end_time:     TIME.isRequired,
+  start_time:   TIME.isRequired,
   type:         PropTypes.string.isRequired,
 });

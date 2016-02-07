@@ -47,8 +47,8 @@ defmodule Recourse.Scraper.SectionTest do
           course_id: ^csc_id,
           meeting_times: [
             %Recourse.MeetingTime{
-              time_start: %Ecto.Time{hour: 10, min: 0},
-              time_end: %Ecto.Time{hour: 11, min: 20},
+              start_time: %Ecto.Time{hour: 10, min: 0},
+              end_time: %Ecto.Time{hour: 11, min: 20},
               date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
               date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
               location: "MacLaurin Building A144"
@@ -78,8 +78,8 @@ defmodule Recourse.Scraper.SectionTest do
       Recourse.Scraper.Section.Response.transform(input)
 
     assert_attributes actual,
-      time_start: %Ecto.Time{hour: 10, min: 0, sec: 0},
-      time_end: %Ecto.Time{hour: 11, min: 20, sec: 0},
+      start_time: %Ecto.Time{hour: 10, min: 0, sec: 0},
+      end_time: %Ecto.Time{hour: 11, min: 20, sec: 0},
       days: ~W(M R),
       location: "MacLaurin Building A144",
       date_start: %Ecto.Date{year: 2015, month: 1, day: 5},

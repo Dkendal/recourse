@@ -10,8 +10,8 @@ defmodule Recourse.MeetingTime do
     field :days, {:array, :string}
     field :instructors, {:array, :string}
     field :location, :string
-    field :time_end, Time
-    field :time_start, Time
+    field :end_time, Time
+    field :start_time, Time
     field :type, :string
 
     belongs_to :section, Section
@@ -26,8 +26,8 @@ defmodule Recourse.MeetingTime do
     instructors
     location
     section_id
-    time_end
-    time_start
+    end_time
+    start_time
     type
   )
 
@@ -52,8 +52,8 @@ defmodule Recourse.MeetingTime do
         days: meeting_time.days,
         instructors: meeting_time.instructors,
         location: meeting_time.location,
-        time_end: meeting_time.time_end,
-        time_start: meeting_time.time_start,
+        end_time: meeting_time.end_time,
+        start_time: meeting_time.start_time,
         type: meeting_time.type
       }
       |> Poison.Encoder.encode([])

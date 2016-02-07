@@ -61,10 +61,10 @@ defmodule Recourse.ScheduleChannelTest do
 
       term = create :term
 
-      eight_am_class = build(:meeting_time, time_start: eight_am, days: ~W(M))
+      eight_am_class = build(:meeting_time, start_time: eight_am, days: ~W(M))
                         |> duration(120)
 
-      six_pm_class = build(:meeting_time, time_start: six_pm, days: ~W(R))
+      six_pm_class = build(:meeting_time, start_time: six_pm, days: ~W(R))
                       |> duration(180)
 
       math = create(

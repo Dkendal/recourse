@@ -26,13 +26,13 @@ defmodule Recourse.ScheduleChannel do
 
     min_start_hour =
       sections
-      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.time_start)
+      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.start_time)
       |> wrap
       |> Enum.min
 
     max_end_hour =
       sections
-      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.time_end)
+      |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.end_time)
       |> wrap
       |> Enum.max
 

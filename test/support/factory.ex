@@ -77,7 +77,7 @@ defmodule Recourse.Factory do
     hr = Enum.random 8..17
     mins = Enum.random [0, 30]
 
-    %{section | time_start: %Time{hour: hr, min: mins, sec: 0}}
+    %{section | start_time: %Time{hour: hr, min: mins, sec: 0}}
   end
 
   @spec random_days(%MeetingTime{}, integer | nil) :: %MeetingTime{}
@@ -89,13 +89,13 @@ defmodule Recourse.Factory do
 
   def random_lab_time(section) do
     section = random_start random_days(section, 1)
-    time_end = add_mins section.time_start, 50
-    %{section | time_end: time_end}
+    end_time = add_mins section.start_time, 50
+    %{section | end_time: end_time}
   end
 
   def duration(mt, mins) do
-    time_end = add_mins(mt.time_start, mins)
-    %{mt | time_end: time_end}
+    end_time = add_mins(mt.start_time, mins)
+    %{mt | end_time: end_time}
   end
 
   def porportional_length(section) do

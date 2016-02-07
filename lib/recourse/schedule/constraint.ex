@@ -23,8 +23,8 @@ defmodule Recourse.Schedule.Constraint do
 
   @spec no_time_conflict?(Section.t, Section.t) :: boolean
   def no_time_conflict?(s1, s2) do
-    for %MT{time_start: ts1, time_end: te1} = m1 <- s1.meeting_times,
-        %MT{time_start: ts2, time_end: te2} = m2 <- s2.meeting_times do
+    for %MT{start_time: ts1, end_time: te1} = m1 <- s1.meeting_times,
+        %MT{start_time: ts2, end_time: te2} = m2 <- s2.meeting_times do
       cond do
         disjoint_days?(m1, m2) ->
           true
@@ -55,7 +55,7 @@ defmodule Recourse.Schedule.Constraint do
   @spec time_preference(Time.t, Time.t) :: t
   def time_preference(preferred_start, preferred_end) do
     do_time_preference = fn
-      (%MT{time_start: start_t, time_end: end_t}, total) ->
+      (%MT{start_time: start_t, end_time: end_t}, total) ->
         after?(end_t, preferred_end) +
         before?(start_t, preferred_start) +
         total

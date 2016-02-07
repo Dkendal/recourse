@@ -14,9 +14,9 @@ defmodule Recourse.ConstraintTest do
         four_o_clock = %Ecto.Time{hour: 16, min: 0, sec: 0}
         noon = %Ecto.Time{hour: 12, min: 0, sec: 0}
 
-        mt1 = build(:meeting_time, time_start: four_o_clock) |> duration(80)
+        mt1 = build(:meeting_time, start_time: four_o_clock) |> duration(80)
 
-        mt2 = %{mt1 | time_start: noon} |> duration(80)
+        mt2 = %{mt1 | start_time: noon} |> duration(80)
 
         csc = build :section, meeting_times: [mt1]
         math = %{csc | meeting_times: [mt2]}
