@@ -18,11 +18,15 @@ defmodule Recourse.Scraper.Section.Response do
     |> Enum.slice(1..-1)
     |> Enum.chunk(2)
     |> map(fn [header, body] ->
-      [_title, crn, course_name, name] =
+      tokens =
         header
         |> find("a")
         |> text
         |> String.split(" - ")
+
+      name = Enum.fetch!(tokens, -1)
+      course_name = Enum.fetch!(tokens, -2)
+      crn = Enum.fetch!(tokens, -3)
 
       [subject, number] = course_name |> String.split(" ")
 
