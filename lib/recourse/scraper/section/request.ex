@@ -21,8 +21,8 @@ defmodule Recourse.Scraper.Section.Request do
   the sections for a the most number of courses.
   """
   @spec query_plan([Course.t]) :: query_plan
-  def query_plan([course]) do
-    [{[course], "sections?" <> to_params(course)}]
+  def query_plan(courses) do
+    for course <- courses, do: {[course], "sections?" <> to_params(course)}
   end
 
   @doc """
