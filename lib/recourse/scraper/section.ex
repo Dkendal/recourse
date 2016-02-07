@@ -11,14 +11,8 @@ defmodule Recourse.Scraper.Section do
     |> Enum.flat_map(&process/1)
   end
 
-  defp process({[course], html}) do
+  defp process({courses, html}) do
     html
-    |> Response.parse
-    |> Enum.map(&put_course(&1, course))
-  end
-
-  defp put_course(changeset, %{id: id}) do
-    changeset
-    |> Ecto.Changeset.put_change(:course_id, id)
+    |> Response.parse(courses)
   end
 end

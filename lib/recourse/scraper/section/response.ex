@@ -8,8 +8,8 @@ defmodule Recourse.Scraper.Section.Response do
   Parses the content found in a section html request. Returns all sections found
   along with their meeting times.
   """
-  @spec parse(String.t) :: [%Ecto.Changeset{}]
-  def parse(body) do
+  @spec parse(String.t, Recourse.Course.t) :: [%Ecto.Changeset{}]
+  def parse(body, courses) do
     body
     |> find(".pagebodydiv > .datadisplaytable[summary=\"This layout table is used to present the sections found\"]")
     |> List.first
@@ -18,30 +18,41 @@ defmodule Recourse.Scraper.Section.Response do
     |> Enum.slice(1..-1)
     |> Enum.chunk(2)
     |> map(fn [header, body] ->
-      tokens =
+      [_title, crn, course_name, name] =
         header
         |> find("a")
         |> text
         |> String.split(" - ")
 
-      crn = Enum.fetch!(tokens, 1)
-      name = Enum.fetch!(tokens, -1)
+      [subject, number] = course_name |> String.split(" ")
 
-      header_attrs = %{
-        crn: crn,
-        name: name
-      }
+      # don't do anything if there isn't a matching course
+      course = courses
+                |> Enum.find(& &1.subject == subject && &1.number == number)
 
-      meeting_times = parse_meeting_time_info(body)
-      section =
-        body
-        |> parse_section_info
-        |> Dict.merge(header_attrs)
+      case course do
+        nil ->
+          nil
 
-      %Recourse.Section{}
-      |> Ecto.Changeset.change(section)
-      |> Ecto.Changeset.put_assoc(:meeting_times, meeting_times)
+        %{id: id} ->
+          header_attrs = %{
+            crn: crn,
+            name: name
+          }
+
+          meeting_times = parse_meeting_time_info(body)
+          section =
+            body
+            |> parse_section_info
+            |> Dict.merge(header_attrs)
+
+          %Recourse.Section{}
+            |> Ecto.Changeset.change(section)
+            |> Ecto.Changeset.put_assoc(:meeting_times, meeting_times)
+            |> Ecto.Changeset.put_change(:course_id, id)
+      end
     end)
+    |> Enum.reject(&is_nil/1)
   end
 
   @spec parse_meeting_time_info(Floki.html_tree) :: %{}
