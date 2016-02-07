@@ -6,10 +6,22 @@ defmodule Recourse.Scraper.Section.Request do
   @type html :: String.t
   @type query_plan :: [{[Course.t], uri}]
 
-  @spec to_params(Course.t) :: String.t
-  def to_params(%Course{number: number, subject: subject, term: term}) do
+  @spec to_params([Course.t], String.t) :: String.t
+  def to_params([%Course{number: number, subject: subject, term: term}], _subject) do
     %{
       crse_in: number,
+      schd_in: "",
+      subj_in: subject,
+      term_in: to_string(term) }
+    |> URI.encode_query
+  end
+
+  def to_params(courses, subject) do
+    # fail if all the terms aren't the same
+    [{term, _courses}] = courses |> Enum.group_by(& &1.term) |> Map.to_list
+
+    %{
+      crse_in: "%",
       schd_in: "",
       subj_in: subject,
       term_in: to_string(term) }
@@ -22,7 +34,11 @@ defmodule Recourse.Scraper.Section.Request do
   """
   @spec query_plan([Course.t]) :: query_plan
   def query_plan(courses) do
-    for course <- courses, do: {[course], "sections?" <> to_params(course)}
+    courses
+    |> Enum.group_by(& &1.subject)
+    |> Enum.map(fn {subject, courses} ->
+      {courses, "sections?" <> to_params(courses, subject)}
+    end)
   end
 
   @doc """

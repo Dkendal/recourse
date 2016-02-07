@@ -13,7 +13,7 @@ defmodule Recourse.Scraper.Section.RequestTest do
         }
       }
 
-      assert Request.to_params(course) ==
+      assert Request.to_params([course], "") ==
         "crse_in=100&schd_in=&subj_in=CSC&term_in=201501"
     end
   end
@@ -46,6 +46,36 @@ defmodule Recourse.Scraper.Section.RequestTest do
           {[^seng],
             "sections?crse_in=100&schd_in=&subj_in=SENG&term_in=201501"},
         ] = Request.query_plan([csc, seng])
+      end
+    end
+
+    context "with 2 courses in the same subject" do
+      it "would issue 1 request with a wildcard" do
+        math_100 = build(:course, subject: "MATH", number: 100)
+        math_200 = build(:course, subject: "MATH", number: 200)
+
+        assert 1 == Request.query_plan([math_100, math_200]) |> length
+
+        assert [
+          { courses,
+            "sections?crse_in=%25&schd_in=&subj_in=MATH&term_in=201501"}
+        ] = Request.query_plan([math_100, math_200])
+
+        assert Enum.member?(courses, math_100)
+        assert Enum.member?(courses, math_200)
+      end
+    end
+
+    context "with mix of same and different subjects" do
+      it "groups subjects" do
+        math_100 = build(:course, subject: "MATH", number: 100)
+        math_200 = build(:course, subject: "MATH", number: 200)
+        csc_100 = build(:course, subject: "CSC", number: 100)
+
+        assert [
+          { _, "sections?crse_in=100&schd_in=&subj_in=CSC&term_in=201501"},
+          { _, "sections?crse_in=%25&schd_in=&subj_in=MATH&term_in=201501"},
+        ] = Request.query_plan([math_100, math_200, csc_100])
       end
     end
   end
