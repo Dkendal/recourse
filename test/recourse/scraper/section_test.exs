@@ -2,6 +2,15 @@ defmodule Recourse.Scraper.SectionTest do
   use Recourse.Case, async: false
 
   describe "#all/1" do
+    context "the course doesn't exist" do
+      it "returns an empty array" do
+        use_cassette "art 112" do
+          assert [] == create(:course, subject: "ART", number: "112")
+                      |> Recourse.Scraper.Section.all
+        end
+      end
+    end
+
     it "returns all sections for the given course" do
       use_cassette "csc 110 sections" do
         csc = create(:course, subject: "CSC", number: "110")
