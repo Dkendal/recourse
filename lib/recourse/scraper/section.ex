@@ -5,7 +5,7 @@ defmodule Recourse.Scraper.Section do
   import Recourse.Scraper
 
   @spec all(Course.t) :: [Section.t]
-  def all(course) do
+  def all([course]) do
     query(course)
     |> Response.parse
     |> Enum.map(fn attrs ->

@@ -5,7 +5,7 @@ defmodule Recourse.Scraper.SectionTest do
     context "the course doesn't exist" do
       it "returns an empty array" do
         use_cassette "art 112" do
-          assert [] == create(:course, subject: "ART", number: "112")
+          assert [] == [create(:course, subject: "ART", number: "112")]
                       |> Recourse.Scraper.Section.all
         end
       end
@@ -18,12 +18,11 @@ defmodule Recourse.Scraper.SectionTest do
           art = create(:course, subject: "ART", number: "103", term: winter_2016)
           art_id = art.id
 
-          inserted_section =
-          art
-          |> Recourse.Scraper.Section.all
-          |> hd
-          |> Recourse.Repo.insert!
-          |> Recourse.Repo.preload([:meeting_times, :course])
+          inserted_section = [art]
+                              |> Recourse.Scraper.Section.all
+                              |> hd
+                              |> Recourse.Repo.insert!
+                              |> Recourse.Repo.preload([:meeting_times, :course])
 
           assert length(inserted_section.meeting_times) == 2
         end
@@ -35,12 +34,11 @@ defmodule Recourse.Scraper.SectionTest do
         csc = create(:course, subject: "CSC", number: "110")
         csc_id = csc.id
 
-        inserted_section =
-          csc
-          |> Recourse.Scraper.Section.all
-          |> hd
-          |> Recourse.Repo.insert!
-          |> Recourse.Repo.preload([:meeting_times, :course])
+        inserted_section = [csc]
+                            |> Recourse.Scraper.Section.all
+                            |> hd
+                            |> Recourse.Repo.insert!
+                            |> Recourse.Repo.preload([:meeting_times, :course])
 
         assert(%Recourse.Section{
           campus: "Main",
