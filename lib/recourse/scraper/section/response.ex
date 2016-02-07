@@ -121,7 +121,7 @@ defmodule Recourse.Scraper.Section.Response do
 
   def transform(map) do
     map
-    |> Map.put(:type, map["Schedule Type"])
+    |> Map.put(:type, map["Type"])
     |> Map.put(:location, map["Where"])
     |> Map.delete("Instructors")
     |> Map.delete("Schedule Type")

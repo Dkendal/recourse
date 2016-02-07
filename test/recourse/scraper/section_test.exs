@@ -103,7 +103,8 @@ defmodule Recourse.Scraper.SectionTest do
               end_time: %Ecto.Time{hour: 11, min: 20},
               date_start: %Ecto.Date{year: 2015, month: 1, day: 5},
               date_end: %Ecto.Date{year: 2015, month: 4, day: 2},
-              location: "MacLaurin Building A144"
+              location: "MacLaurin Building A144",
+              type: "Every Week",
             }
           ],
           credits: 1.5,
