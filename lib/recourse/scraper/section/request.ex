@@ -47,6 +47,6 @@ defmodule Recourse.Scraper.Section.Request do
   """
   @spec execute(query_plan) :: [{[Course.t], html}]
   def execute(plan) do
-    for {courses, uri} <- plan, do: {courses, get!(uri)}
+    for {courses, uri} <- plan, do: {courses, get!(uri).body}
   end
 end
