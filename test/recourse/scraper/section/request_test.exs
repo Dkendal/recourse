@@ -25,8 +25,11 @@ defmodule Recourse.Scraper.Section.RequestTest do
       end
 
       it "returns the course and the uri" do
-        course = build(:course)
-        assert [{[^course], _}] = Request.query_plan([course])
+        course = build(:course, subject: "ENGR", number: "100")
+        assert [
+          {[^course],
+            "sections?crse_in=100&schd_in=&subj_in=ENGR&term_in=201501"}
+        ] = Request.query_plan([course])
       end
     end
 
