@@ -2,19 +2,19 @@ defmodule Recourse.Scraper.Section do
   alias Recourse.{Course, Section}
   alias Recourse.Scraper.Section.{Request, Response}
   alias Recourse.Section
-  import Recourse.Scraper
 
   @spec all(Course.t) :: [Section.t]
-  def all([course]) do
-    query(course)
+  def all([course] = courses) do
+    courses
+    |> Request.query_plan
+    |> Request.execute
+    |> case do
+      [{_courses, html}] -> html
+    end
     |> Response.parse
     |> Enum.map(fn attrs ->
       attrs
       |> Ecto.Changeset.put_change(:course_id, course.id)
     end)
-  end
-
-  def query(course) do
-    get!("sections?" <> Request.to_params(course))
   end
 end
