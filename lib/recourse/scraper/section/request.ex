@@ -17,8 +17,10 @@ defmodule Recourse.Scraper.Section.Request do
   end
 
   def to_params(courses, subject) do
-    # fail if all the terms aren't the same
-    [{term, _courses}] = courses |> Enum.group_by(& &1.term) |> Map.to_list
+    term = courses
+            |> Enum.group_by(& &1.term)
+            |> Map.to_list
+            |> test_all_same_term!
 
     %{
       crse_in: "%",
@@ -48,5 +50,17 @@ defmodule Recourse.Scraper.Section.Request do
   @spec execute(query_plan) :: [{[Course.t], html}]
   def execute(plan) do
     for {courses, uri} <- plan, do: {courses, get!(uri).body}
+  end
+
+  # fail if all the terms aren't the same
+  defp test_all_same_term!(grouping) when length(grouping) > 1 do
+    raise """
+    Expected courses to all belong to the same term, got
+    #{inspect for g <- grouping, do: elem(g, 0)}
+    """
+  end
+
+  defp test_all_same_term!(grouping) do
+    grouping |> hd |> elem(0)
   end
 end
