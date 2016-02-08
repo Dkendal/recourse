@@ -14,7 +14,8 @@ defmodule Recourse.Schedule do
     {:ok, _} = Recourse.Scraper.start
 
     course_ids
-    |> get_sections
+    |> sections_query
+    |> Repo.all
     |> Registration.load
     |> init_variables(pid)
     |> init_constraints(settings, pid)
@@ -69,12 +70,12 @@ defmodule Recourse.Schedule do
     :ok
   end
 
-  defp get_sections course_ids do
-    Repo.all from s in Section,
+  defp sections_query course_ids do
+    from(s in Section,
       select: s,
       join: c in assoc(s, :course),
       where: c.id in ^course_ids,
       preload: [:meeting_times, course: :term],
-      order_by: c.id
+      order_by: c.id)
   end
 end
