@@ -2,22 +2,22 @@ import {combineReducers} from "redux";
 import {List} from "immutable";
 import {handleActions} from "redux-actions";
 
-const defaultMinEndHour = "17:00:00";
-const endHour = handleActions(
+const defaultMinScheduleEndTime = "17:00:00";
+const scheduleEndTime = handleActions(
   {
-    SET_END_HOUR:
-      (state, {payload}) => payload || defaultMinEndHour
+    SET_SCHEDULE_END_TIME:
+      (state, {payload}) => payload || defaultMinScheduleEndTime
   },
-  defaultMinEndHour
+  defaultMinScheduleEndTime
 );
 
-const defaultMaxStartHour = "08:00:00";
-const startHour = handleActions(
+const defaultMaxScheduleStartTime = "08:00:00";
+const scheduleStartTime = handleActions(
   {
-    SET_START_HOUR:
-      (state, {payload}) => payload || defaultMaxStartHour
+    SET_SCHEDULE_START_TIME:
+      (state, {payload}) => payload || defaultMaxScheduleStartTime
   },
-  defaultMaxStartHour
+  defaultMaxScheduleStartTime
 );
 
 const sections = handleActions(
@@ -37,8 +37,8 @@ const terms = handleActions(
 );
 
 const entries = combineReducers({
-  startHour,
-  endHour,
+  scheduleStartTime,
+  scheduleEndTime,
   sections,
   terms
 });

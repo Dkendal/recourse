@@ -4,9 +4,9 @@ import _ from "underscore";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const joiningChannel = createAction("JOINING_CHANNEL");
-const setMaxEndHour = createAction("SET_END_HOUR");
+const setMaxScheduleEndTime = createAction("SET_SCHEDULE_END_TIME");
 const setSections = createAction("SET_SECTIONS");
-const setMinStartHour = createAction("SET_START_HOUR");
+const setMinScheduleStartTime = createAction("SET_SCHEDULE_START_TIME");
 const setTerms = createAction("SET_TERMS");
 
 function asPromise(push, callback) {
@@ -36,8 +36,8 @@ function refreshSchedule() {
 
     const onSuccess = ({payload: {sections, earliestStartTime, latestEndTime}}) => {
       dispatch(setSections(sections));
-      dispatch(setMinStartHour(earliestStartTime));
-      dispatch(setMaxEndHour(latestEndTime));
+      dispatch(setMinScheduleStartTime(earliestStartTime));
+      dispatch(setMaxScheduleEndTime(latestEndTime));
     };
 
     const params = {

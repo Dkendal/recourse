@@ -23,12 +23,12 @@ class Recourse extends Component {
     const {
       courseSearchText,
       dispatch,
-      endHour,
+      scheduleEndTime,
       endTime,
       filteredCourses,
       sections,
       selectedTermIdx,
-      startHour,
+      scheduleStartTime,
       startTime,
       terms,
       worklist
@@ -89,9 +89,9 @@ class Recourse extends Component {
             />
             <Schedule
               className="Tile"
-              endHour={endHour}
+              scheduleEndTime={scheduleEndTime}
               sections={sections}
-              startHour={startHour}
+              scheduleStartTime={scheduleStartTime}
             />
           </Column>
         </Row>

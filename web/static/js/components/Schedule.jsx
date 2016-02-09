@@ -41,9 +41,9 @@ function colorScale({course}) {
   return `hsl(${hue},${80}%,${70}%)`;
 }
 
-const timeScale = (startHour, endHour) => {
-  const minTime = moment(startHour, "HH:mm:ss").toDate();
-  const maxTime = moment(endHour, "HH:mm:ss").toDate();
+const timeScale = (scheduleStartTime, scheduleEndTime) => {
+  const minTime = moment(scheduleStartTime, "HH:mm:ss").toDate();
+  const maxTime = moment(scheduleEndTime, "HH:mm:ss").toDate();
 
   return d3.time.scale()
     .domain([minTime, maxTime])
@@ -164,8 +164,8 @@ const Header = () => (
 
 const isOnTheHour = (t) => moment(t).minutes() === 0;
 
-const Schedule = ({sections, startHour, endHour}) => {
-  const yScale = timeScale(startHour, endHour);
+const Schedule = ({sections, scheduleStartTime, scheduleEndTime}) => {
+  const yScale = timeScale(scheduleStartTime, scheduleEndTime);
   const ticks = yScale.ticks(d3.time.minutes, 30);
   const tickFormat = yScale.tickFormat();
   // don't show first and last ticks.
@@ -202,8 +202,8 @@ const Schedule = ({sections, startHour, endHour}) => {
 };
 
 Schedule.propTypes = {
-  startHour: PropTypes.string.isRequired,
-  endHour:   PropTypes.string.isRequired,
+  scheduleStartTime: PropTypes.string.isRequired,
+  scheduleEndTime:   PropTypes.string.isRequired,
 }
 
 Schedule.displayName = "Schedule";

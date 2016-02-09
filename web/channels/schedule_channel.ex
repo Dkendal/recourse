@@ -24,13 +24,13 @@ defmodule Recourse.ScheduleChannel do
     sections = Schedule.build(options)
     components = Schedule.components sections
 
-    min_start_hour =
+    min_start_time =
       sections
       |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.start_time)
       |> wrap
       |> Enum.min
 
-    max_end_hour =
+    max_end_time =
       sections
       |> Enum.flat_map(& for mt <- &1.meeting_times, do: mt.end_time)
       |> wrap
@@ -38,8 +38,8 @@ defmodule Recourse.ScheduleChannel do
 
     payload = %{
       sections: components,
-      earliestStartTime: min_start_hour,
-      latestEndTime: max_end_hour
+      earliestStartTime: min_start_time,
+      latestEndTime: max_end_time
     }
 
     {:reply, {:ok, %{payload: payload}}, socket}

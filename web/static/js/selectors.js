@@ -5,8 +5,8 @@ import {List} from "immutable";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
-const startHour = state => state.entries.startHour;
-const endHour = state => state.entries.endHour;
+const scheduleStartTime = state => state.entries.scheduleStartTime;
+const scheduleEndTime = state => state.entries.scheduleEndTime;
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
@@ -107,8 +107,8 @@ export default createStructuredSelector({
   courses,
   endTime,
   filteredCourses,
-  startHour,
-  endHour,
+  scheduleStartTime,
+  scheduleEndTime,
   sections,
   selectedCourses,
   selectedTerm,
