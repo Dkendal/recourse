@@ -32,22 +32,4 @@ defmodule Recourse.RegistrationTest do
       assert expected == ConCache.get(:seats, {"20754", "201501"})
     end
   end
-
-  test "in dev env it has a dummy response" do
-    math = build(:section, crn: "xxxxx")
-
-    [section] = Recourse.Registration.load([math], :dev)
-
-    assert section.seats == %{
-      capacity: 100,
-      actual: 50,
-      remaining: 50
-    }
-
-    assert section.waitlist == %{
-      capacity: 100,
-      actual: 0,
-      remaining: 0
-    }
-  end
 end
