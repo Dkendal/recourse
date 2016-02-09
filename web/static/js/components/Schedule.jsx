@@ -48,22 +48,6 @@ const timeScale = (scheduleStartTime, scheduleEndTime) => {
     .nice() ;
 };
 
-function flatten(sections) {
-  const acc = [];
-  sections.forEach(
-    (conflictGroup) =>
-    conflictGroup.forEach(
-      (section, idx) =>
-      section.meeting_times.forEach(
-        meetingTime => acc.push({
-          meetingTime,
-          section,
-          conflicts: conflictGroup.length,
-          idx })))
-  );
-  return acc;
-}
-
 const Day = ({children, style}) => (
   <div style={
     { flex: '1',
@@ -186,7 +170,7 @@ const Schedule = ({sections, scheduleStartTime, scheduleEndTime}) => {
             </g>))
         }
 
-        { flatten(sections).map((block, idx) => (
+        { sections.map((block, idx) => (
           <MeetingTime
             key={idx}
             {...{yScale, xScale, colorScale}}

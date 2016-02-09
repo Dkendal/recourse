@@ -8,7 +8,6 @@ const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
-export const sections = state => state.entries.sections;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.frontEnd.selectedCourses;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
@@ -109,6 +108,27 @@ const filteredCourses = createSelector(
       return _.some(fields, field => regex.test(field));
     }
   )
+);
+
+export const sections = createSelector(
+  state => state.entries.sections,
+  // flatten the structure of the sections into groupings of meeting time,
+  // section, conflicts, and idx
+  function (sections) {
+    const acc = [];
+    sections.forEach(
+      (conflictGroup) =>
+      conflictGroup.forEach(
+        (section, idx) =>
+        section.meeting_times.forEach(
+          meetingTime => acc.push({
+            meetingTime,
+            section,
+            conflicts: conflictGroup.length,
+            idx })))
+    );
+    return acc;
+  },
 );
 
 export default createStructuredSelector({
