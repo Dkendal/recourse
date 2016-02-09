@@ -23,8 +23,8 @@ const TextArea = ({children, ...rest}) => (
 
 const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflicts, idx}) => {
   const course = section.course;
-  const start = moment(meetingTime.start_time);
-  const end = moment(meetingTime.end_time);
+  const start = moment(meetingTime.start_time, "HH:mm:ss");
+  const end = moment(meetingTime.end_time, "HH:mm:ss");
   const y1 = yScale(start);
   const y2 = yScale(end);
   const [x1, x2] = xScale.invertExtent(day(meetingTime));
@@ -37,8 +37,8 @@ const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflict
     y:       `${y1}%`,
     width:   `${width}%`,
     height:  `${y2 - y1}%`,
-    rx: '5px',
-    ry: '5px',
+    rx:      '5px',
+    ry:      '5px',
   };
 
   return(

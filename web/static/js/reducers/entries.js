@@ -2,7 +2,7 @@ import {combineReducers} from "redux";
 import {List} from "immutable";
 import {handleActions} from "redux-actions";
 
-const defaultMinEndHour = {hours: 17};
+const defaultMinEndHour = "17:00:00";
 const endHour = handleActions(
   {
     SET_END_HOUR:
@@ -11,7 +11,7 @@ const endHour = handleActions(
   defaultMinEndHour
 );
 
-const defaultMaxStartHour = {hours: 8}
+const defaultMaxStartHour = "08:00:00";
 const startHour = handleActions(
   {
     SET_START_HOUR:

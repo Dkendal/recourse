@@ -6,12 +6,6 @@ export const DATE = PropTypes.shape({
   years:   PropTypes.number.isRequired,
 });
 
-export const TIME = PropTypes.shape({
-  hours:    PropTypes.number.isRequired,
-  minutes:  PropTypes.number.isRequired,
-  seconds:  PropTypes.number.isRequired,
-});
-
 export const COURSE = PropTypes.shape({
   description:  PropTypes.string,
   id:           PropTypes.number.isRequired,
@@ -21,7 +15,7 @@ export const COURSE = PropTypes.shape({
 });
 
 export const SECTION = PropTypes.shape({
-  campus:                PropTypes.string.isRequired,
+  campus:                PropTypes.string,
   course:                COURSE.isRequired,
   credits:               PropTypes.number.isRequired,
   instructional_method:  PropTypes.string.isRequired,
@@ -37,7 +31,7 @@ export const MEETING_TIME = PropTypes.shape({
   days:         PropTypes.arrayOf(PropTypes.string).isRequired,
   instructors:  PropTypes.arrayOf(PropTypes.string).isRequired,
   location:     PropTypes.string.isRequired,
-  end_time:     TIME.isRequired,
-  start_time:   TIME.isRequired,
+  end_time:     PropTypes.string.isRequired,
+  start_time:   PropTypes.string.isRequired,
   type:         PropTypes.string.isRequired,
 });

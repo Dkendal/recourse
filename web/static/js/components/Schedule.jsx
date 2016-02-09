@@ -42,8 +42,8 @@ function colorScale({course}) {
 }
 
 const timeScale = (startHour, endHour) => {
-  const minTime = moment(startHour);
-  const maxTime = moment(endHour);
+  const minTime = moment(startHour, "HH:mm:ss").toDate();
+  const maxTime = moment(endHour, "HH:mm:ss").toDate();
 
   return d3.time.scale()
     .domain([minTime, maxTime])
@@ -200,6 +200,11 @@ const Schedule = ({sections, startHour, endHour}) => {
     </Column>
   );
 };
+
+Schedule.propTypes = {
+  startHour: PropTypes.string.isRequired,
+  endHour:   PropTypes.string.isRequired,
+}
 
 Schedule.displayName = "Schedule";
 
