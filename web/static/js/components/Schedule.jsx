@@ -42,11 +42,8 @@ function colorScale({course}) {
 }
 
 const timeScale = (scheduleStartTime, scheduleEndTime) => {
-  const minTime = moment(scheduleStartTime, "HH:mm:ss").toDate();
-  const maxTime = moment(scheduleEndTime, "HH:mm:ss").toDate();
-
   return d3.time.scale()
-    .domain([minTime, maxTime])
+    .domain([scheduleStartTime, scheduleEndTime])
     .range([yMin, yMax])
     .nice() ;
 };
@@ -202,8 +199,8 @@ const Schedule = ({sections, scheduleStartTime, scheduleEndTime}) => {
 };
 
 Schedule.propTypes = {
-  scheduleStartTime: PropTypes.string.isRequired,
-  scheduleEndTime:   PropTypes.string.isRequired,
+  scheduleStartTime: PropTypes.objectOf(Date).isRequired,
+  scheduleEndTime:   PropTypes.objectOf(Date).isRequired,
 }
 
 Schedule.displayName = "Schedule";

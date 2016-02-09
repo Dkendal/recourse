@@ -5,8 +5,6 @@ import {List} from "immutable";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
-const scheduleStartTime = state => state.entries.scheduleStartTime;
-const scheduleEndTime = state => state.entries.scheduleEndTime;
 const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
@@ -20,6 +18,18 @@ function parseTime(t) {
   // send 00:00:00 if the date is unparseable.
   return date = date.isValid() ? date : moment({h: 0, m: 0, s: 0});
 }
+
+const stringToDate = t => moment(t, "HH:mm:ss").toDate();
+
+const scheduleStartTime = createSelector(
+  (state => state.entries.scheduleStartTime),
+  stringToDate,
+);
+
+const scheduleEndTime = createSelector(
+  (state => state.entries.scheduleEndTime),
+  stringToDate,
+);
 
 const frontendTimeSelector = (sel) => (
   createSelector(
