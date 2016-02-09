@@ -24,7 +24,8 @@ defmodule Recourse.Mixfile do
 
   def applications(:dev) do
     [
-      :ex_machina
+      :ex_machina,
+      :reprise,
     ] ++ applications(:all)
   end
 
@@ -98,6 +99,7 @@ defmodule Recourse.Mixfile do
       {:exvcr, "~> 0.6"},
       {:ex_spec, "~> 1.0", only: :test},
 
+      {:reprise, "~> 0.5", only: :dev},
       {:dialyze, "~> 0.2.0", only: :dev},
       {:credo, "~> 0.1.9", only: [:dev, :test]},
     ]

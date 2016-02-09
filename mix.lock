@@ -47,6 +47,7 @@
   "qdate": {:git, "https://github.com/choptastic/qdate.git", "7910de376e7de01e1f1d0ee6e82e13c02afacf59", []},
   "ranch": {:hex, :ranch, "1.2.1"},
   "relx": {:hex, :relx, "3.5.0"},
+  "reprise": {:hex, :reprise, "0.5.0"},
   "ssl_verify_hostname": {:hex, :ssl_verify_hostname, "1.0.5"},
   "timex": {:hex, :timex, "0.19.5"},
   "tzdata": {:hex, :tzdata, "0.5.6"},
