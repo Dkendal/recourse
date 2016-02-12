@@ -3,26 +3,22 @@ defmodule Recourse.Repo.Migrations.CreateSection do
 
   def change do
     create table(:sections) do
-      add :crn, :string
-      add :schedule_type, :string
-      add :start_time, :time
-      add :end_time, :time
-      add :days, {:array, :string}
-      add :location, :string
-      add :date_start, :string
-      add :date_end, :string
-      add :registration_start, :string
-      add :registration_end, :string
       add :campus, :string
-      add :credits, :decimal
+      add :credits, :float
+      add :crn, :string
+      add :date_start, :date
+      add :date_end, :date
+      add :days, {:array, :string}
       add :instructional_method, :string
+      add :name, :string
+      add :registration_start, :date
+      add :registration_end, :date
+      add :schedule_type, :string
       add :course_id, references(:courses)
-      add :term_id, references(:terms)
 
       timestamps
     end
     create index(:sections, [:course_id])
-    create index(:sections, [:term_id])
 
   end
 end

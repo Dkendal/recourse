@@ -5,8 +5,6 @@ defmodule Recourse.Course do
     field :title, :string
     field :subject, :string
     field :number, :string
-    field :description, :string
-    field :requirement, :string
     has_many :sections, Recourse.Section
     belongs_to :term, Recourse.Term
 
@@ -16,7 +14,7 @@ defmodule Recourse.Course do
   @type t :: %__MODULE__{}
 
   @required_fields ~w(title subject number term_id)
-  @optional_fields ~w(description requirement)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -34,9 +32,7 @@ defmodule Recourse.Course do
       %{id: course.id,
         title: course.title,
         subject: course.subject,
-        number: course.number,
-        description: course.description,
-        requirement: course.requirement}
+        number: course.number}
       |> Poison.Encoder.encode([])
     end
   end

@@ -6,8 +6,7 @@ defmodule Recourse.Repo.Migrations.CreateCourse do
       add :title, :string
       add :subject, :string
       add :number, :string
-      add :description, :string
-      add :requirement, :string
+      add :term_id, references(:terms), null: false
 
       timestamps
     end

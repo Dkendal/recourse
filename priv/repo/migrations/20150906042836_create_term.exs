@@ -3,10 +3,8 @@ defmodule Recourse.Repo.Migrations.CreateTerm do
 
   def change do
     create table(:terms) do
-      add :name, :string
-      add :start, :date
-      add :end, :date
-
+      add :year, :integer
+      add :semester, :integer
       timestamps
     end
 

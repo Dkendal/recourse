@@ -7,7 +7,6 @@ defmodule Recourse.Section do
     field :date_end, Ecto.Date
     field :date_start, Ecto.Date
     field :instructional_method, :string
-    field :location, :string
     field :name, :string
     field :crn, :string
     field :registration_end, Ecto.Date
@@ -35,7 +34,6 @@ defmodule Recourse.Section do
     campus
     credits
     instructional_method
-    location
     registration_end
     registration_start
   )
@@ -61,7 +59,6 @@ defmodule Recourse.Section do
         date_start: section.date_start,
         id: section.id,
         instructional_method: section.instructional_method,
-        location: section.location,
         crn: section.crn,
         registration_end: section.registration_end,
         registration_start: section.registration_start,

@@ -40,7 +40,6 @@ defmodule Recourse.Factory do
       date_end: "2015-04-01",
       date_start: "2015-01-01",
       instructional_method: "face-to-face",
-      location: "some building",
       name: sequence(:section_name, &"#{&1}"),
       crn: sequence(:crn, &"C#{&1}"),
       registration_end: "2015-01-15",
