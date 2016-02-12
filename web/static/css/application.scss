@@ -33,8 +33,3 @@ html, body {
 .row {
   display: flex;
 }
-
-// hide scrollbars in Chrome
-::-webkit-scrollbar {
-  display: none;
-}
