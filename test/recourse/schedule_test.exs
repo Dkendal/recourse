@@ -8,6 +8,24 @@ defmodule Recourse.ScheduleTest do
   end
 
   describe "build/1" do
+    context "when one of the courses is tba" do
+      it "excludes it from the results" do
+        term = create(:term)
+
+        engl = build(:course, term: term) |> tba |> create
+
+        sections = Schedule.build(%{
+          "course_ids" => [engl.id],
+          "settings" => %{
+            "startTime" => "2016-02-04T09:00:00.000Z",
+            "endTime" => "2016-02-04T12:00:00.000Z",
+          }
+        })
+
+        assert 0 == sections |> length
+      end
+    end
+
     it "returns a schedule for the selected courses" do
       term = create(:term)
 

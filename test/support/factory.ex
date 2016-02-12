@@ -2,7 +2,7 @@ defmodule Recourse.Factory do
   use ExMachina.Ecto, repo: Recourse.Repo
   alias Ecto.Date
   alias Ecto.Time
-  alias Recourse.{MeetingTime}
+  alias Recourse.{MeetingTime, Section, Course}
 
   @subjects ~W(
     ENGL
@@ -24,7 +24,7 @@ defmodule Recourse.Factory do
   end
 
   def factory(:course) do
-    %Recourse.Course{
+    %Course{
       subject: Enum.random(@subjects),
       number: sequence(:course_number, &"#{&1 + 100}"),
       title: Faker.Lorem.sentence,
@@ -33,7 +33,7 @@ defmodule Recourse.Factory do
   end
 
   def factory(:section) do
-    %Recourse.Section{
+    %Section{
       campus: "main campus",
       course: build(:course),
       credits: 3.0,
@@ -117,6 +117,18 @@ defmodule Recourse.Factory do
 
   def as_lecture(section) do
     %{section | schedule_type: "Lecture"}
+  end
+
+  def tba(%Course{} = course) do
+    %{course | sections: [build(:section) |> tba]}
+  end
+
+  def tba(%Section{} = section) do
+    %{section | meeting_times: [build(:meeting_time) |> tba]}
+  end
+
+  def tba(%MeetingTime{} = meeting_time) do
+    %{meeting_time | location: "TBA", start_time: nil, end_time: nil, days: []}
   end
 
   def as_lab(section) do
