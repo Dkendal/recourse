@@ -15,7 +15,8 @@ defmodule Recourse.ScheduleChannel do
     terms = Repo.all from t in Term,
       join: c in assoc(t, :courses),
       join: s in assoc(c, :sections),
-      preload: [courses: c]
+      preload: [courses: c],
+      order_by: [c.subject, c.number]
 
     {:reply, {:ok, %{payload: terms}}, socket}
   end
