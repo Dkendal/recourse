@@ -16,7 +16,7 @@ defmodule Recourse.Schedule do
     course_ids
     |> sections_query
     |> Repo.all
-    |> Registration.load
+    # |> Registration.load
     |> init_variables(pid)
     |> init_constraints(settings, pid)
 
