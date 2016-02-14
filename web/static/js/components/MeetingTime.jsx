@@ -49,13 +49,16 @@ const MeetingTime = ({meetingTime, section, colorScale, yScale, xScale, conflict
       }
       <TextArea {...options} >
         <div>
-          {course.subject}
-        </div>
-        <div>
-          {course.number}
-        </div>
-        <div>
-          {section.schedule_type}
+          <div>
+            {course.subject}
+            {" "}
+            {course.number}
+          </div>
+          <div>
+          </div>
+          <div>
+            {section.schedule_type}
+          </div>
         </div>
       </TextArea>
     </g>

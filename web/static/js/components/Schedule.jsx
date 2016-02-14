@@ -83,6 +83,7 @@ const HourTick = ({y, text}) => (
       is
       x={`${tickOffsetX - 1}%`}
       y={y}
+      fontSize="15"
       dominant-baseline="middle"
       style={{textAnchor: 'end'}}
       >
@@ -126,7 +127,8 @@ const dayParams = (day) => {
   const [x1, x2] = xScale.invertExtent(day);
   return {
     x: `${x1 + (x2 - x1)/ 2}%`,
-    y: "1em",
+    y: "15",
+    fontSize: "15",
     textAnchor: "middle",
   };
 };
