@@ -38,7 +38,7 @@ defmodule Recourse.ScheduleChannel do
       |> Enum.max
 
     payload = %{
-      sections: components,
+      schedule: components,
       earliestStartTime: min_start_time,
       latestEndTime: max_end_time
     }

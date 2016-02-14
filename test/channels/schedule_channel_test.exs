@@ -93,11 +93,11 @@ defmodule Recourse.ScheduleChannelTest do
         payload: %{
           latestEndTime: max_end_hour,
           earliestStartTime: min_start_hour,
-          sections: sections
+          schedule: schedule,
         }
       }
 
-      assert [[%Section{}], [%Section{}]] = sections
+      assert [[%Section{}], [%Section{}]] = schedule
 
       assert %{hour: 21, min: 0} = max_end_hour
       assert %{hour: 8, min: 0} = min_start_hour
