@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "compile": "webpack -p"
+    "compile": "webpack -p",
+    "test": "webpack-dev-server 'mocha!./test/test.js' --output-filename test.js"
   },
   "repository": {},
   "dependencies": {
@@ -26,11 +27,15 @@
     "babel-loader": "^5.3.2",
     "css-loader": "^0.19.0",
     "eslint-plugin-react": "^3.10.0",
+    "expect": "^1.14.0",
+    "mocha": "^2.4.5",
+    "mocha-loader": "^0.7.1",
     "node-bourbon": "^4.2.3",
     "node-sass": "^3.3.3",
     "redux-devtools": "^2.1.5",
     "sass-loader": "^3.0.0",
     "style-loader": "^0.12.4",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.14.1"
   }
 }
