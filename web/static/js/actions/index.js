@@ -1,6 +1,6 @@
 import {createAction} from "redux-actions";
-import channelActions from "./actions/channel";
-import courseActions from "./actions/courses";
+import channelActions from "./channel";
+import courseActions from "./courses";
 
 const filterCourses = createAction("FILTER_COURSES");
 
