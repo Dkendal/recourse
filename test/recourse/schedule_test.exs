@@ -2,11 +2,6 @@ defmodule Recourse.ScheduleTest do
   alias Recourse.Schedule
   use Recourse.Case
 
-  setup_all do
-    SeatsHelper.mock_registration_info
-    :ok
-  end
-
   describe "build/1" do
     context "when one of the courses is tba" do
       it "excludes it from the results" do
