@@ -16,7 +16,8 @@ const channel = socket.channel("schedules:planner", {});
 const store = compose(
   applyMiddleware(
     thunkMiddleware,
-  )
+  ),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)(reducer);
 
 const dispatch = store.dispatch;
