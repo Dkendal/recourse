@@ -82,6 +82,7 @@ defmodule Recourse.Mixfile do
       # parsing html
       {:floki, "~> 0.6.0"},
       {:httpoison, "~> 0.8"},
+      {:jsonapi, "~> 0.1"},
 
       # date and time
       {:timex, "~> 0.19"},
