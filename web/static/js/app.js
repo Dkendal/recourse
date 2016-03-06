@@ -11,8 +11,6 @@ import {joinChannel, getTerms, refreshSchedule} from "./actions/channel";
 
 import "css/application";
 
-const channel = socket.channel("schedules:planner", {});
-
 const store = compose(
   applyMiddleware(
     thunkMiddleware,
@@ -31,6 +29,7 @@ ReactDOM.render(
   document.getElementById("app")
 )
 
-dispatch(joinChannel(channel)).
+window.channel = socket.channel("schedules:planner", {});
+dispatch(joinChannel()).
   then(_.compose(dispatch, getTerms)).
   then(_.compose(dispatch, refreshSchedule));

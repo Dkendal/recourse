@@ -30,7 +30,6 @@ function asPromise(push, callback) {
 
 function refreshSchedule() {
   return (dispatch, getState) => {
-    const channel = s.channel(getState());
     const settings = s.scheduleParams(getState());
     const ids = s.worklistIds(getState());
 
@@ -45,8 +44,7 @@ function refreshSchedule() {
       settings: settings
     };
 
-    const push = channel.
-      push("make_schedule", params);
+    const push = window.channel.push("make_schedule", params);
 
     return asPromise(push, onSuccess);
   };
@@ -54,17 +52,16 @@ function refreshSchedule() {
 
 function getTerms() {
   return (dispatch, getState) => {
-    const channel = s.channel(getState());
     const onSuccess = _.compose(dispatch, setTerms, x => x.payload);
-    return asPromise(channel.push("terms:search"), onSuccess);
+    return asPromise(window.channel.push("terms:search"), onSuccess);
   };
 }
 
-function joinChannel(channel) {
+function joinChannel() {
   return (dispatch) => {
     const onSuccess = _.compose(dispatch, joinedChannel);
-    dispatch(joiningChannel(channel));
-    return asPromise(channel.join(), onSuccess);
+    //dispatch(joiningChannel(null));
+    return asPromise(window.channel.join(), onSuccess);
   };
 }
 

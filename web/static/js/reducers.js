@@ -7,7 +7,7 @@ const initialState = { state: "not connected" };
 
 const channel = handleActions(
   {
-    JOINING_CHANNEL: (state, {payload}) => payload
+    JOINING_CHANNEL: (state, {payload}) => null
   },
   initialState
 );
