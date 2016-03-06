@@ -5,18 +5,10 @@ import entries from "./reducers/entries";
 
 const initialState = { state: "not connected" };
 
-const channel = handleActions(
-  {
-    JOINING_CHANNEL: (state, {payload}) => null
-  },
-  initialState
-);
-
 const reducer = combineReducers(
   {
     entries,
     frontEnd,
-    channel
   }
 );
 
