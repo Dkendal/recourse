@@ -22,16 +22,18 @@ class Recourse extends Component {
   render() {
     const {
       courseSearchText,
+      crns,
       dispatch,
-      scheduleEndTime,
       endTime,
       filteredCourses,
+      scheduleEndTime,
+      scheduleStartTime,
       sections,
       selectedTermIdx,
-      scheduleStartTime,
       startTime,
       terms,
-      worklist
+      timetable,
+      worklist,
     } = this.props;
 
     const onCourseClick = compose(dispatch, a.toggleCourseSelection);

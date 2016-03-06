@@ -2,6 +2,7 @@ import {combineReducers} from "redux";
 import {handleActions} from "redux-actions";
 import immutable, {Set} from "immutable";
 import scheduleSettings from "./scheduleSettings";
+import timetable from "./timetable";
 
 const selectedTerm = handleActions(
   {
@@ -31,6 +32,7 @@ const courseFilter = handleActions(
 );
 
 const frontEnd = combineReducers({
+  timetable,
   selectedTerm,
   selectedCourses,
   courseFilter,

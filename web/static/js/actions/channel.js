@@ -2,12 +2,14 @@ import {createAction} from "redux-actions";
 import * as s from "../selectors";
 import _ from "underscore";
 
-const sync = createAction("SYNC");
 const joinedChannel = createAction("JOINED_CHANNEL");
 const setMaxScheduleEndTime = createAction("SET_SCHEDULE_END_TIME");
-const setSections = createAction("SET_SECTIONS");
 const setMinScheduleStartTime = createAction("SET_SCHEDULE_START_TIME");
+const setSections = createAction("SET_SECTIONS");
 const setTerms = createAction("SET_TERMS");
+const setTimetable = createAction("SET_TIMETABLE");
+const fetchingTimetable = createAction("FETCHING_TIMETABLE");
+const sync = createAction("SYNC");
 
 function asPromise(push, callback) {
   const promise = (resolve, reject) => {
@@ -33,8 +35,13 @@ function refreshSchedule() {
     const settings = s.scheduleParams(getState());
     const ids = s.worklistIds(getState());
 
+    dispatch(fetchingTimetable());
+
     const onSuccess = ({payload: {schedule, earliestStartTime, latestEndTime, ...rest}}) => {
       dispatch(sync(rest.timetable));
+      dispatch(setTimetable(rest.timetable.data.id));
+
+      // TODO remove these
       dispatch(setSections(schedule));
       dispatch(setMinScheduleStartTime(earliestStartTime));
       dispatch(setMaxScheduleEndTime(latestEndTime));

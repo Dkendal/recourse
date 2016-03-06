@@ -131,20 +131,46 @@ export const sections = createSelector(
   },
 );
 
+
+// data store
+const store = (state) => state.data;
+const timetableId = (state) => state.frontEnd.timetable.id;
+const timetableLoaded = (state) => state.frontEnd.timetable.loaded;
+
+const timetable = createSelector(
+  store,
+  timetableId,
+  (store, id) => {
+    return store.find("timetable", id);
+  }
+);
+
+const crns = createSelector(
+  timetable,
+  timetableLoaded,
+  (timetable, loaded) => {
+    return loaded ?
+      timetable.sections.map(section => section.crn) :
+      [];
+  }
+);
+
 export default createStructuredSelector({
   channel,
   courseSearchText,
   courses,
+  crns,
   endTime,
   filteredCourses,
-  scheduleStartTime,
   scheduleEndTime,
+  scheduleStartTime,
   sections,
   selectedCourses,
   selectedTerm,
   selectedTermIdx,
   startTime,
   terms,
+  timetable,
   worklist,
   worklistIds
 });

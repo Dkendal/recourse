@@ -7,7 +7,7 @@ defmodule Recourse.Timetable do
     overlaps =  for section <- sections, do: struct(Overlap, sections: [section])
 
     struct(__MODULE__,
-      id: 1,
+      id: :rand.uniform(999_999_999),
       sections: sections,
       overlaps: overlaps,
     )
