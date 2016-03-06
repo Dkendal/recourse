@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import {handleActions} from "redux-actions";
 import immutable, {Set} from "immutable";
-import scheduleSettings from "./frontEnd/scheduleSettings";
+import scheduleSettings from "./scheduleSettings";
 
 const selectedTerm = handleActions(
   {
