@@ -3,9 +3,9 @@
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/my_app/endpoint.ex":
-import {Socket} from "phoenix/web/static/js/phoenix";
+import {Socket} from "phoenix"
 
-let socket = new Socket("/socket");
+let socket = new Socket("/socket", {params: {token: window.userToken}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -33,7 +33,7 @@ let socket = new Socket("/socket");
 // Now you need to pass this token to JavaScript. You can do so
 // inside a script tag in "web/templates/layout/app.html.eex":
 //
-//     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
+//     <script>window.userToken = "<%%= assigns[:user_token] %>";</script>
 //
 // You will need to verify the user token in the "connect/2" function
 // in "web/channels/user_socket.ex":
@@ -51,5 +51,5 @@ let socket = new Socket("/socket");
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
-socket.connect({token: window.userToken});
-export default socket;
+socket.connect()
+export default socket
