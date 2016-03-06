@@ -2,6 +2,7 @@ import {createAction} from "redux-actions";
 import * as s from "../selectors";
 import _ from "underscore";
 
+const sync = createAction("SYNC");
 const joinedChannel = createAction("JOINED_CHANNEL");
 const setMaxScheduleEndTime = createAction("SET_SCHEDULE_END_TIME");
 const setSections = createAction("SET_SECTIONS");
@@ -32,7 +33,8 @@ function refreshSchedule() {
     const settings = s.scheduleParams(getState());
     const ids = s.worklistIds(getState());
 
-    const onSuccess = ({payload: {schedule, earliestStartTime, latestEndTime}}) => {
+    const onSuccess = ({payload: {schedule, earliestStartTime, latestEndTime, ...rest}}) => {
+      dispatch(sync(rest.timetable));
       dispatch(setSections(schedule));
       dispatch(setMinScheduleStartTime(earliestStartTime));
       dispatch(setMaxScheduleEndTime(latestEndTime));

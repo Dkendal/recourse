@@ -1,5 +1,5 @@
 defmodule Recourse.Timetable do
-  defstruct [:sections, :overlaps]
+  defstruct [:id, :sections, :overlaps]
 
   def new(sections) do
     alias __MODULE__.Overlap
@@ -7,6 +7,7 @@ defmodule Recourse.Timetable do
     overlaps =  for section <- sections, do: struct(Overlap, sections: [section])
 
     struct(__MODULE__,
+      id: 1,
       sections: sections,
       overlaps: overlaps,
     )
