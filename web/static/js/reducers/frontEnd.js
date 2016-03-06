@@ -1,25 +1,7 @@
 import {combineReducers} from "redux";
 import {handleActions} from "redux-actions";
-import {LOAD} from "redux-storage";
 import immutable, {Set} from "immutable";
 import scheduleSettings from "./frontEnd/scheduleSettings";
-
-function load(reducer, type, key) {
-  return (state, action) => {
-    switch (action.type) {
-    case LOAD:
-      try {
-        return immutable[type](key(action.payload));
-      }
-      catch (_) {
-        return key(state);
-      }
-      break;
-    default:
-      return reducer(state, action);
-    }
-  };
-}
 
 const selectedTerm = handleActions(
   {
@@ -38,14 +20,6 @@ let selectedCourses = handleActions(
       (state, {payload}) => state.delete(payload)
   },
   Set([])
-);
-
-selectedCourses = load(
-  selectedCourses,
-  "Set",
-  (payload) => payload &&
-    payload.frontEnd &&
-    payload.frontEnd.selectedCourses
 );
 
 const courseFilter = handleActions(
