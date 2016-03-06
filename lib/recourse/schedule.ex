@@ -77,7 +77,7 @@ defmodule Recourse.Schedule do
       join: mt in assoc(s, :meeting_times),
       where: c.id in ^course_ids,
       where: not(is_nil(mt.start_time) and is_nil(mt.end_time)),
-      preload: [:meeting_times, course: :term],
+      preload: [meeting_times: [:section], course: :term],
       order_by: c.id)
   end
 end
