@@ -3,7 +3,6 @@ import * as s from "../selectors";
 import _ from "underscore";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
-const joiningChannel = createAction("JOINING_CHANNEL");
 const setMaxScheduleEndTime = createAction("SET_SCHEDULE_END_TIME");
 const setSections = createAction("SET_SECTIONS");
 const setMinScheduleStartTime = createAction("SET_SCHEDULE_START_TIME");
@@ -60,7 +59,6 @@ function getTerms() {
 function joinChannel() {
   return (dispatch) => {
     const onSuccess = _.compose(dispatch, joinedChannel);
-    //dispatch(joiningChannel(null));
     return asPromise(window.channel.join(), onSuccess);
   };
 }
