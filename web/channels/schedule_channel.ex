@@ -37,7 +37,11 @@ defmodule Recourse.ScheduleChannel do
       |> wrap
       |> Enum.max
 
+    timetable = Recourse.Timetable.new(sections)
+    timetable = JSONAPI.Serializer.serialize(Recourse.TimetableView, timetable)
+
     payload = %{
+      timetable: timetable,
       schedule: components,
       earliestStartTime: min_start_time,
       latestEndTime: max_end_time
