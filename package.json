@@ -12,7 +12,7 @@
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.0.0",
-    "redux": "^3.0.4",
+    "redux": "^3.3",
     "redux-actions": "^0.8.0",
     "redux-logger": "^2.0.4",
     "redux-persist": "^1.4.5",
