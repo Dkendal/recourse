@@ -33,7 +33,6 @@ class Recourse extends Component {
       selectedTermIdx,
       startTime,
       terms,
-      timetable,
       worklist,
     } = this.props;
 
