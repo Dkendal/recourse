@@ -23,7 +23,6 @@ class Recourse extends Component {
   render() {
     const {
       courseSearchText,
-      crns,
       dispatch,
       endTime,
       filteredCourses,
@@ -33,6 +32,7 @@ class Recourse extends Component {
       selectedTermIdx,
       startTime,
       terms,
+      timetable,
       worklist,
     } = this.props;
 
@@ -95,7 +95,7 @@ class Recourse extends Component {
               sections={sections}
               scheduleStartTime={scheduleStartTime}
             />
-            <Crns collection={crns}/>
+            <Crns collection={timetable.crns}/>
           </Column>
         </Row>
       </div>
