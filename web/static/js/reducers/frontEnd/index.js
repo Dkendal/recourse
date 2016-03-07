@@ -1,6 +1,6 @@
 import {combineReducers} from "redux";
 import {handleActions} from "redux-actions";
-import immutable, {Set} from "immutable";
+import Immutable, {Set} from "immutable";
 import scheduleSettings from "./scheduleSettings";
 import timetable from "./timetable";
 
@@ -18,7 +18,7 @@ let selectedCourses = handleActions(
       (state, {payload}) => state.add(payload),
 
     DESELECT_COURSE:
-      (state, {payload}) => state.delete(payload)
+      (state, {payload}) => state.delete(payload),
   },
   Set([])
 );
