@@ -75,18 +75,20 @@ const timeScale = createSelector(
     return d3.time.scale().
       domain([start, end]).
       range([0, 100]).
-      nice(30);
+      nice()
   }
 );
 
+const xMin = 10;
 const dayScale = createSelector(
   days,
   (days) => (
     d3.scale.ordinal().
       domain(days).
-      rangeRoundBands([10, 100], 0.05)
+      rangeRoundBands([xMin, 100], 0.05)
   )
 )
+// --
 
 function setKey(mt) {
   return {
@@ -142,6 +144,17 @@ const decoratedMeetingTimes = createSelector(
   ),
 );
 
+const header = createSelector(
+  dayScale,
+  days,
+  (scale, days) => {
+    return days.map(day => ({
+      x: `${ scale(day) + scale.rangeBand(day) /2 }%`,
+      key: day,
+      text: day,
+    }))
+  }
+);
 
 const ticks = createSelector(
   timeScale,
@@ -173,4 +186,5 @@ export default createStructuredSelector({
   end,
   ticks,
   timeMarkers,
+  header,
 });
