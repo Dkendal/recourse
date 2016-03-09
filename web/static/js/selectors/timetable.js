@@ -88,36 +88,60 @@ const dayScale = createSelector(
   )
 )
 
+function setKey(mt) {
+  return {
+    ...mt,
+    key: `${mt.id}-${mt.day}`,
+  }
+}
+
+const setDay = day => mt => {
+  return {
+    day,
+    ...mt
+  };
+}
+
+const setPosition = xScale => yScale => mt => {
+  const y = yScale(mt.start_time);
+  const y2 = yScale(mt.end_time);
+  const height = y2 - y;
+
+  const x = xScale(mt.day)
+  const width = xScale.rangeBand(mt.day);
+
+  return {
+    ...mt,
+    y: `${y}%`,
+    x: `${x}%`,
+    width: `${width}%`,
+    height: `${height}%`,
+  };
+};
+
+const decorate = (xScale, yScale) => _.compose(
+  setPosition(xScale)(yScale),
+  setKey,
+);
+
+const expandDays = (acc, {days, ...mt}) => (
+  [ ...acc,
+    ...days.map(day => ({ day, ...mt, })),
+  ]
+);
+
 const decoratedMeetingTimes = createSelector(
   timeScale,
   dayScale,
   meetingTimes,
-  (yScale, dayScale, meetingTimes) => {
-    let mts = meetingTimes.map(mt => {
-      const y = yScale(mt.start_time);
-      const y2 = yScale(mt.end_time);
-      const height = y2 - y;
-
-      return mt.days.map(day => {
-        const key = `${mt.id}-${day}`;
-        const x = dayScale(day)
-        const width = dayScale.rangeBand(day);
-
-        return {
-          key,
-          y: `${y}%`,
-          x: `${x}%`,
-          width: `${width}%`,
-          height: `${height}%`,
-          day,
-          ...mt,
-        };
-      })
-    });
-
-    return _.flatten(mts);
-  },
+  (yScale, xScale, meetingTimes) => (
+    _.chain(meetingTimes).
+      reduce(expandDays, []).
+      map(decorate(xScale, yScale)).
+      value()
+  ),
 );
+
 
 const ticks = createSelector(
   timeScale,
