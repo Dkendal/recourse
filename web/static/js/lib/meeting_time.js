@@ -32,13 +32,14 @@ export function cast(mt) {
   const end_time = toTime(mt.end_time);
   const date_end = toDate(mt.date_end)
   const date_start = toDate(mt.date_start)
-  const color = toColor(mt)
+  const fill = toColor(mt)
 
   return {
     ...mt,
-    start_time,
-    end_time,
     date_end,
     date_start,
+    end_time,
+    fill,
+    start_time,
   }
 }

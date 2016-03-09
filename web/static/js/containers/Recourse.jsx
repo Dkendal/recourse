@@ -12,6 +12,7 @@ import Schedule from "../components/Schedule";
 import Crns from "../components/Crns";
 import ScheduleSettings from "../components/ScheduleSettings";
 import Worklist from "../components/Worklist";
+import {Timetable} from "../components";
 
 import "css/containers/Recourse";
 
