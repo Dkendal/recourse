@@ -53,7 +53,7 @@ const start = createSelector(
       return new Date(0,0,0,8); // 8am
     }
     const earliestMt = _.min(meetingTimes, x => x.start_time);
-    return earliestMt.end_time;
+    return earliestMt.start_time;
   }
 );
 
