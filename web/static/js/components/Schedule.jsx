@@ -8,7 +8,6 @@ import d3 from "d3";
 
 import MeetingTime from "./MeetingTime";
 
-import "css/components/Schedule";
 import 'css/components/Tick';
 
 // Graph dimensions

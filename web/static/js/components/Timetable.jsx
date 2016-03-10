@@ -32,6 +32,22 @@ const Defs = () => (
   </defs>
 );
 
+const TimeMarks = ({collection, ...rest}) => (
+  <g>
+    {collection.map(({ text, halfPast, onTheHour, ...tick }) => (
+      <line
+        key={ text }
+        stroke={ "black" }
+        className={[
+          halfPast ? 'half-past' : '',
+          onTheHour ? 'on-the-hour' : '',
+        ].join(' ')}
+        { ...tick }
+      />
+    ))}
+  </g>
+);
+
 const Ticks = ({collection, ...rest}) => (
   <g>
     {collection.map(({ text, position }) => (
@@ -73,19 +89,23 @@ const MeetingTimes = ({collection, ...rest}) => (
 );
 
 const Header = ({ collection }) => (
-  <Svg
-    height="1em"
+  <svg
+    x="0"
+    y="0"
     width="100%"
+    height="10%"
   >
-    { collection.map(({text, ...rest}) => (
-      <text
-        textAlign="middle"
-        y="100%"
-        { ...rest }>
-        { text }
-      </text>))
-    }
-  </Svg>
+    <g>
+      { collection.map(({text, ...rest}) => (
+        <text
+          textAnchor="middle"
+          y="50%"
+          { ...rest }>
+          { text }
+        </text>))
+      }
+    </g>
+  </svg>
 )
 
 const Timetable = (props) => (
@@ -97,12 +117,13 @@ const Timetable = (props) => (
       flexDirection: 'column',
     } }
   >
-    <Header collection={ props.header }/>
     <Svg
       style={ { flex: 1 } }
     >
       <Defs />
+      <Header collection={ props.header }/>
       <Ticks collection={ props.timeMarkers }/>
+      <TimeMarks collection={ props.timeMarkers }/>
       <MeetingTimes collection={ props.meetingTimes }/>
     </Svg>
   </div>

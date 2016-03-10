@@ -32,6 +32,8 @@ const days = createSelector(
   }
 )
 
+const xOffset = createSelector(() => 10);
+
 const meetingTimes = createSelector(
   timetable,
   loaded,
@@ -67,21 +69,22 @@ const end = createSelector(
 const timeScale = createSelector(
   start,
   end,
-  (start, end) => {
+  xOffset,
+  (start, end, xOffset) => {
     return d3.time.scale().
       domain([start, end]).
-      range([0, 100]).
+      range([xOffset, 100]).
       nice()
   }
 );
 
-const xMin = 10;
 const dayScale = createSelector(
   days,
-  (days) => (
+  xOffset,
+  (days, xOffset) => (
     d3.scale.ordinal().
       domain(days).
-      rangeRoundBands([xMin, 100], 0.05)
+      rangeRoundBands([xOffset, 100], 0.05)
   )
 )
 // --
@@ -182,9 +185,17 @@ const timeMarkers = createSelector(
   timeScale,
   ticks,
   tickFormat,
-  (scale, ticks, format) => ticks.map(tick => ({
+  xOffset,
+  (scale, ticks, format, x1) => ticks.map(tick => ({
     text: format(tick),
     position: scale(tick),
+    halfPast: tick.getMinutes() == 30,
+    onTheHour: tick.getMinutes() == 0,
+    y: `${ scale(tick) }%`,
+    y1: `${ scale(tick) }%`,
+    y2: `${ scale(tick) }%`,
+    x1: `${ x1 }%`,
+    x2: "100%",
   }))
 )
 
@@ -197,5 +208,6 @@ export default createStructuredSelector({
   meetingTimes: decoratedMeetingTimes,
   start,
   ticks,
+  xOffset,
   timeMarkers,
 });
