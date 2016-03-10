@@ -1,11 +1,11 @@
 import React from "react";
-//import  "css/components/Timetable/TimeMark";
+import  "css/components/Timetable/TimeMark";
 
 const TimeMark = (({ text, halfPast, onTheHour, ...tick }) => (
   <line
     key={ text }
-    stroke={ "black" }
     className={[
+      'TimeMark',
       halfPast ? 'half-past' : '',
       onTheHour ? 'on-the-hour' : '',
     ].join(' ')}

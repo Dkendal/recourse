@@ -1,0 +1,10 @@
+@import "bourbon/bourbon";
+@import "base/variables";
+
+.Timetable .TimeMark {
+  stroke: $base-border-color;
+
+  &.half-past {
+    stroke-dasharray: 2 4;
+  }
+}
