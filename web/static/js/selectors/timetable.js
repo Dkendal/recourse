@@ -122,8 +122,22 @@ const setPosition = xScale => yScale => mt => {
   };
 };
 
+// Set the index, and overlap size on a meeting time.
+// This is done so that positions can be computed in the case where overlaps
+// share the same space
+const setGroups = (mt) => {
+  const idx = mt.overlap.sections.indexOf(mt.section);
+
+  return ({
+    idx,
+    overlapSize: mt.overlap.size,
+    ...mt
+  });
+}
+
 const decorate = (xScale, yScale) => _.compose(
   setPosition(xScale)(yScale),
+  setGroups,
   setKey,
 );
 
