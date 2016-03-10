@@ -46,15 +46,16 @@ const Ticks = ({collection, ...rest}) => (
   </g>
 );
 
-const MeetingTime = ({section, ...rest}) => (
+const Conflict = (props) => (
+  <rect className="MeetingTime-conflict" { ...props } />
+);
+
+const MeetingTime = ({section, inConflict, ...rest}) => (
   <g>
-    <rect
-      style={{
-        opacity: 0.3
-      }}
-      { ...rest }
-    >
-    </rect>
+    <rect { ...rest } />
+
+    { inConflict ?  <Conflict { ...rest } /> : null }
+
     <foreignObject
       requiredExtensions="http://www.w3.org/1999/xhtml"
       { ...rest }
@@ -67,12 +68,7 @@ const MeetingTime = ({section, ...rest}) => (
 
 const MeetingTimes = ({collection, ...rest}) => (
   <g>
-    {collection.map(meetingTime => (
-      <MeetingTime
-        key={ meetingTime.key }
-        { ...meetingTime }
-      />
-    ))}
+    {collection.map(meetingTime => (<MeetingTime { ...meetingTime } />))}
   </g>
 );
 

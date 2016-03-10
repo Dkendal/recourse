@@ -14,6 +14,7 @@ defmodule Recourse.Timetable do
     alias __MODULE__.Overlap
     overlaps = sections
                 |> Enum.flat_map(& &1.meeting_times)
+                |> Enum.flat_map(&expand_days/1)
                 |> components
                 |> Enum.map(&Overlap.new/1)
 
@@ -26,6 +27,13 @@ defmodule Recourse.Timetable do
       overlaps: overlaps,
       meeting_times: meeting_times,
     }
+  end
+
+  # TODO convert this into it's own struct
+  def expand_days(%MeetingTime{} = mt) do
+    Enum.map mt.days, fn day ->
+      %{ mt | day: day, days: [day], id: "#{mt.id}-#{day}" }
+    end
   end
 
   def components(meeting_times) do
@@ -46,7 +54,7 @@ defmodule Recourse.Timetable do
     def new(meeting_times) do
       overlap = %__MODULE__{
         id: Recourse.Timetable.id,
-        size: length(meeting_times)
+        size: length(meeting_times),
       }
 
       meeting_times = for mt <- meeting_times,

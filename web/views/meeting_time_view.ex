@@ -5,6 +5,7 @@ defmodule Recourse.MeetingTimeView do
     :date_end,
     :date_start,
     :days,
+    :day,
     :instructors,
     :location,
     :end_time,

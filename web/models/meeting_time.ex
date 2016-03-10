@@ -19,6 +19,7 @@ defmodule Recourse.MeetingTime do
     timestamps
 
     field :overlap, :any, virtual: :true
+    field :day, :string, virtual: :true
   end
 
   def overlapping?(a, b), do: not seperate?(a, b)

@@ -26,7 +26,6 @@ const crns = createSelector(
   }
 );
 
-
 const days = createSelector(
   () => {
     return ["M", "T", "W", "R", "F"];
@@ -99,8 +98,18 @@ const setPosition = xScale => yScale => mt => {
   const y2 = yScale(mt.end_time);
   const height = y2 - y;
 
-  const x = xScale(mt.day)
-  const width = xScale.rangeBand(mt.day);
+  const x1 = xScale(mt.day)
+  const x2 = x1 + xScale.rangeBand();
+
+  const overlapDomain = d3.range(mt.overlapSize);
+
+  // subdivide this days domain into slices for each overlapping meeting time.
+  const localScale = d3.scale.ordinal().
+    domain(overlapDomain).
+    rangeRoundBands([x1, x2], 0);
+
+  const x = localScale(mt.idx);
+  const width = localScale.rangeBand();
 
   return {
     ...mt,
@@ -115,21 +124,25 @@ const setPosition = xScale => yScale => mt => {
 // This is done so that positions can be computed in the case where overlaps
 // share the same space
 const setGroups = (mt) => {
+  const idx = _.findIndex(mt.overlap.meeting_times, (x => x.id === mt.id));
+
   return ({
+    overlapSize: mt.overlap.meeting_times.length,
+    idx,
     ...mt
   });
 }
 
+const setConflict = (mt) => ({
+  inConflict: mt.overlap.meeting_times.length > 1,
+  ...mt
+});
+
 const decorate = (xScale, yScale) => _.compose(
+  setConflict,
   setPosition(xScale)(yScale),
   setGroups,
   setKey,
-);
-
-const expandDays = (acc, {days, ...mt}) => (
-  [ ...acc,
-    ...days.map(day => ({ day, ...mt, })),
-  ]
 );
 
 const decoratedMeetingTimes = createSelector(
@@ -138,7 +151,6 @@ const decoratedMeetingTimes = createSelector(
   meetingTimes,
   (yScale, xScale, meetingTimes) => (
     _.chain(meetingTimes).
-      reduce(expandDays, []).
       map(decorate(xScale, yScale)).
       value()
   ),
