@@ -90,12 +90,7 @@ class Recourse extends Component {
               startTime={startTime}
               className="Tile Tile-padded"
             />
-            <Schedule
-              className="Tile"
-              scheduleEndTime={scheduleEndTime}
-              sections={sections}
-              scheduleStartTime={scheduleStartTime}
-            />
+            <Timetable {...timetable} />
             <Crns collection={timetable.crns}/>
           </Column>
         </Row>
