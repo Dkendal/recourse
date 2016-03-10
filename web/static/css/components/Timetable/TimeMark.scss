@@ -4,6 +4,10 @@
 .Timetable .TimeMark {
   stroke: $base-border-color;
 
+  &.noon {
+    stroke: $action-color;
+  }
+
   &.half-past {
     stroke-dasharray: 2 4;
   }

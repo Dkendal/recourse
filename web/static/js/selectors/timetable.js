@@ -191,6 +191,7 @@ const timeMarkers = createSelector(
     position: scale(tick),
     halfPast: tick.getMinutes() == 30,
     onTheHour: tick.getMinutes() == 0,
+    noon: tick.getHours() == 12 && tick.getMinutes() == 0,
     y: `${ scale(tick) }%`,
     y1: `${ scale(tick) }%`,
     y2: `${ scale(tick) }%`,
