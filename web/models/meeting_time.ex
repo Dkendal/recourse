@@ -21,6 +21,25 @@ defmodule Recourse.MeetingTime do
     field :overlap, :any, virtual: :true
   end
 
+  def overlapping?(a, b), do: not seperate?(a, b)
+  def seperate?(a, b) do
+    cond do
+      disjoint_days?(a, b) ->
+        true
+      a.end_time <= b.start_time ->
+        true
+      b.end_time <= a.start_time ->
+        true
+      true ->
+        false
+    end
+  end
+
+  def disjoint_days?(%{days: d1}, %{days: d2}) do
+    [x, y] = for s <- [d1, d2], do: :sets.from_list(s)
+    :sets.is_disjoint(x, y)
+  end
+
   @required_fields ~w(
     date_end
     date_start

@@ -4,6 +4,6 @@ defmodule Recourse.OverlapView do
   def fields(), do: [:size]
   def type(), do: "overlap"
   def relationships(), do: [
-    sections: {Recourse.SectionView, :include},
+    meeting_times: {Recourse.MeetingTimeView, :include}
   ]
 end

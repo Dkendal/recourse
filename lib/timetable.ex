@@ -1,17 +1,24 @@
 defmodule Recourse.Timetable do
+  alias Recourse.MeetingTime
   defstruct [:id, :sections, :overlaps, :meeting_times]
 
+  @doc "Creates a unique 10 digit hexcode"
   def id do
-    :rand.uniform(1000000000)
+    :math.pow(16, 10)
+    |> round
+    |> :rand.uniform
     |> :httpd_util.integer_to_hexlist
   end
 
   def new(sections) do
     alias __MODULE__.Overlap
+    overlaps = sections
+                |> Enum.flat_map(& &1.meeting_times)
+                |> components
+                |> Enum.map(&Overlap.new/1)
 
-    overlaps =  for section <- sections, do: Overlap.new([section])
-    sections = Enum.flat_map(overlaps, & &1.sections)
-    meeting_times = Enum.flat_map(sections, & &1.meeting_times)
+    meeting_times = overlaps
+                    |> Enum.flat_map(& &1.meeting_times)
 
     %__MODULE__{
       id: id,
@@ -21,25 +28,31 @@ defmodule Recourse.Timetable do
     }
   end
 
-  defmodule Overlap do
-    defstruct [:sections, :id, :size]
+  def components(meeting_times) do
+    g = :digraph.new
 
-    def new(sections) do
+    for mt <- meeting_times, do: :digraph.add_vertex(g, mt)
+
+    for x <- meeting_times, y <- meeting_times, x > y,
+      do: if Recourse.MeetingTime.overlapping?(x, y),
+        do: :digraph.add_edge(g, x, y)
+
+    :digraph_utils.components g
+  end
+
+  defmodule Overlap do
+    defstruct [:meeting_times, :id, :size]
+
+    def new(meeting_times) do
       overlap = %__MODULE__{
         id: Recourse.Timetable.id,
-        size: sections |> length,
+        size: length(meeting_times)
       }
 
-      set_inverse = & %{ &1 | overlap: overlap }
+      meeting_times = for mt <- meeting_times,
+        do: %MeetingTime{ mt | overlap: overlap }
 
-      sections = for section <- sections do
-        meeting_times = Enum.map(section.meeting_times, set_inverse)
-
-        %{section | meeting_times: meeting_times}
-        |> set_inverse.()
-      end
-
-      %{overlap | sections: sections}
+      %Overlap{overlap | meeting_times: meeting_times}
     end
   end
 end

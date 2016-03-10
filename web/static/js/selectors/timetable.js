@@ -38,11 +38,7 @@ const meetingTimes = createSelector(
   loaded,
   (timetable, loaded) => {
     if (!loaded) { return []; }
-    let meetingTimes = _.flatten(_.pluck(timetable.sections, "meeting_times"));
-
-    meetingTimes = meetingTimes.map(cast);
-
-    return meetingTimes;
+    return timetable.meeting_times.map(cast);
   }
 );
 
@@ -98,13 +94,6 @@ function setKey(mt) {
   }
 }
 
-const setDay = day => mt => {
-  return {
-    day,
-    ...mt
-  };
-}
-
 const setPosition = xScale => yScale => mt => {
   const y = yScale(mt.start_time);
   const y2 = yScale(mt.end_time);
@@ -126,11 +115,7 @@ const setPosition = xScale => yScale => mt => {
 // This is done so that positions can be computed in the case where overlaps
 // share the same space
 const setGroups = (mt) => {
-  const idx = mt.overlap.sections.indexOf(mt.section);
-
   return ({
-    idx,
-    overlapSize: mt.overlap.size,
     ...mt
   });
 }
