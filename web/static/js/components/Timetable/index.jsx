@@ -9,7 +9,10 @@ import Header from "./Header";
 
 const Ticks = ({collection}) => (
   <g>
-    { collection.map((props) => <Tick key={ props.text } { ...props }/>)}
+    { collection.
+      filter(x => x.onTheHour).
+      map((props) => <Tick key={ props.text } { ...props }/>)
+    }
   </g>
 );
 
