@@ -188,7 +188,6 @@ const timeMarkers = createSelector(
   xOffset,
   (scale, ticks, format, x1) => ticks.map(tick => ({
     text: format(tick),
-    position: scale(tick),
     halfPast: tick.getMinutes() == 30,
     onTheHour: tick.getMinutes() == 0,
     noon: tick.getHours() == 12 && tick.getMinutes() == 0,
