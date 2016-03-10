@@ -109,7 +109,7 @@ const setPosition = xScale => yScale => mt => {
   // subdivide this days domain into slices for each overlapping meeting time.
   const localScale = d3.scale.ordinal().
     domain(overlapDomain).
-    rangeRoundBands([x1, x2], 0);
+    rangeBands([x1, x2]);
 
   const x = localScale(mt.idx);
   const width = localScale.rangeBand();
