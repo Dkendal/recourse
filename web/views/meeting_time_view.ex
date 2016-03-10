@@ -14,6 +14,7 @@ defmodule Recourse.MeetingTimeView do
 
   def type(), do: "meeting_time"
   def relationships(), do: [
-    section: Recourse.SectionView
+    section: Recourse.SectionView,
+    overlap: Recourse.OverlapView,
   ]
 end

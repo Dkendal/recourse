@@ -1,5 +1,5 @@
 defmodule Recourse.MeetingTime do
-  alias Recourse.{Web, Section}
+  alias Recourse.{Web, Section, Timetable}
   alias Ecto.{Date, Time}
 
   use Web, :model
@@ -17,6 +17,8 @@ defmodule Recourse.MeetingTime do
     belongs_to :section, Section
 
     timestamps
+
+    field :overlap, :any, virtual: :true
   end
 
   @required_fields ~w(

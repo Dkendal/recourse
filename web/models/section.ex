@@ -19,6 +19,7 @@ defmodule Recourse.Section do
 
     field :seats, :map, virtual: true
     field :waitlist, :map, virtual: true
+    field :overlap, :any, virtual: :true
   end
 
   @required_fields ~w(

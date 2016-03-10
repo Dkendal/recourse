@@ -12,7 +12,8 @@ defmodule Recourse.SectionView do
   def type(), do: "section"
   def relationships(), do: [
     meeting_times: {Recourse.MeetingTimeView, :include},
-    course: {Recourse.CourseView, :include}
+    course: {Recourse.CourseView, :include},
+    overlap: Recourse.OverlapView,
   ]
 end
 

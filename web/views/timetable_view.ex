@@ -4,6 +4,8 @@ defmodule Recourse.TimetableView do
   def fields(), do: []
   def type(), do: "timetable"
   def relationships(), do: [
-    sections: {Recourse.SectionView, :include},
+    overlaps: {Recourse.OverlapView, :include},
+    sections: Recourse.SectionView,
+    meeting_times: Recourse.MeetingTimeView,
   ]
 end
