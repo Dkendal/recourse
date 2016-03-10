@@ -68,6 +68,7 @@ const end = createSelector(
   }
 );
 
+// Scales
 const timeScale = createSelector(
   start,
   end,
@@ -178,13 +179,12 @@ const timeMarkers = createSelector(
 
 export default createStructuredSelector({
   crns,
-  loaded,
-  meetingTimes,
-  decoratedMeetingTimes,
   days,
-  start,
   end,
+  header,
+  loaded,
+  meetingTimes: decoratedMeetingTimes,
+  start,
   ticks,
   timeMarkers,
-  header,
 });
