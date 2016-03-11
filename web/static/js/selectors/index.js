@@ -3,6 +3,7 @@ import _ from "underscore";
 import moment from "moment";
 import {List} from "immutable";
 import timetable from "./timetable";
+import focusedSection from "./focusedSection";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -138,6 +139,7 @@ export default createStructuredSelector({
   courses,
   endTime,
   filteredCourses,
+  focusedSection,
   scheduleEndTime,
   scheduleStartTime,
   sections,
@@ -148,5 +150,5 @@ export default createStructuredSelector({
   terms,
   timetable,
   worklist,
-  worklistIds
+  worklistIds,
 });

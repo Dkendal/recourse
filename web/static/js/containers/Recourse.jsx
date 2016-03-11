@@ -30,6 +30,7 @@ class Recourse extends Component {
       scheduleStartTime,
       sections,
       selectedTermIdx,
+      focusedSection,
       startTime,
       terms,
       timetable,
@@ -89,7 +90,10 @@ class Recourse extends Component {
               startTime={startTime}
               className="Tile Tile-padded"
             />
-            <Timetable {...timetable} />
+            <Timetable
+              setFocusedSection={ compose(dispatch, a.setFocusedSection) }
+              {...timetable}
+            />
             <Crns collection={timetable.crns}/>
           </Column>
         </Row>

@@ -18,7 +18,7 @@ const Ticks = ({collection}) => (
 
 const MeetingTimes = ({collection, ...rest}) => (
   <g>
-    {collection.map(meetingTime => (<MeetingTime { ...meetingTime } />))}
+    {collection.map(meetingTime => (<MeetingTime { ...meetingTime } { ...rest } />))}
   </g>
 );
 
@@ -44,7 +44,7 @@ const Timetable = (props) => (
       <Header collection={ props.header }/>
       <Ticks collection={ props.timeMarkers }/>
       <TimeMarks collection={ props.timeMarkers }/>
-      <MeetingTimes collection={ props.meetingTimes }/>
+      <MeetingTimes collection={ props.meetingTimes } onClick={ props.setFocusedSection }/>
     </Svg>
   </div>
 );
