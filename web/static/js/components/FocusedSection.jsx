@@ -4,7 +4,7 @@ import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
 // import "css/components/FocusedSection";
 
-const dateFormat = "MMMM DD, YYYY";
+const dateFormat = "MMMM Do, YYYY";
 const timeFormat = "h:mm a";
 
 function formatDates(mt) {
