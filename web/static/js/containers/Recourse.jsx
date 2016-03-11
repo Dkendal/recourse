@@ -11,7 +11,7 @@ import Row from "../components/Row";
 import Crns from "../components/Crns";
 import ScheduleSettings from "../components/ScheduleSettings";
 import Worklist from "../components/Worklist";
-import {Timetable} from "../components";
+import { Timetable, FocusedSection } from "../components";
 
 import "css/containers/Recourse";
 
@@ -61,26 +61,28 @@ class Recourse extends Component {
           </select>
         </div>
         <Row className="recourse-body margin-between-h">
-           {/* Left hand side */}
-          <Column className="margin-between-v">
-            <CourseSearch
-              className="Tile Tile-padded"
-              onSubmit={compose(dispatch, a.filterCourses)}
-              text={courseSearchText}
-            />
-            <Worklist
-              className="margin-around"
-              courses={worklist}
-              onClick={onCourseClick}
-            />
-            <CollectionSelect
-              className="Tile"
-              collection={filteredCourses}
-              onClick={onCourseClick}
-              render={Course}
-              selected={worklist}
-            />
-          </Column>
+          {/* Left hand side */}
+          { focusedSection.hidden ?
+            <Column className="margin-between-v">
+              <CourseSearch
+                className="Tile Tile-padded"
+                onSubmit={compose(dispatch, a.filterCourses)}
+                text={courseSearchText}
+              />
+              <Worklist
+                className="margin-around"
+                courses={worklist}
+                onClick={onCourseClick}
+              />
+              <CollectionSelect
+                className="Tile"
+                collection={filteredCourses}
+                onClick={onCourseClick}
+                render={Course}
+                selected={worklist}
+              />
+            </Column> : null
+          }
            {/* Right hand side */}
           <Column className="margin-between-v">
             <ScheduleSettings
@@ -96,6 +98,14 @@ class Recourse extends Component {
             />
             <Crns collection={timetable.crns}/>
           </Column>
+          { focusedSection.visible ?
+            <Column>
+              <FocusedSection
+                hideFocusedSection={ compose(dispatch, a.hideFocusedSection) }
+                { ...focusedSection }
+              />
+            </Column> : null
+          }
         </Row>
       </div>
     );

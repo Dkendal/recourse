@@ -1,12 +1,23 @@
-import {createSelector} from "reselect";
+import {createSelector, createStructuredSelector} from "reselect";
 
 const data = (state) => state.data;
 const id = (state) => state.focusedSection.id;
+const visible = (state) => state.focusedSection.visible;
 
-const focusedSection = createSelector(
-  data,
-  id,
-  (data, id) => id && data.find("section", id)
+const hidden = createSelector(
+  visible,
+  (visible) => !visible
 );
 
-export default focusedSection;
+const section = createSelector(
+  data,
+  id,
+  visible,
+  (data, id, visible) => id && data.find("section", id)
+);
+
+export default createStructuredSelector({
+  visible,
+  hidden,
+  section,
+})
