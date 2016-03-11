@@ -1,7 +1,3 @@
-[class^="icon-"] {
-}
-
-
 .icon-hover {
   background-color: $light-gray;
   border-radius: 50%;
@@ -46,7 +42,7 @@
 }
 
 .icon-gutter {
-  width: $icon-gutter-width;
+  min-width: $icon-gutter-width;
   text-align: center;
 }
 
