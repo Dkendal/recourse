@@ -39,6 +39,8 @@ class Recourse extends Component {
 
     const onCourseClick = compose(dispatch, a.toggleCourseSelection);
 
+    console.log(focusedSection);
+
     return(
       <div>
         <div className="recourse-header">
