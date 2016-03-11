@@ -1,0 +1,190 @@
+{
+  "name": "",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "2a6740fc2f9d0edea54205963f662594",
+      "css": "spin3",
+      "code": 59392,
+      "src": "fontelico"
+    },
+    {
+      "uid": "9dd9e835aebe1060ba7190ad2b2ed951",
+      "css": "search",
+      "code": 59404,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d73eceadda1f594cec0536087539afbf",
+      "css": "heart",
+      "code": 59414,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f3dc2d6d8fe9cf9ebff84dc260888cdf",
+      "css": "heart-empty",
+      "code": 59415,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "474656633f79ea2f1dad59ff63f6bf07",
+      "css": "star",
+      "code": 59412,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8f8278fbe5a2a0ea836be3c408b005d2",
+      "css": "star-half",
+      "code": 59411,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dd492243d64e21dfe16a92452f7861cb",
+      "css": "th-large",
+      "code": 59409,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b1887b423d2fd15c345e090320c91ca0",
+      "css": "th",
+      "code": 59408,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f805bb95d40c7ef2bc51b3d50d4f2e5c",
+      "css": "th-list",
+      "code": 59407,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5211af474d3a9848f67f945e2ccaf143",
+      "css": "cancel",
+      "code": 59397,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "44e04715aecbca7f266a17d5a7863c68",
+      "css": "plus",
+      "code": 59400,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "861ab06e455e2de3232ebef67d60d708",
+      "css": "minus",
+      "code": 59394,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e15f0d620a7897e2035c18c80142f6d9",
+      "css": "link-ext",
+      "code": 59425,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c1f1975c885aa9f3dad7810c53b82074",
+      "css": "lock",
+      "code": 59424,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "657ab647f6248a6b57a5b893beaf35a9",
+      "css": "lock-open",
+      "code": 59422,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "05376be04a27d5a46e855a233d6e8508",
+      "css": "lock-open-alt",
+      "code": 59423,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a3f89e106175a5c5c4e9738870b12e55",
+      "css": "tags",
+      "code": 59421,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f04a5d24e9e659145b966739c4fde82a",
+      "css": "bookmark",
+      "code": 59420,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2f5ef6f6b7aaebc56458ab4e865beff5",
+      "css": "bookmark-empty",
+      "code": 59419,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c6be5a58ee4e63a5ec399c2b0d15cf2c",
+      "css": "reply",
+      "code": 59418,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1b5597a3bacaeca6600e88ae36d02e0a",
+      "css": "reply-all",
+      "code": 59417,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3d39c828009c04ddb6764c0b04cd2439",
+      "css": "forward",
+      "code": 59416,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ab95e1351ebaec5850101097cbf7097f",
+      "css": "quote-left",
+      "code": 59405,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d745d7c05b94e609decabade2cae12cb",
+      "css": "quote-right",
+      "code": 59406,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c76b7947c957c9b78b11741173c8349b",
+      "css": "attention",
+      "code": 59426,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a73c5deb486c8d66249811642e5d719a",
+      "css": "arrows-cw",
+      "code": 59427,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "0f444c61b0d2c9966016d7ddb12f5837",
+      "css": "beaker",
+      "code": 59395,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "500fc1f109021e4b1de4deda2f7ed399",
+      "css": "laptop",
+      "code": 59396,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "20fc52f9a88bb7bda023ef209acac095",
+      "css": "graduation-cap",
+      "code": 59398,
+      "src": "fontawesome"
+    }
+  ]
+}
