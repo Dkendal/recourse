@@ -49,10 +49,20 @@ const MeetingTime = (props) => (
   </div>
 );
 
+
+function onEscape(event, fun) {
+  // escape
+  if (event.keyCode === 27) {
+    fun();
+  }
+}
+
 const FocusedSection = ({section: { course, meeting_times, ...section }, ...props}) => (
   <section
     className="FocusedSection Tile Tile-padded"
     style={ { flex: 1 } }
+    onKeyUp={ (e) => onEscape(e, props.hideFocusedSection) }
+    tabIndex="99"
   >
     <div
       onClick={ props.hideFocusedSection }
