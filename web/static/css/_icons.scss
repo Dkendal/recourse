@@ -49,3 +49,15 @@
 .icon {
   font-size: $icon-font-size;
 }
+
+.icon-lecture {
+  @extend .icon-user;
+}
+
+.icon-lab {
+  @extend .icon-beaker;
+}
+
+.icon-tutorial {
+  @extend .icon-pencil;
+}

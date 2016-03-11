@@ -41,6 +41,8 @@ const Text = ({ section, ...rest }) => (
   </g>
 );
 
+const iconName = (section) => `MeetingTime-icon icon-${section.schedule_type.toLowerCase()}`;
+
 const MeetingTime = ({section, inConflict, ...rest}) => (
   <g>
     <svg
@@ -62,6 +64,17 @@ const MeetingTime = ({section, inConflict, ...rest}) => (
         stroke={ rest.fill } />
       : null }
       <Text section={section}/>
+      <g>
+        <title>
+          { section.schedule_type }
+        </title>
+        <foreignObject
+          width="100%"
+          height="100%"
+          requiredExtensions="http://www.w3.org/1999/xhtml">
+          <i className={ iconName(section) }/>
+        </foreignObject>
+      </g>
     </svg>
   </g>
 );

@@ -1,3 +1,31 @@
+$meeting-time-icon-outline-color: black;
+$meeting-time-icon-radius: 1px;
+
+.MeetingTime-icon {
+  color: white;
+
+  text-shadow: 0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color,
+               0 0 $meeting-time-icon-radius $meeting-time-icon-outline-color;
+
+  &.icon-lab {
+    // color: hsl(60, 100%, 80%);
+  }
+
+  &.icon-tutorial {
+    // color: hsl(180, 100%, 80%);
+  }
+
+  &.icon-lecture {
+    // color: hsl(300, 100%, 80%);
+  }
+}
+
 .Timetable .MeetingTime {
   &-conflict {
     fill: url(#danger-stripes);
