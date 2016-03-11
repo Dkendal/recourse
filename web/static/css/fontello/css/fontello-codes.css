@@ -6,7 +6,9 @@
 .icon-laptop:before { content: '\e804'; } /* '' */
 .icon-cancel:before { content: '\e805'; } /* '' */
 .icon-graduation-cap:before { content: '\e806'; } /* '' */
+.icon-check:before { content: '\e807'; } /* '' */
 .icon-plus:before { content: '\e808'; } /* '' */
+.icon-check-empty:before { content: '\e809'; } /* '' */
 .icon-search:before { content: '\e80c'; } /* '' */
 .icon-quote-left:before { content: '\e80d'; } /* '' */
 .icon-quote-right:before { content: '\e80e'; } /* '' */

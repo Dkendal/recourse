@@ -61,12 +61,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "12f4ece88e46abd864e40b35e05b11cd",
-      "css": "ok",
-      "code": 59393,
-      "src": "fontawesome"
-    },
-    {
       "uid": "5211af474d3a9848f67f945e2ccaf143",
       "css": "cancel",
       "code": 59397,
@@ -184,6 +178,24 @@
       "uid": "20fc52f9a88bb7bda023ef209acac095",
       "css": "graduation-cap",
       "code": 59398,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dd6c6b221a1088ff8a9b9cd32d0b3dd5",
+      "css": "check",
+      "code": 59399,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "4b900d04e8ab8c82f080c1cfbac5772c",
+      "css": "check-empty",
+      "code": 59401,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "12f4ece88e46abd864e40b35e05b11cd",
+      "css": "ok",
+      "code": 59393,
       "src": "fontawesome"
     }
   ]
