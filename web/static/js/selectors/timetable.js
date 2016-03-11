@@ -73,7 +73,7 @@ const timeScale = createSelector(
   (start, end, xOffset) => {
     return d3.time.scale().
       domain([start, end]).
-      range([xOffset, 100]).
+      range([xOffset, 98]).
       nice()
   }
 );
