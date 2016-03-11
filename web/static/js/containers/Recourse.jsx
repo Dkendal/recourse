@@ -8,7 +8,6 @@ import Column from "../components/Column";
 import Course from "../components/Course";
 import CourseSearch from "../components/CourseSearch";
 import Row from "../components/Row";
-import Schedule from "../components/Schedule";
 import Crns from "../components/Crns";
 import ScheduleSettings from "../components/ScheduleSettings";
 import Worklist from "../components/Worklist";

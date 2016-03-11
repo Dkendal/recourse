@@ -1,0 +1,5 @@
+.Timetable .MeetingTime {
+  &-conflict {
+    fill: url(#danger-stripes);
+  }
+}

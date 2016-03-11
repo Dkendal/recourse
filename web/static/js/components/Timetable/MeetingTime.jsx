@@ -1,5 +1,5 @@
 import React from "react";
-// import  "css/components/Timetable/MeetingTime";
+import  "css/components/Timetable/MeetingTime";
 
 const Conflict = (props) => (
   <rect className="MeetingTime-conflict" { ...props } />
