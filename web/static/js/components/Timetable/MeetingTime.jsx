@@ -12,24 +12,26 @@ const rectProps = {
   height: "100%",
 };
 
+const textProps = {
+  is: true,
+  x: "50%",
+  y: "50%",
+  "text-anchor": "middle",
+};
+
 const Text = ({ section, ...rest }) => (
   <g fontSize="14" { ...rest }>
     <g>
       <text
-        x="50%"
-        y="50%"
-        dy="-2"
-        textAnchor="middle"
+        { ...textProps }
       >
         { section.course.subject }
       </text>
     </g>
     <g>
       <text
-        x="50%"
-        y="50%"
-        dy="12"
-        textAnchor="middle"
+        dominant-baseline="text-before-edge"
+        { ...textProps }
       >
         <tspan>{ section.course.number }</tspan>
       </text>
