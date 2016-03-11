@@ -34,6 +34,8 @@ const Text = ({ section, ...rest }) => (
         { ...textProps }
       >
         <tspan>{ section.course.number }</tspan>
+        <tspan>{ ' - ' }</tspan>
+        <tspan>{ section.name }</tspan>
       </text>
     </g>
   </g>
