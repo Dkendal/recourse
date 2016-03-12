@@ -8,11 +8,15 @@ import { toColor } from "lib/course";
 const dateFormat = "MMMM Do, YYYY";
 const timeFormat = "h:mm a";
 
+const format = (t, f) => moment(t).format(f);
+const formatDate = (t) => format(t, dateFormat);
+const formatTime = (t) => format(t, timeFormat);
+
 function formatDates(mt) {
-  const date_start = moment(mt.date_start).format(dateFormat);
-  const date_end   = moment(mt.date_end).format(dateFormat);
-  const end_time   = moment(mt.end_time).format(timeFormat);
-  const start_time = moment(mt.start_time).format(timeFormat);
+  const date_start = formatDate(mt.date_start);
+  const date_end   = formatDate(mt.date_end);
+  const end_time   = formatTime(mt.end_time);
+  const start_time = formatTime(mt.start_time);
 
   return {
     ...mt,
