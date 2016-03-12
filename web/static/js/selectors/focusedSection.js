@@ -1,7 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import moment from "moment";
 import _ from "underscore";
-import { notLoaded } from "lib/constants";
+import { notLoaded, placeholders } from "lib/constants";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
 import timetable from "./timetable";
@@ -41,7 +41,7 @@ const hidden = createSelector(
 const section = createSelector(
   data,
   id,
-  (data, id) => data.find("section", id) || notLoaded
+  (data, id) => data.find("section", id) || placeholders.section
 );
 
 const meetingTimes = createSelector(
@@ -53,7 +53,7 @@ const meetingTimes = createSelector(
 
 const course = createSelector(
   section,
-  ({ course = notLoaded }) => course
+  ({ course = placeholders.course }) => course
 );
 
 const color = createSelector(
