@@ -30,7 +30,7 @@ function onEscape(event, fun) {
   }
 }
 
-const FocusedSection = ({section: { course, meeting_times, ...section }, ...props}) => (
+const FocusedSection = ({section, course, meetingTimes, ...props}) => (
   <section
     className="FocusedSection Tile"
     style={ { flex: 1 } }
@@ -76,7 +76,7 @@ const FocusedSection = ({section: { course, meeting_times, ...section }, ...prop
     <article
       className="Tile-padded"
     >
-      { meeting_times.map(
+      { meetingTimes.map(
         x => <MeetingTime key={x.id} { ...formatDates(cast(x)) }/>)
       }
     </article>
