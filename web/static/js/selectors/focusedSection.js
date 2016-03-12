@@ -1,7 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import moment from "moment";
 import _ from "underscore";
-import { notLoaded } from "constants";
+import { notLoaded } from "lib/constants";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
 import timetable from "./timetable";

@@ -1,8 +1,8 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
-import {cast} from "../lib/meeting_time";
-import { notLoaded } from "constants";
 import d3 from "d3";
+import {cast} from "lib/meeting_time";
+import { notLoaded } from "lib/constants";
 
 // data store
 const store = (state) => state.data;
