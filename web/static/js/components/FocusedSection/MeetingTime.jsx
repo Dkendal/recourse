@@ -4,26 +4,28 @@ import React from "react";
 const MeetingTime = (props) => (
   <div>
     <dl>
-      <dt>{ "Days" }</dt>
-      <dd>{ props.days.join(" ") }</dd>
-
-      <dt>{ "Start time" }</dt>
-      <dd>{ props.start_time }</dd>
-
-      <dt>{"End time"}</dt>
-      <dd>{ props.end_time }</dd>
-
-      <dt>{ "Start date" }</dt>
-      <dd>{ props.date_start }</dd>
-
-      <dt>{ "End Date" }</dt>
-      <dd>{ props.date_end }</dd>
+      <dt>{ "When" }</dt>
+      <dd>
+        <div>
+          { props.start_time }
+          { " - " }
+          { props.end_time }
+        </div>
+        <div>
+          { props.days.join(" ") }
+        </div>
+        <div>
+          { props.type }
+        </div>
+        <div>
+          { props.date_start }
+          { " - " }
+          { props.date_end }
+        </div>
+      </dd>
 
       <dt>{ "Location" }</dt>
       <dd>{ props.location }</dd>
-
-      <dt>{ "Type" }</dt>
-      <dd>{ props.type }</dd>
     </dl>
   </div>
 );
