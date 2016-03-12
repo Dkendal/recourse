@@ -5,9 +5,6 @@ import { notLoaded } from "constants";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
 
-// returning a non-null respond lets us match with destructing and return
-// a default param
-
 const dateFormat = "MMMM Do, YYYY";
 const timeFormat = "h:mm a";
 
