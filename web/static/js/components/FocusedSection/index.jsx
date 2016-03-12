@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
+import MeetingTime from "./MeetingTime";
 // import "css/components/FocusedSection";
 
 const dateFormat = "MMMM Do, YYYY";
@@ -21,34 +22,6 @@ function formatDates(mt) {
     date_end,
   };
 }
-
-const MeetingTime = (props) => (
-  <div>
-    <dl>
-      <dt>{ "Days" }</dt>
-      <dd>{ props.days.join(" ") }</dd>
-
-      <dt>{ "Start time" }</dt>
-      <dd>{ props.start_time }</dd>
-
-      <dt>{"End time"}</dt>
-      <dd>{ props.end_time }</dd>
-
-      <dt>{ "Start date" }</dt>
-      <dd>{ props.date_start }</dd>
-
-      <dt>{ "End Date" }</dt>
-      <dd>{ props.date_end }</dd>
-
-      <dt>{ "Location" }</dt>
-      <dd>{ props.location }</dd>
-
-      <dt>{ "Type" }</dt>
-      <dd>{ props.type }</dd>
-    </dl>
-  </div>
-);
-
 
 function onEscape(event, fun) {
   // escape
