@@ -102,6 +102,7 @@ class Recourse extends Component {
             <Column>
               <FocusedSection
                 hideFocusedSection={ compose(dispatch, a.hideFocusedSection) }
+                setFocusedSection={ compose(dispatch, a.setFocusedSection) }
                 { ...focusedSection }
               />
             </Column> : null

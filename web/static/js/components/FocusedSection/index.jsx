@@ -59,6 +59,23 @@ const FocusedSection = ({section, course, meetingTimes, ...props}) => (
         x => <MeetingTime key={x.id} { ...x }/>)
       }
     </article>
+    <footer className="Tile-padded">
+      <h2>{ "Related Sections" }</h2>
+      <div>
+        { props.relatedSections.map(
+          section =>
+          <a
+            href="#"
+            onClick={ () => props.setFocusedSection(section.id) }
+            key={ section.id }
+          >
+            { section.schedule_type }
+            { " " }
+            { section.name }
+          </a>)
+        }
+      </div>
+    </footer>
   </section>
 );
 

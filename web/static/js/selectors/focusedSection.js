@@ -4,6 +4,7 @@ import _ from "underscore";
 import { notLoaded } from "constants";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
+import timetable from "./timetable";
 
 const dateFormat = "MMMM Do, YYYY";
 const timeFormat = "h:mm a";
@@ -60,6 +61,15 @@ const color = createSelector(
   (course) => toColor(course)
 );
 
+const relatedSections = createSelector(
+  section,
+  course,
+  timetable,
+  (section, course, { sections }) => {
+    return sections.filter(s => s.course.id == course.id && s.id != section.id)
+  }
+)
+
 export default createStructuredSelector({
   ready,
   visible,
@@ -67,5 +77,6 @@ export default createStructuredSelector({
   section,
   course,
   meetingTimes,
+  relatedSections,
   color,
 })

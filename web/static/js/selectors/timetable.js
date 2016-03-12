@@ -1,6 +1,7 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import _ from "underscore";
 import {cast} from "../lib/meeting_time";
+import { notLoaded } from "constants";
 import d3 from "d3";
 
 // data store
@@ -11,10 +12,13 @@ const loaded = (state) => state.frontEnd.timetable.loaded;
 const timetable = createSelector(
   store,
   id,
-  (store, id) => {
-    return store.find("timetable", id);
-  }
+  (store, id) => store.find("timetable", id) || notLoaded
 );
+
+const sections = createSelector(
+  timetable,
+  ({ sections = [] }) => sections
+)
 
 const crns = createSelector(
   timetable,
@@ -206,6 +210,7 @@ export default createStructuredSelector({
   header,
   loaded,
   meetingTimes: decoratedMeetingTimes,
+  sections,
   start,
   ticks,
   xOffset,
