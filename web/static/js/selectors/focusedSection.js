@@ -3,6 +3,7 @@ import moment from "moment";
 import _ from "underscore";
 import { notLoaded } from "constants";
 import { cast } from "lib/meeting_time";
+import { toColor } from "lib/course";
 
 // returning a non-null respond lets us match with destructing and return
 // a default param
@@ -46,13 +47,17 @@ const meetingTimes = createSelector(
   ({ meeting_times = [] }) => {
     return meeting_times.map(_.compose(formatDates, cast));
   }
-)
+);
 
 const course = createSelector(
   section,
   ({ course = notLoaded }) => course
-)
+);
 
+const color = createSelector(
+  course,
+  (course) => toColor(course)
+);
 
 export default createStructuredSelector({
   ready,
@@ -61,4 +66,5 @@ export default createStructuredSelector({
   section,
   course,
   meetingTimes,
+  color,
 })

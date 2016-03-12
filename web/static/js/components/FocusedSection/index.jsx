@@ -1,7 +1,7 @@
 import React from "react";
-import { toColor } from "lib/course";
 import MeetingTime from "./MeetingTime";
 // import "css/components/FocusedSection";
+
 function onEscape(event, fun) {
   // escape
   if (event.keyCode === 27) {
@@ -25,7 +25,7 @@ const FocusedSection = ({section, course, meetingTimes, ...props}) => (
     <header
       className="Tile-padded"
       style={{
-        backgroundColor: toColor(course),
+        backgroundColor: props.color,
       }}
     >
       <h1>
