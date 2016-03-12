@@ -59,7 +59,7 @@ function onEscape(event, fun) {
 
 const FocusedSection = ({section: { course, meeting_times, ...section }, ...props}) => (
   <section
-    className="FocusedSection Tile Tile-padded"
+    className="FocusedSection Tile"
     style={ { flex: 1 } }
     onKeyUp={ (e) => onEscape(e, props.hideFocusedSection) }
     tabIndex="99"
@@ -69,7 +69,9 @@ const FocusedSection = ({section: { course, meeting_times, ...section }, ...prop
     >
       X
     </div>
+
     <header
+      className="Tile-padded"
       style={{
         backgroundColor: toColor(course),
       }}
@@ -98,7 +100,9 @@ const FocusedSection = ({section: { course, meeting_times, ...section }, ...prop
         `}
       </h3>
     </header>
-    <article>
+    <article
+      className="Tile-padded"
+    >
       { meeting_times.map(
         x => <MeetingTime key={x.id} { ...formatDates(cast(x)) }/>)
       }
