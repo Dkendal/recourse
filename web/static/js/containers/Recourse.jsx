@@ -62,7 +62,12 @@ class Recourse extends Component {
         </div>
         <Row className="recourse-body margin-between-h">
           {/* Left hand side */}
-          <Column className="margin-between-v slider-container">
+          <div
+            style={{
+              position: 'relative',
+              height: '100%',
+            }}
+          >
             {/* Sliders */}
             <FocusedSection
               className={ `slider slider-left ${ focusedSection.visible ? 'slider-focus' : '' }` }
@@ -70,25 +75,27 @@ class Recourse extends Component {
               setFocusedSection={ compose(dispatch, a.setFocusedSection) }
               { ...focusedSection }
             />
-            {/* End of Sliders */}
-            <CourseSearch
-              className="Tile Tile-padded"
-              onSubmit={compose(dispatch, a.filterCourses)}
-              text={courseSearchText}
-            />
-            <Worklist
-              className="margin-around"
-              courses={worklist}
-              onClick={onCourseClick}
-            />
-            <CollectionSelect
-              className="Tile"
-              collection={filteredCourses}
-              onClick={onCourseClick}
-              render={Course}
-              selected={worklist}
-            />
-          </Column>
+            <Column style={ { maxHeight: '100%' } }>
+              {/* End of Sliders */}
+              <CourseSearch
+                className="Tile Tile-padded"
+                onSubmit={compose(dispatch, a.filterCourses)}
+                text={courseSearchText}
+              />
+              <Worklist
+                className="margin-around"
+                courses={worklist}
+                onClick={onCourseClick}
+              />
+              <CollectionSelect
+                className="Tile"
+                collection={filteredCourses}
+                onClick={onCourseClick}
+                render={Course}
+                selected={worklist}
+              />
+            </Column>
+          </div>
           {/* Right hand side */}
           <Column className="margin-between-v">
             <ScheduleSettings
