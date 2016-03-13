@@ -1,0 +1,8 @@
+@import "bourbon/bourbon";
+@import "base/variables";
+
+.FocusedSection-Header {
+  &-icon {
+    font-size: $display-2-font-size;
+  }
+}

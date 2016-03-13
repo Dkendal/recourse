@@ -1,12 +1,16 @@
 import React from "react";
+import { iconName } from "lib/section";
+import "css/components/FocusedSection/Header";
 
 const Header = (props) => (
   <header
+    className="FocusedSection-Header"
     style={{
       backgroundColor: props.color,
       display: 'flex',
     }}
   >
+    <i className={ "FocusedSection-Header-icon " + iconName(props.section) }></i>
     <div
       className="Tile-padded"
       style={ { flex: 1 } }
