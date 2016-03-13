@@ -66,6 +66,7 @@ class Recourse extends Component {
             style={{
               position: 'relative',
               height: '100%',
+              flex: 1,
             }}
           >
             {/* Sliders */}
@@ -75,7 +76,7 @@ class Recourse extends Component {
               setFocusedSection={ compose(dispatch, a.setFocusedSection) }
               { ...focusedSection }
             />
-            <Column style={ { maxHeight: '100%' } }>
+            <Column className="margin-between-v" style={ { height: '100%' } }>
               {/* End of Sliders */}
               <CourseSearch
                 className="Tile Tile-padded"
