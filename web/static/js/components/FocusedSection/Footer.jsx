@@ -1,4 +1,5 @@
 import React from "react";
+import { iconName } from "lib/section";
 
 const Footer = (props) => (
   <footer className="Tile-padded">
@@ -11,6 +12,7 @@ const Footer = (props) => (
           onClick={ () => props.setFocusedSection(section.id) }
           key={ section.id }
         >
+          <i className={ iconName(section) } />
           { section.schedule_type }
           { " " }
           { section.name }
