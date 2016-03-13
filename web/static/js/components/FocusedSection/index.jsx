@@ -2,18 +2,9 @@ import React from "react";
 import MeetingTime from "./MeetingTime";
 // import "css/components/FocusedSection";
 
-function onEscape(event, fun) {
-  // escape
-  if (event.keyCode === 27) {
-    fun();
-  }
-}
-
 const FocusedSection = ({section, course, meetingTimes, ...props}) => (
   <section
     className={ `FocusedSection Tile ${props.className}` }
-    onKeyUp={ (e) => onEscape(e, props.hideFocusedSection) }
-    tabIndex="99"
   >
     <div
       onClick={ props.hideFocusedSection }
