@@ -41,7 +41,7 @@ class ScheduleSettings extends Component {
           />
           <div className="icon-hover-wrap icon-gutter vcenter">
             <button className="icon-btn">
-              <i className="icon-cw icon-hovered icon-spin"></i>
+              <i className="icon-cw icon-hovered icon-spin3"></i>
               <i className="icon-hover"></i>
             </button>
           </div>
