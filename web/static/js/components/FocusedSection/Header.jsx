@@ -8,6 +8,7 @@ const Header = (props) => (
     style={{
       backgroundColor: props.color,
       display: 'flex',
+      alignItems: 'center',
     }}
   >
     <i className={ "FocusedSection-Header-icon " + iconName(props.section) }></i>
