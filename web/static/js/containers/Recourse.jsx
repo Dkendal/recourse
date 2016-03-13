@@ -39,27 +39,31 @@ class Recourse extends Component {
 
     const onCourseClick = compose(dispatch, a.toggleCourseSelection);
 
+    const Header = () => (
+      <div className="recourse-header">
+        <select
+          name="term"
+          onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
+          value={selectedTermIdx}
+        >
+          {
+            terms.map(
+              (term, idx) =>
+              <option
+                key={term.id}
+                value={idx}
+              >
+                {`${term.semester} ${term.year}`}
+              </option>
+            )
+          }
+        </select>
+      </div>
+    );
+
     return(
       <div>
-        <div className="recourse-header">
-          <select
-            name="term"
-            onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
-            value={selectedTermIdx}
-          >
-            {
-              terms.map(
-                (term, idx) =>
-                <option
-                  key={term.id}
-                  value={idx}
-                >
-                  {`${term.semester} ${term.year}`}
-                </option>
-              )
-            }
-          </select>
-        </div>
+        <Header/>
         <Row className="recourse-body margin-between-h">
           {/* Left hand side */}
           <div
