@@ -44,7 +44,10 @@ const Text = ({ section, ...rest }) => (
 const iconName = (section) => `MeetingTime-icon icon-${section.schedule_type.toLowerCase()}`;
 
 const MeetingTime = ({section, inConflict, onClick, ...rest}) => (
-  <g onClick={ () => onClick(section.id) }>
+  <g
+    onClick={ () => onClick(section.id) }
+    style={{ cursor: 'pointer' }}
+  >
     <svg
       x={ rest.x }
       y={ rest.y }
