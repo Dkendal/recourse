@@ -62,28 +62,34 @@ class Recourse extends Component {
         </div>
         <Row className="recourse-body margin-between-h">
           {/* Left hand side */}
-          { focusedSection.hidden ?
-            <Column className="margin-between-v">
-              <CourseSearch
-                className="Tile Tile-padded"
-                onSubmit={compose(dispatch, a.filterCourses)}
-                text={courseSearchText}
-              />
-              <Worklist
-                className="margin-around"
-                courses={worklist}
-                onClick={onCourseClick}
-              />
-              <CollectionSelect
-                className="Tile"
-                collection={filteredCourses}
-                onClick={onCourseClick}
-                render={Course}
-                selected={worklist}
-              />
-            </Column> : null
-          }
-           {/* Right hand side */}
+          <Column className="margin-between-v slider-container">
+            {/* Sliders */}
+            <FocusedSection
+              className={ `slider slider-left ${ focusedSection.visible ? 'slider-focus' : '' }` }
+              hideFocusedSection={ compose(dispatch, a.hideFocusedSection) }
+              setFocusedSection={ compose(dispatch, a.setFocusedSection) }
+              { ...focusedSection }
+            />
+            {/* End of Sliders */}
+            <CourseSearch
+              className="Tile Tile-padded"
+              onSubmit={compose(dispatch, a.filterCourses)}
+              text={courseSearchText}
+            />
+            <Worklist
+              className="margin-around"
+              courses={worklist}
+              onClick={onCourseClick}
+            />
+            <CollectionSelect
+              className="Tile"
+              collection={filteredCourses}
+              onClick={onCourseClick}
+              render={Course}
+              selected={worklist}
+            />
+          </Column>
+          {/* Right hand side */}
           <Column className="margin-between-v">
             <ScheduleSettings
               endTime={endTime}
@@ -98,15 +104,6 @@ class Recourse extends Component {
             />
             <Crns collection={timetable.crns}/>
           </Column>
-          { focusedSection.visible ?
-            <Column>
-              <FocusedSection
-                hideFocusedSection={ compose(dispatch, a.hideFocusedSection) }
-                setFocusedSection={ compose(dispatch, a.setFocusedSection) }
-                { ...focusedSection }
-              />
-            </Column> : null
-          }
         </Row>
       </div>
     );

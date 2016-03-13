@@ -11,8 +11,7 @@ function onEscape(event, fun) {
 
 const FocusedSection = ({section, course, meetingTimes, ...props}) => (
   <section
-    className="FocusedSection Tile"
-    style={ { flex: 1 } }
+    className={ `FocusedSection Tile ${props.className}` }
     onKeyUp={ (e) => onEscape(e, props.hideFocusedSection) }
     tabIndex="99"
   >
