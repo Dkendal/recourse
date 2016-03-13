@@ -1,4 +1,5 @@
 import React from "react";
+import { iconName } from "lib/section";
 import  "css/components/Timetable/MeetingTime";
 
 const Conflict = (props) => (
@@ -41,8 +42,6 @@ const Text = ({ section, ...rest }) => (
   </g>
 );
 
-const iconName = (section) => `MeetingTime-icon icon-${section.schedule_type.toLowerCase()}`;
-
 const MeetingTime = ({section, inConflict, onClick, ...rest}) => (
   <g
     onClick={ () => onClick(section.id) }
@@ -75,7 +74,7 @@ const MeetingTime = ({section, inConflict, onClick, ...rest}) => (
           width="100%"
           height="100%"
           requiredExtensions="http://www.w3.org/1999/xhtml">
-          <i className={ iconName(section) }/>
+          <i className={ "MeetingTime-icon " + iconName(section) }/>
         </foreignObject>
       </g>
     </svg>
