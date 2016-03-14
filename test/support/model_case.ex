@@ -16,6 +16,7 @@ defmodule Recourse.ModelCase do
 
   using do
     quote do
+      use Recourse.Case
       alias Recourse.Repo
       import Ecto
       import Ecto.Changeset
