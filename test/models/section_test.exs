@@ -2,7 +2,7 @@ defmodule Recourse.SectionTest do
   use Recourse.ModelCase
   use Recourse.Assertions
 
-  alias Recourse.Section
+  alias Recourse.{Section, MeetingTime}
 
   @valid_attrs %{
     campus: "some content",
@@ -32,5 +32,33 @@ defmodule Recourse.SectionTest do
   test "changeset with invalid attributes" do
     changeset = Section.changeset(%Section{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  describe "tba?/1" do
+    import Recourse.Section, only: [tba?: 1]
+
+    it "is false" do
+      section =  %Section{
+        meeting_times: [
+          %MeetingTime{ tba: true },
+          %MeetingTime{ tba: false },
+        ],
+      }
+
+      assert tba?(section) == false
+    end
+
+    context "when all meeting times are tba" do
+      it "is true" do
+        section =  %Section{
+          meeting_times: [
+            %MeetingTime{ tba: true },
+            %MeetingTime{ tba: true },
+          ],
+        }
+
+        assert tba?(section) == true
+      end
+    end
   end
 end

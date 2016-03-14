@@ -54,6 +54,10 @@ defmodule Recourse.Section do
     |> validate_required(@required_fields)
   end
 
+  def tba?(%__MODULE__{meeting_times: meeting_times}) do
+    Enum.all?(meeting_times, & &1.tba)
+  end
+
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(section, _options) do
       %{
