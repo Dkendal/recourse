@@ -8,7 +8,7 @@ defmodule Recourse.Scraper.Section.RequestTest do
         subject: "CSC",
         number: "100",
         term: %Recourse.Term{
-          semester: :winter,
+          semester: :spring,
           year: 2015
         }
       }

@@ -3,7 +3,7 @@ defmodule Recourse.TermTest do
 
   alias Recourse.Term
 
-  @valid_attrs %{semester: :winter, year: 2015}
+  @valid_attrs %{semester: :spring, year: 2015}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -18,6 +18,6 @@ defmodule Recourse.TermTest do
 
   test "to_string returns the term code" do
     assert "201501" ==
-      to_string(%Term{year: 2015, semester: :winter})
+      to_string(%Term{year: 2015, semester: :spring})
   end
 end

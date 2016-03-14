@@ -19,7 +19,7 @@ defmodule Recourse.Factory do
   def factory(:term) do
     %Recourse.Term{
       year: 2015,
-      semester: :winter
+      semester: :spring
     }
   end
 

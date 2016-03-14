@@ -2,7 +2,7 @@ defmodule Recourse.Scraper.CourseTest do
   use Recourse.Case
 
   setup do
-    term = create(:term, year: 2015, semester: :winter)
+    term = create(:term, year: 2015, semester: :spring)
     {
       :ok,
       term: term

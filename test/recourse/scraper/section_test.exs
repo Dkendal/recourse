@@ -5,7 +5,7 @@ defmodule Recourse.Scraper.SectionTest do
     context "with multiple courses, in one query" do
       it "loads sections for the courses" do
         use_cassette "csc 100 and 320" do
-          winter_2016 = create(:term, semester: :winter, year: 2016)
+          winter_2016 = create(:term, semester: :spring, year: 2016)
           csc_320 = create(:course, subject: "CSC", number: "320", term: winter_2016)
           csc_100 = create(:course, subject: "CSC", number: "100", term: winter_2016)
 
@@ -32,7 +32,7 @@ defmodule Recourse.Scraper.SectionTest do
     context "with multiple queries" do
       it "loads sections for the courses" do
         use_cassette "art 103 and csc 100", match_requests_on: [:query] do
-          winter_2016 = create(:term, semester: :winter, year: 2016)
+          winter_2016 = create(:term, semester: :spring, year: 2016)
           art = create(:course, subject: "ART", number: "103", term: winter_2016)
           csc = create(:course, subject: "CSC", number: "100", term: winter_2016)
 
@@ -68,7 +68,7 @@ defmodule Recourse.Scraper.SectionTest do
     context "when there are multiple meeting times for a section" do
       it "creates multiple sections" do
         use_cassette "art 103 sections" do
-          winter_2016 = create(:term, semester: :winter, year: 2016)
+          winter_2016 = create(:term, semester: :spring, year: 2016)
           art = create(:course, subject: "ART", number: "103", term: winter_2016)
           art_id = art.id
 

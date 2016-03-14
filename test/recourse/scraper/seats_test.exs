@@ -3,7 +3,7 @@ defmodule Recourse.Scraper.SeatsTest do
   use Recourse.Case, async: false
 
   test "find/1 returns seat info for a section" do
-    term = build(:term, year: 2016, semester: :winter)
+    term = build(:term, year: 2016, semester: :spring)
 
     course = create(:course, term: term)
 
