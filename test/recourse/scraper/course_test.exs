@@ -2,6 +2,8 @@ defmodule Recourse.Scraper.CourseTest do
   use Recourse.Case
 
   setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+
     term = create(:term, year: 2015, semester: :spring)
     {
       :ok,
@@ -20,7 +22,7 @@ defmodule Recourse.Scraper.CourseTest do
 
       changeset = List.first actual
       assert_valid changeset
-      assert changeset.model == %Recourse.Course{}
+      assert changeset.data == %Recourse.Course{}
       assert changeset.changes.term_id == term.id
     end
   end

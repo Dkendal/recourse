@@ -1,6 +1,10 @@
 defmodule Recourse.Scraper.SectionTest do
   use Recourse.Case, async: false
 
+  setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+  end
+
   describe "#all/1" do
     context "with multiple courses, in one query" do
       it "loads sections for the courses" do

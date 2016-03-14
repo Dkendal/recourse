@@ -2,6 +2,10 @@ defmodule Recourse.Scraper.SeatsTest do
   alias Recourse.Scraper.Seats
   use Recourse.Case, async: false
 
+  setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+  end
+
   test "find/1 returns seat info for a section" do
     term = build(:term, year: 2016, semester: :spring)
 

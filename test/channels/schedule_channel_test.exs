@@ -9,7 +9,6 @@ defmodule Recourse.ScheduleChannelTest do
       socket("user_id", %{some: :assign})
       |> subscribe_and_join(ScheduleChannel, "schedules:planner")
 
-
     {:ok, socket: socket}
   end
 

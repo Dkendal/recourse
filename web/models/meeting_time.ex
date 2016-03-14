@@ -1,5 +1,5 @@
 defmodule Recourse.MeetingTime do
-  alias Recourse.{Web, Section, Timetable}
+  alias Recourse.{Web, Section}
   alias Ecto.{Date, Time}
 
   use Web, :model
@@ -7,8 +7,8 @@ defmodule Recourse.MeetingTime do
   schema "meeting_times" do
     field :date_end, Date
     field :date_start, Date
-    field :days, {:array, :string}
-    field :instructors, {:array, :string}
+    field :days, {:array, :string}, default: []
+    field :instructors, {:array, :string}, default: []
     field :location, :string
     field :end_time, Time
     field :start_time, Time

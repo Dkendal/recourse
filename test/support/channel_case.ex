@@ -28,14 +28,10 @@ defmodule Recourse.ChannelCase do
 
       # The default endpoint for testing
       @endpoint Recourse.Endpoint
+      setup do
+        :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+        Ecto.Adapters.SQL.Sandbox.mode(Recourse.Repo, {:shared, self()})
+      end
     end
-  end
-
-  setup tags do
-    unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Recourse.Repo, [])
-    end
-
-    :ok
   end
 end

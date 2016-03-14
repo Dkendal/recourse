@@ -2,6 +2,10 @@ defmodule Recourse.ScheduleTest do
   alias Recourse.Schedule
   use Recourse.Case
 
+  setup do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+  end
+
   describe "build/1" do
     context "when one of the courses is tba" do
       it "excludes it from the results" do
