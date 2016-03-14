@@ -50,6 +50,7 @@ defmodule Recourse.MeetingTime do
     :location,
     :section_id,
     :type,
+    :tba,
   ]
 
   @optional_fields [

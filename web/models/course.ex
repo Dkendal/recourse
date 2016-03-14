@@ -5,6 +5,7 @@ defmodule Recourse.Course do
     field :title, :string
     field :subject, :string
     field :number, :string
+    field :tba, :boolean, default: false
     has_many :sections, Recourse.Section
     belongs_to :term, Recourse.Term
 
@@ -18,6 +19,7 @@ defmodule Recourse.Course do
     :subject,
     :number,
     :term_id,
+    :tba,
   ]
 
   @doc """
