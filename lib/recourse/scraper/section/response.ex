@@ -94,6 +94,12 @@ defmodule Recourse.Scraper.Section.Response do
     |> transform
   end
 
+  def transform(%{"Days" => "\u00A0"} = map) do
+    map
+    |> Map.delete("Days")
+    |> transform
+  end
+
   def transform(%{"Days" => days} = map) do
     days = String.codepoints days
 
@@ -106,6 +112,7 @@ defmodule Recourse.Scraper.Section.Response do
   @type transform(Map) :: Map
   def transform(%{"Time" => "TBA"} = map) do
     map
+    |> Map.put(:tba, true)
     |> Map.delete("Time")
     |> transform
   end
