@@ -13,6 +13,7 @@ defmodule Recourse.MeetingTime do
     field :end_time, Time
     field :start_time, Time
     field :type, :string
+    field :tba, :boolean, default: false
 
     belongs_to :section, Section
 
