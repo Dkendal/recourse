@@ -1,5 +1,6 @@
 defmodule Scrape do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  import Recourse.Repo
 
   def subjects do
     ~w(AGEI ASL ANTH ART AE ASTR BIOC BCMB BIOL BME BUS CS CHEM CYC CIVE COM CD
@@ -12,14 +13,14 @@ defmodule Scrape do
   end
 
   def reset do
-    Mix.Task.run("ecto.drop")
-    Mix.Task.run("ecto.create")
-    Mix.Task.run("ecto.migrate")
+    delete_all Recourse.MeetingTime
+    delete_all Recourse.Section
+    delete_all Recourse.Course
+    delete_all Recourse.Term
   end
 
   def run(year, semester) do
     use_cassette "#{year}-#{semester}", match_requests_on: [:query] do
-      import Recourse.Repo
 
       { year, "" } = Integer.parse(year)
 
