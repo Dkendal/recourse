@@ -22,22 +22,25 @@ defmodule Recourse.Section do
     field :overlap, :any, virtual: :true
   end
 
-  @required_fields ~w(
-    course_id
-    date_end
-    date_start
-    name
-    crn
-    schedule_type
-  )
-
-  @optional_fields ~w(
-    campus
-    credits
-    instructional_method
-    registration_end
-    registration_start
-  )
+  @required_fields [
+    :campus,
+    :credits,
+    :instructional_method,
+    :registration_end,
+    :registration_start,
+    :course_id,
+    :date_end,
+    :date_start,
+    :name,
+    :crn,
+    :schedule_type,
+    :course_id,
+    :date_end,
+    :date_start,
+    :name,
+    :crn,
+    :schedule_type,
+  ]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -47,7 +50,8 @@ defmodule Recourse.Section do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Poison.Encoder, for: __MODULE__ do

@@ -42,19 +42,20 @@ defmodule Recourse.MeetingTime do
     :sets.is_disjoint(x, y)
   end
 
-  @required_fields ~w(
-    date_end
-    date_start
-    days
-    instructors
-    location
-    section_id
-    end_time
-    start_time
-    type
-  )
+  @required_fields [
+    :date_end,
+    :date_start,
+    :days,
+    :instructors,
+    :location,
+    :section_id,
+    :type,
+  ]
 
-  @optional_fields ~w()
+  @optional_fields [
+    :end_time,
+    :start_time,
+  ]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -64,7 +65,8 @@ defmodule Recourse.MeetingTime do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Poison.Encoder, for: __MODULE__ do

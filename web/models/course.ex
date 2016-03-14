@@ -13,8 +13,12 @@ defmodule Recourse.Course do
 
   @type t :: %__MODULE__{}
 
-  @required_fields ~w(title subject number term_id)
-  @optional_fields ~w()
+  @required_fields [
+    :title,
+    :subject,
+    :number,
+    :term_id,
+  ]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -24,7 +28,8 @@ defmodule Recourse.Course do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Poison.Encoder, for: __MODULE__ do

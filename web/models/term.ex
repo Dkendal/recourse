@@ -11,8 +11,10 @@ defmodule Recourse.Term do
 
   @type t :: %__MODULE__{}
 
-  @required_fields ~w(year semester)
-  @optional_fields ~w()
+  @required_fields [
+    :year,
+    :semester,
+  ]
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -22,7 +24,8 @@ defmodule Recourse.Term do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields)
+    |> validate_required(@required_fields)
   end
 
   defimpl Poison.Encoder, for: __MODULE__ do
