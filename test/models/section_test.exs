@@ -60,5 +60,13 @@ defmodule Recourse.SectionTest do
         assert tba?(section) == true
       end
     end
+
+    context "when meeting times are not loaded" do
+      it "fails" do
+        assert_raise Protocol.UndefinedError, fn ->
+          tba?(%Section{})
+        end
+      end
+    end
   end
 end

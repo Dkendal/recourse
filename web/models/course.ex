@@ -34,6 +34,10 @@ defmodule Recourse.Course do
     |> validate_required(@required_fields)
   end
 
+  def tba?(%__MODULE__{sections: sections}) do
+    Enum.all?(sections, Recourse.Section.tba?)
+  end
+
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(course, _options) do
       %{id: course.id,
