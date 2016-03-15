@@ -60,6 +60,11 @@ defmodule Recourse.Section do
     Enum.all?(meeting_times, & &1.tba)
   end
 
+  def put_tba_change(change) do
+    change
+    |> Ecto.Changeset.put_change(:tba, tba?(change.data))
+  end
+
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(section, _options) do
       %{

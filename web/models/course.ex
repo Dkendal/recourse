@@ -35,7 +35,12 @@ defmodule Recourse.Course do
   end
 
   def tba?(%__MODULE__{sections: sections}) do
-    Enum.all?(sections, Recourse.Section.tba?)
+    Enum.all?(sections, & &1.tba)
+  end
+
+  def put_tba_change(change) do
+    change
+    |> Ecto.Changeset.put_change(:tba, tba?(change.data))
   end
 
   defimpl Poison.Encoder, for: __MODULE__ do

@@ -1,6 +1,16 @@
 defmodule Scrape do
+  alias Recourse.{
+    Repo,
+    Course,
+    Section,
+    MeetingTime,
+    Term,
+  }
+
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-  import Recourse.Repo
+
+  import Repo
+  import Ecto.Query, only: [from: 2]
 
   def subjects do
     ~w(AGEI ASL ANTH ART AE ASTR BIOC BCMB BIOL BME BUS CS CHEM CYC CIVE COM CD
@@ -23,6 +33,7 @@ defmodule Scrape do
     use_cassette "#{year}-#{semester}", match_requests_on: [:query] do
 
       { year, "" } = Integer.parse(year)
+      semester = String.to_atom(semester)
 
       term = %Recourse.Term{year: year, semester: semester} |> insert!
 
@@ -41,14 +52,42 @@ defmodule Scrape do
       |> Enum.map(&insert!/1)
     end
   end
+
+  def set_tba_sections do
+    from(s in Section, preload: [:meeting_times])
+    |> all
+    |> Enum.map(fn section ->
+      section
+      |> Ecto.Changeset.change
+      |> Section.put_tba_change
+      |> update!
+    end)
+  end
+
+  def set_tba_courses do
+    from(c in Course, preload: [:sections])
+    |> all
+    |> Enum.map(fn course ->
+      course
+      |> Ecto.Changeset.change
+      |> Course.put_tba_change
+      |> update!
+    end)
+  end
 end
 
 # Scrape.run
-
 { opts, _, _ } = OptionParser.parse(System.argv())
 
 if opts[:reset] do
   Scrape.reset
 end
 
-Scrape.run(opts[:year], opts[:semester])
+if opts[:seed] do
+  Scrape.run(opts[:year], opts[:semester])
+end
+
+if opts[:update_tba] do
+  Scrape.set_tba_sections
+  Scrape.set_tba_courses
+end
