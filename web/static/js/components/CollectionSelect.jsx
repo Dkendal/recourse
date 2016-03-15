@@ -9,6 +9,7 @@ const CollectionSelect = ({className="", collection, selected, render, onClick})
       <div
         key={idx}
         onClick={() => onClick(item)}
+        style={ { display: 'flex' } }
         className={ [
           selected.includes(item) ? "selected" : "",
           "CollectionSelect-item",

@@ -5,6 +5,7 @@ defmodule Recourse.CourseView do
     :title,
     :subject,
     :number,
+    :tba,
   ]
 
   def type(), do: "course"

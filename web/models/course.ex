@@ -45,10 +45,13 @@ defmodule Recourse.Course do
 
   defimpl Poison.Encoder, for: __MODULE__ do
     def encode(course, _options) do
-      %{id: course.id,
+      %{
+        id: course.id,
         title: course.title,
         subject: course.subject,
-        number: course.number}
+        tba: course.tba,
+        number: course.number,
+      }
       |> Poison.Encoder.encode([])
     end
   end
