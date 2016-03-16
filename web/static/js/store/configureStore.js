@@ -3,12 +3,13 @@ import thunk from 'redux-thunk';
 import * as storage from "redux-storage";
 import createEngine from "redux-storage-engine-localstorage";
 import filter from "redux-storage-decorator-filter";
+import debounce from "redux-storage-decorator-debounce";
 import reducer, {loader} from '../reducers';
 import deserializer from "./deserializer";
 
-const engine = createEngine('recourse');
+let engine = createEngine('recourse');
 
-const filteredEngine = filter(
+engine = filter(
   engine,
   [
     ['frontEnd', 'selectedCourses'],
@@ -16,11 +17,13 @@ const filteredEngine = filter(
   []
 );
 
+engine = debounce(engine, 1500);
+
 const storageReducer = storage.reducer(reducer, deserializer);
 
-const storageMiddleware = storage.createMiddleware(filteredEngine);
+const storageMiddleware = storage.createMiddleware(engine);
 
-const load = storage.createLoader(filteredEngine);
+const load = storage.createLoader(engine);
 
 const middleware = [
   thunk,
