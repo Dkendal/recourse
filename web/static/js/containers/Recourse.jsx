@@ -87,11 +87,6 @@ class Recourse extends Component {
                 { ...this.props.actions }
                 { ...this.props.settings.search }
               />
-              <Worklist
-                className="margin-around"
-                { ...this.props }
-                { ...this.props.actions }
-              />
               <CollectionSelect
                 className="Tile"
                 collection={filteredCourses}
@@ -110,6 +105,11 @@ class Recourse extends Component {
               className="Tile Tile-padded"
               { ...this.props.actions }
               { ...this.props.settings.timetable }
+            />
+            <Worklist
+              className="margin-around"
+              { ...this.props }
+              { ...this.props.actions }
             />
             <Timetable
               setFocusedSection={ compose(dispatch, a.setFocusedSection) }
