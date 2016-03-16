@@ -93,22 +93,24 @@ export const worklistIds = createSelector(
  */
 const filteredCourses = createSelector(
   courses,
-  courseSearchText,
-  (courses, query) => courses.filter(
+  (state => state.settings.search),
+  (courses, search) => courses.filter(
     course => {
-      if (query == false) {
-        return true;
+      let result = courses;
+
+      if (search.text) {
+        const regex = new RegExp(search.text, "i");
+
+        const fields = [
+          course.subject,
+          course.number,
+          course.title
+        ];
+
+        result = _.some(fields, field => regex.test(field));
       }
 
-      const regex = new RegExp(query, "i");
-
-      const fields = [
-        course.subject,
-        course.number,
-        course.title
-      ];
-
-      return _.some(fields, field => regex.test(field));
+      return result;
     }
   )
 );
@@ -136,7 +138,6 @@ export const sections = createSelector(
 
 export default createStructuredSelector({
   channel,
-  courseSearchText,
   courses,
   endTime,
   filteredCourses,

@@ -2,7 +2,6 @@ import React, {PropTypes} from "react";
 import "css/components/CourseSearch";
 
 const CourseSearch = (props) => {
-  console.log(props);
   return <div className="CourseSearch Tile Tile-padded">
     <form
       className="input margin-between-h"
@@ -22,13 +21,6 @@ const CourseSearch = (props) => {
       </div>
     </form>
   </div>
-};
-
-CourseSearch.displayName = "CourseSearch";
-
-CourseSearch.propTypes = {
-  text: PropTypes.string,
-  onSubmit: PropTypes.func
 };
 
 export default CourseSearch;
