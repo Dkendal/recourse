@@ -15,24 +15,18 @@ import {
   Crns,
   ScheduleSettings,
   Worklist,
+  TermSelect,
 } from "components";
 import "css/containers/Recourse";
 
 class Recourse extends Component {
-  getSelectedTerm({target}) {
-    return Number.parseInt(target.value, 10);
-  }
-
   render() {
-    const a = actions;
-
     const {
       dispatch,
       filteredCourses,
       scheduleEndTime,
       scheduleStartTime,
       sections,
-      selectedTermIdx,
       focusedSection,
       terms,
       timetable,
@@ -41,23 +35,10 @@ class Recourse extends Component {
 
     const Header = () => (
       <div className="recourse-header">
-        <select
-          name="term"
-          onChange={ () => this.props.actions.changeTerm(this.getSelectedTerm()) }
-          value={selectedTermIdx}
-        >
-          {
-            terms.map(
-              (term, idx) =>
-              <option
-                key={term.id}
-                value={idx}
-              >
-                {`${term.semester} ${term.year}`}
-              </option>
-            )
-          }
-        </select>
+        <TermSelect
+          { ...this.props }
+          { ...this.props.actions }
+        />
       </div>
     );
 
