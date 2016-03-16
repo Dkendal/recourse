@@ -1,62 +1,40 @@
-import React, {Component, PropTypes} from "react";
-import {compose} from "underscore";
-import TextField from "components/TextField";
-import Row from "components/Row";
-import {TIME} from "types";
+import React from "react";
+import _ from "underscore";
+import { Row, TextField } from "components";
 
-class ScheduleSettings extends Component {
-  render() {
-    const {
-      endTime,
-      onSettingsChange,
-      onSubmit,
-      startTime,
-      className="",
-    } = this.props;
+const ScheduleSettings = ({ className = "", ...props }) => {
+  const onSubmit = (e) => e.preventDefault()
 
-    const preventDefault = (e) => {
-      e.preventDefault();
-      return e;
-    };
+  const getValue = e => e.target.value;
+  const setStart = _.compose(props.setSettingsTimetableStart, getValue);
+  const setEnd = _.compose(props.setSettingsTimetableEnd, getValue);
 
-    return (
-      <form
-        action=""
-        onKeyUp={onSettingsChange}
-        onSubmit={compose(onSubmit, preventDefault)}
-        className={className}
-      >
-        <Row className="margin-between-h">
-          <TextField
-            defaultValue={startTime}
-            label="Prefered start time"
-            name="scheduleSettings_startTime"
-            type="time"
-          />
-          <TextField
-            defaultValue={endTime}
-            label="Prefered end time"
-            name="scheduleSettings_endTime"
-            type="time"
-          />
-          <div className="icon-hover-wrap icon-gutter vcenter">
-            <button className="icon-btn">
-              <i className="icon-cw icon-hovered icon-spin3"></i>
-              <i className="icon-hover"></i>
-            </button>
-          </div>
-        </Row>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={ onSubmit }>
+      <Row className={ `margin-between-h ${className}` }>
+        <TextField
+          value={ props.start }
+          onChange={ setStart }
+          label="Prefered start time"
+          name="start"
+          type="time"
+        />
+        <TextField
+          value={ props.end }
+          onChange={ setEnd }
+          label="Prefered end time"
+          name="end"
+          type="time"
+        />
+        <div className="icon-hover-wrap icon-gutter vcenter">
+          <button className="icon-btn">
+            <i className="icon-cw icon-hovered icon-spin3"></i>
+            <i className="icon-hover"></i>
+          </button>
+        </div>
+      </Row>
+    </form>
+  );
 }
-ScheduleSettings.displayName = "ScheduleSettings";
-
-ScheduleSettings.propTypes = {
-  onSettingsChange:  PropTypes.func,
-  onSubmit:          PropTypes.func,
-  endTime:           PropTypes.string,
-  startTime:         PropTypes.string,
-};
 
 export default ScheduleSettings;

@@ -12,7 +12,7 @@ let engine = createEngine('recourse');
 engine = filter(
   engine,
   [
-    ['frontEnd', 'selectedCourses'],
+    ['settings'],
   ],
   []
 );

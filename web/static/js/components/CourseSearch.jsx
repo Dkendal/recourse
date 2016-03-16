@@ -1,25 +1,11 @@
 import React, {PropTypes} from "react";
 import "css/components/CourseSearch";
 
-const submitForm = (onSubmit) => (event) => {
-  event.preventDefault();
-
-  const fields = ["courseName"];
-
-  let formValues = {};
-
-  fields.
-    map(field => event.target.elements.namedItem(field)).
-    map(input => formValues[input.name] = input.value);
-
-  return onSubmit(formValues);
-};
-
-const CourseSearch = ({onSubmit, text}) => (
-  <div className="CourseSearch Tile Tile-padded">
+const CourseSearch = (props) => {
+  console.log(props);
+  return <div className="CourseSearch Tile Tile-padded">
     <form
       className="input margin-between-h"
-      onSubmit={submitForm(onSubmit)}
       role="search"
       >
       <div className="icon-gutter">
@@ -29,13 +15,14 @@ const CourseSearch = ({onSubmit, text}) => (
         <input
           name="courseName"
           type="search"
-          defaultValue={text}
+          value={ props.text }
+          onChange={ e => props.setSettingsSearchText(e.target.value) }
           placeholder="Search"
         />
       </div>
     </form>
   </div>
-);
+};
 
 CourseSearch.displayName = "CourseSearch";
 

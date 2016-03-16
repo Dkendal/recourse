@@ -2,18 +2,20 @@ import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { compose } from "underscore";
-import actions from "../actions";
-import select from "../selectors";
-import CollectionSelect from "../components/CollectionSelect";
-import Column from "../components/Column";
-import Course from "../components/Course";
-import CourseSearch from "../components/CourseSearch";
-import Row from "../components/Row";
-import Crns from "../components/Crns";
-import ScheduleSettings from "../components/ScheduleSettings";
-import Worklist from "../components/Worklist";
-import { Timetable, FocusedSection } from "../components";
-
+import actions from "actions";
+import select from "selectors";
+import {
+  Timetable,
+  FocusedSection,
+  CollectionSelect,
+  Column,
+  Course,
+  CourseSearch,
+  Row,
+  Crns,
+  ScheduleSettings,
+  Worklist,
+} from "components";
 import "css/containers/Recourse";
 
 class Recourse extends Component {
@@ -25,16 +27,13 @@ class Recourse extends Component {
     const a = actions;
 
     const {
-      courseSearchText,
       dispatch,
-      endTime,
       filteredCourses,
       scheduleEndTime,
       scheduleStartTime,
       sections,
       selectedTermIdx,
       focusedSection,
-      startTime,
       terms,
       timetable,
       worklist,
@@ -87,8 +86,8 @@ class Recourse extends Component {
               {/* End of Sliders */}
               <CourseSearch
                 className="Tile Tile-padded"
-                onSubmit={compose(dispatch, a.filterCourses)}
-                text={courseSearchText}
+                { ...this.props.actions }
+                { ...this.props.settings.search }
               />
               <Worklist
                 className="margin-around"
@@ -107,11 +106,9 @@ class Recourse extends Component {
           {/* Right hand side */}
           <Column className="margin-between-v">
             <ScheduleSettings
-              endTime={endTime}
-              onSettingsChange={compose(dispatch, a.setScheduleSettings)}
-              onSubmit={compose(dispatch, a.refreshSchedule)}
-              startTime={startTime}
               className="Tile Tile-padded"
+              { ...this.props.actions }
+              { ...this.props.settings.timetable }
             />
             <Timetable
               setFocusedSection={ compose(dispatch, a.setFocusedSection) }

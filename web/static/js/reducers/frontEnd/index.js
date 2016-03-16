@@ -34,7 +34,7 @@ const frontEnd = combineReducers({
   selectedTerm,
   selectedCourses,
   courseFilter,
-  scheduleSettings
+  scheduleSettings,
 });
 
 export default frontEnd;

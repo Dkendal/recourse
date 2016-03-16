@@ -4,6 +4,7 @@ import moment from "moment";
 import {List} from "immutable";
 import timetable from "./timetable";
 import focusedSection from "./focusedSection";
+import settings from "./settings";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -140,6 +141,7 @@ export default createStructuredSelector({
   endTime,
   filteredCourses,
   focusedSection,
+  settings,
   scheduleEndTime,
   scheduleStartTime,
   sections,
