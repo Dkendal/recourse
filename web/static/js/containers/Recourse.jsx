@@ -39,8 +39,6 @@ class Recourse extends Component {
       worklist,
     } = this.props;
 
-    const onCourseClick = compose(dispatch, a.toggleCourseSelection);
-
     const Header = () => (
       <div className="recourse-header">
         <select
@@ -91,15 +89,15 @@ class Recourse extends Component {
               />
               <Worklist
                 className="margin-around"
-                courses={worklist}
-                onClick={onCourseClick}
+                { ...this.actions }
+                { ...this.props }
               />
               <CollectionSelect
                 className="Tile"
                 collection={filteredCourses}
-                onClick={onCourseClick}
                 render={Course}
                 selected={worklist}
+                onClick={ this.props.actions.toggleCourseSelection }
               />
             </Column>
           </div>
