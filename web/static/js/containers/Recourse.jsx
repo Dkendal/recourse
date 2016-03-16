@@ -89,15 +89,15 @@ class Recourse extends Component {
               />
               <Worklist
                 className="margin-around"
-                { ...this.actions }
                 { ...this.props }
+                { ...this.props.actions }
               />
               <CollectionSelect
                 className="Tile"
                 collection={filteredCourses}
                 render={Course}
                 selected={worklist}
-                onClick={ this.props.actions.toggleCourseSelection }
+                onClick={ x => this.props.actions.toggleSettingsCoursesSelected(x.id) }
               />
             </Column>
           </div>

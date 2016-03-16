@@ -12,7 +12,7 @@ const startTimeStr = state => state.frontEnd.scheduleSettings.startTime;
 
 export const channel = state => state.channel;
 export const terms = state => state.entries.terms;
-export const selectedCourses = state => state.frontEnd.selectedCourses;
+export const selectedCourses = state => state.settings.courses.selected;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
 
 function parseTime(t) {

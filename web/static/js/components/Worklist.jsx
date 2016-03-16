@@ -6,25 +6,23 @@ const Course = ({course: {subject, number}}) => (
   <span>{`${subject} ${number}`}</span>
 );
 
-const Worklist = ({ className, worklist, toggleCourseSelection }) => (
-  <div
-    className={ `${className}` }
+const Worklist = (props) => {
+  return <div
+    className={ `${props.className}` }
     style={{
       minHeight: "47px",
     }}
   >
 
-    {worklist.map(
+    {props.worklist.map(
       course =>
       <Chip
-        onClick={ toggleCourseSelection }
+        onClick={ () => props.toggleSettingsCoursesSelected(course.id) }
         key={course.id}>
         <Course course={course}/>
-      </Chip>
-      )
+      </Chip>)
     }
   </div>
-);
+};
 
-Worklist.displayName = "Worklist";
 export default Worklist;
