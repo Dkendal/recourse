@@ -97,7 +97,10 @@ class Recourse extends Component {
                 collection={filteredCourses}
                 render={Course}
                 selected={worklist}
-                onClick={ x => this.props.actions.toggleSettingsCoursesSelected(x.id) }
+                onClick={ x => {
+                  this.props.actions.toggleSettingsCoursesSelected(x.id);
+                  this.props.actions.refreshSchedule();
+                }}
               />
             </Column>
           </div>

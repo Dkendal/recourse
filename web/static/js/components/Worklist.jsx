@@ -17,7 +17,10 @@ const Worklist = (props) => {
     {props.worklist.map(
       course =>
       <Chip
-        onClick={ () => props.toggleSettingsCoursesSelected(course.id) }
+        onClick={ () => {
+          props.toggleSettingsCoursesSelected(course.id);
+          props.actions.refreshSchedule();
+        }}
         key={course.id}>
         <Course course={course}/>
       </Chip>)

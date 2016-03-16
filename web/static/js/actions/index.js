@@ -1,7 +1,6 @@
 import {createAction} from "redux-actions";
 import channelActions from "./channel";
-import courseActions from "./courses";
-import settings from "./settings";
+import settingsActions from "./settings";
 import focusedSectionActions from "./focused_sections";
 
 const filterCourses = createAction("FILTER_COURSES");
@@ -21,9 +20,8 @@ function changeTerm(term) {
 
 export default {
   ...channelActions,
-  ...courseActions,
   ...focusedSectionActions,
-  ...settings,
+  ...settingsActions,
   changeTerm,
   filterCourses,
   setScheduleSettings

@@ -37,14 +37,9 @@ function refreshSchedule() {
 
     dispatch(fetchingTimetable());
 
-    const onSuccess = ({payload: {schedule, earliestStartTime, latestEndTime, ...rest}}) => {
-      dispatch(sync(rest.timetable));
-      dispatch(setTimetable(rest.timetable.data.id));
-
-      // TODO remove these
-      dispatch(setSections(schedule));
-      dispatch(setMinScheduleStartTime(earliestStartTime));
-      dispatch(setMaxScheduleEndTime(latestEndTime));
+    const onSuccess = ({payload: { timetable }}) => {
+      dispatch(sync(timetable));
+      dispatch(setTimetable(timetable.data.id));
     };
 
     const params = {
