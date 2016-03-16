@@ -1,7 +1,8 @@
-import React, {Component, PropTypes} from "react";
-import {connect} from "react-redux";
-import {compose} from "underscore";
-import a from "../actions";
+import React, { Component, PropTypes } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { compose } from "underscore";
+import actions from "../actions";
 import select from "../selectors";
 import CollectionSelect from "../components/CollectionSelect";
 import Column from "../components/Column";
@@ -21,6 +22,8 @@ class Recourse extends Component {
   }
 
   render() {
+    const a = actions;
+
     const {
       courseSearchText,
       dispatch,
@@ -123,4 +126,11 @@ class Recourse extends Component {
 }
 
 Recourse.displayName = "Recourse";
-export default connect(select)(Recourse);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
+export default connect(select, mapDispatchToProps)(Recourse);
