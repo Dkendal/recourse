@@ -43,7 +43,7 @@ class Recourse extends Component {
       <div className="recourse-header">
         <select
           name="term"
-          onChange={compose(dispatch, a.changeTerm, this.getSelectedTerm)}
+          onChange={ () => this.props.actions.changeTerm(this.getSelectedTerm()) }
           value={selectedTermIdx}
         >
           {
