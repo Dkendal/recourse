@@ -7,7 +7,13 @@ const Course = ({course: {subject, number}}) => (
 );
 
 const Worklist = ({ className, worklist, toggleCourseSelection }) => (
-  <div className={className}>
+  <div
+    className={ `${className}` }
+    style={{
+      minHeight: "47px",
+    }}
+  >
+
     {worklist.map(
       course =>
       <Chip
