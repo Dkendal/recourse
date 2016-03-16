@@ -19,91 +19,82 @@ import {
 } from "components";
 import "css/containers/Recourse";
 
-class Recourse extends Component {
-  render() {
-    const {
-      dispatch,
-      filteredCourses,
-      scheduleEndTime,
-      scheduleStartTime,
-      sections,
-      focusedSection,
-      terms,
-      timetable,
-      worklist,
-    } = this.props;
 
-    const Header = () => (
-      <div className="recourse-header">
-        <TermSelect
-          { ...this.props }
-          { ...this.props.actions }
-        />
-      </div>
-    );
+const Header = (props) => (
+  <div className="recourse-header">
+    <TermSelect
+      { ...props }
+      { ...props.actions }
+    />
+  </div>
+);
 
-    return(
-      <div>
-        <Header/>
-        <Row className="recourse-body margin-between-h">
-          {/* Left hand side */}
-          <div
-            style={{
-              position: 'relative',
-              height: '100%',
-              flex: 1,
-            }}
-          >
-            {/* Sliders */}
-            <FocusedSection
-              className={ `slider slider-left ${ focusedSection.visible ? 'slider-focus' : '' }` }
-              { ...this.props.actions }
-              { ...focusedSection }
-            />
-            <Column className="margin-between-v" style={ { height: '100%' } }>
-              {/* End of Sliders */}
-              <CourseSearch
-                className="Tile Tile-padded"
-                { ...this.props.actions }
-                { ...this.props.settings.search }
-              />
-              <CollectionSelect
-                className="Tile"
-                collection={filteredCourses}
-                render={Course}
-                selected={worklist}
-                onClick={ x => {
-                  this.props.actions.toggleSettingsCoursesSelected(x.id);
-                  this.props.actions.refreshSchedule();
-                }}
-              />
-            </Column>
-          </div>
-          {/* Right hand side */}
-          <Column className="margin-between-v">
-            <ScheduleSettings
-              className="Tile Tile-padded"
-              { ...this.props.actions }
-              { ...this.props.settings.timetable }
-            />
-            <Worklist
-              className="margin-around"
-              { ...this.props }
-              { ...this.props.actions }
-            />
-            <Timetable
-              { ...this.props.actions }
-              {...timetable}
-            />
-            <Crns collection={timetable.crns}/>
-          </Column>
-        </Row>
-      </div>
-    );
-  }
-}
+const LeftSplit = ({ focusedSection, ...props }) => (
+  <div
+    style={{
+      position: 'relative',
+      height: '100%',
+      flex: 1,
+    }}
+  >
+    {/* Sliders */}
+    <FocusedSection
+      className={ `slider slider-left ${ focusedSection.visible ? 'slider-focus' : '' }` }
+      { ...props.actions }
+      { ...focusedSection }
+    />
+    {/* End of Sliders */}
+    <Column className="margin-between-v" style={ { height: '100%' } }>
+      <CourseSearch
+        className="Tile Tile-padded"
+        { ...props.actions }
+        { ...props.settings.search }
+      />
+      <CollectionSelect
+        className="Tile"
+        collection={ props.filteredCourses }
+        render={Course}
+        selected={ props.worklist }
+        onClick={ x => {
+          props.actions.toggleSettingsCoursesSelected(x.id);
+          props.actions.refreshSchedule();
+        }}
+      />
+    </Column>
+  </div>
+);
 
-Recourse.displayName = "Recourse";
+const RightSplit = (props) => (
+  <Column className="margin-between-v">
+    <ScheduleSettings
+      className="Tile Tile-padded"
+      { ...props.actions }
+      { ...props.settings.timetable }
+    />
+    <Worklist
+      className="margin-around"
+      { ...props }
+      { ...props.actions }
+    />
+    <Timetable
+      { ...props.actions }
+      { ...props.timetable }
+    />
+    <Crns collection={ props.timetable.crns }/>
+  </Column>
+);
+
+const Recourse = (props) => {
+  return(
+    <div>
+      <Header { ...props }/>
+      <Row className="recourse-body margin-between-h">
+        <LeftSplit { ...props }/>
+        <RightSplit { ...props }/>
+      </Row>
+    </div>
+  );
+};
 
 function mapDispatchToProps(dispatch) {
   return {
