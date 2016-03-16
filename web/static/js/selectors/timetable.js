@@ -6,8 +6,8 @@ import { notLoaded } from "lib/constants";
 
 // data store
 const store = (state) => state.data;
-const id = (state) => state.frontEnd.timetable.id;
-const loaded = (state) => state.frontEnd.timetable.loaded;
+const id = (state) => state.timetable.id;
+const loaded = (state) => state.timetable.loaded;
 
 const timetable = createSelector(
   store,
