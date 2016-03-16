@@ -1,0 +1,11 @@
+@import "bourbon/bourbon";
+@import "base/variables";
+
+.Worklist {
+  & &-Placeholder {
+    font-style: italic;
+    height: $chip-height;
+    line-height: $chip-height;
+    margin-left: $text-gutter-width;
+  }
+}
