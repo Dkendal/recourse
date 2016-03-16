@@ -76,8 +76,7 @@ class Recourse extends Component {
             {/* Sliders */}
             <FocusedSection
               className={ `slider slider-left ${ focusedSection.visible ? 'slider-focus' : '' }` }
-              hideFocusedSection={ compose(dispatch, a.hideFocusedSection) }
-              setFocusedSection={ compose(dispatch, a.setFocusedSection) }
+              { ...this.props.actions }
               { ...focusedSection }
             />
             <Column className="margin-between-v" style={ { height: '100%' } }>
@@ -112,7 +111,7 @@ class Recourse extends Component {
               { ...this.props.actions }
             />
             <Timetable
-              setFocusedSection={ compose(dispatch, a.setFocusedSection) }
+              { ...this.props.actions }
               {...timetable}
             />
             <Crns collection={timetable.crns}/>
