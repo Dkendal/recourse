@@ -105,7 +105,8 @@ const filteredCourses = createSelector(
         const fields = [
           course.subject,
           course.number,
-          course.title
+          course.title,
+          `${ course.subject } ${ course.number }`,
         ];
 
         result = _.some(fields, field => regex.test(field));
