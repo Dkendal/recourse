@@ -86,7 +86,7 @@ const RightSplit = (props) => (
 
 const Recourse = (props) => {
   return(
-    <div>
+    <div style={ { visibility: props.page.ready ? 'initial' : 'hidden' } }>
       <Header { ...props }/>
       <Row className="recourse-body margin-between-h">
         <LeftSplit { ...props }/>

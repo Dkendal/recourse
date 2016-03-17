@@ -1,10 +1,11 @@
-import {createSelector, createStructuredSelector} from "reselect";
+import { createSelector, createStructuredSelector } from "reselect";
 import _ from "underscore";
 import moment from "moment";
-import {List} from "immutable";
+import { List } from "immutable";
 import timetable from "./timetable";
 import focusedSection from "./focusedSection";
 import settings from "./settings";
+import page from "./page";
 
 const courseSearchText = state => state.frontEnd.courseFilter.courseName;
 const endTimeStr = state => state.frontEnd.scheduleSettings.endTime;
@@ -121,12 +122,13 @@ export default createStructuredSelector({
   endTime,
   filteredCourses,
   focusedSection,
-  settings,
+  page,
   scheduleEndTime,
   scheduleStartTime,
   selectedCourses,
   selectedTerm,
   selectedTermIdx,
+  settings,
   startTime,
   terms,
   timetable,

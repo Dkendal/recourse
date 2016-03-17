@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 import Recourse from "./containers/Recourse";
 import socket from "./socket"
-import {joinChannel, getTerms, refreshSchedule} from "./actions/channel";
+import { joinChannel, getTerms, refreshSchedule, pageReady } from "actions";
 import configureStore from "./store/configureStore";
 
 import "css/application";
@@ -15,16 +15,22 @@ const store = configureStore()
 
 const dispatch = store.dispatch;
 
+window.addEventListener("load", function(event) {
+  console.log("loaded");
+  dispatch(pageReady());
+});
+
 ReactDOM.render(
   <div>
     <Provider store={store}>
       <Recourse />
     </Provider>
   </div>,
-  document.getElementById("app")
+  document.getElementById("app"),
 )
 
 window.channel = socket.channel("schedules:planner", {});
+
 dispatch(joinChannel()).
   then(_.compose(dispatch, getTerms)).
   then(_.compose(dispatch, refreshSchedule));
