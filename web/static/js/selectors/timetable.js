@@ -1,5 +1,5 @@
 import {createSelector, createStructuredSelector} from "reselect";
-import _ from "underscore";
+import _ from "lodash";
 import d3 from "d3";
 import {cast} from "lib/meeting_time";
 import { notLoaded } from "lib/constants";
@@ -53,7 +53,7 @@ const start = createSelector(
     if (_.isEmpty(meetingTimes)) {
       return new Date(0,0,0,8); // 8am
     }
-    const earliestMt = _.min(meetingTimes, x => x.start_time);
+    const earliestMt = _.minBy(meetingTimes, x => x.start_time);
     return earliestMt.start_time;
   }
 );
@@ -64,7 +64,7 @@ const end = createSelector(
     if (_.isEmpty(meetingTimes)) {
       return new Date(0,0,0,17); // 5pm
     }
-    const latestMt = _.max(meetingTimes, x => x.end_time);
+    const latestMt = _.maxBy(meetingTimes, x => x.end_time);
     return latestMt.end_time;
   }
 );
@@ -145,7 +145,7 @@ const setConflict = (mt) => ({
   ...mt
 });
 
-const decorate = (xScale, yScale) => _.compose(
+const decorate = (xScale, yScale) => _.flowRight(
   setConflict,
   setPosition(xScale)(yScale),
   setGroups,

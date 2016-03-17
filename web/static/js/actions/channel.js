@@ -1,6 +1,6 @@
 import {createAction} from "redux-actions";
 import * as s from "../selectors";
-import _ from "underscore";
+import _ from "lodash";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
 const setMaxScheduleEndTime = createAction("SET_SCHEDULE_END_TIME");
@@ -55,14 +55,14 @@ function refreshSchedule() {
 
 function getTerms() {
   return (dispatch, getState) => {
-    const onSuccess = _.compose(dispatch, setTerms, x => x.payload);
+    const onSuccess = _.flowRight(dispatch, setTerms, x => x.payload);
     return asPromise(window.channel.push("terms:search"), onSuccess);
   };
 }
 
 function joinChannel() {
   return (dispatch) => {
-    const onSuccess = _.compose(dispatch, joinedChannel);
+    const onSuccess = _.flowRight(dispatch, joinedChannel);
     return asPromise(window.channel.join(), onSuccess);
   };
 }

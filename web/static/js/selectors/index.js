@@ -1,5 +1,5 @@
 import { createSelector, createStructuredSelector } from "reselect";
-import _ from "underscore";
+import _ from "lodash";
 import moment from "moment";
 import { List } from "immutable";
 import timetable from "./timetable";

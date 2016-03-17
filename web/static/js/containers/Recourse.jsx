@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { compose } from "underscore";
+import { flowRight } from "lodash";
 import actions from "actions";
 import select from "selectors";
 import {

@@ -1,6 +1,6 @@
 import {createSelector, createStructuredSelector} from "reselect";
 import moment from "moment";
-import _ from "underscore";
+import _ from "lodash";
 import { notLoaded, placeholders } from "lib/constants";
 import { cast } from "lib/meeting_time";
 import { toColor } from "lib/course";
@@ -47,7 +47,7 @@ const section = createSelector(
 const meetingTimes = createSelector(
   section,
   ({ meeting_times = [] }) => {
-    return meeting_times.map(_.compose(formatDates, cast));
+    return meeting_times.map(_.flowRight(formatDates, cast));
   }
 );
 

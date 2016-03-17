@@ -1,9 +1,9 @@
-import {compose, createStore, applyMiddleware} from "redux";
+import { compose, createStore, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 import {Provider} from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
+import _ from "lodash";
 import Recourse from "./containers/Recourse";
 import socket from "./socket"
 import { joinChannel, getTerms, refreshSchedule, pageReady } from "actions";
@@ -32,5 +32,5 @@ ReactDOM.render(
 window.channel = socket.channel("schedules:planner", {});
 
 dispatch(joinChannel()).
-  then(_.compose(dispatch, getTerms)).
-  then(_.compose(dispatch, refreshSchedule));
+  then(_.flowRight(dispatch, getTerms)).
+  then(_.flowRight(dispatch, refreshSchedule));

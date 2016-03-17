@@ -22,8 +22,7 @@
     "redux-storage-decorator-filter": "^1.1.1",
     "redux-storage-engine-localstorage": "^1.0.1",
     "redux-thunk": "^1.0.0",
-    "reselect": "^2.0.1",
-    "underscore": "^1.8.3"
+    "reselect": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

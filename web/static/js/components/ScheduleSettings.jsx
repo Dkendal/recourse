@@ -1,13 +1,13 @@
 import React from "react";
-import _ from "underscore";
+import _ from "lodash";
 import { Row, TextField } from "components";
 
 const ScheduleSettings = ({ className = "", ...props }) => {
   const onSubmit = (e) => e.preventDefault()
 
   const getValue = e => e.target.value;
-  const setStart = _.compose(props.setSettingsTimetableStart, getValue);
-  const setEnd = _.compose(props.setSettingsTimetableEnd, getValue);
+  const setStart = _.flowRight(props.setSettingsTimetableStart, getValue);
+  const setEnd = _.flowRight(props.setSettingsTimetableEnd, getValue);
 
   return (
     <form onSubmit={ onSubmit }>
