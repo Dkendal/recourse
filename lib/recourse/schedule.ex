@@ -16,7 +16,7 @@ defmodule Recourse.Schedule do
     course_ids
     |> sections_query
     |> Repo.all
-    # |> Registration.load
+    |> Registration.load
     |> init_variables(pid)
     |> init_constraints(settings, pid)
 
@@ -65,6 +65,12 @@ defmodule Recourse.Schedule do
       Aruspex.post pid, constraint(
         variables: [v],
         function: time_preference(settings))
+    end
+
+    for v <- variables do
+      Aruspex.post pid, constraint(
+        variables: [v],
+        function: &open_seats/1)
     end
 
     :ok
