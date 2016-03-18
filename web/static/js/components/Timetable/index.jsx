@@ -28,8 +28,8 @@ const TimeMarks = ({collection, ...rest}) => (
   </g>
 );
 
-const Timetable = (props) => (
-  <div
+const Timetable = (props) => {
+  return <div
     className="Timetable Tile Tile-padded"
     style={ {
       flex: 1,
@@ -47,6 +47,32 @@ const Timetable = (props) => (
       <MeetingTimes collection={ props.meetingTimes } onClick={ props.setFocusedSection }/>
     </Svg>
   </div>
-);
+};
 
-export default Timetable;
+const Spinner = () => (
+  <div
+    style={{
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <div>{ "Building Timetable" }</div>
+    <i
+      className="icon-spin3 animate-spin"
+      style={{
+        fontSize: '48px',
+      }}
+    />
+  </div>
+)
+
+const Loader = (props, children) => {
+  return props.loaded ?
+    <Timetable { ...props }/> :
+    <Spinner/>
+}
+
+export default Loader;
