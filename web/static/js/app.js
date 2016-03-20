@@ -16,7 +16,6 @@ const store = configureStore()
 const dispatch = store.dispatch;
 
 window.addEventListener("load", function(event) {
-  console.log("loaded");
   dispatch(pageReady());
 });
 

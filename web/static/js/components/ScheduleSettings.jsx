@@ -1,30 +1,24 @@
 import React from "react";
 import _ from "lodash";
-import { Row, TextField } from "components";
+import {
+  Row,
+  TextField,
+  InlineTimePicker,
+} from "components";
 
 const ScheduleSettings = ({ className = "", ...props }) => {
   const onSubmit = (e) => e.preventDefault()
 
-  const getValue = e => e.target.value;
-  const setStart = _.flowRight(props.setSettingsTimetableStart, getValue);
-  const setEnd = _.flowRight(props.setSettingsTimetableEnd, getValue);
-
   return (
     <form onSubmit={ onSubmit }>
       <Row className={ `margin-between-h ${className}` }>
-        <TextField
+        <InlineTimePicker
           value={ props.start }
-          onChange={ setStart }
-          label="Prefered start time"
-          name="start"
-          type="time"
+          onChange={ props.setSettingsTimetableStart }
         />
-        <TextField
+        <InlineTimePicker
           value={ props.end }
-          onChange={ setEnd }
-          label="Prefered end time"
-          name="end"
-          type="time"
+          onChange={ props.setSettingsTimetableEnd }
         />
         <div className="icon-hover-wrap icon-gutter vcenter">
           <button className="icon-btn">

@@ -12,3 +12,4 @@ export { default as TextField }        from "./TextField";
 export { default as TermSelect }       from "./TermSelect";
 export { default as Timetable }        from "./Timetable";
 export { default as Worklist }         from "./Worklist";
+export { default as InlineTimePicker } from "./InlineTimePicker";

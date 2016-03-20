@@ -3,7 +3,6 @@ import MeetingTime from "./MeetingTime";
 import Seats from "./Seats";
 
 const Article = props => {
-  console.log(props);
   return <article
     className="Tile-padded"
   >
