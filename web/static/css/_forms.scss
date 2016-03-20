@@ -1,12 +1,8 @@
-@import "bourbon/bourbon";
-@import "base/variables";
-
-.TextField {
+.stacked-input-group {
   display: flex;
   flex-direction: column-reverse;
-  flex: 1;
 
-  input:focus + label {
+  *:focus + label {
     color: $action-color;
   }
 

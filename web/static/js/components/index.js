@@ -8,7 +8,6 @@ export { default as Crns }             from "./Crns";
 export { default as FocusedSection }   from "./FocusedSection";
 export { default as Row }              from "./Row";
 export { default as ScheduleSettings } from "./ScheduleSettings";
-export { default as TextField }        from "./TextField";
 export { default as TermSelect }       from "./TermSelect";
 export { default as Timetable }        from "./Timetable";
 export { default as Worklist }         from "./Worklist";
