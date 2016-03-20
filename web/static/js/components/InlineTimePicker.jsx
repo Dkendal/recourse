@@ -57,7 +57,7 @@ const InlineTimePicker = (props) => {
     <Select
       value={ props.value.getHours() }
       onChange={ onSetHour(props) }
-      min={ am ? 1 : 12 }
+      min={ am ? 1 : 13 }
       max={ am ? 12 : 24 }
       format={ x => x % 12 }
       step={ 1 }
