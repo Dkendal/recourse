@@ -2,7 +2,7 @@
 @import "base/variables";
 
 .CollectionSelect {
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &-item {
     cursor: pointer;
