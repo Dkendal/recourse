@@ -113,7 +113,7 @@ const filteredCourses = createSelector(
 
       return result;
     }
-  )
+  ).slice(0, 100)
 );
 
 export default createStructuredSelector({
