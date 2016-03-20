@@ -10,7 +10,12 @@ const ScheduleSettings = ({ className = "", ...props }) => {
 
   return (
     <form onSubmit={ onSubmit }>
-      <Row className={ `margin-between-h ${className}` }>
+      <Row
+        className={ `margin-between-h ${className}` }
+        style={{
+          justifyContent: 'space-between',
+        }}
+      >
         <div className="stacked-input-group">
           <InlineTimePicker
             name="settings.timetable.start"
