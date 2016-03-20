@@ -16,12 +16,20 @@ defmodule Recourse.Schedule do
     course_ids
     |> sections_query
     |> Repo.all
-    |> Registration.load
+    |> load_registration
     |> init_variables(pid)
     |> init_constraints(settings, pid)
 
     Aruspex.find_solution(pid)
     |> Dict.values
+  end
+
+  def load_registration(sections) do
+    if System.get_env("SEATS") do
+      Registration.load(sections)
+    else
+      Registration.dummy(sections)
+    end
   end
 
   @spec components(Section.t) :: [[Section.t]]

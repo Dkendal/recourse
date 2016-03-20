@@ -10,6 +10,17 @@ defmodule Recourse.Registration do
     |> Parallel.map(&hit/1)
   end
 
+  def dummy(sections) do
+    sections |> Enum.map(fn section ->
+      dummy = %{
+        actual: 0,
+        capacity: 999,
+        remaining: 999,
+      }
+      %Section{ section | waitlist: dummy, seats: dummy }
+    end)
+  end
+
   @spec key(Section.t) :: key
   def key(section) do
     {section.crn, to_string(section.course.term)}
