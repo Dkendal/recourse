@@ -43,7 +43,7 @@ const ScheduleSettings = ({ className = "", ...props }) => {
             onChange={ setEnd }
           />
           <label htmlFor="settings.timetable.end">
-            { "Preferred start end" }
+            { "Preferred end time" }
           </label>
         </div>
       </Row>
