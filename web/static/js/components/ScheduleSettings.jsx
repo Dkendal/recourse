@@ -29,7 +29,7 @@ const ScheduleSettings = ({ className = "", ...props }) => {
         <div className="stacked-input-group">
           <InlineTimePicker
             name="settings.timetable.start"
-            value={ props.start }
+            value={ props.settings.timetable.start }
             onChange={ setStart }
           />
           <label htmlFor="settings.timetable.start">
@@ -39,7 +39,7 @@ const ScheduleSettings = ({ className = "", ...props }) => {
 
         <div className="stacked-input-group">
           <InlineTimePicker
-            value={ props.end }
+            value={ props.settings.timetable.end }
             onChange={ setEnd }
           />
           <label htmlFor="settings.timetable.end">

@@ -69,7 +69,6 @@ const RightSplit = (props) => (
     <ScheduleSettings
       className="Tile Tile-padded"
       { ...props }
-      { ...props.settings.timetable }
     />
     <Worklist
       className="margin-around"
