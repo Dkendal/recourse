@@ -68,7 +68,7 @@ const RightSplit = (props) => (
   <Column className="margin-between-v">
     <ScheduleSettings
       className="Tile Tile-padded"
-      { ...props.actions }
+      { ...props }
       { ...props.settings.timetable }
     />
     <Worklist
