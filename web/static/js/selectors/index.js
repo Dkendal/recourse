@@ -102,14 +102,13 @@ const filteredCourses = createSelector(
       if (search.text) {
         const regex = new RegExp(search.text, "i");
 
-        const fields = [
+        const text = [
           course.subject,
           course.number,
           course.title,
-          `${ course.subject } ${ course.number }`,
-        ];
+        ].join(" ");
 
-        result = _.some(fields, field => regex.test(field));
+        result = regex.test(text);
       }
 
       return result;
