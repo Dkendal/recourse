@@ -27,6 +27,7 @@ select {
   font-size: $base-font-size;
   max-width: 100%;
   width: auto;
+  border: 1px solid $base-border-color;
   background-color: $base-background-color;
 }
 
