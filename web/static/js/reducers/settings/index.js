@@ -3,30 +3,7 @@ import { handleActions } from "redux-actions";
 import { LOAD } from "redux-storage";
 import { Set } from "immutable";
 import time from "lib/time";
-
-const start = handleActions({
-  SET_SETTINGS_TIMETABLE_START: (state, {payload}) => {
-    console.log(payload.toString())
-    return payload;
-  },
-  [LOAD]: (state, { payload }) => {
-    return new Date(payload.settings.timetable.start);
-  },
-}, new Date(0, 0, 0, 8));
-
-const end = handleActions({
-  SET_SETTINGS_TIMETABLE_END: (state, {payload}) => {
-    return payload;
-  },
-  [LOAD]: (state, { payload }) => {
-    return new Date(payload.settings.timetable.end);
-  },
-}, new Date(0, 0, 0, 17));
-
-const timetable = combineReducers({
-  start,
-  end,
-});
+import timetable from "./timetable";
 
 const text = handleActions({
   SET_SETTINGS_SEARCH_TEXT: (state, { payload }) => {
