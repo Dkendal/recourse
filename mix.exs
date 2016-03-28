@@ -52,6 +52,7 @@ defmodule Recourse.Mixfile do
       :postgrex,
       :qdate,
       :timex,
+      :jsonapi,
     ]
   end
 
