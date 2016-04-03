@@ -1,30 +1,23 @@
 import React, {PropTypes} from "react";
-//import  "css/components/Crns";
+import  "css/components/Crns";
 
 const flex = {
   display: "flex",
 };
 
-const Crn = ({text}) => (
-  <li
-    style={{
-      marginLeft: "1em",
-    }}
-  >
-    {text}
+const Item = ({ text }) => (
+  <li className="Crns-Item">
+    { text }
+    &nbsp;
   </li>
 );
 
 const Label = () => (
   <div
-    style={{
-      fontWeight: "bold",
-      ...flex,
-    }}
+    className="Crns-Label"
+    style={ flex }
   >
-    <abbr
-      title="Course registration numbers"
-    >
+    <abbr title="Course registration numbers">
       {"Crns"}
     </abbr>
     {":"}
@@ -33,8 +26,8 @@ const Label = () => (
 
 const Crns = ({collection}) => (
   <div
-    className="Tile Tile-padded"
-    style={flex}
+    className="Crns Tile Tile-padded"
+    style={ flex }
   >
     <Label />
     <ul
@@ -43,7 +36,7 @@ const Crns = ({collection}) => (
         ...flex,
       }}
     >
-      {collection.map(crn => <Crn key={crn} text={crn}/>)}
+      {collection.map(crn => <Item key={crn} text={crn}/>)}
     </ul>
   </div>
 );
