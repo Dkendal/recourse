@@ -7,19 +7,19 @@ import {
 
 const ScheduleSettings = ({ className = "", ...props }) => {
   const onSubmit = (e) => {
-    props.actions.refreshSchedule();
+    props.refreshSchedule();
     return e.preventDefault();
-  }
+  };
 
   const setStart = (e) => {
-    props.actions.setSettingsTimetableStart(e);
-    props.actions.refreshSchedule();
-  }
+    props.setSettingsTimetableStart(e);
+    props.refreshSchedule();
+  };
 
   const setEnd = (e) => {
-    props.actions.setSettingsTimetableEnd(e);
-    props.actions.refreshSchedule();
-  }
+    props.setSettingsTimetableEnd(e);
+    props.refreshSchedule();
+  };
 
   return (
     <form onSubmit={ onSubmit }>
@@ -29,7 +29,7 @@ const ScheduleSettings = ({ className = "", ...props }) => {
         <div className="stacked-input-group">
           <InlineTimePicker
             name="settings.timetable.start"
-            value={ props.settings.timetable.start }
+            value={ props.timetable.start }
             onChange={ setStart }
           />
           <label htmlFor="settings.timetable.start">
@@ -39,7 +39,7 @@ const ScheduleSettings = ({ className = "", ...props }) => {
 
         <div className="stacked-input-group">
           <InlineTimePicker
-            value={ props.settings.timetable.end }
+            value={ props.timetable.end }
             onChange={ setEnd }
           />
           <label htmlFor="settings.timetable.end">
