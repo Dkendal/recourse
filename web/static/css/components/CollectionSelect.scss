@@ -3,6 +3,7 @@
 
 .CollectionSelect {
   overflow-y: auto;
+  transform: translateZ(0); // hack to prevent repaint on scroll
 
   &-item {
     cursor: pointer;
