@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 import  "css/components/CollectionSelect";
 
 const CollectionSelect = ({className="", collection, selected, render, onClick}) => (
@@ -8,12 +9,13 @@ const CollectionSelect = ({className="", collection, selected, render, onClick})
         key={idx}
         onClick={() => onClick(item)}
         style={{ display: 'flex' }}
-        className={ [
-          selected.includes(item) ? "selected" : "",
+        className={ classnames(
           "CollectionSelect-item",
           "Tile-padded",
           "margin-between-h",
-        ].join(" ") }
+          { selected: selected.includes(item),
+          })
+        }
       >
         <div className="icon-gutter">
           { (selected.includes(item)
