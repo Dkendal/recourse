@@ -6,6 +6,7 @@
   "repository": {},
   "dependencies": {
     "bourbon": "^4.2.5",
+    "classnames": "^2.2.3",
     "d3": "^3.5.12",
     "immutable": "^3.7.6",
     "jsonapi-datastore": "^0.3.2-beta",
