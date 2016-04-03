@@ -6,10 +6,10 @@ const CircleButton = ({selected, onClick, style}) => (
     className="CircleButton"
     onClick={onClick}
     style={style}
-    >
-    { selected ?
-      <i className="icon-minus CircleButton-selected"></i> :
-      <i className="icon-plus CircleButton-unselected"></i>
+  >
+    { (selected
+      ? <i className="icon-minus CircleButton-selected"></i>
+      : <i className="icon-plus CircleButton-unselected"></i>)
     }
   </button>
 );
