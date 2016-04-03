@@ -72,7 +72,7 @@ const RightSplit = (props) => (
     />
     <Worklist
       className="margin-around"
-      { ...props }
+      collection={ props.worklist }
       { ...props.actions }
     />
     <Timetable

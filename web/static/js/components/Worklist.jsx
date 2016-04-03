@@ -6,24 +6,23 @@ const Course = ({course: {subject, number}}) => (
   <span>{`${subject} ${number}`}</span>
 );
 
-// hack bullshit because min height doesn't work in this layout
-const Placeholder = () => <div
+const EmptyState = () => <div
   className="Worklist-Placeholder"
 >
-  No courses selected.
+  No courses selected - choose some from left!
 </div>
 
 const Worklist = (props) => {
   return <div
     className={ `Worklist ${props.className}` }
   >
-    { props.worklist.size < 1 ? <Placeholder/> : null }
-    { props.worklist.map(
+    { props.collection.size < 1 ? <EmptyState/> : null }
+    { props.collection.map(
       course =>
       <Chip
         onClick={ () => {
           props.toggleSettingsCoursesSelected(course.id);
-          props.actions.refreshSchedule();
+          props.refreshSchedule();
         }}
         key={course.id}>
         <Course course={course}/>
