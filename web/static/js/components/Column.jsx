@@ -1,10 +1,12 @@
 import React from "react";
+import classnames from "classnames";
+
 const Column = ({children, className='', ...rest}) => (
   <div
-    className={className + " column"}
-    {...rest}
+    className={ classnames(className, " column") }
+    { ...rest }
     >
-    {children}
+    { children }
   </div>
 );
 
