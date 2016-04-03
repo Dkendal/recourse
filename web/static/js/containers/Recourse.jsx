@@ -23,7 +23,7 @@ import "css/containers/Recourse";
 const Header = (props) => (
   <div className="recourse-header">
     <TermSelect
-      { ...props }
+      collection={ props.terms }
       { ...props.actions }
     />
   </div>

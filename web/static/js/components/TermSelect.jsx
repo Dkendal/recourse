@@ -11,7 +11,7 @@ const TermSelect = (props) => (
     onChange={ (e) => props.changeTerm(getValue(e)) }
     value={ props.selectedTermIdx }
   >
-    { props.terms.map((term, idx) => (
+    { props.collection.map((term, idx) => (
       <option
         key={term.id}
         value={idx}
