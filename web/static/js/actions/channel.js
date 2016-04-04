@@ -1,5 +1,6 @@
 import {createAction} from "redux-actions";
 import selectors from "../selectors";
+import { asPromise } from "lib/promise";
 import _ from "lodash";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
@@ -10,25 +11,6 @@ const setTerms = createAction("SET_TERMS");
 const setTimetable = createAction("SET_TIMETABLE");
 const fetchingTimetable = createAction("FETCHING_TIMETABLE");
 const sync = createAction("SYNC");
-
-function asPromise(push, callback) {
-  const promise = (resolve, reject) => {
-    const onOk = (response) => {
-      callback(response);
-      return resolve();
-    };
-
-    const onError = () => {
-      return reject();
-    };
-
-    push.
-      receive("ok", onOk).
-      receive("error", onError);
-  };
-
-  return new Promise(promise);
-}
 
 function refreshSchedule() {
   return (dispatch, getState) => {
