@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import * as s from "../selectors";
+import selectors from "../selectors";
 import _ from "lodash";
 
 const joinedChannel = createAction("JOINED_CHANNEL");
@@ -32,8 +32,7 @@ function asPromise(push, callback) {
 
 function refreshSchedule() {
   return (dispatch, getState) => {
-    const settings = s.scheduleParams(getState());
-    const ids = s.worklistIds(getState());
+    const memo = selectors(getState());
 
     dispatch(fetchingTimetable());
 
@@ -43,8 +42,8 @@ function refreshSchedule() {
     };
 
     const params = {
-      course_ids: ids,
-      settings: settings
+      course_ids: memo.worklistIds,
+      settings: memo.settings.timetable.params,
     };
 
     const push = window.channel.push("make_schedule", params);

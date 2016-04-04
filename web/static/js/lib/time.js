@@ -1,22 +1,27 @@
 import moment from "moment";
 
-const timeFormat = "HH:mm";
-const dateFormat = "YYYY-MM-DD";
+const TIME_SHORT_FORMAT = "HH:mm";
+const DATE_FORMAT = "YYYY-MM-DD";
+const DATE_TIME_FORMAT = "YYYY-MM-DD HH:mm:ss";
 
 function parseTime(string) {
-  return moment(string, timeFormat).toDate();
+  return moment(string, TIME_SHORT_FORMAT).toDate();
 }
 
 function parseDate(string) {
-  return moment(string, dateFormat).toDate();
+  return moment(string, DATE_FORMAT).toDate();
 }
 
 function formatTime(date) {
-  return moment(date).format(timeFormat);
+  return moment(date).format(TIME_SHORT_FORMAT);
 };
 
 function formatDate(date) {
-  return moment(date).format(dateFormat);
+  return moment(date).format(DATE_FORMAT);
+};
+
+function formatDateTime(date) {
+  return moment(date).format(DATE_TIME_FORMAT);
 };
 
 export default {
@@ -24,4 +29,5 @@ export default {
   parseDate,
   formatTime,
   formatDate,
+  formatDateTime,
 };
