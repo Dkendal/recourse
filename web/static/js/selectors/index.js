@@ -14,12 +14,6 @@ export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.settings.courses.selected;
 export const selectedTermIdx = state => state.frontEnd.selectedTerm;
 
-function parseTime(t) {
-  let date = moment(t, "HH:mm");
-  // send 00:00:00 if the date is unparseable.
-  return date = date.isValid() ? date : moment({h: 0, m: 0, s: 0});
-}
-
 export const selectedTerm = createSelector(
   terms,
   selectedTermIdx,
