@@ -22,18 +22,9 @@ let selectedCourses = handleActions(
   Set([])
 );
 
-const courseFilter = handleActions(
-  {
-    FILTER_COURSES:
-      (state, {payload}) => payload
-  },
-  {}
-);
-
 const frontEnd = combineReducers({
   selectedTerm,
   selectedCourses,
-  courseFilter,
   scheduleSettings,
 });
 

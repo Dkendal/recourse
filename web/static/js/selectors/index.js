@@ -7,8 +7,6 @@ import focusedSection from "./focusedSection";
 import settings from "./settings";
 import page from "./page";
 
-const courseSearchText = state => state.frontEnd.courseFilter.courseName;
-
 export const channel = state => state.channel;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.settings.courses.selected;
