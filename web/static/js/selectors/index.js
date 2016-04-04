@@ -10,16 +10,18 @@ import page from "./page";
 export const channel = state => state.channel;
 export const terms = state => state.entries.terms;
 export const selectedCourses = state => state.settings.courses.selected;
-export const selectedTermIdx = state => state.frontEnd.selectedTerm;
+export const termId = state => state.settings.terms.id;
 
-export const selectedTerm = createSelector(
+export const term = createSelector(
   terms,
-  selectedTermIdx,
-  (terms, idx) => terms.get(idx)
+  termId,
+  (terms, id) => {
+    return terms.find(x => x.id == id) || terms.last();
+  }
 );
 
 export const courses = createSelector(
-  selectedTerm,
+  term,
   (term) => new List(term && term.courses || [])
 );
 
@@ -73,8 +75,8 @@ export default createStructuredSelector({
   focusedSection,
   page,
   selectedCourses,
-  selectedTerm,
-  selectedTermIdx,
+  term,
+  termId,
   settings,
   terms,
   timetable,

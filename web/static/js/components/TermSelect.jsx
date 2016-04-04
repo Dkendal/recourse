@@ -8,13 +8,13 @@ const TermSelect = (props) => (
   <select
     name="term"
     className="TermSelect"
-    onChange={ (e) => props.changeTerm(getValue(e)) }
-    value={ props.selectedTermIdx }
+    onChange={ (e) => props.setSettingsTermsId(getValue(e)) }
+    value={ props.value }
   >
     { props.collection.map((term, idx) => (
       <option
         key={term.id}
-        value={idx}
+        value={term.id}
       >
         {`${term.semester} ${term.year}`}
       </option>))

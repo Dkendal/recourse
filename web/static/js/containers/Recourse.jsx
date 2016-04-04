@@ -19,11 +19,11 @@ import {
 } from "components";
 import "css/containers/Recourse";
 
-
 const Header = (props) => (
   <div className="recourse-header">
     <TermSelect
-      collection={ props.terms }
+      value={ props.termId }
+      collection={ props.terms  }
       { ...props.actions }
     />
   </div>
