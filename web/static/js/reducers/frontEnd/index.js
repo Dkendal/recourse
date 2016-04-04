@@ -11,20 +11,8 @@ const selectedTerm = handleActions(
   0
 );
 
-let selectedCourses = handleActions(
-  {
-    SELECT_COURSE:
-      (state, {payload}) => state.add(payload),
-
-    DESELECT_COURSE:
-      (state, {payload}) => state.delete(payload),
-  },
-  Set([])
-);
-
 const frontEnd = combineReducers({
   selectedTerm,
-  selectedCourses,
   scheduleSettings,
 });
 
