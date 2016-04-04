@@ -4,7 +4,7 @@ import * as storage from "redux-storage";
 import createEngine from "redux-storage-engine-localstorage";
 import filter from "redux-storage-decorator-filter";
 import debounce from "redux-storage-decorator-debounce";
-import reducer from 'ducks';
+import reducer from 'reducers';
 import deserializer from "./deserializer";
 
 let engine = createEngine('recourse');

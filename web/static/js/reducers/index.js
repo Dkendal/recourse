@@ -7,7 +7,7 @@ import timetable from "./timetable";
 import settings from "./settings";
 import page from "./page";
 
-const reducer = combineReducers(
+export default combineReducers(
   {
     data,
     entries,
@@ -17,5 +17,3 @@ const reducer = combineReducers(
     timetable,
   }
 );
-
-export default reducer;
