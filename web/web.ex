@@ -22,6 +22,7 @@ defmodule Recourse.Web do
 
       import Ecto
       import Ecto.Changeset
+      import Ecto.Query
     end
   end
 
@@ -31,9 +32,10 @@ defmodule Recourse.Web do
 
       alias Recourse.Repo
       import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Query
 
       import Recourse.Router.Helpers
+      import Recourse.Gettext
     end
   end
 
@@ -48,6 +50,8 @@ defmodule Recourse.Web do
       use Phoenix.HTML
 
       import Recourse.Router.Helpers
+      import Recourse.ErrorHelpers
+      import Recourse.Gettext
     end
   end
 
@@ -63,8 +67,8 @@ defmodule Recourse.Web do
 
       alias Recourse.Repo
       import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
-
+      import Ecto.Query
+      import Recourse.Gettext
     end
   end
 
