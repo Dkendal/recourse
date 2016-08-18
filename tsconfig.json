@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outFile": "priv/static/js/app.js",
+    "sourceMap": true
+  }
+}

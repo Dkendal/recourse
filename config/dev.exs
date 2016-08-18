@@ -11,8 +11,8 @@ config :recourse, Recourse.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
+  check_origin: false,]]
+  #watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
 
 # Watch static and templates for browser reloading.
 config :recourse, Recourse.Endpoint,
