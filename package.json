@@ -1,12 +1,7 @@
 {
   "repository": {},
   "dependencies": {
-    "brunch": "^2.5.3",
-    "brunch-typescript": "^1.8.4",
-    "clean-css-brunch": ">= 1.0 < 1.8",
-    "css-brunch": ">= 1.0 < 1.8",
-    "javascript-brunch": ">= 1.0 < 1.8",
-    "phoenix": "^1.2.0",
-    "uglify-js-brunch": ">= 1.0 < 1.8"
+    "typescript": "^1.8",
+    "phoenix": "^1.2.0"
   }
 }
