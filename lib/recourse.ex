@@ -12,14 +12,6 @@ defmodule Recourse do
       # Start the Ecto repository
       worker(Recourse.Repo, []),
 
-      # cache
-      worker(ConCache, [
-        [
-          ttl_check: :timer.minutes(1),
-          ttl: :timer.minutes(15),
-          touch_on_read: false
-        ],
-        [name: :seats]])
       # Here you could define other workers and supervisors as children
       # worker(Recourse.Worker, [arg1, arg2, arg3]),
     ]
