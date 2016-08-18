@@ -37,7 +37,7 @@ defmodule Recourse.SectionTest do
   describe "tba?/1" do
     import Recourse.Section, only: [tba?: 1]
 
-    it "is false" do
+    test "is false" do
       section =  %Section{
         meeting_times: [
           %MeetingTime{ tba: true },
@@ -48,24 +48,20 @@ defmodule Recourse.SectionTest do
       assert tba?(section) == false
     end
 
-    context "when all meeting times are tba" do
-      it "is true" do
-        section =  %Section{
-          meeting_times: [
-            %MeetingTime{ tba: true },
-            %MeetingTime{ tba: true },
-          ],
-        }
+    test "when all meeting times are tba" do
+      section =  %Section{
+        meeting_times: [
+          %MeetingTime{ tba: true },
+          %MeetingTime{ tba: true },
+        ],
+      }
 
-        assert tba?(section) == true
-      end
+      assert tba?(section) == true
     end
 
-    context "when meeting times are not loaded" do
-      it "fails" do
-        assert_raise Protocol.UndefinedError, fn ->
-          tba?(%Section{})
-        end
+    test "when meeting times are not loaded" do
+      assert_raise Protocol.UndefinedError, fn ->
+        tba?(%Section{})
       end
     end
   end

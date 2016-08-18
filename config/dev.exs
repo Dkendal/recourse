@@ -12,7 +12,7 @@ config :recourse, Recourse.Endpoint,
   code_reloader: true,
   cache_static_lookup: false,
   check_origin: false,
-  watchers: [node: ~w(node_modules/.bin/webpack --watch --colors --progress)]
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
 
 # Watch static and templates for browser reloading.
 config :recourse, Recourse.Endpoint,

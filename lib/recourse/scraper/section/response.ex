@@ -1,5 +1,4 @@
 defmodule Recourse.Scraper.Section.Response do
-  use Timex
   import Enum, only: [map: 2]
   import String, only: [split: 2]
   import Floki, only: [find: 2, text: 1]
