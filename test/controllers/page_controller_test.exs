@@ -1,8 +1,10 @@
 defmodule Recourse.PageControllerTest do
   use Recourse.ConnCase
 
-  test "GET /" do
-    conn = get conn(), "/"
-    assert html_response(conn, 200) =~ "<body>"
+  describe "GET index" do
+    test "returns ok", %{conn: conn} do
+      conn = get conn, "/"
+      assert html_response(conn, 200) =~ "<body>"
+    end
   end
 end

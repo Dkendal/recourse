@@ -4,7 +4,7 @@ defmodule Recourse.ConnCase do
   tests that require setting up a connection.
 
   Such tests rely on `Phoenix.ConnTest` and also
-  imports other functionality to make it easier
+  import other functionality to make it easier
   to build and query models.
 
   Finally, if the test case interacts with the database,
@@ -22,7 +22,8 @@ defmodule Recourse.ConnCase do
 
       alias Recourse.Repo
       import Ecto
-      import Ecto.Query, only: [from: 2]
+      import Ecto.Changeset
+      import Ecto.Query
 
       import Recourse.Router.Helpers
 
@@ -31,7 +32,13 @@ defmodule Recourse.ConnCase do
     end
   end
 
-  setup do
+  setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(Recourse.Repo, {:shared, self()})
+    end
+
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end
