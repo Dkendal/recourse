@@ -16,7 +16,7 @@ config(
   check_origin: false,
   watchers: [
     node: ["node_modules/typescript/bin/tsc", "--watch"],
-    bundle: ["exec", "sass", "--scss", "web/static/css/application.scss:priv/static/css/app.css"],
+    bundle: ["exec", "sass", "--scss", "--watch", "web/static/css/application.scss:priv/static/css/app.css"],
   ])
 
 # Watch static and templates for browser reloading.
