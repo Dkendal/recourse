@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>"></link>
+
     <title>Recourse - UVic Timetable Builder</title>
   </head>
 
