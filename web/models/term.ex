@@ -34,7 +34,7 @@ defmodule Recourse.Term do
         year: term.year,
         semester: term.semester,
         courses: term.courses }
-      |> Poison.Encoder.encode []
+      |> Poison.Encoder.encode([])
     end
   end
 end
