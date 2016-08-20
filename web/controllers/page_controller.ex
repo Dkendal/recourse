@@ -6,6 +6,8 @@ defmodule Recourse.PageController do
   end
 
   def index(conn, _params) do
-    render conn, "index.html"
+    terms = Repo.all Recourse.Term
+
+    render conn, "index.html", terms: terms
   end
 end
