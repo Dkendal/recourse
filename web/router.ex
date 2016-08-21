@@ -16,10 +16,9 @@ defmodule Recourse.Router do
   scope "/", Recourse do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     get "/about", PageController, :about
 
-    resources "/term", TermController
+    resources "/", TermController
   end
 
   # Other scopes may use custom stacks.
