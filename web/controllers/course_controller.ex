@@ -1,8 +1,13 @@
 defmodule Recourse.CourseController do
-  alias Recourse.Course
+  alias Recourse.{Term, Course}
   use Recourse.Web, :controller
 
-  def index(conn, _params) do
-    render(conn, "index.html")
+  def index(conn, %{"term_id" => id}) do
+    term =
+      Term
+      |> Repo.get!(id)
+      |> Repo.preload(:courses)
+
+    render(conn, "index.html", term: term)
   end
 end
