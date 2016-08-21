@@ -18,7 +18,9 @@ defmodule Recourse.Router do
 
     get "/about", PageController, :about
 
-    resources "/", TermController
+    resources "/", TermController do
+      resources "/courses", CourseController
+    end
   end
 
   # Other scopes may use custom stacks.
