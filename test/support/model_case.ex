@@ -62,4 +62,8 @@ defmodule Recourse.ModelCase do
     |> Ecto.Changeset.traverse_errors(&Recourse.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
+
+  def assert_valid(changeset) do
+    assert changeset.valid?, inspect(changeset.errors)
+  end
 end
