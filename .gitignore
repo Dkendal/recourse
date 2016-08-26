@@ -23,3 +23,5 @@ erl_crash.dump
 /recourse/vendor
 /recourse/.sass-cache
 /recourse/erl_crash.dump
+/recourse_solver/bin
+/recourse_solver/CMakeFiles
