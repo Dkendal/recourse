@@ -1,0 +1,1 @@
+%{"msgpax": {:hex, :msgpax, "1.0.0", "8135ba90c5560de753b63f7af1cf019a695d3e959ea564ea733634c95eaa037a", [:mix], [{:plug, "~> 1.0", [hex: :plug, optional: true]}]}}
