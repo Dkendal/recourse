@@ -4,7 +4,7 @@ def ping():
   return "pong"
 
 handlers = {
-    "ping": ping
+    "ping": ping,
     }
 
 def handle(msg):
@@ -13,7 +13,13 @@ def handle(msg):
   return handlers[method](*args)
 
 def read():
-  buffer_length = ord(sys.stdin.read(1))
+  buffer_length = sys.stdin.read(1)
+
+  # end of program
+  if len(buffer_length) == 0:
+    return False
+
+  buffer_length = ord(buffer_length)
   buff = sys.stdin.read(buffer_length)
   return msgpack.unpackb(buff)
 
@@ -23,8 +29,13 @@ def write(response):
   sys.stdout.flush()
 
 def main():
-  msg = read()
-  response = handle(msg)
-  write(response)
+  while True:
+    msg = read()
+
+    if msg == False:
+      return 0
+
+    response = handle(msg)
+    write(response)
 
 main()

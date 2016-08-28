@@ -11,6 +11,7 @@ defmodule RecourseSolver.Solver do
     GenServer.start(__MODULE__, [], name: @name)
   end
 
+  def stop(reason \\ :normal)
   def stop(reason) do
     GenServer.stop(@name, reason)
   end
@@ -33,6 +34,8 @@ defmodule RecourseSolver.Solver do
     receive do
       {^port, {:data, data}} ->
         decode(data)
+      other ->
+        raise other
     end
   end
 
@@ -42,9 +45,12 @@ defmodule RecourseSolver.Solver do
     {:ok, port}
   end
 
+  def terminate(reason, port) do
+    Port.close(port)
+  end
+
   def decode(x) do
-    x
-    |> Msgpax.unpack!()
+    Msgpax.unpack!(x)
   end
 
   def encode(x) do
