@@ -27,15 +27,3 @@ def write(response):
   response = msgpack.packb(response)
   sys.stdout.write(response)
   sys.stdout.flush()
-
-def main():
-  while True:
-    msg = read()
-
-    if msg == False:
-      return 0
-
-    response = handle(msg)
-    write(response)
-
-main()
