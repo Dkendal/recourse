@@ -1,4 +1,20 @@
 import sys, msgpack
+from z3 import *
+# from ortools.constraint_solver import pywrapcp
+
+def example():
+  s = Solver()
+  # Range = Datatype('Range')
+  # Range.declare('cons', ('start', IntSort()), ('end', IntSort()))
+  # Range = Range.create()
+  # x = Range.cons(1, 3)
+  # y = Range.cons(2, 4)
+  # z = Range.cons(3, 4)
+  # a = Const('a', Range)
+  # a = Const('a', Range)
+  # s.add(a == x or a == y or a == z)
+  # print(s.check())
+  # print(s.model())
 
 def ping():
   return "pong"
