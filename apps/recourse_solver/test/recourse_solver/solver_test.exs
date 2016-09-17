@@ -14,6 +14,15 @@ defmodule RecourseSolver.SolverTest do
     context
   end
 
+  describe ".solve" do
+    setup [:start_solver, :stop_solver]
+
+    test "expected response" do
+      sections = %{}
+      IO.inspect Solver.solve(sections)
+    end
+  end
+
   describe ".ping" do
     setup [:start_solver, :stop_solver]
 
