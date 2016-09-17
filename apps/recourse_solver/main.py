@@ -1,13 +1,14 @@
 import recourse_solver
 
+
 def main():
-  while True:
-    msg = read()
+    while True:
+        msg = recourse_solver.read()
 
-    if msg == False:
-      return 0
+        if msg is False:
+            return 0
 
-    response = handle(msg)
-    write(response)
+        response = recourse_solver.handle(msg)
+        recourse_solver.write(response)
 
 main()
