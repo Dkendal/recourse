@@ -2,16 +2,18 @@ defmodule RecourseSolver.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :recourse_solver,
-     version: "0.1.0",
+    [
+     app: :recourse_solver,
+     build_embedded: Mix.env == :prod,
      build_path: "../../_build",
      config_path: "../../config/config.exs",
+     deps: deps,
      deps_path: "../../deps",
-     lockfile: "../../mix.lock",
      elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
+     lockfile: "../../mix.lock",
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     version: "0.1.0",
+   ]
   end
 
   # Configuration for the OTP application

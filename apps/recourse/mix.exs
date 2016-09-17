@@ -2,14 +2,20 @@ defmodule Recourse.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :recourse,
-     version: "0.1.0",
-     elixir: "~> 1.3.1",
-     elixirc_paths: elixirc_paths(Mix.env),
-     compilers: [:phoenix, :gettext] ++ Mix.compilers,
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :recourse,
+      build_embedded: Mix.env == :prod,
+      build_path: "../../_build",
+      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      config_path: "../../config/config.exs",
+      deps: deps,
+      deps_path: "../../deps",
+      elixir: "~> 1.3",
+      elixirc_paths: elixirc_paths(Mix.env),
+      lockfile: "../../mix.lock",
+      start_permanent: Mix.env == :prod,
+      version: "0.1.0",
+   ]
   end
 
   # Configuration for the OTP application
