@@ -14,6 +14,9 @@ config :recourse, Recourse.Endpoint,
   pubsub: [name: Recourse.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+
+config :recourse, ecto_repos: [Recourse.Repo]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
