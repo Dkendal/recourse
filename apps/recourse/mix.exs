@@ -76,7 +76,7 @@ defmodule Recourse.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.4", only: [:dev, :test]},
       {:dialyze, "~> 0.2", only: :dev},
-      {:ecto, "~> 2.0.0-beta.2", override: true},
+      {:ecto, "~> 2.0.0", override: true},
       {:ecto_enum, "~> 0.4"},
       {:ex_machina, "~> 1.0", only: [:dev, :test]},
       {:exrm, "~> 1.0"},
