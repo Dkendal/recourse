@@ -30,47 +30,56 @@ def mk_dow(section, dow):
     return Const(("%s_%s" % (section, dow)), Pair)
 
 
+def get_dow(section, dow):
+    key = (section, dow)
+    if not hasattr(get_dow, 'memo'):
+        get_dow.memo = {}
+    if not key in get_dow.memo:
+        val = mk_dow(*key)
+        get_dow.memo[key] = val
+    return get_dow.memo[key]
+
+
 def mk_sections(sections):
     conditions = []
-    mS = []
-    tS = []
-    wS = []
-    rS = []
-    fS = []
-    dows = ('m', 't', 'w', 'r', 'f')
-    for section in sections:
+    # mS = []
+    # tS = []
+    # wS = []
+    # rS = []
+    # fS = []
+    dows = {
+            'm': [],
+            't': [],
+            'w': [],
+            'r': [],
+            'f': []
+            }
+
+    for section, choices in sections.items():
         imps = []
-        choices = sections[section]
         section_names = choices.keys()
         Sort, section_enums = EnumSort("%sSort" % section, section_names)
-        dow_consts = [mk_dow(section, dow) for dow in dows]
-        dow_dict = dict(zip(dow_consts, dows))
-        (m, t, w, r, f) = dow_consts
-        mS.append(m)
-        tS.append(t)
-        wS.append(w)
-        rS.append(r)
-        fS.append(f)
+        enum_map = dict(zip(section_names, section_enums))
         section_const = Const(section, Sort)
-        for dow_const in dow_consts:
-            for section_enum in section_enums:
-                dow = dow_dict[dow_const]
-                dow_choices = choices[str(section_enum)]
-                if dow_choices.has_key(dow):
-                    (start, end) = dow_choices[dow]
-                    value = Pair.mk_pair(start, end)
-                    imp = Implies(
-                            (section_const == section_enum),
-                            (dow_const == value))
-                    imps.append(imp)
         # domains for meeting times
+        for section_name, blocks in choices.items():
+            section_enum = enum_map[section_name]
+            for dow, (start, end) in blocks.items():
+                dow_const = get_dow(section, dow)
+                a = dows[dow]
+                # add the dow const if we haven't seen it before
+                if dow_const not in a:
+                    a.append(dow_const)
+                value = Pair.mk_pair(start, end)
+                imp = Implies(
+                        (section_const == section_enum),
+                        (dow_const == value))
+                imps.append(imp)
         conditions.append(And(imps))
     # sections may not overlap
-    conditions.append(all_seperate(*mS))
-    conditions.append(all_seperate(*tS))
-    conditions.append(all_seperate(*wS))
-    conditions.append(all_seperate(*rS))
-    conditions.append(all_seperate(*fS))
+    for v in dows.values():
+        c = all_seperate(*v)
+        conditions.append(c)
     return conditions
 
 
@@ -95,8 +104,9 @@ def example_test():
                 't2': {'w': (2, 8)}
                 },
             'section_d': {
-                't1': {'r': (0, 6)},
-                't2': {'r': (2, 8)}
+                't1': {'m': (0, 2), 'r': (0, 6)},
+                't2': {'m': (2, 4), 'r': (2, 8)},
+                't3': {'m': (14, 16), 'r': (14, 20)}
                 }
             }
     conditions = mk_sections(sections)
