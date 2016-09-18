@@ -4,6 +4,7 @@ defmodule Recourse.Mixfile do
   def project do
     [
       app: :recourse,
+      aliases: aliases,
       build_embedded: Mix.env == :prod,
       build_path: "../../_build",
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
@@ -92,6 +93,12 @@ defmodule Recourse.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:postgrex, "~> 0.11"},
       {:reprise, "~> 0.5", only: :dev},
+    ]
+  end
+
+  defp aliases do
+    [
+      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
