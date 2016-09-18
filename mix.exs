@@ -3,6 +3,7 @@ defmodule RecourseUmbrella.Mixfile do
 
   def project do
     [
+      aliases: aliases,
       apps_path: "apps",
       build_embedded: Mix.env == :prod,
       deps: deps,
@@ -24,5 +25,11 @@ defmodule RecourseUmbrella.Mixfile do
   # and cannot be accessed from applications inside the apps folder
   defp deps do
     []
+  end
+
+  defp aliases do
+    [
+      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
   end
 end

@@ -3,6 +3,7 @@ defmodule RecourseSolver.Mixfile do
 
   def project do
     [
+     aliases: aliases,
      app: :recourse_solver,
      build_embedded: Mix.env == :prod,
      build_path: "../../_build",
@@ -10,6 +11,7 @@ defmodule RecourseSolver.Mixfile do
      deps: deps,
      deps_path: "../../deps",
      elixir: "~> 1.3",
+     elixirc_paths: elixirc_paths(Mix.env),
      lockfile: "../../mix.lock",
      start_permanent: Mix.env == :prod,
      version: "0.1.0",
@@ -42,5 +44,14 @@ defmodule RecourseSolver.Mixfile do
       {:recourse, in_umbrella: true},
       {:msgpax, "~> 1.0.0"}
     ]
+  end
+
+  # Specifies which paths to compile per environment
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev),  do: ["lib", "test/support"]
+  defp elixirc_paths(_),     do: ["lib"]
+
+  defp aliases do
+    []
   end
 end

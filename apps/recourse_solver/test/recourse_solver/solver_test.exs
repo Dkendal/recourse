@@ -1,6 +1,14 @@
 defmodule RecourseSolver.SolverTest do
-  use ExUnit.Case, async: true
   alias RecourseSolver.Solver
+  alias Recourse.{
+    Repo,
+    Course,
+    Section,
+    MeetingTime,
+    Term,
+  }
+  use RecourseSolver.Case, async: true
+  import Ecto.Query
 
   def start_solver(context) do
     Solver.start
@@ -18,8 +26,33 @@ defmodule RecourseSolver.SolverTest do
     setup [:start_solver, :stop_solver]
 
     test "expected response" do
-      sections = %{}
-      IO.inspect Solver.solve(sections)
+      term = Repo.insert %Term{
+        semester: :fall,
+        year: 2020,
+        courses: [
+          %Course{
+            subject: "MATH",
+            number: "100",
+            sections: [
+              %Section{
+                name: "A1",
+                meeting_times: [
+                  %MeetingTime{
+                    location: "",
+                    type: "lecture",
+                    days: ["M", "W"],
+                    start_time: ~t[12:00:00],
+                    end_time: ~t[14:20:00],
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+
+      IO.inspect Repo.all(preload(Course, [sections: [:meeting_times]]))
+      # IO.inspect Solver.solve([])
     end
   end
 

@@ -5,11 +5,11 @@ defmodule Recourse.MeetingTime do
   use Web, :model
 
   schema "meeting_times" do
-    field :date_end, Date
-    field :date_start, Date
+    field :date_end, Date, default: ~d[2000-01-01]
+    field :date_start, Date, default: ~d[2000-12-31]
     field :days, {:array, :string}, default: []
     field :instructors, {:array, :string}, default: []
-    field :location, :string
+    field :location, :string, default: ""
     field :end_time, Time
     field :start_time, Time
     field :type, :string
