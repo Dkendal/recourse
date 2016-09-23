@@ -1,7 +1,14 @@
 import sys
 import msgpack
-from z3 import Or, And, Datatype, IntSort, Const, EnumSort, Solver, Implies
 from collections import defaultdict
+from z3 import (Or,
+                And,
+                Datatype,
+                IntSort,
+                Const,
+                EnumSort,
+                Solver,
+                Implies)
 
 
 def DeclarePair():
