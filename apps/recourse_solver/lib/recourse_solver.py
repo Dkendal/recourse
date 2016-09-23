@@ -1,5 +1,7 @@
-import sys, msgpack
-from z3 import *
+import sys
+import msgpack
+from z3 import Or, And, Datatype, IntSort, Const, EnumSort, Solver, Implies
+from collections import defaultdict
 
 
 def DeclarePair():
@@ -31,11 +33,18 @@ def mk_dow(section, dow):
     return Const(("%s_%s" % (section, dow)), Pair)
 
 
+def name(section):
+    subject = section['course']['subject']
+    number = section['course']['number']
+    schedule_type = section['schedule_type']
+    return "%s_%s_%s" % (subject, number, schedule_type)
+
+
 def get_dow(section, dow):
     key = (section, dow)
     if not hasattr(get_dow, 'memo'):
         get_dow.memo = {}
-    if not key in get_dow.memo:
+    if key not in get_dow.memo:
         val = mk_dow(*key)
         get_dow.memo[key] = val
     return get_dow.memo[key]
@@ -44,11 +53,11 @@ def get_dow(section, dow):
 def mk_sections(sections):
     conditions = []
     dows = {
-            'm': [],
-            't': [],
-            'w': [],
-            'r': [],
-            'f': []
+            'M': [],
+            'T': [],
+            'W': [],
+            'R': [],
+            'F': []
             }
 
     for section, choices in sections.items():
@@ -79,12 +88,43 @@ def mk_sections(sections):
     return conditions
 
 
+def time(meeting_time):
+    start = meeting_time['start_time']
+    end = meeting_time['end_time']
+    return (start, end)
+
+
+def meeting_times(sections):
+    section_types = defaultdict(lambda: defaultdict(dict))
+
+    for section in sections:
+        section_name = section['name']
+        n = name(section)
+        for mt in section['meeting_times']:
+            for dow in mt['days']:
+                section_types[n][section_name][dow] = time(mt)
+
+    return section_types
+
+
 def solve(sections):
-    s = Solver()
-    conditions = mk_sections(sections)
-    [s.add(c) for c in conditions]
-    s.check()
-    return s.model()
+    result = dict()
+    s = meeting_times(sections)
+    solver = Solver()
+    conditions = mk_sections(s)
+    [solver.add(c) for c in conditions]
+    solver.check()
+    model = solver.model()
+
+    return result
+
+
+def test(sections):
+    sys.stderr.write("\n")
+    sys.stderr.write(str(sections))
+    sys.stderr.write("\n")
+    sys.stderr.flush()
+    return sections
 
 
 def ping():
@@ -104,15 +144,10 @@ def handle(msg):
 
 
 def read():
-    buffer_length = sys.stdin.read(1)
-
-    # end of program
-    if len(buffer_length) == 0:
-      return False
-
-    buffer_length = ord(buffer_length)
-    buff = sys.stdin.read(buffer_length)
-    return msgpack.unpackb(buff)
+    buff = sys.stdin.readline()
+    if len(buff) == 0:
+        return False
+    return msgpack.unpackb(buff[0:-1])
 
 
 def write(response):

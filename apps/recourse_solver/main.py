@@ -1,4 +1,4 @@
-import recourse_solver
+from lib import recourse_solver
 
 
 def main():
