@@ -1,5 +1,5 @@
 import pytest
-from lib.solver import Solver
+from lib.solver import (Solver, Section)
 
 @pytest.fixture
 def transformed_sections():
@@ -111,8 +111,9 @@ def section():
     return transformed_sections()[0]
 
 
-def test__init__():
-    assert Solver(1)
+def test_Solver():
+    s = Solver(1)
+    assert s.raw_sections == 1
 
 
 def test_transform(transformed_sections, sections):
@@ -131,3 +132,9 @@ def test_section_names(section):
 
 def test_section_const_name(section):
     assert Solver.section_const_name(section) == "1_lecture"
+
+
+def test_Section(section):
+    s = Section(section)
+    assert repr(s.sort) == "1_lecture"
+    assert repr(s.enums) == "[A01, A02]"

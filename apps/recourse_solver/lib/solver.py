@@ -1,5 +1,16 @@
 from lib.pair import Pair
 from itertools import (groupby)
+from z3 import(EnumSort)
+
+
+class Section:
+    sort = None
+    enums = []
+
+    def __init__(self, section):
+        n = Solver.section_const_name(section)
+        s = Solver.section_names(section)
+        self.sort, self.enums = EnumSort(n, s)
 
 
 class Solver:
