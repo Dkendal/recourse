@@ -107,6 +107,11 @@ def sections():
     return val
 
 
+@pytest.fixture
+def section():
+    return transformed_sections()[0]
+
+
 def test__init__():
     assert Solver(1)
 
@@ -119,6 +124,10 @@ def test_solve(sections):
     s = Solver(sections)
     s.setup()
     result = s.solve()
+
+
+def test_section_names(section):
+    assert solver.section_names(section) == ['A01', 'A02']
 
 
 def test_section_const_name(section):

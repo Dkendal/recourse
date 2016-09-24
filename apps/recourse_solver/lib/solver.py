@@ -40,6 +40,10 @@ def section_const_name(section):
     return "{}_{}".format(a, b)
 
 
+def section_names(s):
+    return [x['name'] for x in s['sections']]
+
+
 class Solver:
     dow_consts = []
     section_consts = []
