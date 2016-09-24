@@ -1,5 +1,4 @@
 import pytest
-from lib import solver
 from lib.solver import Solver
 
 @pytest.fixture
@@ -117,7 +116,7 @@ def test__init__():
 
 
 def test_transform(transformed_sections, sections):
-    assert list(solver.transform(sections)) == transformed_sections
+    assert list(Solver.transform(sections)) == transformed_sections
 
 
 def test_solve(sections):
@@ -127,8 +126,8 @@ def test_solve(sections):
 
 
 def test_section_names(section):
-    assert solver.section_names(section) == ['A01', 'A02']
+    assert Solver.section_names(section) == ['A01', 'A02']
 
 
 def test_section_const_name(section):
-    assert solver.section_const_name(section) == "1_lecture"
+    assert Solver.section_const_name(section) == "1_lecture"
