@@ -119,3 +119,7 @@ def test_solve(sections):
     s = Solver(sections)
     s.setup()
     result = s.solve()
+
+
+def test_section_const_name(section):
+    assert solver.section_const_name(section) == "1_lecture"

@@ -34,6 +34,12 @@ def transform(sections):
                'sections': sections}
 
 
+def section_const_name(section):
+    a = section['course_id']
+    b = section['schedule_type']
+    return "{}_{}".format(a, b)
+
+
 class Solver:
     dow_consts = []
     section_consts = []
