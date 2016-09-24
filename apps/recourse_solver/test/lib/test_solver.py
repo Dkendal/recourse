@@ -1,4 +1,5 @@
 import pytest
+from lib import solver
 from lib.solver import Solver
 
 @pytest.fixture
@@ -111,10 +112,10 @@ def test__init__():
 
 
 def test_transform(transformed_sections, sections):
-    s = Solver()
-    assert list(s.transform(sections)) == transformed_sections
+    assert list(solver.transform(sections)) == transformed_sections
 
 
 def test_solve(sections):
-    solver = Solver(sections)
-    result = solver.solve()
+    s = Solver(sections)
+    s.setup()
+    result = s.solve()
