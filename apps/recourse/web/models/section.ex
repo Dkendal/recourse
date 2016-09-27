@@ -1,6 +1,13 @@
 defmodule Recourse.Section do
   use Recourse.Web, :model
 
+  @derive [{Msgpax.Packer, fields: [
+     :meeting_times,
+     :course_id,
+     :schedule_type,
+     :name,
+   ]}]
+
   schema "sections" do
     field :campus, :string
     field :credits, :float
