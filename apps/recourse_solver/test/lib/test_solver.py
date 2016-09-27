@@ -1,72 +1,5 @@
 import pytest
-from lib.solver import (Solver, Section)
-
-@pytest.fixture
-def transformed_sections():
-    val = [{
-        'course_id': 1,
-        'schedule_type': 'lecture',
-        'sections': [
-            {
-                'name': 'A01',
-                'meeting_times': [
-                    {
-                        'start_time': 0,
-                        'end_time': 1000,
-                        'day': 'M'
-                        },
-                    {
-                        'start_time': 0,
-                        'end_time': 1000,
-                        'day': 'W'
-                        },
-                    {
-                        'start_time': 0,
-                        'end_time': 1000,
-                        'day': 'F'
-                        }
-                    ]
-                },
-            {
-                'name': 'A02',
-                'meeting_times': [
-                    {
-                        'start_time': 2000,
-                        'end_time': 3000,
-                        'day': 'M'
-                        },
-                    {
-                        'start_time': 2000,
-                        'end_time': 3000,
-                        'day': 'W'
-                        },
-                    {
-                        'start_time': 2000,
-                        'end_time': 3000,
-                        'day': 'F'
-                        }
-                    ]
-                }
-            ],
-        },
-        {
-            'course_id': 1,
-            'schedule_type': 'tutorial',
-            'sections': [
-                {
-                    'name': 'T01',
-                    'meeting_times': [
-                        {
-                            'start_time': 8000,
-                            'end_time': 9000,
-                            'day': 'F'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    return val
+from lib.solver import Solver
 
 
 @pytest.fixture
@@ -106,35 +39,7 @@ def sections():
     return val
 
 
-@pytest.fixture
-def section():
-    return transformed_sections()[0]
-
-
-def test_Solver():
-    s = Solver(1)
-    assert s.raw_sections == 1
-
-
-def test_transform(transformed_sections, sections):
-    assert list(Solver.transform(sections)) == transformed_sections
-
-
 def test_solve(sections):
     s = Solver(sections)
-    s.setup()
     result = s.solve()
-
-
-def test_section_names(section):
-    assert Solver.section_names(section) == ['A01', 'A02']
-
-
-def test_section_const_name(section):
-    assert Solver.section_const_name(section) == "1_lecture"
-
-
-def test_Section(section):
-    s = Section(section)
-    assert repr(s.sort) == "1_lecture"
-    assert repr(s.enums) == "[A01, A02]"
+    assert repr(result) == '[A02, None]'

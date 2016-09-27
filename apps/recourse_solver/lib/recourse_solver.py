@@ -33,7 +33,7 @@ def seperate(x, y):
 
 
 def all_seperate(*s):
-    return And(*[seperate(x, y) for x in s for y in s if x > y])
+    return And(*[seperate(x, y) for x in s for y in s if hash(x) > hash(y)])
 
 
 def mk_dow(section, dow):
@@ -58,6 +58,7 @@ def get_dow(section, dow):
 
 
 def mk_sections(sections):
+    section_consts = []
     conditions = []
     dows = {
             'M': [],
@@ -69,10 +70,11 @@ def mk_sections(sections):
 
     for section, choices in sections.items():
         imps = []
-        section_names = choices.keys()
+        section_names = list(choices.keys())
         Sort, section_enums = EnumSort("%sSort" % section, section_names)
         enum_map = dict(zip(section_names, section_enums))
         section_const = Const(section, Sort)
+        section_consts.append(section_const)
         # domains for meeting times
         for section_name, blocks in choices.items():
             section_enum = enum_map[section_name]
@@ -88,11 +90,12 @@ def mk_sections(sections):
                         (dow_const == value))
                 imps.append(imp)
         conditions.append(And(imps))
+
     # sections may not overlap
     for v in dows.values():
         c = all_seperate(*v)
         conditions.append(c)
-    return conditions
+    return (section_consts, conditions)
 
 
 def time(meeting_time):
@@ -115,23 +118,13 @@ def meeting_times(sections):
 
 
 def solve(sections):
-    result = dict()
     s = meeting_times(sections)
     solver = Solver()
-    conditions = mk_sections(s)
+    (consts, conditions) = mk_sections(s)
     [solver.add(c) for c in conditions]
     solver.check()
     model = solver.model()
-
-    return result
-
-
-def test(sections):
-    sys.stderr.write("\n")
-    sys.stderr.write(str(sections))
-    sys.stderr.write("\n")
-    sys.stderr.flush()
-    return sections
+    return dict([(str(c), str(model[c])) for c in consts])
 
 
 def ping():

@@ -1,70 +1,31 @@
-from lib.pair import Pair
-from itertools import (groupby)
-from z3 import(EnumSort)
-
-
-class Section:
-    sort = None
-    enums = []
-
-    def __init__(self, section):
-        n = Solver.section_const_name(section)
-        s = Solver.section_names(section)
-        self.sort, self.enums = EnumSort(n, s)
+import z3
+from .choice import Choice
+from itertools import groupby
 
 
 class Solver:
-    dow_consts = []
-    section_consts = []
-    conditions = []
-    sections = []
-    raw_sections = []
+    def __init__(self, sections):
+        self.sections = list(sections)
+        self.solver = z3.Solver()
 
-    def __init__(self, raw_sections=[]):
-        self.raw_sections = raw_sections
+        groups = groupby(
+                sections,
+                lambda x: (x['course_id'], x['schedule_type']))
 
-    def setup(self):
-        self.sections = Solver.transform(self.sections)
+        self.groups = [Choice(k, v) for k, v in groups]
+
+    def post(self):
+        self.solver.add(z3.And(*list(self.klass_constraints())))
 
     def solve(self):
-        self.sections
-        pass
+        self.post()
+        assert self.solver.check() == z3.sat
+        model = self.solver.model()
+        return [model[x.const] for x in self.groups]
 
-    def transform(sections):
-        def transform_meeting_time(meeting_time):
-            days = meeting_time['days']
-            start_time = meeting_time['start_time']
-            end_time = meeting_time['end_time']
-            for day in days:
-                result = {
-                        'day': day,
-                        'start_time': start_time,
-                        'end_time': end_time
-                        }
-                yield result
-
-        def transform_sections(sections):
-            for section in sections:
-                name = section['name']
-                mt = section['meeting_times']
-                mt = [transform_meeting_time(x) for x in mt]
-                mt = [y for x in mt for y in x]
-                yield {'name': name, 'meeting_times': mt}
-
-        def key(x):
-            return (x['course_id'], x['schedule_type'])
-
-        for x in groupby(sections, key):
-            (course_id, schedule_type), sections = x
-            sections = list(transform_sections(sections))
-            yield {'course_id': course_id,
-                   'schedule_type': schedule_type,
-                   'sections': sections}
-
-    def section_const_name(section):
-        a = section['course_id']
-        b = section['schedule_type']
-        return "{}_{}".format(a, b)
-
-    def section_names(s):
-        return [x['name'] for x in s['sections']]
+    def klass_constraints(self):
+        for choice in self.groups:
+            for section in choice.sections:
+                for meeting in section.meeting_times:
+                    for klass in meeting.klasses:
+                        yield klass.constraint()
