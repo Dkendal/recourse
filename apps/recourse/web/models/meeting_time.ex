@@ -4,6 +4,12 @@ defmodule Recourse.MeetingTime do
 
   use Web, :model
 
+  @derive [{Msgpax.Packer, fields: [
+     :end_time,
+     :start_time,
+     :days
+   ]}]
+
   schema "meeting_times" do
     field :date_end, Date, default: ~d[2000-01-01]
     field :date_start, Date, default: ~d[2000-12-31]
