@@ -18,7 +18,7 @@ defmodule Recourse.Section do
     field :crn, :string
     field :registration_end, Ecto.Date
     field :registration_start, Ecto.Date
-    field :schedule_type, :string
+    field :schedule_type, :string, default: ""
     field :tba, :boolean, default: false
     belongs_to :course, Recourse.Course
     has_many :meeting_times, Recourse.MeetingTime
