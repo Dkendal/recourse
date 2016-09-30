@@ -1,5 +1,6 @@
 defmodule Recourse.ScheduleFormTest do
   use Recourse.ModelCase
+  use Recourse.Assertions
 
   alias Recourse.{ScheduleForm, Course}
 
