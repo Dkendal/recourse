@@ -1,6 +1,7 @@
 defmodule Solver.Server do
   use GenServer
   @name __MODULE__
+  @script '../pysolver/pysolver.py'
 
   defmodule Call do
     @derive Msgpax.Packer
@@ -52,8 +53,7 @@ defmodule Solver.Server do
   end
 
   def init(_args) do
-    external_program = "./main.py"
-    port = Port.open({:spawn, external_program}, [])
+    port = Port.open({:spawn, @script}, [])
     {:ok, port}
   end
 
