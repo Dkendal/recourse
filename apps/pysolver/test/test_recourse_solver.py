@@ -1,4 +1,4 @@
-from lib import recourse_solver
+from pysolver import recourse_solver
 import io
 
 def test_handle():

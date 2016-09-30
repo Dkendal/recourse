@@ -1,5 +1,5 @@
 import pytest
-from lib.solver import Solver
+from pysolver.solver import Solver
 
 
 @pytest.fixture

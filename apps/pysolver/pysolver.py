@@ -1,5 +1,5 @@
 #!/home/dylan/.virtualenvs/recourse/bin/python
-from lib import recourse_solver
+from pysolver import recourse_solver
 
 
 def main():
