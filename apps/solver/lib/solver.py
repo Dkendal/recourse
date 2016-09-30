@@ -33,7 +33,7 @@ class Solver:
                     'course_id': group.course_id,
                     'schedule_type': group.schedule_type,
                     'id': str(model[group.const]),
-                    'ids': [str(x) for x in group.enums]
+                    'ids': [int(str(x)) for x in group.enums]
                     }
             yield val
 

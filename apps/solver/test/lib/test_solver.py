@@ -51,6 +51,6 @@ def test_solve(sections):
         assert isinstance(x, dict)
 
     assert result == [
-            {'course_id': 1, 'schedule_type': 'lecture', 'id': '2', 'ids': ['1', '2']},
-            {'course_id': 1, 'schedule_type': 'tutorial', 'id': 'None', 'ids': ['3']}
+            {'course_id': 1, 'schedule_type': 'lecture', 'id': '2', 'ids': [1, 2]},
+            {'course_id': 1, 'schedule_type': 'tutorial', 'id': 'None', 'ids': [3]}
             ]

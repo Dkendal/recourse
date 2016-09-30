@@ -39,7 +39,9 @@ defmodule RecourseSolver.Solver do
 
   def call_port(port, msg) do
     encoded_msg = encode(msg)
+    File.write("log.txt", encoded_msg)
 
+    send port, {self, {:command, encoded_msg}}
     send port, {self, {:command, encoded_msg}}
 
     receive do
@@ -51,7 +53,7 @@ defmodule RecourseSolver.Solver do
   end
 
   def init(_args) do
-    external_program = "./recourse_solver.sh"
+    external_program = "./main.py"
     port = Port.open({:spawn, external_program}, [])
     {:ok, port}
   end
@@ -68,7 +70,6 @@ defmodule RecourseSolver.Solver do
     msg = x
     |> Msgpax.pack!()
     |> IO.iodata_to_binary()
-
-    <<byte_size(msg)>> <> msg
+    <<byte_size(msg) :: size(16)>> <> msg
   end
 end

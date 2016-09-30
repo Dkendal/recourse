@@ -26,7 +26,7 @@ defmodule RecourseSolver.SolverTest do
     setup [:start_solver, :stop_solver]
 
     test "expected response" do
-      term = Repo.insert %Term{
+      Repo.insert! %Term{
         semester: :fall,
         year: 2020,
         courses: [
@@ -35,24 +35,31 @@ defmodule RecourseSolver.SolverTest do
             number: "100",
             sections: [
               %Section{
-                name: "A1",
+                name: "A01",
+                schedule_type: "lecture",
                 meeting_times: [
                   %MeetingTime{
-                    location: "",
-                    type: "lecture",
-                    days: ["M", "W"],
-                    start_time: ~t[12:00:00],
-                    end_time: ~t[14:20:00],
-                  }
+                    days: ~W(M W F),
+                    start_time: ~t[08:00:00],
+                    end_time: ~t[09:20:00],
+                  },
                 ]
               }
             ]
-          }
+          },
         ]
       }
 
-      IO.inspect Repo.all(preload(Course, [sections: [:meeting_times]]))
-      # IO.inspect Solver.solve([])
+      sections = Repo.all(preload(Section, [:course, :meeting_times]))
+      [section] = sections
+
+      assert Solver.solve(sections) ==
+        [%{
+          "course_id" => section.course_id,
+          "id" => "None",
+          "ids" => [section.id],
+          "schedule_type" => "lecture"
+        }]
     end
   end
 
