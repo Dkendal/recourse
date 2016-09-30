@@ -87,6 +87,7 @@ defmodule Recourse.Mixfile do
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 0.9"},
       {:jsonapi, "~> 0.1"},
+      {:msgpax, "~> 1.0.0"},
       {:phoenix, "~> 1.2"},
       {:phoenix_ecto, "~> 3.0" },
       {:phoenix_html, "~> 2.6"},
