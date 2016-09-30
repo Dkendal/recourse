@@ -1,4 +1,4 @@
-defmodule RecourseSolver.Case do
+defmodule Solver.Case do
   use ExUnit.CaseTemplate
 
   using do

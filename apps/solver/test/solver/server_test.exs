@@ -1,5 +1,6 @@
-defmodule RecourseSolver.SolverTest do
-  alias RecourseSolver.Solver
+defmodule Solver.ServerTest do
+  alias Solver.Server
+
   alias Recourse.{
     Repo,
     Course,
@@ -7,17 +8,19 @@ defmodule RecourseSolver.SolverTest do
     MeetingTime,
     Term,
   }
-  use RecourseSolver.Case, async: true
+
+  use Solver.Case, async: true
+
   import Ecto.Query
 
   def start_solver(context) do
-    Solver.start
+    Server.start
     context
   end
 
   def stop_solver(context) do
     on_exit fn ->
-      Solver.stop
+      Server.stop
     end
     context
   end
@@ -53,7 +56,7 @@ defmodule RecourseSolver.SolverTest do
       sections = Repo.all(preload(Section, [:course, :meeting_times]))
       [section] = sections
 
-      assert Solver.solve(sections) ==
+      assert Server.solve(sections) ==
         [%{
           "course_id" => section.course_id,
           "id" => "None",
@@ -67,7 +70,7 @@ defmodule RecourseSolver.SolverTest do
     setup [:start_solver, :stop_solver]
 
     test "expected response" do
-      assert Solver.ping() == "pong"
+      assert Server.ping() == "pong"
     end
   end
 
@@ -75,7 +78,7 @@ defmodule RecourseSolver.SolverTest do
     setup [:start_solver]
 
     test "stops the server" do
-      assert Solver.stop() == :ok
+      assert Server.stop() == :ok
     end
   end
 end

@@ -1,4 +1,4 @@
-defmodule RecourseSolver do
+defmodule Solver do
   use Application
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
@@ -8,13 +8,13 @@ defmodule RecourseSolver do
 
     # Define workers and child supervisors to be supervised
     children = [
-      # Starts a worker by calling: RecourseSolver.Worker.start_link(arg1, arg2, arg3)
-      # worker(RecourseSolver.Worker, [arg1, arg2, arg3]),
+      # Starts a worker by calling: Solver.Worker.start_link(arg1, arg2, arg3)
+      # worker(Solver.Worker, [arg1, arg2, arg3]),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: RecourseSolver.Supervisor]
+    opts = [strategy: :one_for_one, name: Solver.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

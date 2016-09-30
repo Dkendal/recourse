@@ -1,10 +1,10 @@
-defmodule RecourseSolver.Mixfile do
+defmodule Solver.Mixfile do
   use Mix.Project
 
   def project do
     [
      aliases: aliases,
-     app: :recourse_solver,
+     app: :solver,
      build_embedded: Mix.env == :prod,
      build_path: "../../_build",
      config_path: "../../config/config.exs",
@@ -23,7 +23,7 @@ defmodule RecourseSolver.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger, :recourse],
-     mod: {RecourseSolver, []}]
+     mod: {Solver, []}]
   end
 
   # Dependencies can be Hex packages:

@@ -1,4 +1,4 @@
-# RecourseSolver
+# Solver
 
 **TODO: Add description**
 

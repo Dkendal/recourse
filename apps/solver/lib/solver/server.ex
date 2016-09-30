@@ -1,4 +1,4 @@
-defmodule RecourseSolver.Solver do
+defmodule Solver.Server do
   use GenServer
   @name __MODULE__
 
@@ -39,7 +39,6 @@ defmodule RecourseSolver.Solver do
 
   def call_port(port, msg) do
     encoded_msg = encode(msg)
-    File.write("log.txt", encoded_msg)
 
     send port, {self, {:command, encoded_msg}}
     send port, {self, {:command, encoded_msg}}

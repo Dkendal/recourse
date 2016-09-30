@@ -1,6 +1,6 @@
-defmodule RecourseSolverTest do
+defmodule SolverTest do
   use ExUnit.Case
-  doctest RecourseSolver
+  doctest Solver
 
   test "the truth" do
     assert 1 + 1 == 2
