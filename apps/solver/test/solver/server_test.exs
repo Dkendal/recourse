@@ -54,14 +54,15 @@ defmodule Solver.ServerTest do
       }
 
       sections = Repo.all(preload(Section, [:course, :meeting_times]))
+
       [section] = sections
 
       assert Server.solve(sections) ==
-        [%{
-          "course_id" => section.course_id,
-          "schedule_type" => "lecture",
-          "id" => "None",
-          "ids" => [section.id],
+        [%Solver.Solution{
+          course_id: section.course_id,
+          schedule_type: "lecture",
+          id: :unbound,
+          ids: [section.id],
         }]
     end
   end

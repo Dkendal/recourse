@@ -1,4 +1,5 @@
 defmodule Solver.Server do
+  alias Solver.Solution
   use GenServer
   @name __MODULE__
   @script '../pysolver/pysolver.py'
@@ -22,7 +23,9 @@ defmodule Solver.Server do
   end
 
   def solve(sections) do
-    GenServer.call(@name, {:solve, sections})
+    @name
+    |> GenServer.call({:solve, sections})
+    |> Solution.parse()
   end
 
   def handle_call(:ping, _from, port) do
