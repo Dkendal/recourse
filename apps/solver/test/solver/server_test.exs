@@ -59,9 +59,9 @@ defmodule Solver.ServerTest do
       assert Server.solve(sections) ==
         [%{
           "course_id" => section.course_id,
+          "schedule_type" => "lecture",
           "id" => "None",
           "ids" => [section.id],
-          "schedule_type" => "lecture"
         }]
     end
   end

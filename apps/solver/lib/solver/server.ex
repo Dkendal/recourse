@@ -42,7 +42,6 @@ defmodule Solver.Server do
     encoded_msg = encode(msg)
 
     send port, {self, {:command, encoded_msg}}
-    send port, {self, {:command, encoded_msg}}
 
     receive do
       {^port, {:data, data}} ->
