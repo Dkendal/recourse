@@ -16,6 +16,19 @@ defmodule Frontend.Web do
   below.
   """
 
+  def aliases do
+    quote do
+      alias Recourse.{
+        Course,
+        MeetingTime,
+        Repo,
+        Section,
+        Term,
+      }
+    end
+  end
+
+
   def model do
     quote do
       use Ecto.Schema
