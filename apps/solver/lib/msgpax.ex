@@ -1,5 +1,5 @@
-defimpl Msgpax.Packer, for: Ecto.Time do
+defimpl Msgpax.Packer, for: Time do
   def pack(time) do
-    @protocol.pack :calendar.time_to_seconds Ecto.Time.to_erl time
+    @protocol.pack :calendar.time_to_seconds Time.to_erl time
   end
 end

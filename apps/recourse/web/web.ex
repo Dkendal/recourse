@@ -19,7 +19,6 @@ defmodule Recourse.Web do
   def model do
     quote do
       use Ecto.Schema
-      use Recourse.Sigils
 
       import Ecto
       import Ecto.Changeset

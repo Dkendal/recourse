@@ -43,8 +43,10 @@ defmodule Solver.ServerTest do
                 meeting_times: [
                   %MeetingTime{
                     days: ~W(M W F),
-                    start_time: ~t[08:00:00],
-                    end_time: ~t[09:20:00],
+                    date_start: ~D[2020-09-05],
+                    date_end: ~D[2021-04-25],
+                    start_time: ~T[08:00:00],
+                    end_time: ~T[09:20:00],
                   },
                 ]
               }

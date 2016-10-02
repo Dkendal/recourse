@@ -12,13 +12,13 @@ defmodule Recourse.Section do
   schema "sections" do
     field :campus, :string
     field :credits, :float
-    field :date_end, Ecto.Date
-    field :date_start, Ecto.Date
+    field :date_end, :date
+    field :date_start, :date
     field :instructional_method, :string
     field :name, :string
     field :crn, :string
-    field :registration_end, Ecto.Date
-    field :registration_start, Ecto.Date
+    field :registration_end, :date
+    field :registration_start, :date
     field :schedule_type, :string, default: ""
     field :tba, :boolean, default: false
     belongs_to :course, Recourse.Course

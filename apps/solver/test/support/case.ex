@@ -3,7 +3,6 @@ defmodule Solver.Case do
 
   using do
     quote do
-      use Recourse.Sigils
     end
   end
 
