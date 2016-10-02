@@ -25,6 +25,7 @@ defmodule Frontend.Mixfile do
   def application do
     [mod: {Frontend, []},
      applications: [
+       :apex,
        :cowboy,
        :gettext,
        :logger,
@@ -46,6 +47,7 @@ defmodule Frontend.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:apex, ">= 0.0.0"},
       {:cowboy, "~> 1.0"},
       {:ecto, "~> 2.1.0-rc.1", override: true},
       {:gettext, "~> 0.11"},
