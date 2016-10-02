@@ -72,26 +72,4 @@ defmodule Recourse.Section do
     change
     |> Ecto.Changeset.put_change(:tba, tba?(change.data))
   end
-
-  defimpl Poison.Encoder, for: __MODULE__ do
-    def encode(section, _options) do
-      %{
-        campus: section.campus,
-        course: section.course,
-        credits: section.credits,
-        date_end: section.date_end,
-        date_start: section.date_start,
-        id: section.id,
-        instructional_method: section.instructional_method,
-        crn: section.crn,
-        registration_end: section.registration_end,
-        registration_start: section.registration_start,
-        schedule_type: section.schedule_type,
-        seats: section.seats,
-        waitlist: section.waitlist,
-        meeting_times: section.meeting_times
-      }
-      |> Poison.Encoder.encode([])
-    end
-  end
 end

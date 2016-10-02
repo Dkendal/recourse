@@ -75,20 +75,4 @@ defmodule Recourse.MeetingTime do
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
   end
-
-  defimpl Poison.Encoder, for: __MODULE__ do
-    def encode(meeting_time, _options) do
-      %{
-        date_end: meeting_time.date_end,
-        date_start: meeting_time.date_start,
-        days: meeting_time.days,
-        instructors: meeting_time.instructors,
-        location: meeting_time.location,
-        end_time: meeting_time.end_time,
-        start_time: meeting_time.start_time,
-        type: meeting_time.type
-      }
-      |> Poison.Encoder.encode([])
-    end
-  end
 end

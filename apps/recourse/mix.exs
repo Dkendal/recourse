@@ -7,7 +7,7 @@ defmodule Recourse.Mixfile do
       aliases: aliases,
       build_embedded: Mix.env == :prod,
       build_path: "../../_build",
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      compilers: [:gettext] ++ Mix.compilers,
       config_path: "../../config/config.exs",
       deps: deps,
       deps_path: "../../deps",
@@ -44,20 +44,14 @@ defmodule Recourse.Mixfile do
 
   def applications(_all) do
     [
-      :aruspex,
       :con_cache,
       :cowboy,
       :ecto_enum,
-      :exyz,
       :floki,
       :gettext,
       :httpoison,
       :jsonapi,
       :logger,
-      :pattern_tap,
-      :phoenix,
-      :phoenix_ecto,
-      :phoenix_html,
       :postgrex,
     ]
   end
@@ -72,7 +66,6 @@ defmodule Recourse.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
-      {:aruspex, git: "https://github.com/Dkendal/aruspex", ref: "76116af"},
       {:con_cache, "~> 0.9.0"},
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.4", only: [:dev, :test]},
@@ -88,10 +81,6 @@ defmodule Recourse.Mixfile do
       {:httpoison, "~> 0.9"},
       {:jsonapi, "~> 0.1"},
       {:msgpax, "~> 1.0.0"},
-      {:phoenix, "~> 1.2"},
-      {:phoenix_ecto, "~> 3.0" },
-      {:phoenix_html, "~> 2.6"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:postgrex, "~> 0.11"},
       {:reprise, "~> 0.5", only: :dev},
     ]

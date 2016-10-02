@@ -42,17 +42,4 @@ defmodule Recourse.Course do
     change
     |> Ecto.Changeset.put_change(:tba, tba?(change.data))
   end
-
-  defimpl Poison.Encoder, for: __MODULE__ do
-    def encode(course, _options) do
-      %{
-        id: course.id,
-        title: course.title,
-        subject: course.subject,
-        tba: course.tba,
-        number: course.number,
-      }
-      |> Poison.Encoder.encode([])
-    end
-  end
 end

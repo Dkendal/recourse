@@ -5,15 +5,6 @@
 # is restricted to this project.
 use Mix.Config
 
-# Configures the endpoint
-config :recourse, Recourse.Endpoint,
-  url: [host: "localhost"],
-  root: Path.dirname(__DIR__),
-  secret_key_base: "HqBl2anXhePQ9Ridk4lSlXAiThup5wJf1ZAE54UTVq5+OBQr3FnVExbZUyMGE8KR",
-  render_errors: [accepts: ~w(html json)],
-  pubsub: [name: Recourse.PubSub,
-           adapter: Phoenix.PubSub.PG2]
-
 
 config :recourse, ecto_repos: [Recourse.Repo]
 
