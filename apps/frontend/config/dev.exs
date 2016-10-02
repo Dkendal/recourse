@@ -33,10 +33,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :frontend, Recourse.Repo,
+config :recourse, Recourse.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "frontend_dev",
+  username: "dylan",
+  password: "",
+  database: "recourse_dev",
   hostname: "localhost",
   pool_size: 10
