@@ -20,7 +20,7 @@ defmodule Frontend.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias Frontend.Repo
+      alias Recourse.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
@@ -32,10 +32,10 @@ defmodule Frontend.ChannelCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Frontend.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Recourse.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Frontend.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Recourse.Repo, {:shared, self()})
     end
 
     :ok

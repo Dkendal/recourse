@@ -6,8 +6,7 @@
 use Mix.Config
 
 # General application configuration
-config :frontend,
-  ecto_repos: [Frontend.Repo]
+config :frontend, ecto_repos: []
 
 # Configures the endpoint
 config :frontend, Frontend.Endpoint,

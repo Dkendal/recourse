@@ -30,7 +30,7 @@ defmodule Frontend.Web do
     quote do
       use Phoenix.Controller
 
-      alias Frontend.Repo
+      alias Recourse.Repo
       import Ecto
       import Ecto.Query
 
@@ -65,7 +65,7 @@ defmodule Frontend.Web do
     quote do
       use Phoenix.Channel
 
-      alias Frontend.Repo
+      alias Recourse.Repo
       import Ecto
       import Ecto.Query
       import Frontend.Gettext

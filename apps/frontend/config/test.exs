@@ -10,7 +10,7 @@ config :frontend, Frontend.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :frontend, Frontend.Repo,
+config :frontend, Recourse.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
