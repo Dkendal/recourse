@@ -5,8 +5,16 @@ defmodule Frontend.PageController do
 
   def index(conn, _params) do
     terms = Repo.all preload(Term, [:courses])
-    page = Page.changeset(%Page{}, %{})
-    page = Ecto.Changeset.put_assoc(page, :terms, terms)
-    render conn, "index.html", page: page
+    selected_term = List.last terms
+
+    page = %Page{selected_term_id: selected_term.id}
+           |> Page.changeset(%{})
+
+    locals = %{
+      page: page,
+      terms: terms
+    }
+
+    render(conn, "index.html", locals)
   end
 end

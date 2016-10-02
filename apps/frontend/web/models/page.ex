@@ -3,12 +3,11 @@ defmodule Frontend.Page do
   use Frontend.Web, :model
 
   schema "page" do
-    has_many :terms, Term
+    field :selected_term_id, :integer, virtual: true
   end
 
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, [])
-    |> cast_assoc(:terms)
+    |> cast(params, [:selected_term_id])
   end
 end

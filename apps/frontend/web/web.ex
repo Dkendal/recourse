@@ -28,6 +28,9 @@ defmodule Frontend.Web do
       alias Frontend.{
         Page
       }
+      alias Ecto.{
+        Changeset
+      }
     end
   end
 

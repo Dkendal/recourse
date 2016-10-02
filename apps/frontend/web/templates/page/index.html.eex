@@ -1,2 +1,3 @@
 <%= form_for @page, page_path(@conn, :index), fn f -> %>
+  <%= select f, :selected_term_id, term_options(@terms) %>
 <% end %>
