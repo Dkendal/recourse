@@ -25,6 +25,9 @@ defmodule Frontend.Web do
         Section,
         Term,
       }
+      alias Frontend.{
+        Page
+      }
     end
   end
 
