@@ -42,4 +42,42 @@ defmodule Recourse.Course do
     change
     |> Ecto.Changeset.put_change(:tba, tba?(change.data))
   end
+
+  defmacrop to_tsvector(x) do
+    quote do
+      fragment("to_tsvector(?)", unquote(x))
+    end
+  end
+
+  defmacrop _or([x]) do
+    quote do
+      unquote(x)
+    end
+  end
+
+  defmacrop _or([x | t]) do
+    quote do
+      fragment("? || ?", unquote(x), _or(unquote(t)))
+    end
+  end
+
+  defmacrop _query(x, y) do
+    quote do
+      fragment("? @@ ?", unquote(x), _or(unquote(t)))
+    end
+  end
+
+  defmacrop _similarity(x, y) do
+    quote do
+      fragment("similarity(?, ?)", unquote(x), unquote(y))
+    end
+  end
+
+  def search(query, search_string) do
+    from c in query,
+    order_by: [
+      desc: _similarity(_or([c.subject, " ", c.title, " ", c.number]),
+                        ^search_string),
+    ]
+  end
 end

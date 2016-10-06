@@ -1,3 +1,15 @@
-<%= form_for @page, page_path(@conn, :index), fn f -> %>
+<%= form_for @changeset, page_path(@conn, :index), [method: "get"], fn f -> %>
   <%= select f, :selected_term_id, term_options(@terms) %>
+
+  <%= label f, :search_text %>
+  <%= search_input f, :search_text %>
+
+  <ul>
+    <%= for course <- @courses do %>
+      <li>
+        <span><%= course.subject %></span>
+        <span><%= course.number %></span>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

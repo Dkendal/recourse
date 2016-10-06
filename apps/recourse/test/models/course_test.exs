@@ -1,7 +1,7 @@
 defmodule Recourse.CourseTest do
   use Recourse.ModelCase
 
-  alias Recourse.Course
+  alias Recourse.{Course, Term}
 
   @valid_attrs %{
     description: "some content",
@@ -21,5 +21,29 @@ defmodule Recourse.CourseTest do
   test "changeset with invalid attributes" do
     changeset = Course.changeset(%Course{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  describe ".search" do
+    test "returns similar courses to the query" do
+      Repo.insert %Term{
+        semester: :summer,
+        year: 2020,
+        courses: [
+          %Course{
+            subject: "MATH",
+            number: "400",
+            title: "hard math course"
+          },
+          %Course{
+            subject: "CSC",
+            number: "100",
+            title: "intro comp sci"
+          },
+        ]
+      }
+
+      courses = Repo.all Course.search(Course, "csc")
+      [%Course{subject: "CSC"}, %Course{subject: "MATH"}] = courses
+    end
   end
 end

@@ -3,16 +3,24 @@ defmodule Frontend.PageController do
   use Frontend.Web, :aliases
   use Frontend.Web, :controller
 
-  def index(conn, _params) do
-    terms = Repo.all preload(Term, [:courses])
+  def index(conn, params) do
+    terms = Repo.all Term
+
     selected_term = List.last terms
 
-    page = %Page{selected_term_id: selected_term.id}
-           |> Page.changeset(%{})
+    changeset = Page.changeset(%Page{}, params["page"])
+
+    page = Changeset.apply_changes(changeset)
+
+    query = limit(assoc(selected_term, :courses), 100)
+
+    courses = Repo.all(Course.search(query, page.search_text))
 
     locals = %{
+      changeset: changeset,
+      courses: courses,
       page: page,
-      terms: terms
+      terms: terms,
     }
 
     render(conn, "index.html", locals)
