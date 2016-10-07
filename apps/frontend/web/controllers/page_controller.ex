@@ -8,13 +8,19 @@ defmodule Frontend.PageController do
 
     selected_term = List.last terms
 
-    changeset = Page.changeset(%Page{}, params["page"])
+    changeset = Page.changeset(%Page{}, page_params(params))
 
     page = Changeset.apply_changes(changeset)
 
     query = limit(assoc(selected_term, :courses), 100)
 
-    courses = Repo.all(Course.search(query, page.search_text))
+    query = if page.search_text == "" do
+      query
+    else
+      Course.search(query, page.search_text)
+    end
+
+    courses = Repo.all(query)
 
     locals = %{
       changeset: changeset,
@@ -24,5 +30,9 @@ defmodule Frontend.PageController do
     }
 
     render(conn, "index.html", locals)
+  end
+
+  def page_params(params) do
+    get_in(params, [Access.key("page", %{})])
   end
 end
