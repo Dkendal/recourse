@@ -1,7 +1,0 @@
-<% alias Recourse.Term %>
-<div class="col">
-  <%= form_for @conn, "", [as: :q, method: :get, enforce_utf8: false], fn f -> %>
-    <%= select f, :term, Term.Form.to_options(@terms) %>
-    <%= submit "search" %>
-  <% end %>
-</div>
