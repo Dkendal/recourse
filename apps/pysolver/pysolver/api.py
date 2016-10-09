@@ -10,7 +10,7 @@ def ping():
 
 def solve(sections):
     solver = Solver(sections)
-    return list(solver.solve())
+    return solver.solve()
 
 
 handlers = {

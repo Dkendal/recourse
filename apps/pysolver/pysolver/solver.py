@@ -5,6 +5,9 @@ from itertools import groupby
 from collections import defaultdict
 
 
+unsat = "unsat"
+
+
 class Solver:
     def __init__(self, sections):
         self.sections = list(sections)
@@ -22,12 +25,18 @@ class Solver:
 
     def do_solve(self):
         self.post()
-        assert self.solver.check() == z3.sat
+        if self.solver.check() == z3.unsat:
+            return unsat
+
         model = self.solver.model()
         return model
 
     def solve(self):
+        result = list()
         model = self.do_solve()
+        if model == unsat:
+            return unsat
+
         for group in self.groups:
             val = {
                     'course_id': group.course_id,
@@ -35,7 +44,8 @@ class Solver:
                     'id': str(model[group.const]),
                     'ids': [int(str(x)) for x in group.enums]
                     }
-            yield val
+            result.append(val)
+        return result
 
 
     def implications(self):

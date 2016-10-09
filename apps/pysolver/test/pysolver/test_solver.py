@@ -3,6 +3,34 @@ from pysolver.solver import Solver
 
 
 @pytest.fixture
+def unsat_sections():
+    val = [
+            {
+                'id': 2,
+                'course_id': 2,
+                'meeting_times': [{
+                    'end_time': 1000,
+                    'start_time': 0,
+                    'days': ['M', 'W', 'F']
+                    }],
+                'schedule_type': 'lecture',
+                'name': 'A01'
+                },
+            {
+                'id': 1,
+                'course_id': 1,
+                'meeting_times': [{
+                    'end_time': 1000,
+                    'start_time': 0,
+                    'days': ['M', 'W', 'F']
+                    }],
+                'schedule_type': 'lecture',
+                'name': 'A01'
+                },
+            ]
+    return val
+
+@pytest.fixture
 def sections():
     val = [
             {
@@ -43,8 +71,8 @@ def sections():
 
 
 def test_solve(sections):
-    s = Solver(sections)
-    result = list(s.solve())
+    solver = Solver(sections)
+    result = solver.solve()
     assert isinstance(result, list)
 
     for x in result:
@@ -64,3 +92,8 @@ def test_solve(sections):
                 'ids': [3]
                 }
             ]
+
+def test_solve_unsat(unsat_sections):
+    solver = Solver(unsat_sections)
+    result = solver.solve()
+    assert result == "unsat"

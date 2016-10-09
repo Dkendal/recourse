@@ -28,6 +28,56 @@ defmodule Solver.ServerTest do
   describe ".solve" do
     setup [:start_solver, :stop_solver]
 
+    test "when problem is unsat" do
+      Repo.insert! %Term{
+        semester: :fall,
+        year: 2020,
+        courses: [
+          %Course{
+            subject: "CSC",
+            number: "200",
+            sections: [
+              %Section{
+                name: "A01",
+                schedule_type: "lecture",
+                meeting_times: [
+                  %MeetingTime{
+                    days: ~W(M W F),
+                    date_start: ~D[2020-09-05],
+                    date_end: ~D[2021-04-25],
+                    start_time: ~T[08:00:00],
+                    end_time: ~T[09:20:00],
+                  },
+                ]
+              }
+            ]
+          },
+          %Course{
+            subject: "MATH",
+            number: "100",
+            sections: [
+              %Section{
+                name: "A01",
+                schedule_type: "lecture",
+                meeting_times: [
+                  %MeetingTime{
+                    days: ~W(M W F),
+                    date_start: ~D[2020-09-05],
+                    date_end: ~D[2021-04-25],
+                    start_time: ~T[08:00:00],
+                    end_time: ~T[09:20:00],
+                  },
+                ]
+              }
+            ]
+          },
+        ]
+      }
+
+      sections = Repo.all(preload(Section, [:meeting_times]))
+      assert Server.solve(sections) == {:error, :unsat}
+    end
+
     test "expected response" do
       Repo.insert! %Term{
         semester: :fall,
@@ -55,7 +105,7 @@ defmodule Solver.ServerTest do
         ]
       }
 
-      sections = Repo.all(preload(Section, [:course, :meeting_times]))
+      sections = Repo.all(preload(Section, [:meeting_times]))
 
       [section] = sections
 

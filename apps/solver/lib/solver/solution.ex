@@ -1,6 +1,10 @@
 defmodule Solver.Solution do
   defstruct [:course_id, :schedule_type, :id, :ids]
 
+  def parse("unsat") do
+    {:error, :unsat}
+  end
+
   def parse(sol) when is_map(sol) do
     attrs = sol
             |> Enum.map(&parse/1)
