@@ -4,7 +4,7 @@ defmodule Frontend.Page do
 
   schema "page" do
     field :selected_term_id, :integer, virtual: true
-    field :search_text, :string, virtual: true
+    field :search_text, :string, virtual: true, default: ""
   end
 
   def changeset(model, params \\ %{}) do

@@ -9,8 +9,8 @@ defmodule Frontend.PageControllerTest do
       assert html_response(conn, 200) =~ "body"
     end
 
-    test "assigns page form", %{conn: conn} do
-      assert %Ecto.Changeset{} = conn.assigns[:page]
+    test "assigns changeset", %{conn: conn} do
+      assert %Ecto.Changeset{} = conn.assigns[:changeset]
     end
   end
 

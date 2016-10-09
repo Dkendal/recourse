@@ -49,35 +49,30 @@ defmodule Recourse.Course do
     end
   end
 
-  defmacrop _or([x]) do
+  defmacrop concat([x]) do
     quote do
       unquote(x)
     end
   end
 
-  defmacrop _or([x | t]) do
+  defmacrop concat([x | t]) do
     quote do
-      fragment("? || ?", unquote(x), _or(unquote(t)))
-    end
-  end
-
-  defmacrop _query(x, y) do
-    quote do
-      fragment("? @@ ?", unquote(x), _or(unquote(t)))
-    end
-  end
-
-  defmacrop _similarity(x, y) do
-    quote do
-      fragment("similarity(?, ?)", unquote(x), unquote(y))
+      fragment("? || ?", unquote(x), concat(unquote(t)))
     end
   end
 
   def search(query, search_string) do
+    search_string = "%" <> search_string <> "%"
+
     from c in query,
-    order_by: [
-      desc: _similarity(_or([c.subject, " ", c.title, " ", c.number]),
-                        ^search_string),
-    ]
+    where: ilike(concat([
+                 c.subject,
+                 " ",
+                 c.number,
+                 " ",
+                 c.title
+               ]),
+      ^search_string
+    )
   end
 end

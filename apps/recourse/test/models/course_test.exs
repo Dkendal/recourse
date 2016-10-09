@@ -42,8 +42,8 @@ defmodule Recourse.CourseTest do
         ]
       }
 
-      courses = Repo.all Course.search(Course, "csc")
-      [%Course{subject: "CSC"}, %Course{subject: "MATH"}] = courses
+      courses = Repo.all Course.search(Course, "csc 1")
+      [%Course{subject: "CSC", number: "100"}] = courses
     end
   end
 end
