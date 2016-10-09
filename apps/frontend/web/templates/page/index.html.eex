@@ -6,9 +6,18 @@
 
   <ul>
     <%= for course <- @courses do %>
+      <% id = course.id %>
       <li>
-        <span><%= course.subject %></span>
-        <span><%= course.number %></span>
+        <label>
+          <input
+          type="checkbox"
+          name="page[selected_course_ids][]"
+          value="<%= id %>"
+          <%= if id in @page.selected_course_ids, do: "checked"%>>
+
+          <span><%= course.subject %></span>
+          <span><%= course.number %></span>
+        </label>
       </li>
     <% end %>
   </ul>
