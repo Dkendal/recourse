@@ -16,6 +16,7 @@ defmodule Frontend.Router do
   scope "/", Frontend do
     pipe_through :browser # Use the default browser stack
 
+    post "/", PageController, :index
     get "/", PageController, :index
   end
 
