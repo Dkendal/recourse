@@ -1,5 +1,6 @@
 from .pair import Pair
 import z3
+from itertools import combinations
 
 
 class Klass:
@@ -9,7 +10,7 @@ class Klass:
             day=None,
             choice_const=None,
             section_val=None):
-        name = Klass.name(choice_const, section_val, day)
+        name = Klass.name(choice_const, day)
         self.day = day
         self.time = time
         self.const = z3.Const(name, Pair)
@@ -22,10 +23,10 @@ class Klass:
                 (self.const == self.time))
 
     def name(*args):
-        return "{}_{}_{}".format(*args)
+        return "{}_{}".format(*args)
 
     def after(x, y):
-        return Pair.first(x.time) > Pair.last(y.time)
+        return Pair.first(x.const) > Pair.last(y.const)
 
     def seperate(x, y):
         return z3.Or(
@@ -33,5 +34,4 @@ class Klass:
                 Klass.after(y, x))
 
     def all_seperate(s):
-        return z3.And(
-            *[Klass.seperate(x, y) for x in s for y in s if hash(x) > hash(y)])
+        return z3.And(*[Klass.seperate(x, y) for x, y in combinations(s, 2)])
