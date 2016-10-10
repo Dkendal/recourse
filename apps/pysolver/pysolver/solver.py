@@ -12,16 +12,10 @@ class Solver:
     def __init__(self, sections):
         self.sections = list(sections)
         self.solver = z3.Solver()
-
-        groups = groupby(
-                sections,
-                lambda x: (x['course_id'], x['schedule_type']))
-
-        self.groups = [Choice(k, v) for k, v in groups]
+        self.groups = Solver.group(sections)
 
     def post(self):
         self.solver.add(z3.And(*list(self.implications())))
-        self.solver.add(z3.And(*list(self.all_seperate())))
 
     def do_solve(self):
         self.post()
@@ -66,3 +60,10 @@ class Solver:
                 for meeting in section.meeting_times:
                     for klass in meeting.klasses:
                         yield klass
+
+    def group(sections):
+        groups = groupby(
+                sections,
+                lambda x: (x['course_id'], x['schedule_type']))
+
+        return [Choice(k, v) for k, v in groups]
