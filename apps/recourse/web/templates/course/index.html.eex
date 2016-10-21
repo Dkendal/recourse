@@ -1,8 +1,0 @@
-<ul>
-  <%= for course <- @term.courses do %>
-    <li>
-      <span><%= course.subject %></span>
-      <span><%= course.number %></span>
-    </li>
-  <% end %>
-</ul>

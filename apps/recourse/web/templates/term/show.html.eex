@@ -1,6 +1,0 @@
-<h2>Show term</h2>
-
-<ul>
-</ul>
-
-<%= link "Back", to: term_path(@conn, :index) %>
