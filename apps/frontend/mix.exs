@@ -35,6 +35,7 @@ defmodule Frontend.Mixfile do
        :phoenix_pubsub,
        :postgrex,
        :recourse,
+       :solver,
      ]]
   end
 
@@ -57,6 +58,7 @@ defmodule Frontend.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:solver, in_umbrella: true},
       {:recourse, in_umbrella: true},
    ]
   end

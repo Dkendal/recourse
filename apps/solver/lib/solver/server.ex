@@ -24,7 +24,7 @@ defmodule Solver.Server do
 
   def solve(sections) do
     @name
-    |> GenServer.call({:solve, sections})
+    |> GenServer.call({:solve, sections}, 100_000)
     |> Solution.parse()
   end
 
