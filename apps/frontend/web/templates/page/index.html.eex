@@ -1,65 +1,65 @@
-<%= inspect @solver_result %>
-
-<div>
-  <ul>
-    <%= for s <- @selected_sections do %>
-      <li>
-        <%= s.course_id %>
-        <%= s.name %>
-        <%= s.schedule_type %>
-        <ul>
-          <%= for mt <- s.meeting_times do %>
-            <li>
-              <%= mt.days %>
-              -
-              <%= mt.start_time %>
-              -
-              <%= mt.end_time %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-  </ul>
-</div>
-
-<%= form_for @changeset, page_path(@conn, :index), [method: "post"], fn f -> %>
+<div style="display: flex;">
   <div>
-    <%= for id <- @page.selected_course_ids do %>
-      <label>
-        <span><%= id %></span>
-      </label>
-    <% end %>
+    <ul>
+      <%= for s <- @selected_sections do %>
+        <li>
+          <%= s.course_id %>
+          <%= s.name %>
+          <%= s.schedule_type %>
+          <ul>
+            <%= for mt <- s.meeting_times do %>
+              <li>
+                <%= mt.days %>
+                -
+                <%= mt.start_time %>
+                -
+                <%= mt.end_time %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
-  <%= for course <- @solution do %>
+  <%= form_for @changeset, page_path(@conn, :index), [method: "post"], fn f -> %>
     <div>
-      <%= inspect course.course_id %>
-      <%= inspect course.schedule_type %>
-      <%= inspect course.id %>
-      <%= inspect course.ids %>
-    </div>
-  <% end %>
-
-  <%= select f, :selected_term_id, term_options(@terms) %>
-
-  <%= label f, :search_text %>
-  <%= search_input f, :search_text %>
-
-  <ul>
-    <%= for course <- @courses do %>
-      <% id = course.id %>
-      <li>
+      <%= for id <- @page.selected_course_ids do %>
         <label>
-          <input
-          type="checkbox"
-          name="page[selected_course_ids][]"
-          value="<%= id %>"
-          <%= if id in @page.selected_course_ids, do: "checked"%>>
-          <span><%= course.subject %></span>
-          <span><%= course.number %></span>
+          <span><%= id %></span>
         </label>
-      </li>
+      <% end %>
+    </div>
+
+    <%= for course <- @solution do %>
+      <div>
+        <%= inspect course.course_id %>
+        <%= inspect course.schedule_type %>
+        <%= inspect course.id %>
+        <%= inspect course.ids %>
+      </div>
     <% end %>
-  </ul>
-<% end %>
+
+    <%= select f, :selected_term_id, term_options(@terms) %>
+
+    <%= label f, :search_text %>
+    <%= search_input f, :search_text %>
+
+    <ul>
+      <%= for course <- @courses do %>
+        <% id = course.id %>
+        <li>
+          <label>
+            <input
+            type="checkbox"
+            name="page[selected_course_ids][]"
+            value="<%= id %>"
+            <%= if id in @page.selected_course_ids, do: "checked"%>>
+            <span><%= course.subject %></span>
+            <span><%= course.number %></span>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

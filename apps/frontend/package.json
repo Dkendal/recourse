@@ -1,7 +1,15 @@
 {
-  "repository": {},
+  "name": "recourse_umbrella",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/dkendal/recourse.git"
+  },
   "dependencies": {
-    "typescript": "^1.8",
-    "phoenix": "^1.2.0"
+    "tsc": "^1.20150623.0",
+    "typescript": "^2.0.3"
   }
 }

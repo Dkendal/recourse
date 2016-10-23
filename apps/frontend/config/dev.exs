@@ -6,12 +6,15 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :frontend, Frontend.Endpoint,
+config(:frontend, Frontend.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: []
+  watchers: [
+    node: ["node_modules/typescript/bin/tsc", "--watch"],
+    bundle: ["exec", "sass", "--scss", "--watch", "web/static/css/application.scss:priv/static/css/app.css"],
+  ])
 
 
 # Watch static and templates for browser reloading.
