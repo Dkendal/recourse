@@ -1,5 +1,6 @@
 defmodule Frontend.PageController do
   alias Frontend.Page
+  alias Frontend.Solution
   use Frontend.Web, :aliases
   use Frontend.Web, :controller
 
@@ -34,9 +35,9 @@ defmodule Frontend.PageController do
     end
 
     solution = case solver_result do
-      {:error, :unsat} -> []
-      x when is_list(x) -> x
-      _ -> []
+      {:error, :unsat} -> false
+      x when is_list x -> Solution.new(x)
+      _ -> false
     end
 
     locals = %{
