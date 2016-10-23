@@ -28,6 +28,9 @@ defmodule Frontend.Solution do
       :height,
       :width,
       :fill,
+      :subject,
+      :course,
+      :section,
       :day]
 
     @days ~w(M T W R F)
@@ -60,12 +63,14 @@ defmodule Frontend.Solution do
        y: y(class),
        height: height(class),
        width: width(class),
-       fill: color(class)
+       fill: color(class),
+       course: course(class),
+       section: section(class),
       }
     end
 
     def x(class) do
-      Enum.find_index(@days, & &1 == class.day) / length(@days)
+      Enum.find_index(@days, & &1 == class.day) / length(@days) * 100
     end
 
     def y(class) do
@@ -81,11 +86,19 @@ defmodule Frontend.Solution do
     end
 
     def width(class) do
-      1 / length(@days)
+      1 / length(@days) * 100
+    end
+
+    def course(class) do
+      class.meeting_time.section.course
+    end
+
+    def section(class) do
+      class.meeting_time.section
     end
 
     def percent(%Time{hour: h, minute: m}) do
-      (h + (m / 60)) / 24
+      (h + (m / 60)) / 24 * 100
     end
 
     def sum_codepoints(<<x>>), do: x
