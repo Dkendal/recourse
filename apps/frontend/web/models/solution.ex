@@ -31,6 +31,8 @@ defmodule Frontend.Solution do
       :day]
 
     @days ~w(M T W R F)
+    @saturation 80
+    @lightness 70
 
     def new(meeting_time, day) do
       __MODULE__
@@ -58,7 +60,7 @@ defmodule Frontend.Solution do
        y: y(class),
        height: height(class),
        width: width(class),
-       fill: "red"
+       fill: color(class)
       }
     end
 
@@ -84,6 +86,23 @@ defmodule Frontend.Solution do
 
     def percent(%Time{hour: h, minute: m}) do
       (h + (m / 60)) / 24
+    end
+
+    def sum_codepoints(<<x>>), do: x
+
+    def sum_codepoints(<<x>> <> t) do
+      x + sum_codepoints(t)
+    end
+
+    def color(class) do
+      course = class.meeting_time.section.course
+
+      hue = :math.pow(sum_codepoints(course.subject), 5)
+      hue = hue + sum_codepoints(course.number) * 16
+      hue = round(hue)
+      hue = rem(hue, 255)
+
+      "hsl(#{hue}, #{@saturation}%, #{@lightness}%)"
     end
   end
 
