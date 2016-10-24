@@ -2,20 +2,8 @@
   <div style="width: 100%; height: 100%;">
     <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 100 100">
       <%= if @solution do %>
-        <%= for m <- @solution.classes do %>
-          <%= content_tag :svg, x: m.x, y: m.y, width: m.width, height: m.height do %>
-            <%= content_tag :rect, "", x: 0, y: 0, width: "100%", height: "100%", fill: m.fill %>
-            <g font-size="1.8">
-              <%= content_tag :text, x: "50%", y: "50%", text_anchor: "middle" do %>
-                <tspan><%= m.course.subject %></tspan>
-                <tspan><%= m.section.schedule_type %></tspan>
-              <% end %>
-              <%= content_tag :text, x: "50%", y: "50%", text_anchor: "middle", dominant_baseline: "text-before-edge" do %>
-                <tspan><%= m.course.number %></tspan>
-                <tspan><%= m.section.name %></tspan>
-              <% end %>
-            </g>
-          <% end %>
+        <%= for class <- @solution.classes do %>
+          <%= render "class.html", class: class %>
         <% end %>
       <% end %>
     </svg>
