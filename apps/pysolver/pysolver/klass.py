@@ -1,6 +1,6 @@
 from .pair import Pair
 import z3
-from itertools import combinations
+from itertools import combinations, groupby
 
 
 class Klass:
@@ -35,3 +35,9 @@ class Klass:
 
     def all_seperate(s):
         return z3.And(*[Klass.seperate(x, y) for x, y in combinations(s, 2)])
+
+    def group(klasses):
+        f = lambda x : x.day
+        klasses.sort(key=f)
+        g = (groupby(klasses, f))
+        return dict([(k, list(v)) for k, v in g])
