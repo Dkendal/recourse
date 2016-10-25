@@ -1,29 +1,19 @@
-<div style="display: flex;">
-  <div style="width: 100%; height: 100%;">
-    <svg preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 100 100">
-      <%= if @solution do %>
-        <%= for class <- @solution.classes do %>
-          <%= render "class.html", class: class %>
-        <% end %>
-      <% end %>
-    </svg>
+<div class="app">
+  <div class="pane">
+    <svg preserveAspectRatio="none" width="100%" height="100%">
+     <%= if @solution do %>
+       <%= render "periods.html", from: ~T[00:00:00], to: ~T[23:59:59], step: ~T[01:00:00] %>
+       <%= for c <- @solution.classes, do: render("class.html", class: c) %>
+     <% end %>
+   </svg>
   </div>
-
-  <div>
+  <div class="pane">
     <%= form_for @changeset, page_path(@conn, :index), [method: "post"], fn f -> %>
-      <div>
-        <%= for id <- @page.selected_course_ids do %>
-          <label>
-            <span><%= id %></span>
-          </label>
-        <% end %>
-      </div>
-
-     <%= select f, :selected_term_id, term_options(@terms) %>
-
-     <%= label f, :search_text %>
-     <%= search_input f, :search_text %>
-
+     <div>
+       <%= select f, :selected_term_id, term_options(@terms) %>
+       <%= label f, :search_text %>
+       <%= search_input f, :search_text %>
+     </div>
      <ul>
        <%= for course <- @courses do %>
          <% id = course.id %>

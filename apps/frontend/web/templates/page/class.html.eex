@@ -1,6 +1,6 @@
 <%= content_tag :svg, x: @class.x, y: @class.y, width: @class.width, height: @class.height do %>
   <%= content_tag :rect, "", x: 0, y: 0, width: "100%", height: "100%", fill: @class.fill %>
-  <g font-size="1.8">
+  <g font-size="16px">
     <%= content_tag :text, x: "50%", y: "50%", text_anchor: "middle" do %>
       <tspan><%= @class.course.subject %></tspan>
       <tspan><%= @class.section.schedule_type %></tspan>

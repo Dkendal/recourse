@@ -59,10 +59,10 @@ defmodule Frontend.Solution do
 
     def measure(class) do
       %{class|
-       x: x(class),
-       y: y(class),
-       height: height(class),
-       width: width(class),
+       x: format_percent(x(class)),
+       y: format_percent(y(class)),
+       height: format_percent(height(class)),
+       width: format_percent(width(class)),
        fill: color(class),
        course: course(class),
        section: section(class),
@@ -96,6 +96,8 @@ defmodule Frontend.Solution do
     def section(class) do
       class.meeting_time.section
     end
+
+    def format_percent(str), do: "#{str}%"
 
     def percent(%Time{hour: h, minute: m}) do
       (h + (m / 60)) / 24 * 100

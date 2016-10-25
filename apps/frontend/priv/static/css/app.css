@@ -1,3 +1,16 @@
+html,
+body,
+main,
+.app {
+  height: 100%;
+  width: 100%; }
 
+.app {
+  display: flex; }
+
+.pane {
+  max-height: 100%;
+  max-width: 100%;
+  flex: 1; }
 
 /*# sourceMappingURL=app.css.map */
