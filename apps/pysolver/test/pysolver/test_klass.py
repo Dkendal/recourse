@@ -19,8 +19,8 @@ def z(day='M'):
     return Klass(Pair.mk_pair(4, 5), day, 'Z', '2')
 
 
-def test_name():
-    assert Klass.name('foo', 'bar') == 'foo_bar'
+def test_formatName():
+    assert Klass.formatName('foo', 'bar') == 'foo_bar'
 
 
 def test_after(x, y):

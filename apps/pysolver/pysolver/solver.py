@@ -51,10 +51,12 @@ class Solver:
 
     def all_seperate(self):
         days = defaultdict(list)
+
         for klass in self.klasses():
             days[klass.day].append(klass)
 
         s = [Klass.all_seperate(klasses) for day, klasses in days.items()]
+
         return z3.And(*s)
 
     def klasses(self):

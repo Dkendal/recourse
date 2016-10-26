@@ -7,3 +7,7 @@ elixir:
 
 pysolver:
 	cd apps/pysolver && ${PYTEST}
+
+server:
+	cd apps/frontend
+	mix phoenix.server

@@ -11,10 +11,10 @@ class Klass:
             day=None,
             choice_const=None,
             section_val=None):
-        name = Klass.name(choice_const, day)
+        self.name = Klass.formatName(choice_const, day)
         self.day = day
         self.time = time
-        self.const = z3.Const(name, Pair)
+        self.const = z3.Const(self.name, Pair)
         self.choice_const = choice_const
         self.section_val = section_val
 
@@ -23,7 +23,7 @@ class Klass:
             (self.choice_const == self.section_val),
             (self.const == self.time))
 
-    def name(*args):
+    def formatName(*args):
         return "{}_{}".format(*args)
 
     def after(x, y):
