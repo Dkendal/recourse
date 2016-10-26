@@ -10,15 +10,16 @@ unsat = "unsat"
 
 def encodeForElixir(group, model):
     val = {
-            'course_id': group.course_id,
-            'schedule_type': group.schedule_type,
-            'id': str(model[group.const]),
-            'ids': [int(str(x)) for x in group.enums],
-            }
+        'course_id': group.course_id,
+        'schedule_type': group.schedule_type,
+        'id': str(model[group.const]),
+        'ids': [int(str(x)) for x in group.enums],
+    }
     return val
 
 
 class Solver:
+
     def __init__(self, sections):
         self.sections = list(sections)
         self.solver = z3.Solver()
@@ -65,7 +66,7 @@ class Solver:
 
     def group(sections):
         groups = groupby(
-                sections,
-                lambda x: (x['course_id'], x['schedule_type']))
+            sections,
+            lambda x: (x['course_id'], x['schedule_type']))
 
         return [Choice(k, v) for k, v in groups]

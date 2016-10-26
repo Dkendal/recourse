@@ -3,6 +3,7 @@ from .meeting_time import MeetingTime
 
 
 class Section:
+
     def __init__(
             self,
             course_id=None,
@@ -12,7 +13,7 @@ class Section:
             id=None,
             choice_const=None,
             **rest
-            ):
+    ):
         self.course_id = course_id
         self.name = name
         self.schedule_type = schedule_type
@@ -20,8 +21,8 @@ class Section:
 
         def gen_mt(x):
             return MeetingTime(
-                    choice_const=choice_const,
-                    **rest,
-                    **x)
+                choice_const=choice_const,
+                **rest,
+                **x)
 
         self.meeting_times = [gen_mt(x) for x in meeting_times]

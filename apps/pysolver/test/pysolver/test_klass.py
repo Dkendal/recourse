@@ -5,18 +5,18 @@ from pysolver.pair import Pair
 
 
 @pytest.fixture
-def x():
-    return Klass(Pair.mk_pair(0, 1), 'M', 'X', '0')
+def x(day='M'):
+    return Klass(Pair.mk_pair(0, 1), day, 'X', '0')
 
 
 @pytest.fixture
-def y():
-    return Klass(Pair.mk_pair(2, 3), 'M', 'Y', '1')
+def y(day='M'):
+    return Klass(Pair.mk_pair(2, 3), day, 'Y', '1')
 
 
 @pytest.fixture
-def z():
-    return Klass(Pair.mk_pair(4, 5), 'M', 'Z', '2')
+def z(day='M'):
+    return Klass(Pair.mk_pair(4, 5), day, 'Z', '2')
 
 
 def test_name():
@@ -29,7 +29,8 @@ def test_after(x, y):
 
 def test_seperate(x, y):
     constraint = Klass.seperate(x, y)
-    assert repr(constraint) == 'Or(first(X_M) > last(Y_M), first(Y_M) > last(X_M))'
+    assert repr(
+        constraint) == 'Or(first(X_M) > last(Y_M), first(Y_M) > last(X_M))'
 
     solver = z3.Solver()
     solver.add(constraint)
@@ -61,3 +62,17 @@ def test_constraint():
     assert solver.check([p1]) == z3.sat
     model = solver.model()
     assert model[x.const] == time
+
+
+def test_group():
+    X = x('M')
+    Y = y('W')
+    Z = z('M')
+    g = Klass.group([X, Y, Z])
+    assert 'M', 'W' in g.keys()
+    assert len(g['M']) == 2
+    assert len(g['W']) == 1
+    assert g == {
+        'M': [X, Z],
+        'W': [Y]
+    }

@@ -16,7 +16,7 @@ def solve(sections):
 handlers = {
     "ping": ping,
     "solve": solve
-    }
+}
 
 
 def handle(msg):

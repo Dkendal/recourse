@@ -1,6 +1,7 @@
 from pysolver import api
 import io
 
+
 def test_handle():
     msg = {'method': 'ping', 'args': []}
     assert api.handle(msg) == 'pong'
