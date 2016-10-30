@@ -4,6 +4,17 @@ from pysolver.group import Group
 
 
 @pytest.fixture
+def section():
+    return {'course_id': 1,
+            'id': 3,
+            'name': 'B04',
+            'schedule_type': 'Lab',
+            'meeting_times': [{'days': ['W'],
+                               'end_time': 62400,
+                               'start_time': 55800}]}
+
+
+@pytest.fixture
 def sections():
     return [
         {'course_id': 1,
@@ -71,7 +82,7 @@ def group(sections):
 
 def test_section_id_domain_values(group):
     assert group.section_id_domain_values() == [
-            '3', '4', '5', '6', '7', '8', '9', '10']
+        '3', '4', '5', '6', '7', '8', '9', '10']
 
 
 def test_name(group):
@@ -92,15 +103,37 @@ def test_day_names(group):
     ]
 
 
+def test_section_range(group):
+    result = repr(group.section_range()).replace('\n       ', '')
+    assert 'Implies(1_Lab_section_id == 3, And(1_Lab_W == mk_pair(55800, 62400)))' in result
+    assert 'Implies(1_Lab_section_id == 4, And(1_Lab_R == mk_pair(45000, 51600)))' in result
+    assert 'Implies(1_Lab_section_id == 5, And(1_Lab_F == mk_pair(34200, 40800)))' in result
+    assert 'Implies(1_Lab_section_id == 6, And(1_Lab_F == mk_pair(41400, 48000)))' in result
+    assert 'Implies(1_Lab_section_id == 7, And(1_Lab_M == mk_pair(59400, 66000)))' in result
+    assert 'Implies(1_Lab_section_id == 8, And(1_Lab_W == mk_pair(34200, 40800)))' in result
+    assert 'Implies(1_Lab_section_id == 9, And(1_Lab_W == mk_pair(41400, 48000)))' in result
+    assert 'Implies(1_Lab_section_id == 10, And(1_Lab_W == mk_pair(48600, 55200))' in result
+
+
+def test_times_for(group, section):
+    assert repr(group.times_for(section)
+                ) == 'And(1_Lab_W == mk_pair(55800, 62400))'
+
+
+def test_find_section(group):
+    assert group.find_section(3) == {
+        'course_id': 1,
+        'id': 3,
+        'name': 'B04',
+        'schedule_type': 'Lab',
+        'meeting_times': [{
+                'days': ['W'],
+                'end_time': 62400,
+                'start_time': 55800}]}
+
+
 def test_build_section_id_const(group):
     result = group.build_section_id_const()
-    const, enums = result
-    assert repr(const) == '1_Lab_section_id'
+    Sort, enums = result
+    assert repr(Sort) == '1_LabSectionSort'
     assert repr(enums) == '[3, 4, 5, 6, 7, 8, 9, 10]'
-
-
-def test_set_section_domain(group):
-    group.set_section_domain()
-    assert type(group.section_id_const) == z3.DatatypeSortRef
-    assert type(group.section_id_enums) == list
-    assert type(group.section_id_enums[0]) == z3.DatatypeRef
