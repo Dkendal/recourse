@@ -6,6 +6,8 @@ defmodule Recourse.MeetingTime do
   @derive [{Msgpax.Packer, fields: [
      :end_time,
      :start_time,
+     :date_end,
+     :date_start,
      :days
    ]}]
 
