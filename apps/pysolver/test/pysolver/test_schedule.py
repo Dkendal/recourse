@@ -97,7 +97,7 @@ def csc_100():
          'schedule_type': 'Lecture'}]
 
 
-def test_group(csc_100):
+def test_group_by_schedule_type(csc_100):
     groups = Schedule.group_by_schedule_type(csc_100)
     assert len(groups) == 2
     lab, lecture = groups
