@@ -45,6 +45,7 @@ class Section:
                         self.course_id,
                         self.id, self.meeting_times)
 
+
 class Group:
     def __init__(self, course_id, schedule_type, sections):
         self.course_id = course_id
@@ -60,10 +61,10 @@ class Group:
                         self.schedule_type,
                         self.sections)
 
+
 class Schedule:
     def solve(sections):
         groups = Schedule.group_by_schedule_type(sections)
-        import pdb; pdb.set_trace()
         return groups
 
     def key(section):
