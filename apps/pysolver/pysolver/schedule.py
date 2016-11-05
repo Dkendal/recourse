@@ -1,4 +1,5 @@
 import itertools
+from z3 import And, Const, Solver, EnumSort
 
 
 class MeetingTime:
@@ -52,6 +53,46 @@ class Group:
         self.schedule_type = schedule_type
         self.sections = [Section(**section) for section in sections]
 
+    def name(self):
+        return "{}-{}".format(self.course_id, self.schedule_type)
+
+    def section_ids(self):
+        sections = self.sections
+        return [str(s.id) for s in sections]
+
+    def sort_name(self):
+        return "{}{}Sort".format(
+                self.course_id,
+                self.schedule_type.capitalize())
+
+    def replace_ids(self, enums):
+        sections = []
+
+        for section in self.sections:
+            enum = next(enum for enum in enums if int(str(enum)) == section.id)
+            section.id = enum
+            sections.append(section)
+
+        self.sections = sections
+
+        return self
+
+    def create_sort(self):
+        name = self.sort_name()
+        enums = self.section_ids()
+        Sort, enums = EnumSort(name, enums)
+        self.Sort = Sort
+        self.enums = enums
+        self = self.replace_ids(enums)
+        return self
+
+    def create_const(self):
+        self = self.create_sort()
+        name = self.name()
+        sort = self.Sort
+        self.const = Const(name, sort)
+        return self
+
     def __repr__(self):
         return "<Group " \
                 "course_id={} " \
@@ -63,8 +104,18 @@ class Group:
 
 
 class Schedule:
+    def Solver():
+        solver = Solver()
+        return solver
+
     def solve(sections):
+        solver = Schedule.Solver()
+
         groups = Schedule.group_by_schedule_type(sections)
+
+        for group in  groups:
+            group = group.create_const()
+
         return groups
 
     def key(section):
