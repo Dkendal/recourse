@@ -66,3 +66,13 @@ SectionSort = DeclareSectionSort(
 def Day(string):
     idx = DayLiterals.index(string)
     return DayEnums[idx]
+
+
+def MeetingTime(date_end, date_start, days, end_time, start_time):
+    return MeetingTimeSort.new(
+            date_end,
+            date_start,
+            days,
+            end_time,
+            start_time,
+            )
