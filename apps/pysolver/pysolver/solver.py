@@ -16,7 +16,7 @@ from z3 import (
 
 
 def DeclareListSort(T):
-    ListSort = Datatype('List')
+    ListSort = Datatype('{}List'.format(str(T)))
 
     attrs = [('hd', T),
              ('tl', ListSort)]
@@ -98,6 +98,10 @@ time_seperate = Function(
         BoolSort())
 
 
+def declare_overlap(T):
+    return Function('overlap', T, T, BoolSort())
+
+
 def define_time_seperate():
     """
     Constraint to specify that and a and b have overlapping times.
@@ -119,4 +123,31 @@ def define_time_seperate():
                 Or(
                     start_time(x) > end_time(y),
                     start_time(y) > end_time(x)))),
+    ]
+
+
+def define_overlap(T, f):
+    """
+    Constraint that two lists have an intersection.
+    """
+    x = Const('x', T)
+    y = Const('y', T)
+    hd = T.hd
+    tl = T.tl
+    nil = T.nil
+    return [
+            ForAll([x, y],
+                Implies(
+                    f(x, y),
+                    And(
+                        Not(x == nil),
+                        Not(y == nil)))),
+
+            ForAll([x, y],
+                Implies(
+                    f(x, y),
+                    Or(
+                        hd(x) == hd(y),
+                        f(x, tl(y)),
+                        f(tl(x), y))))
     ]

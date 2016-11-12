@@ -1,6 +1,8 @@
 import pytest
 from z3 import *
 from z3 import(
+        Not,
+        IntSort,
         Solver,
         solve,
         unsat,
@@ -9,11 +11,14 @@ from z3 import(
 
 from pysolver.solver import *
 from pysolver.solver import(
-        MeetingTime,
         DayList,
+        DeclareListSort,
+        MeetingTime,
         Monday,
-        time_seperate,
-        define_time_seperate)
+        declare_overlap,
+        define_overlap,
+        define_time_seperate,
+        time_seperate)
 
 
 @pytest.fixture
@@ -80,6 +85,38 @@ def test_time_seperate():
     # when times don't overlap -> True
     sol.add(time_seperate(mt1, mt3))
     assert sol.check() == sat
+
+
+def test_overlap():
+    sol = Solver()
+
+    IntList = DeclareListSort(IntSort())
+    nil = IntList.nil
+    insert = IntList.insert
+
+    overlap = declare_overlap(IntList)
+
+    l1 = insert(1, insert(2, nil))
+    l2 = insert(1, insert(3, nil))
+    l3 = insert(4, insert(3, nil))
+
+    sol.add(define_overlap(IntList, overlap))
+    sol.push()
+
+    sol.add(overlap(l1, l2))
+    assert sol.check() == sat
+
+    sol.pop()
+    sol.push()
+
+    sol.add(overlap(l2, l3))
+    assert sol.check() == sat
+
+    sol.pop()
+    sol.push()
+
+    sol.add(overlap(l1, l3))
+    assert sol.check() == unsat
 
 def test_solver():
     pass
