@@ -1,74 +1,68 @@
 import z3
-from .choice import Choice
-from .klass import Klass
-from itertools import groupby
-from collections import defaultdict
+
+from z3 import (
+    EnumSort,
+    Datatype,
+    IntSort,
+)
 
 
-unsat = "unsat"
+def DeclareListSort(T):
+    ListSort = Datatype('List')
+
+    attrs = [('hd', T),
+             ('tl', ListSort)]
+
+    ListSort.declare('nil')
+    ListSort.declare('insert', *attrs)
+    return ListSort.create()
 
 
-def encodeForElixir(group, model):
-    val = {
-        'course_id': group.course_id,
-        'schedule_type': group.schedule_type,
-        'id': str(model[group.const]),
-        'ids': [int(str(x)) for x in group.enums],
-    }
-    return val
+def DeclareMeetingTimeSort(DayList):
+    MeetingTimeSort = Datatype('MeetingTimeSort')
+    attrs = [
+        ('date_end', IntSort()),
+        ('date_start', IntSort()),
+        ('days', DayList),
+        ('end_time', IntSort()),
+        ('start_time', IntSort()),
+    ]
+    MeetingTimeSort.declare('new', *attrs)
+    return MeetingTimeSort.create()
 
 
-class Solver:
+def DeclareSectionSort(ScheduleTypeSort, MeetingTimeList):
+    SectionSort = Datatype('SectionSort')
+    attrs = [
+        ('course_id', IntSort()),
+        ('schedule_type', ScheduleTypeSort),
+        ('meeting_times', MeetingTimeList),
+    ]
+    SectionSort.declare('new', *attrs)
+    return SectionSort.create()
 
-    def __init__(self, sections):
-        self.sections = list(sections)
-        self.solver = z3.Solver()
-        self.groups = Solver.group(sections)
+# Initialize Sorts
+DayLiterals = ['M', 'T', 'W', 'R', 'F']
+DaySort, DayEnums = EnumSort('DaySort', DayLiterals)
+(Monday, Teusday, wednesday, Thursday, Friday) = DayEnums
+DayList = DeclareListSort(DaySort)
 
-    def post(self):
-        self.solver.add(self.implications())
-        self.solver.add(self.all_seperate())
+ScheduleTypeLiterals = ['LAB', 'LECTURE', 'TUTORIAL']
+ScheduleTypeSort, ScheduleTypeEnums = EnumSort(
+    'ScheduleTypeSort', ScheduleTypeLiterals)
 
-    def do_solve(self):
-        self.post()
-        if self.solver.check() == z3.unsat:
-            return unsat
+(Lab, Lecutre, Tutorial) = ScheduleTypeLiterals
 
-        model = self.solver.model()
-        return model
+MeetingTimeSort = DeclareMeetingTimeSort(
+    DayList=DayList)
 
-    def solve(self):
-        model = self.do_solve()
+MeetingTimeList = DeclareListSort(MeetingTimeSort)
 
-        if model == unsat:
-            return unsat
+SectionSort = DeclareSectionSort(
+    ScheduleTypeSort=ScheduleTypeSort,
+    MeetingTimeList=MeetingTimeList)
 
-        return [encodeForElixir(group, model) for group in self.groups]
 
-    def implications(self):
-        s = [klass.constraint() for klass in self.klasses()]
-        return z3.And(*s)
-
-    def all_seperate(self):
-        days = defaultdict(list)
-
-        for klass in self.klasses():
-            days[klass.day].append(klass)
-
-        s = [Klass.all_seperate(klasses) for day, klasses in days.items()]
-
-        return z3.And(*s)
-
-    def klasses(self):
-        for choice in self.groups:
-            for section in choice.sections:
-                for meeting in section.meeting_times:
-                    for klass in meeting.klasses:
-                        yield klass
-
-    def group(sections):
-        groups = groupby(
-            sections,
-            lambda x: (x['course_id'], x['schedule_type']))
-
-        return [Choice(k, v) for k, v in groups]
+def Day(string):
+    idx = DayLiterals.index(string)
+    return DayEnums[idx]
