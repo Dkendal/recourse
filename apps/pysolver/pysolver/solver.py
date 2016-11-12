@@ -4,6 +4,14 @@ from z3 import (
     EnumSort,
     Datatype,
     IntSort,
+    Function,
+    ForAll,
+    Const,
+    Implies,
+    And,
+    Not,
+    Or,
+    BoolSort,
 )
 
 
@@ -41,7 +49,10 @@ def DeclareSectionSort(ScheduleTypeSort, MeetingTimeList):
     SectionSort.declare('new', *attrs)
     return SectionSort.create()
 
+###############################################################################
 # Initialize Sorts
+###############################################################################
+
 DayLiterals = ['M', 'T', 'W', 'R', 'F']
 DaySort, DayEnums = EnumSort('DaySort', DayLiterals)
 (Monday, Teusday, wednesday, Thursday, Friday) = DayEnums
@@ -70,9 +81,42 @@ def Day(string):
 
 def MeetingTime(date_end, date_start, days, end_time, start_time):
     return MeetingTimeSort.new(
-            date_end,
-            date_start,
-            days,
-            end_time,
-            start_time,
-            )
+        date_end,
+        date_start,
+        days,
+        end_time,
+        start_time,
+    )
+
+###############################################################################
+# Constraints
+###############################################################################
+time_seperate = Function(
+        'time_seperate',
+        MeetingTimeSort,
+        MeetingTimeSort,
+        BoolSort())
+
+
+def define_time_seperate():
+    """
+    Constraint to specify that and a and b have overlapping times.
+    """
+    start_time = MeetingTimeSort.start_time
+    end_time = MeetingTimeSort.end_time
+    x = Const('x', MeetingTimeSort)
+    y = Const('y', MeetingTimeSort)
+    return [
+        # symmetric property
+        ForAll([x, y],
+            Implies(
+                time_seperate(x, y),
+                time_seperate(y, x))),
+
+        ForAll([x, y],
+            Implies(
+                time_seperate(x, y),
+                Or(
+                    start_time(x) > end_time(y),
+                    start_time(y) > end_time(x)))),
+    ]
