@@ -12,6 +12,7 @@ from z3 import (
     Not,
     Or,
     BoolSort,
+    Int,
 )
 
 
@@ -98,6 +99,15 @@ time_seperate = Function(
         BoolSort())
 
 
+range_disjoint = Function(
+        'range_disjoint',
+        IntSort(),
+        IntSort(),
+        IntSort(),
+        IntSort(),
+        BoolSort())
+
+
 def declare_overlap(T):
     return Function('overlap', T, T, BoolSort())
 
@@ -136,14 +146,16 @@ def define_overlap(T, f):
     tl = T.tl
     nil = T.nil
     return [
-            ForAll([x, y],
+            ForAll(
+                [x, y],
                 Implies(
                     f(x, y),
                     And(
                         Not(x == nil),
                         Not(y == nil)))),
 
-            ForAll([x, y],
+            ForAll(
+                [x, y],
                 Implies(
                     f(x, y),
                     Or(
@@ -151,3 +163,24 @@ def define_overlap(T, f):
                         f(x, tl(y)),
                         f(tl(x), y))))
     ]
+
+def define_range_disjoint():
+    a_start = Int('a_start')
+    a_end = Int('a_end')
+    b_start = Int('b_start')
+    b_end = Int('b_end')
+    return [
+            # Symmetric property
+            ForAll(
+                [a_start, a_end, b_start, b_end],
+                Implies(
+                    range_disjoint(a_start, a_end, b_start, b_end),
+                    range_disjoint(b_start, b_end, a_start, a_end))),
+            ForAll(
+                [a_start, a_end, b_start, b_end],
+                Implies(
+                    range_disjoint(a_start, a_end, b_start, b_end),
+                    Or(
+                        a_start > b_end,
+                        b_start > a_end)))
+            ]

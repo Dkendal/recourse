@@ -11,6 +11,8 @@ from z3 import(
 
 from pysolver.solver import *
 from pysolver.solver import(
+        define_range_disjoint,
+        range_disjoint,
         DayList,
         DeclareListSort,
         MeetingTime,
@@ -86,6 +88,35 @@ def test_time_seperate():
     sol.add(time_seperate(mt1, mt3))
     assert sol.check() == sat
 
+def test_range_disjoint():
+    sol = Solver()
+    sol.add(define_range_disjoint())
+    sol.push()
+
+    sol.add(range_disjoint(0, 10, 11, 20))
+    assert sol.check() == sat
+
+    sol.push()
+    sol.pop()
+
+    sol.add(range_disjoint(11, 20, 0, 10))
+    assert sol.check() == sat
+
+    sol.push()
+    sol.pop()
+
+    sol.add(range_disjoint(0, 10, 10, 20))
+    assert sol.check() == unsat
+
+    sol.push()
+    sol.pop()
+
+    sol.add(range_disjoint(10, 20, 0, 10))
+    assert sol.check() == unsat
+
+    sol.push()
+    sol.pop()
+
 
 def test_overlap():
     sol = Solver()
@@ -117,6 +148,17 @@ def test_overlap():
 
     sol.add(overlap(l1, l3))
     assert sol.check() == unsat
+
+def test_conflict():
+    return
+    sol = Solver()
+    mt1 = MeetingTime(
+        date_end=0,
+        date_start=0,
+        days=0,
+        end_time=0,
+        start_time=0,
+        )
 
 def test_solver():
     pass
