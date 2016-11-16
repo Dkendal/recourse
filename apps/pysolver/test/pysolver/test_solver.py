@@ -1,31 +1,29 @@
 import pytest
-from z3 import *
-from z3 import(
-        Not,
-        IntSort,
-        Solver,
-        solve,
-        unsat,
-        unknown,
-        sat)
 
-from pysolver.solver import *
+from z3 import(
+        IntSort,
+        Not,
+        Solver,
+        sat,
+        solve,
+        unknown,
+        unsat,
+        )
+
 from pysolver.solver import(
-        define_range_disjoint,
-        range_disjoint,
+        Day,
         DayList,
         DeclareListSort,
         MeetingTime,
         Monday,
         declare_overlap,
         define_overlap,
+        define_range_disjoint,
         define_time_seperate,
-        time_seperate)
-
-
-@pytest.fixture
-def sections():
-    pass
+        define_time_seperate,
+        range_disjoint,
+        time_seperate,
+        )
 
 
 def test_Day():
@@ -67,6 +65,7 @@ def test_time_seperate():
             start_time=100)
 
     sol = Solver()
+    sol.add(define_range_disjoint())
     sol.add(define_time_seperate())
     sol.push()
 
@@ -87,6 +86,7 @@ def test_time_seperate():
     # when times don't overlap -> True
     sol.add(time_seperate(mt1, mt3))
     assert sol.check() == sat
+
 
 def test_range_disjoint():
     sol = Solver()
@@ -149,6 +149,7 @@ def test_overlap():
     sol.add(overlap(l1, l3))
     assert sol.check() == unsat
 
+
 def test_conflict():
     return
     sol = Solver()
@@ -159,6 +160,7 @@ def test_conflict():
         end_time=0,
         start_time=0,
         )
+
 
 def test_solver():
     pass

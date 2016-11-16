@@ -122,17 +122,27 @@ def define_time_seperate():
     y = Const('y', MeetingTimeSort)
     return [
         # symmetric property
-        ForAll([x, y],
+        ForAll(
+            [x, y],
             Implies(
                 time_seperate(x, y),
                 time_seperate(y, x))),
 
-        ForAll([x, y],
+        ForAll(
+            [x, y],
             Implies(
                 time_seperate(x, y),
                 Or(
-                    start_time(x) > end_time(y),
-                    start_time(y) > end_time(x)))),
+                    range_disjoint(
+                        start_time(y),
+                        end_time(y),
+                        start_time(x),
+                        end_time(x)),
+                    range_disjoint(
+                        start_time(x),
+                        end_time(x),
+                        start_time(y),
+                        end_time(y)))))
     ]
 
 
@@ -164,6 +174,7 @@ def define_overlap(T, f):
                         f(tl(x), y))))
     ]
 
+
 def define_range_disjoint():
     a_start = Int('a_start')
     a_end = Int('a_end')
@@ -184,3 +195,10 @@ def define_range_disjoint():
                         a_start > b_end,
                         b_start > a_end)))
             ]
+
+def axioms():
+    return [
+        #define_overlap(T, f),
+        *define_range_disjoint(),
+        *define_time_seperate(),
+    ]
