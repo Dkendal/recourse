@@ -1,4 +1,4 @@
-Recourse
+# Recourse
 
 Recourse is/was a project that provides an easy way to pick a university schedule. A student would search for a course that meets their criteria, in the iterations presented below that would be a simple text search, and select that course, indicating that they want to add it their schedule.
 
